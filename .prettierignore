@@ -1,0 +1,47 @@
+node_modules/
+dist/
+coverage/
+
+# eslint
+!.eslintrc
+!.eslintrc.json
+!.eslintrc.yaml
+!.eslintrc.yml
+!.eslintrc.js
+
+# markdownlint-cli2
+!.markdownlint-cli2.jsonc
+!.markdownlint-cli2.yaml
+!.markdownlint-cli2.[cm]js
+
+# prettier
+!.prettierrc
+!.prettierrc.json
+!.prettierrc.json5
+!.prettierrc.yaml
+!.prettierrc.yml
+!.prettierrc.toml
+!.prettierrc.js
+!.prettierrc.cjs
+!prettier.config.js
+!prettier.config.cjs
+
+# commitlint
+!.commitlintrc
+!.commitlintrc.json
+!.commitlintrc.yaml
+!.commitlintrc.yml
+!.commitlintrc.[jt]s
+!.commitlintrc.cjs
+!commitlint.config.[jt]s
+!commitlint.config.cjs
+
+# lint-staged
+!.lintstagedrc
+!.lintstagedrc.json
+!.lintstagedrc.yaml
+!.lintstagedrc.yml
+!.lintstagedrc.js
+!.lintstagedrc.[cm]js
+!lint-staged.config.js
+!lint-staged.config.[cm]js
