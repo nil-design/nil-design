@@ -1,11 +1,17 @@
 {
     "name": "nil-design",
-    "version": "1.0.0",
+    "private": "true",
     "description": "A progressive React UI library",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+    "engines": {
+        "node": ">=16.11.0",
+        "npm": "please-use-pnpm",
+        "cnpm": "please-use-pnpm",
+        "yarn": "please-use-pnpm",
+        "pnpm": ">=7.12.2"
     },
+    "workspaces": [
+        "packages/*"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/nil-design/nil-design.git"
@@ -22,6 +28,10 @@
         "url": "https://github.com/nil-design/nil-design/issues"
     },
     "homepage": "https://github.com/nil-design/nil-design#readme",
+    "scripts": {
+        "prepare": "husky install",
+        "prettier": "prettier --write ."
+    },
     "devDependencies": {
         "@changesets/cli": "^2.25.0",
         "@commitlint/cli": "^17.1.2",
