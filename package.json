@@ -30,6 +30,7 @@
     "homepage": "https://github.com/nil-design/nil-design#readme",
     "scripts": {
         "prepare": "husky install",
+        "eslint": "eslint --fix --ext .js,.cjs,.mjs,.jsx,.ts,.tsx",
         "prettier": "prettier --write ."
     },
     "devDependencies": {
