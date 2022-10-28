@@ -1,25 +1,36 @@
 {
-  "name": "nil-design",
-  "version": "1.0.0",
-  "description": "A progressive React UI library",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nil-design/nil-design.git"
-  },
-  "keywords": [
-    "react",
-    "ui",
-    "component",
-    "material"
-  ],
-  "author": "Morilence",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nil-design/nil-design/issues"
-  },
-  "homepage": "https://github.com/nil-design/nil-design#readme"
+    "name": "nil-design",
+    "version": "1.0.0",
+    "description": "A progressive React UI library",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "keywords": [
+        "react",
+        "ui",
+        "component",
+        "material"
+    ],
+    "author": "Morilence",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/nil-design/nil-design/issues"
+    },
+    "homepage": "https://github.com/nil-design/nil-design#readme",
+    "devDependencies": {
+        "@commitlint/cli": "^17.1.2",
+        "@commitlint/config-conventional": "^17.1.0",
+        "eslint": "^8.26.0",
+        "eslint-config-prettier": "^8.5.0",
+        "husky": "^8.0.1",
+        "lint-staged": "^13.0.3",
+        "markdownlint-cli2": "^0.5.1",
+        "prettier": "^2.7.1",
+        "stylelint": "^14.14.0"
+    }
 }
