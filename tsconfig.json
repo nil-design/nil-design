@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "outDir": "dist",
+
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+
+        "types": ["node", "jest"],
+
+        "jsx": "preserve",
+        "declaration": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "preserveConstEnums": true,
+        "experimentalDecorators": true,
+        "sourceMap": true
+    },
+
+    "include": ["types/**/*", "packages/**/*"],
+    "exclude": ["packages/**/*.test.ts"]
+}
