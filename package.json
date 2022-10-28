@@ -23,6 +23,7 @@
     },
     "homepage": "https://github.com/nil-design/nil-design#readme",
     "devDependencies": {
+        "@changesets/cli": "^2.25.0",
         "@commitlint/cli": "^17.1.2",
         "@commitlint/config-conventional": "^17.1.0",
         "@types/jest": "^29.2.0",
