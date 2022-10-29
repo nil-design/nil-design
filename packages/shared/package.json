@@ -1,0 +1,25 @@
+{
+    "name": "@nild/shared",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "typings": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "LICENSE",
+        "package.json",
+        "README.md"
+    ],
+    "engines": {
+        "node": ">=16.11.0"
+    },
+    "author": "Morilence",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nil-design/nil-design/issues"
+    },
+    "license": "MIT"
+}
