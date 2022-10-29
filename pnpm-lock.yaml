@@ -8,6 +8,8 @@ importers:
             "@commitlint/config-conventional": ^17.1.0
             "@types/jest": ^29.2.0
             "@types/node": ^18.11.7
+            "@types/react": ^18.0.24
+            "@types/react-dom": ^18.0.8
             "@typescript-eslint/eslint-plugin": ^5.41.0
             "@typescript-eslint/parser": ^5.41.0
             chalk: ^5.1.2
@@ -22,6 +24,9 @@ importers:
             markdownlint-cli2: ^0.5.1
             npm-run-all: ^4.1.5
             prettier: ^2.7.1
+            react: ^18.2.0
+            react-dom: ^18.2.0
+            rimraf: ^3.0.2
             stylelint: ^14.14.0
             ts-jest: ^29.0.3
             ts-node: ^10.9.1
@@ -33,6 +38,8 @@ importers:
             "@commitlint/config-conventional": registry.npmmirror.com/@commitlint/config-conventional/17.1.0
             "@types/jest": registry.npmmirror.com/@types/jest/29.2.0
             "@types/node": registry.npmmirror.com/@types/node/18.11.7
+            "@types/react": registry.npmmirror.com/@types/react/18.0.24
+            "@types/react-dom": registry.npmmirror.com/@types/react-dom/18.0.8
             "@typescript-eslint/eslint-plugin": registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.41.0_huremdigmcnkianavgfk3x6iou
             "@typescript-eslint/parser": registry.npmmirror.com/@typescript-eslint/parser/5.41.0_wyqvi574yv7oiwfeinomdzmc3m
             chalk: registry.npmmirror.com/chalk/5.1.2
@@ -47,6 +54,9 @@ importers:
             markdownlint-cli2: registry.npmmirror.com/markdownlint-cli2/0.5.1
             npm-run-all: registry.npmmirror.com/npm-run-all/4.1.5
             prettier: registry.npmmirror.com/prettier/2.7.1
+            react: registry.npmmirror.com/react/18.2.0
+            react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
+            rimraf: registry.npmmirror.com/rimraf/3.0.2
             stylelint: registry.npmmirror.com/stylelint/14.14.0
             ts-jest: registry.npmmirror.com/ts-jest/29.0.3_r7gdwuj75x2gz25bauak3xcnbm
             ts-node: registry.npmmirror.com/ts-node/10.9.1_evej5wzm4hojmu6uzxwpspdmsu
@@ -2184,6 +2194,56 @@ packages:
         version: 2.7.1
         dev: true
 
+    registry.npmmirror.com/@types/prop-types/15.7.5:
+        resolution:
+            {
+                integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/@types/prop-types/-/prop-types-15.7.5.tgz,
+            }
+        name: "@types/prop-types"
+        version: 15.7.5
+        dev: true
+
+    registry.npmmirror.com/@types/react-dom/18.0.8:
+        resolution:
+            {
+                integrity: sha512-C3GYO0HLaOkk9dDAz3Dl4sbe4AKUGTCfFIZsz3n/82dPNN8Du533HzKatDxeUYWu24wJgMP1xICqkWk1YOLOIw==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/@types/react-dom/-/react-dom-18.0.8.tgz,
+            }
+        name: "@types/react-dom"
+        version: 18.0.8
+        dependencies:
+            "@types/react": registry.npmmirror.com/@types/react/18.0.24
+        dev: true
+
+    registry.npmmirror.com/@types/react/18.0.24:
+        resolution:
+            {
+                integrity: sha512-wRJWT6ouziGUy+9uX0aW4YOJxAY0bG6/AOk5AW5QSvZqI7dk6VBIbXvcVgIw/W5Jrl24f77df98GEKTJGOLx7Q==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/@types/react/-/react-18.0.24.tgz,
+            }
+        name: "@types/react"
+        version: 18.0.24
+        dependencies:
+            "@types/prop-types": registry.npmmirror.com/@types/prop-types/15.7.5
+            "@types/scheduler": registry.npmmirror.com/@types/scheduler/0.16.2
+            csstype: registry.npmmirror.com/csstype/3.1.1
+        dev: true
+
+    registry.npmmirror.com/@types/scheduler/0.16.2:
+        resolution:
+            {
+                integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/@types/scheduler/-/scheduler-0.16.2.tgz,
+            }
+        name: "@types/scheduler"
+        version: 0.16.2
+        dev: true
+
     registry.npmmirror.com/@types/semver/6.2.3:
         resolution:
             {
@@ -3588,6 +3648,17 @@ packages:
         version: 3.0.0
         engines: { node: ">=4" }
         hasBin: true
+        dev: true
+
+    registry.npmmirror.com/csstype/3.1.1:
+        resolution:
+            {
+                integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/csstype/-/csstype-3.1.1.tgz,
+            }
+        name: csstype
+        version: 3.1.1
         dev: true
 
     registry.npmmirror.com/csv-generate/3.4.3:
@@ -6890,6 +6961,20 @@ packages:
             wrap-ansi: registry.npmmirror.com/wrap-ansi/6.2.0
         dev: true
 
+    registry.npmmirror.com/loose-envify/1.4.0:
+        resolution:
+            {
+                integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/loose-envify/-/loose-envify-1.4.0.tgz,
+            }
+        name: loose-envify
+        version: 1.4.0
+        hasBin: true
+        dependencies:
+            js-tokens: registry.npmmirror.com/js-tokens/4.0.0
+        dev: true
+
     registry.npmmirror.com/lru-cache/4.1.5:
         resolution:
             {
@@ -8144,6 +8229,24 @@ packages:
         engines: { node: ">=8" }
         dev: true
 
+    registry.npmmirror.com/react-dom/18.2.0_react@18.2.0:
+        resolution:
+            {
+                integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/react-dom/-/react-dom-18.2.0.tgz,
+            }
+        id: registry.npmmirror.com/react-dom/18.2.0
+        name: react-dom
+        version: 18.2.0
+        peerDependencies:
+            react: ^18.2.0
+        dependencies:
+            loose-envify: registry.npmmirror.com/loose-envify/1.4.0
+            react: registry.npmmirror.com/react/18.2.0
+            scheduler: registry.npmmirror.com/scheduler/0.23.0
+        dev: true
+
     registry.npmmirror.com/react-is/18.2.0:
         resolution:
             {
@@ -8153,6 +8256,20 @@ packages:
             }
         name: react-is
         version: 18.2.0
+        dev: true
+
+    registry.npmmirror.com/react/18.2.0:
+        resolution:
+            {
+                integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/react/-/react-18.2.0.tgz,
+            }
+        name: react
+        version: 18.2.0
+        engines: { node: ">=0.10.0" }
+        dependencies:
+            loose-envify: registry.npmmirror.com/loose-envify/1.4.0
         dev: true
 
     registry.npmmirror.com/read-pkg-up/7.0.1:
@@ -8519,6 +8636,19 @@ packages:
             }
         name: safer-buffer
         version: 2.1.2
+        dev: true
+
+    registry.npmmirror.com/scheduler/0.23.0:
+        resolution:
+            {
+                integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/scheduler/-/scheduler-0.23.0.tgz,
+            }
+        name: scheduler
+        version: 0.23.0
+        dependencies:
+            loose-envify: registry.npmmirror.com/loose-envify/1.4.0
         dev: true
 
     registry.npmmirror.com/semver/5.7.1:
