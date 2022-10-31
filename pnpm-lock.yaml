@@ -30,6 +30,7 @@ importers:
             markdownlint-cli2: ^0.5.1
             npm-run-all: ^4.1.5
             postcss: ^8.4.18
+            postcss-less: ^6.0.0
             prettier: ^2.7.1
             react: ^18.2.0
             react-dom: ^18.2.0
@@ -39,6 +40,10 @@ importers:
             rollup-plugin-terser: ^7.0.2
             rollup-plugin-typescript2: ^0.34.1
             stylelint: ^14.14.0
+            stylelint-config-prettier: ^9.0.3
+            stylelint-config-recess-order: ^3.0.0
+            stylelint-config-standard: ^29.0.0
+            stylelint-prettier: ^2.0.0
             ts-jest: ^29.0.3
             ts-node: ^10.9.1
             tslib: ^2.4.0
@@ -72,6 +77,7 @@ importers:
             markdownlint-cli2: registry.npmmirror.com/markdownlint-cli2/0.5.1
             npm-run-all: registry.npmmirror.com/npm-run-all/4.1.5
             postcss: registry.npmmirror.com/postcss/8.4.18
+            postcss-less: registry.npmmirror.com/postcss-less/6.0.0_postcss@8.4.18
             prettier: registry.npmmirror.com/prettier/2.7.1
             react: registry.npmmirror.com/react/18.2.0
             react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
@@ -81,6 +87,10 @@ importers:
             rollup-plugin-terser: registry.npmmirror.com/rollup-plugin-terser/7.0.2_rollup@2.79.1
             rollup-plugin-typescript2: registry.npmmirror.com/rollup-plugin-typescript2/0.34.1_gypgyaqhine6mwjfvh7icfhviq
             stylelint: registry.npmmirror.com/stylelint/14.14.0
+            stylelint-config-prettier: registry.npmmirror.com/stylelint-config-prettier/9.0.3_stylelint@14.14.0
+            stylelint-config-recess-order: registry.npmmirror.com/stylelint-config-recess-order/3.0.0_stylelint@14.14.0
+            stylelint-config-standard: registry.npmmirror.com/stylelint-config-standard/29.0.0_stylelint@14.14.0
+            stylelint-prettier: registry.npmmirror.com/stylelint-prettier/2.0.0_u52mckafc7v2xvdpvzlxe332by
             ts-jest: registry.npmmirror.com/ts-jest/29.0.3_r7gdwuj75x2gz25bauak3xcnbm
             ts-node: registry.npmmirror.com/ts-node/10.9.1_evej5wzm4hojmu6uzxwpspdmsu
             tslib: registry.npmmirror.com/tslib/2.4.0
@@ -9720,6 +9730,23 @@ packages:
             postcss: registry.npmmirror.com/postcss/8.4.18
         dev: true
 
+    registry.npmmirror.com/postcss-less/6.0.0_postcss@8.4.18:
+        resolution:
+            {
+                integrity: sha512-FPX16mQLyEjLzEuuJtxA8X3ejDLNGGEG503d2YGZR5Ask1SpDN8KmZUMpzCvyalWRywAn1n1VOA5dcqfCLo5rg==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/postcss-less/-/postcss-less-6.0.0.tgz,
+            }
+        id: registry.npmmirror.com/postcss-less/6.0.0
+        name: postcss-less
+        version: 6.0.0
+        engines: { node: ">=12" }
+        peerDependencies:
+            postcss: ^8.3.5
+        dependencies:
+            postcss: registry.npmmirror.com/postcss/8.4.18
+        dev: true
+
     registry.npmmirror.com/postcss-load-config/3.1.4_neo3lunb2qpadwxplzw7r2isgm:
         resolution:
             {
@@ -10230,6 +10257,22 @@ packages:
         dependencies:
             cssesc: registry.npmmirror.com/cssesc/3.0.0
             util-deprecate: registry.npmmirror.com/util-deprecate/1.0.2
+        dev: true
+
+    registry.npmmirror.com/postcss-sorting/7.0.1_postcss@8.4.18:
+        resolution:
+            {
+                integrity: sha512-iLBFYz6VRYyLJEJsBJ8M3TCqNcckVzz4wFounSc5Oez35ogE/X+aoC5fFu103Ot7NyvjU3/xqIXn93Gp3kJk4g==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/postcss-sorting/-/postcss-sorting-7.0.1.tgz,
+            }
+        id: registry.npmmirror.com/postcss-sorting/7.0.1
+        name: postcss-sorting
+        version: 7.0.1
+        peerDependencies:
+            postcss: ^8.3.9
+        dependencies:
+            postcss: registry.npmmirror.com/postcss/8.4.18
         dev: true
 
     registry.npmmirror.com/postcss-svgo/5.1.0_postcss@8.4.18:
@@ -11855,6 +11898,112 @@ packages:
             browserslist: registry.npmmirror.com/browserslist/4.21.4
             postcss: registry.npmmirror.com/postcss/8.4.18
             postcss-selector-parser: registry.npmmirror.com/postcss-selector-parser/6.0.10
+        dev: true
+
+    registry.npmmirror.com/stylelint-config-prettier/9.0.3_stylelint@14.14.0:
+        resolution:
+            {
+                integrity: sha512-5n9gUDp/n5tTMCq1GLqSpA30w2sqWITSSEiAWQlpxkKGAUbjcemQ0nbkRvRUa0B1LgD3+hCvdL7B1eTxy1QHJg==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/stylelint-config-prettier/-/stylelint-config-prettier-9.0.3.tgz,
+            }
+        id: registry.npmmirror.com/stylelint-config-prettier/9.0.3
+        name: stylelint-config-prettier
+        version: 9.0.3
+        engines: { node: ">= 12" }
+        hasBin: true
+        peerDependencies:
+            stylelint: ">=11.0.0"
+        dependencies:
+            stylelint: registry.npmmirror.com/stylelint/14.14.0
+        dev: true
+
+    registry.npmmirror.com/stylelint-config-recess-order/3.0.0_stylelint@14.14.0:
+        resolution:
+            {
+                integrity: sha512-uNXrlDz570Q7HJlrq8mNjgfO/xlKIh2hKVKEFMTG1/ih/6tDLcTbuvO1Zoo2dnQay990OAkWLDpTDOorB+hmBw==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/stylelint-config-recess-order/-/stylelint-config-recess-order-3.0.0.tgz,
+            }
+        id: registry.npmmirror.com/stylelint-config-recess-order/3.0.0
+        name: stylelint-config-recess-order
+        version: 3.0.0
+        peerDependencies:
+            stylelint: ">=14"
+        dependencies:
+            stylelint: registry.npmmirror.com/stylelint/14.14.0
+            stylelint-order: registry.npmmirror.com/stylelint-order/5.0.0_stylelint@14.14.0
+        dev: true
+
+    registry.npmmirror.com/stylelint-config-recommended/9.0.0_stylelint@14.14.0:
+        resolution:
+            {
+                integrity: sha512-9YQSrJq4NvvRuTbzDsWX3rrFOzOlYBmZP+o513BJN/yfEmGSr0AxdvrWs0P/ilSpVV/wisamAHu5XSk8Rcf4CQ==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/stylelint-config-recommended/-/stylelint-config-recommended-9.0.0.tgz,
+            }
+        id: registry.npmmirror.com/stylelint-config-recommended/9.0.0
+        name: stylelint-config-recommended
+        version: 9.0.0
+        peerDependencies:
+            stylelint: ^14.10.0
+        dependencies:
+            stylelint: registry.npmmirror.com/stylelint/14.14.0
+        dev: true
+
+    registry.npmmirror.com/stylelint-config-standard/29.0.0_stylelint@14.14.0:
+        resolution:
+            {
+                integrity: sha512-uy8tZLbfq6ZrXy4JKu3W+7lYLgRQBxYTUUB88vPgQ+ZzAxdrvcaSUW9hOMNLYBnwH+9Kkj19M2DHdZ4gKwI7tg==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/stylelint-config-standard/-/stylelint-config-standard-29.0.0.tgz,
+            }
+        id: registry.npmmirror.com/stylelint-config-standard/29.0.0
+        name: stylelint-config-standard
+        version: 29.0.0
+        peerDependencies:
+            stylelint: ^14.14.0
+        dependencies:
+            stylelint: registry.npmmirror.com/stylelint/14.14.0
+            stylelint-config-recommended: registry.npmmirror.com/stylelint-config-recommended/9.0.0_stylelint@14.14.0
+        dev: true
+
+    registry.npmmirror.com/stylelint-order/5.0.0_stylelint@14.14.0:
+        resolution:
+            {
+                integrity: sha512-OWQ7pmicXufDw5BlRqzdz3fkGKJPgLyDwD1rFY3AIEfIH/LQY38Vu/85v8/up0I+VPiuGRwbc2Hg3zLAsJaiyw==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/stylelint-order/-/stylelint-order-5.0.0.tgz,
+            }
+        id: registry.npmmirror.com/stylelint-order/5.0.0
+        name: stylelint-order
+        version: 5.0.0
+        peerDependencies:
+            stylelint: ^14.0.0
+        dependencies:
+            postcss: registry.npmmirror.com/postcss/8.4.18
+            postcss-sorting: registry.npmmirror.com/postcss-sorting/7.0.1_postcss@8.4.18
+            stylelint: registry.npmmirror.com/stylelint/14.14.0
+        dev: true
+
+    registry.npmmirror.com/stylelint-prettier/2.0.0_u52mckafc7v2xvdpvzlxe332by:
+        resolution:
+            {
+                integrity: sha512-jvT3G+9lopkeB0ARmDPszyfaOnvnIF+30QCjZxyt7E6fynI1T9mOKgYDNb9bXX17M7PXMZaX3j/26wqakjp1tw==,
+                registry: https://registry.npm.taobao.org/,
+                tarball: https://registry.npmmirror.com/stylelint-prettier/-/stylelint-prettier-2.0.0.tgz,
+            }
+        id: registry.npmmirror.com/stylelint-prettier/2.0.0
+        name: stylelint-prettier
+        version: 2.0.0
+        engines: { node: ^12.22.0 || ^14.17.0 || >=16.0.0 }
+        peerDependencies:
+            prettier: ">=2.0.0"
+            stylelint: ">=14.0.0"
+        dependencies:
+            prettier: registry.npmmirror.com/prettier/2.7.1
+            prettier-linter-helpers: registry.npmmirror.com/prettier-linter-helpers/1.0.0
+            stylelint: registry.npmmirror.com/stylelint/14.14.0
         dev: true
 
     registry.npmmirror.com/stylelint/14.14.0:
