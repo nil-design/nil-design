@@ -12,7 +12,7 @@ const rootPkgCfgs = getRootPkgCfgs();
 mkdirSync(resolve(getPkgsPath(), rootPkgCfgs.name), { recursive: true });
 Promise.all(
     getSubPkgs().map(({ dirPath, dirName, pkgPath: subPkgPath, pkgCfgs: subPkgCfgs }) => {
-        return new Promise(resolve => {
+        return new Promise(_resolve => {
             /* package.json */
             if (!subPkgCfgs.private) {
                 Object.assign(subPkgCfgs, {
@@ -45,6 +45,7 @@ Promise.all(
                     }
                 );
             }
+            _resolve();
         });
     })
 ).then(() => {
