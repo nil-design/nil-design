@@ -1,6 +1,7 @@
 const { resolve } = require("node:path");
 const { spawnSync } = require("node:child_process");
-const { existsSync, statSync, readdirSync } = require("node:fs");
+const { existsSync, statSync, readdirSync, readFileSync } = require("node:fs");
+const browserslist = require("browserslist");
 
 function getRootPath() {
     return resolve(__dirname, "../../");
@@ -45,6 +46,12 @@ function getSubPkgs() {
         }, []);
 }
 
+function getBrowsersList(env = "production") {
+    const config =
+        browserslist.parseConfig(readFileSync(`${getRootPath()}/.browserslistrc`, { encoding: "utf8" }) || "") || {};
+    return config[env] || [];
+}
+
 function pnpm(args, options = { cwd: getRootPath() }) {
     return new Promise(resolve => {
         switch (process.platform) {
@@ -83,6 +90,7 @@ module.exports = {
     getPkgsPath,
     getRootPkgCfgs,
     getSubPkgs,
+    getBrowsersList,
     pnpm,
     npx,
     prettier,
