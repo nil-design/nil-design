@@ -5,6 +5,11 @@ coverage/
 # eslint
 !.eslintrc.js
 
+# stylelint
+!.stylelintrc.js
+!stylelint.config.js
+!stylelintrc.config.cjs
+
 # markdownlint-cli2
 !.markdownlint-cli2.[cm]js
 

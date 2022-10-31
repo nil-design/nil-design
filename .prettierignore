@@ -9,6 +9,14 @@ coverage/
 !.eslintrc.yml
 !.eslintrc.js
 
+# stylelint
+!.stylelintrc.json
+!.stylelintrc.yaml
+!.stylelintrc.yml
+!.stylelintrc.js
+!stylelint.config.js
+!stylelintrc.config.cjs
+
 # markdownlint-cli2
 !.markdownlint-cli2.jsonc
 !.markdownlint-cli2.yaml
