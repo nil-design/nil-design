@@ -20,5 +20,12 @@
     "bugs": {
         "url": "https://github.com/nil-design/nil-design/issues"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "dependencies": {
+        "@nild/cli": "workspace:*",
+        "@nild/components": "workspace:*",
+        "@nild/i18n": "workspace:*",
+        "@nild/materials": "workspace:*",
+        "@nild/shared": "workspace:*"
+    }
 }

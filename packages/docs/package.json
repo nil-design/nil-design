@@ -1,0 +1,13 @@
+{
+    "name": "@nild/docs",
+    "private": true,
+    "author": "Morilence",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nil-design/nil-design/issues"
+    },
+    "license": "MIT"
+}
