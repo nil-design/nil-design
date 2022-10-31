@@ -1,22 +1,31 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "ESNext",
         "outDir": "dist",
 
-        "moduleResolution": "node",
+        "moduleResolution": "Node",
         "esModuleInterop": true,
 
         "types": ["node", "jest"],
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
 
         "jsx": "react",
-        "declaration": true,
+        "strict": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "preserveConstEnums": true,
+        "useDefineForClassFields": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
         "experimentalDecorators": true,
+        "resolveJsonModule": true,
+
+        "isolatedModules": true,
+        "declaration": true,
         "sourceMap": true
     },
 
     "include": ["packages/**/*.ts", "packages/**/*.tsx"],
-    "exclude": ["node_modules", "packages/**/*.test.ts", "packages/**/*.test.tsx"]
+    "exclude": ["node_modules", "packages/**/*.test.ts", "packages/**/*.test.tsx"],
+    "references": [{ "path": "./tsconfig.vite.json" }]
 }
