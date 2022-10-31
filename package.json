@@ -36,10 +36,10 @@
         "lint:eslint": "eslint --fix --ext .js,.cjs,.mjs,.jsx,.ts,.tsx .",
         "lint:prettier": "prettier --write .",
         "dev": "cross-env NODE_ENV=development vite",
+        "preview": "cross-env NODE_ENV=development vite preview",
         "clean": "node scripts/clean",
         "build": "cross-env NODE_ENV=production rollup -c",
-        "build:docs": "tsc && vite build",
-        "preview": "vite preview"
+        "build:docs": "tsc && vite build"
     },
     "devDependencies": {
         "@changesets/cli": "^2.25.0",
