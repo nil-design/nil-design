@@ -14,12 +14,14 @@ Promise.all(
     getSubPkgs().map(({ dirPath, dirName, pkgPath: subPkgPath, pkgCfgs: subPkgCfgs }) => {
         return new Promise(resolve => {
             /* package.json */
-            Object.assign(subPkgCfgs, {
-                main: "dist/index.js",
-                module: "dist/index.esm.js",
-                typings: "dist/index.d.ts",
-                files: ["dist", "LICENSE", "package.json", "README.md"],
-            });
+            if (!subPkgCfgs.private) {
+                Object.assign(subPkgCfgs, {
+                    main: "dist/index.js",
+                    module: "dist/index.esm.js",
+                    typings: "dist/index.d.ts",
+                    files: ["dist", "LICENSE", "package.json", "README.md"],
+                });
+            }
             ["author", "repository", "bugs", "license"].forEach(key => {
                 subPkgCfgs[key] = rootPkgCfgs[key];
             });
