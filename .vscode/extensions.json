@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "eamodio.gitlens",
+        "webben.browserslist",
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "stylelint.vscode-stylelint",

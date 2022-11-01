@@ -21,6 +21,9 @@
     "[jsx-tags]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
+    "[mdx]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
 
     "stylelint.enable": true,
     "[css]": {
@@ -40,6 +43,7 @@
         "Cfgs",
         "cnpm",
         "commitlint",
+        "cssnano",
         "markdownlint",
         "Morilence",
         "nild",
@@ -48,6 +52,7 @@
         "rollup",
         "stylelint",
         "subpackage",
+        "svgo",
         "vite",
         "vitejs"
     ]
