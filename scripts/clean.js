@@ -15,10 +15,10 @@ Promise.all(
             ];
         }, [])
         .map(path => {
-            return new Promise(resolve => {
+            return new Promise(_resolve => {
                 if (existsSync(path)) {
                     console.log(`removed ${relative(getRootPath(), path)}`);
-                    resolve(rmSync(path, { force: true, recursive: true }));
+                    _resolve(rmSync(path, { force: true, recursive: true }));
                 }
             });
         })
