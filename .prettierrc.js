@@ -1,8 +1,5 @@
 module.exports = {
-    printWidth: 120,
-
-    tabWidth: 4,
-    useTabs: false,
+    editorconfig: true,
 
     semi: true,
 
@@ -14,6 +11,4 @@ module.exports = {
     bracketSameLine: true,
 
     arrowParens: "avoid",
-
-    endOfLine: "auto",
 };
