@@ -50,8 +50,10 @@
         "npmmirror",
         "postcss",
         "rollup",
+        "shortlog",
         "stylelint",
         "subpackage",
+        "subpackages",
         "svgo",
         "vite",
         "vitejs"
