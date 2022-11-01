@@ -23,7 +23,10 @@
         "component",
         "material"
     ],
-    "author": "Morilence",
+    "author": {
+        "name": "Morilence",
+        "email": "1280659615@qq.com"
+    },
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/nil-design/nil-design/issues"
@@ -33,6 +36,7 @@
         "prepare": "run-s prepare:husky",
         "prepare:husky": "cross-env NODE_ENV=development husky install",
         "setup": "cross-env NODE_ENV=development node scripts/setup",
+        "setup:contributors": "cross-env NODE_ENV=development node scripts/contributors",
         "lint": "run-s lint:script lint:style lint:prettier",
         "lint:script": "cross-env NODE_ENV=development eslint --fix --ext .js,.cjs,.mjs,.jsx,.ts,.tsx .",
         "lint:style": "cross-env NODE_ENV=development stylelint --fix **/*.{css,less}",
@@ -100,5 +104,11 @@
         "allowedDeprecatedVersions": {
             "@types/cssnano": "*"
         }
-    }
+    },
+    "contributors": [
+        {
+            "name": "Morilence",
+            "email": "1280659615@qq.com"
+        }
+    ]
 }

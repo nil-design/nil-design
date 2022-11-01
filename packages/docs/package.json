@@ -1,7 +1,10 @@
 {
     "name": "@nild/docs",
     "private": true,
-    "author": "Morilence",
+    "author": {
+        "name": "Morilence",
+        "email": "1280659615@qq.com"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/nil-design/nil-design.git"
@@ -9,5 +12,11 @@
     "bugs": {
         "url": "https://github.com/nil-design/nil-design/issues"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Morilence",
+            "email": "1280659615@qq.com"
+        }
+    ]
 }

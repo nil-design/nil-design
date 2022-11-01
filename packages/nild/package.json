@@ -12,7 +12,10 @@
     "engines": {
         "node": ">=16.11.0"
     },
-    "author": "Morilence",
+    "author": {
+        "name": "Morilence",
+        "email": "1280659615@qq.com"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/nil-design/nil-design.git"
@@ -27,5 +30,11 @@
         "@nild/i18n": "workspace:*",
         "@nild/materials": "workspace:*",
         "@nild/shared": "workspace:*"
-    }
+    },
+    "contributors": [
+        {
+            "name": "Morilence",
+            "email": "1280659615@qq.com"
+        }
+    ]
 }
