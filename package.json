@@ -1,5 +1,6 @@
 {
-    "name": "nild",
+    "name": "nil-design",
+    "scope": "nild",
     "private": "true",
     "description": "A progressive React UI library",
     "engines": {

@@ -9,7 +9,7 @@ const filesNeeded2BeFormatted = [];
 const rootPath = getRootPath();
 const rootPkgCfgs = getRootPkgCfgs();
 
-mkdirSync(resolve(getPkgsPath(), rootPkgCfgs.name), { recursive: true });
+mkdirSync(resolve(getPkgsPath(), rootPkgCfgs.scope || rootPkgCfgs.name), { recursive: true });
 Promise.all(
     getSubPkgs().map(({ dirPath, dirName, pkgPath: subPkgPath, pkgCfgs: subPkgCfgs }) => {
         return new Promise(_resolve => {
@@ -25,13 +25,13 @@ Promise.all(
             ["author", "repository", "bugs", "license"].forEach(key => {
                 subPkgCfgs[key] = rootPkgCfgs[key];
             });
-            if (dirName !== rootPkgCfgs.name) {
+            if (dirName !== rootPkgCfgs.scope) {
                 /* subpackage unique configuration */
-                subPkgCfgs["name"] = `@${rootPkgCfgs.name}/${dirName}`;
+                subPkgCfgs["name"] = `@${rootPkgCfgs.scope || rootPkgCfgs.name}/${dirName}`;
                 delete subPkgCfgs["scripts"];
             } else {
                 /* collection package unique configuration */
-                subPkgCfgs["name"] = rootPkgCfgs.name;
+                subPkgCfgs["name"] = rootPkgCfgs.scope || rootPkgCfgs.name;
             }
             writeFileSync(subPkgPath, JSON.stringify(subPkgCfgs), { encoding: "utf8" });
             filesNeeded2BeFormatted.push(subPkgPath);
