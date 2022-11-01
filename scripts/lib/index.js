@@ -52,32 +52,43 @@ function getBrowsersList(env = "production") {
     return config[env] || [];
 }
 
-function pnpm(args, options = { cwd: getRootPath() }) {
-    return new Promise(resolve => {
-        switch (process.platform) {
-            case "win32":
-                spawnSync("pnpm.cmd", args, options);
-                break;
-            default:
-                spawnSync("pnpm", args, options);
-                break;
-        }
-        resolve();
-    });
+function getContributors(path = getRootPath()) {
+    path = resolve(getRootPath(), path);
+    const { stdout } = git(["shortlog", "HEAD", "-sne", ...(path == getRootPath() ? [] : [path])]);
+    return (
+        stdout.match(/ *\d+\t\S+( <\S+@\S+\.\S+>)?\n/g)?.map(row => ({
+            name: /\t\S+/.exec(row)[0].trim(),
+            ...(/ <\S+@\S+\.\S+>\n/.test(row)
+                ? { email: / <\S+@\S+\.\S+>\n/.exec(row)[0].trim().replace(/[<>]/g, "") }
+                : {}),
+            summary: Number(/^ *\d+\t/.exec(row)[0].trim()),
+        })) || []
+    );
 }
 
-function npx(args, options = { cwd: getRootPath() }) {
-    return new Promise(resolve => {
-        switch (process.platform) {
-            case "win32":
-                spawnSync("npx.cmd", args, options);
-                break;
-            default:
-                spawnSync("npx", args, options);
-                break;
-        }
-        resolve();
-    });
+function git(args = [], options = {}) {
+    options = Object.assign({ encoding: "utf8", cwd: getRootPath() }, options);
+    return spawnSync("git", args, options);
+}
+
+function pnpm(args = [], options = {}) {
+    options = Object.assign({ encoding: "utf8", cwd: getRootPath() }, options);
+    switch (process.platform) {
+        case "win32":
+            return spawnSync("pnpm.cmd", args, options);
+        default:
+            return spawnSync("pnpm", args, options);
+    }
+}
+
+function npx(args = [], options = {}) {
+    options = Object.assign({ encoding: "utf8", cwd: getRootPath() }, options);
+    switch (process.platform) {
+        case "win32":
+            return spawnSync("npx.cmd", args, options);
+        default:
+            return spawnSync("npx", args, options);
+    }
 }
 
 function prettier(...files) {
@@ -91,6 +102,8 @@ module.exports = {
     getRootPkgCfgs,
     getSubPkgs,
     getBrowsersList,
+    getContributors,
+    git,
     pnpm,
     npx,
     prettier,
