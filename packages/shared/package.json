@@ -30,5 +30,8 @@
             "name": "Morilence",
             "email": "1280659615@qq.com"
         }
-    ]
+    ],
+    "peerDependencies": {
+        "react": ">=18.0.0"
+    }
 }
