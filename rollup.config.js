@@ -9,12 +9,12 @@ const autoprefixer = require("autoprefixer");
 const { getRootPath, getSubPkgs, getBrowsersList } = require("./scripts/lib");
 
 const { NODE_ENV } = process.env;
-const ignoredDirs = ["docs"]; // subpackages that do not be bundled by rollup
+const ignoredPkgs = ["@nild/docs"]; // subpackages that do not be bundled by rollup
 
 module.exports = defineConfig(
     getSubPkgs()
-        .filter(({ dirName }) => !ignoredDirs.includes(dirName))
-        .map(({ dirName: subPkgName, dirPath }) => {
+        .filter(({ pkgCfgs }) => !ignoredPkgs.includes(pkgCfgs.name))
+        .map(({ dirPath, pkgCfgs }) => {
             const subPkgRelPath = relative(getRootPath(), dirPath);
             /* common configs */
             let config = {
@@ -47,24 +47,26 @@ module.exports = defineConfig(
             };
 
             /* add each as needed */
-            switch (subPkgName) {
-                case "components":
-                    config.plugins.push(
-                        ...[
-                            postcss({
-                                extract: false,
-                                minimize: NODE_ENV === "production",
-                                plugins: [
-                                    autoprefixer({
-                                        env: NODE_ENV,
-                                        overrideBrowserslist: getBrowsersList(NODE_ENV),
-                                        grid: "autoplace",
-                                    }),
-                                ],
-                                extensions: [".css", ".less"],
-                            }),
-                        ]
-                    );
+            switch (pkgCfgs.name) {
+                case "@nild/components":
+                    {
+                        config.plugins.push(
+                            ...[
+                                postcss({
+                                    extract: false,
+                                    minimize: NODE_ENV === "production",
+                                    plugins: [
+                                        autoprefixer({
+                                            env: NODE_ENV,
+                                            overrideBrowserslist: getBrowsersList(NODE_ENV),
+                                            grid: "autoplace",
+                                        }),
+                                    ],
+                                    extensions: [".css", ".less"],
+                                }),
+                            ]
+                        );
+                    }
                     break;
                 default:
                     break;
