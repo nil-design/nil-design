@@ -1,0 +1,27 @@
+{
+    "main": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "typings": "dist/index.d.ts",
+    "files": [
+        "dist",
+        "LICENSE",
+        "package.json",
+        "README.md"
+    ],
+    "author": {
+        "name": "Morilence",
+        "email": "1280659615@qq.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nil-design/nil-design/issues"
+    },
+    "license": "MIT",
+    "name": "@nild/core",
+    "dependencies": {
+        "normalize.css": "^8.0.1"
+    }
+}
