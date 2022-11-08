@@ -6,6 +6,8 @@ coverage/
 
 .pnpm-debug.log
 
+tsconfig.tsbuildinfo
+
 package-lock.json
 # pnpm-lock.yaml
 yarn.lock
