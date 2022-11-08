@@ -6,7 +6,7 @@ const { existsSync, rmSync } = require("fs");
 const { getRootPath, getSubPkgs } = require("./lib");
 
 Promise.all(
-    ["dist", "build", "coverage"]
+    ["dist", "build", "coverage", "tsconfig.tsbuildinfo"]
         .reduce((paths, fileName) => {
             return [
                 ...paths,
