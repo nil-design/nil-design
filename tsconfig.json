@@ -1,31 +1,23 @@
 {
+    "extends": "./tsconfig.build.json",
+
     "compilerOptions": {
-        "target": "ESNext",
-        "outDir": "dist",
-
-        "moduleResolution": "Node",
-        "esModuleInterop": true,
-
-        "types": ["node", "jest"],
-        "lib": ["DOM", "DOM.Iterable", "ESNext"],
-
-        "jsx": "react",
-        "strict": true,
-        "noImplicitAny": true,
-        "noImplicitReturns": true,
-        "preserveConstEnums": true,
-        "useDefineForClassFields": true,
-        "allowSyntheticDefaultImports": true,
-        "forceConsistentCasingInFileNames": true,
-        "experimentalDecorators": true,
-        "resolveJsonModule": true,
-
-        "isolatedModules": true,
-        "declaration": true,
-        "sourceMap": true
+        "types": ["node", "jest"]
     },
 
-    "include": ["packages/**/*.ts", "packages/**/*.tsx"],
-    "exclude": ["node_modules", "packages/**/*.test.ts", "packages/**/*.test.tsx"],
-    "references": [{ "path": "./tsconfig.vite.json" }]
+    "paths": {
+        "@nild/*": ["packages/*/src"]
+    },
+
+    "files": [],
+    "references": [
+        { "path": "./packages/cli/" },
+        { "path": "./packages/components/" },
+        { "path": "./packages/core/" },
+        { "path": "./tsconfig.vite.json" },
+        { "path": "./packages/i18n/" },
+        { "path": "./packages/materials/" },
+        { "path": "./packages/nild/" },
+        { "path": "./packages/shared/" }
+    ]
 }
