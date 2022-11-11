@@ -37,6 +37,7 @@
     },
 
     "cSpell.words": [
+        "autoplace",
         "autoprefixer",
         "browserslist",
         "browserslistrc",
@@ -44,6 +45,7 @@
         "cnpm",
         "commitlint",
         "cssnano",
+        "esbuild",
         "markdownlint",
         "Morilence",
         "nild",
@@ -55,6 +57,7 @@
         "subpackage",
         "subpackages",
         "svgo",
+        "tmpl",
         "vite",
         "vitejs"
     ]
