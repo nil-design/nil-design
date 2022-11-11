@@ -1,10 +1,11 @@
-const { relative } = require("node:path");
+const { relative, resolve } = require("node:path");
 const { defineConfig } = require("rollup");
-const json = require("@rollup/plugin-json");
 const commonjs = require("@rollup/plugin-commonjs");
-const typescript = require("rollup-plugin-typescript2");
+const nodeResolve = require("@rollup/plugin-node-resolve");
+const multiInput = require("rollup-plugin-multi-input").default;
+const esbuild = require("rollup-plugin-esbuild").default;
 const postcss = require("rollup-plugin-postcss");
-const { terser } = require("rollup-plugin-terser");
+// const less = require("rollup-plugin-styles");
 const autoprefixer = require("autoprefixer");
 const { getRootPath, getSubPkgs, getBrowsersList } = require("./scripts/lib");
 
@@ -14,10 +15,10 @@ const ignoredPkgs = ["@nild/docs"]; // subpackages that do not be bundled by rol
 module.exports = defineConfig(
     getSubPkgs()
         .filter(({ pkgCfgs }) => !ignoredPkgs.includes(pkgCfgs.name))
-        .map(({ dirPath, pkgCfgs }) => {
+        .reduce((configs, { dirPath, pkgCfgs }) => {
             const subPkgRelPath = relative(getRootPath(), dirPath);
             /* common configs */
-            let config = {
+            const tmplConfig = {
                 input: `${subPkgRelPath}/src/index.ts`,
                 output: [
                     {
@@ -30,48 +31,59 @@ module.exports = defineConfig(
                     },
                 ],
                 plugins: [
-                    json(),
+                    // multiInput(),
                     commonjs(),
-                    typescript({
-                        tsconfig: "tsconfig.json",
-                        tsconfigOverride: {
-                            compilerOptions: {
-                                rootDir: `${subPkgRelPath}/src`,
-                            },
-                            include: ["types/**/*.d.ts", `${subPkgRelPath}/src/**/*.ts`],
-                            exclude: [`${subPkgRelPath}/src/**/*.test.ts`],
+                    esbuild({
+                        include: /\.[jt]sx?$/,
+                        exclude: /node_modules/,
+                        target: "esnext",
+                        sourceMap: true,
+                        minify: NODE_ENV === "production",
+                        jsx: "transform",
+                        jsxFactory: "React.createElement",
+                        jsxFragment: "React.Fragment",
+                        tsconfig: resolve(__dirname, "./tsconfig.json"),
+                        loaders: {
+                            /** require @rollup/plugin-commonjs */
+                            ".json": "json",
                         },
                     }),
-                    terser(),
                 ],
             };
 
             /* add each as needed */
             switch (pkgCfgs.name) {
+                case "@nild/core":
                 case "@nild/components":
                     {
-                        config.plugins.push(
-                            ...[
-                                postcss({
-                                    extract: false,
-                                    minimize: NODE_ENV === "production",
-                                    plugins: [
-                                        autoprefixer({
-                                            env: NODE_ENV,
-                                            overrideBrowserslist: getBrowsersList(NODE_ENV),
-                                            grid: "autoplace",
-                                        }),
-                                    ],
-                                    extensions: [".css", ".less"],
-                                }),
-                            ]
+                        configs.push(
+                            Object.assign({}, tmplConfig, {
+                                plugins: [
+                                    /** for normalize.css */
+                                    nodeResolve({ extensions: [".css"] }),
+                                    ...tmplConfig.plugins,
+                                    postcss({
+                                        extract: false,
+                                        minimize: NODE_ENV === "production",
+                                        plugins: [
+                                            autoprefixer({
+                                                env: NODE_ENV,
+                                                overrideBrowserslist: getBrowsersList(NODE_ENV),
+                                                grid: "autoplace",
+                                            }),
+                                        ],
+                                        extensions: [".css", ".less"],
+                                    }),
+                                ],
+                            })
                         );
                     }
                     break;
                 default:
+                    configs.push(Object.assign({}, tmplConfig));
                     break;
             }
 
-            return config;
-        })
+            return configs;
+        }, [])
 );
