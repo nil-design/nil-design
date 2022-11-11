@@ -1,8 +1,8 @@
 /**
  * Setup the common pkg info and configs for each subpackage.
  */
-const { resolve } = require("path");
-const { existsSync, writeFileSync, readFileSync, mkdirSync } = require("fs");
+const { resolve } = require("node:path");
+const { existsSync, writeFileSync, readFileSync, mkdirSync } = require("node:fs");
 const { getRootPath, getPkgsPath, getRootPkgCfgs, getSubPkgs, prettier } = require("./lib");
 
 const filesNeeded2BeFormatted = [];

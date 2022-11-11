@@ -1,8 +1,8 @@
 /**
  * Delete all directories named dist
  */
-const { resolve, relative } = require("path");
-const { existsSync, rmSync } = require("fs");
+const { resolve, relative } = require("node:path");
+const { existsSync, rmSync } = require("node:fs");
 const { getRootPath, getSubPkgs } = require("./lib");
 
 Promise.all(

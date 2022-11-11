@@ -96,6 +96,10 @@ function prettier(...files) {
     return npx(["prettier", "--write", ...files]);
 }
 
+function tsc(args = []) {
+    return npx(["tsc", ...args]);
+}
+
 module.exports = {
     getRootPath,
     getPkgsPath,
@@ -107,4 +111,5 @@ module.exports = {
     pnpm,
     npx,
     prettier,
+    tsc,
 };

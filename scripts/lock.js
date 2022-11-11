@@ -1,8 +1,8 @@
 /**
  * Lock versions of all external dependencies
  */
-const { resolve } = require("path");
-const { writeFileSync } = require("fs");
+const { resolve } = require("node:path");
+const { writeFileSync } = require("node:fs");
 const { getRootPath, getRootPkgCfgs, prettier } = require("./lib");
 
 const rootPkgPath = resolve(getRootPath(), "package.json");
