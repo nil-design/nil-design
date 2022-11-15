@@ -35,6 +35,31 @@ Promise.all(
             }
             writeFileSync(subPkgPath, JSON.stringify(subPkgCfgs), { encoding: "utf8" });
             filesNeeded2BeFormatted.push(subPkgPath);
+            /** tsconfig.json */
+            if (dirName !== "docs") {
+                writeFileSync(
+                    resolve(dirPath, "tsconfig.json"),
+                    /** common configurations */
+                    JSON.stringify({
+                        extends: "../../tsconfig.build.json",
+
+                        compilerOptions: {
+                            composite: true,
+                            rootDir: "./src",
+
+                            target: "ESNext",
+                            outDir: "./dist",
+                            types: ["node", "jest"],
+                        },
+                        include: ["src/**/*.ts", "src/**/*.tsx"],
+                        exclude: ["node_modules", "src/**/*.test.ts", "src/**/*.test.tsx"],
+                    }),
+                    {
+                        encoding: "utf8",
+                    }
+                );
+            }
+            filesNeeded2BeFormatted.push(resolve(dirPath, "tsconfig.json"));
             /* LICENSE */
             if (existsSync(resolve(rootPath, "LICENSE"))) {
                 writeFileSync(

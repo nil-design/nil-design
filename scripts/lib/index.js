@@ -3,20 +3,37 @@ const { spawnSync } = require("node:child_process");
 const { existsSync, statSync, readdirSync, readFileSync } = require("node:fs");
 const browserslist = require("browserslist");
 
+/**
+ * @returns {string} Returns the absolute path of the root project.
+ */
 function getRootPath() {
     return resolve(__dirname, "../../");
 }
 
+/**
+ * @returns {string} Returns the absolute path of the parent directory of each subpackage.
+ */
 function getPkgsPath() {
     return resolve(getRootPath(), "packages");
 }
 
+/**
+ * @returns {object} Returns the parsed object from the root package.json.
+ */
 function getRootPkgCfgs() {
     const rootPkgPath = resolve(getRootPath(), "package.json");
     if (!existsSync(rootPkgPath)) return {};
     return require(rootPkgPath);
 }
 
+/**
+ * @returns {{
+ * dirPath: string;
+ * dirName: string;
+ * pkgPath: string;
+ * pkgCfgs: object
+ * }[]} Returns a sequence of subpackage information sorted by dependency topology.
+ */
 function getSubPkgs() {
     if (!existsSync(getPkgsPath())) return [];
     return readdirSync(getPkgsPath())
@@ -46,12 +63,24 @@ function getSubPkgs() {
         }, []);
 }
 
+/**
+ * @param {"development" | "production"} env
+ * @returns {object[]} Returns parsed browserslist queries from .browserslistrc.
+ */
 function getBrowsersList(env = "production") {
     const config =
         browserslist.parseConfig(readFileSync(`${getRootPath()}/.browserslistrc`, { encoding: "utf8" }) || "") || {};
     return config[env] || [];
 }
 
+/**
+ * @param {string} path
+ * @returns {{
+ * name: string;
+ * email: string;
+ * summary: number;
+ * }[]} Returns a list of contributors' information.
+ */
 function getContributors(path = getRootPath()) {
     path = resolve(getRootPath(), path);
     const { stdout } = git(["shortlog", "HEAD", "-sne", ...(path == getRootPath() ? [] : [path])]);
