@@ -1,5 +1,5 @@
 /**
- * Build(Transform) all less styles by keeping the directory structure
+ * Build(Transform) all less styles by postcss
  */
 const { resolve, relative, basename, dirname } = require("node:path");
 const { existsSync, mkdirSync, readFileSync, writeFileSync } = require("node:fs");
