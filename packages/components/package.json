@@ -1,0 +1,12 @@
+{
+    "name": "@nild/components",
+    "private": false,
+    "scripts": {
+        "test": "vitest run --environment jsdom --globals",
+        "test:coverage": "vitest run --environment jsdom --globals --coverage"
+    },
+    "peerDependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    }
+}

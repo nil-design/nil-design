@@ -1,0 +1,58 @@
+{
+    "name": "nil-design",
+    "private": true,
+    "type": "module",
+    "description": "A Diversified React Development Library",
+    "author": {
+        "name": "Morilence",
+        "email": "1280659615@qq.com"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "packageManager": "pnpm@10.10.0+sha512.d615db246fe70f25dcfea6d8d73dee782ce23e2245e3c4f6f888249fb568149318637dca73c2c5c8ef2a4ca0d5657fb9567188bfab47f566d1ee6ce987815c39",
+    "scripts": {
+        "prepare": "husky",
+        "docs:dev": "vitepress dev docs",
+        "docs:build": "vitepress build docs",
+        "docs:preview": "vitepress preview docs",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "19.8.0",
+        "@commitlint/config-conventional": "19.8.0",
+        "@commitlint/types": "19.8.0",
+        "@eslint/js": "9.23.0",
+        "@tailwindcss/vite": "4.1.4",
+        "@testing-library/jest-dom": "6.6.3",
+        "@testing-library/react": "16.3.0",
+        "@types/react": "18.2.0",
+        "@types/react-dom": "18.2.0",
+        "eslint": "9.23.0",
+        "eslint-config-prettier": "10.1.0",
+        "eslint-plugin-import": "2.31.0",
+        "eslint-plugin-prettier": "5.2.3",
+        "eslint-plugin-react": "7.37.4",
+        "eslint-plugin-react-hooks": "5.2.0",
+        "globals": "15.15.0",
+        "husky": "9.1.7",
+        "jsdom": "26.1.0",
+        "lint-staged": "15.4.3",
+        "prettier": "3.5.3",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "tailwindcss": "4.1.4",
+        "typescript": "5.8.2",
+        "typescript-eslint": "8.26.1",
+        "vite": "5.4.14",
+        "vite-plugin-svgr": "4.3.0",
+        "vitepress": "1.6.3",
+        "vitest": "3.1.2"
+    }
+}

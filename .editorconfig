@@ -1,0 +1,13 @@
+root = true
+
+[*]
+# non-configurable prettier behaviors
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# configurable prettier behaviors
+max_line_length = 120 # => printWidth
+end_of_line = crlf # => endOfLine
+indent_style = space # => useTabs
+indent_size = 4 # => tabWidth

@@ -1,0 +1,18 @@
+{
+    "extends": "./tsconfig.base.json",
+
+    "compilerOptions": {
+        "paths": {
+            "@nild/*": ["./packages/*/src"]
+        }
+    },
+
+    "files": [],
+
+    "references": [
+        { "path": "./packages/components/" },
+        { "path": "./packages/materials/" },
+        { "path": "./packages/hooks/" },
+        { "path": "./packages/i18n/" }
+    ]
+}
