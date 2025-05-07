@@ -6,13 +6,23 @@
 
 基础的按钮用法。
 
-```tsx
-import { Button } from '@nild/components'
+## Demo 演示
 
-export default () => (
-  <Button>默认按钮</Button>
-)
+::: react-live
+
+```tsx
+const Demo = (abc = "asd") => {
+  let str = `aa${abc}`;
+  let b: boolean = false;
+  return (
+    <Button className="hhh">默认\$/'""'按钮{str}</Button>
+  );
+}
+
+render(<Demo />);
 ```
+
+:::
 
 ## API
 

@@ -1,7 +1,22 @@
 {
     "name": "@nild/components",
     "private": false,
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
     "scripts": {
+        "build": "vite build --mode PROD",
+        "dev": "vite build --mode DEV --watch",
         "test": "vitest run --environment jsdom --globals",
         "test:coverage": "vitest run --environment jsdom --globals --coverage"
     },

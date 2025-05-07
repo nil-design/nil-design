@@ -16,6 +16,8 @@ export default tslint.config(
                 ...globals.node,
             },
             parserOptions: {
+                sourceType: 'module',
+                ecmaVersion: 'latest',
                 ecmaFeatures: {
                     jsx: true,
                 },
@@ -28,6 +30,10 @@ export default tslint.config(
         rules: {
             'import/named': 'off',
             'import/no-unresolved': 'off',
+            'import/no-named-as-default': 'off',
+            'import/no-named-as-default-member': 'off',
+            'import/namespace': 'off',
+            'import/default': 'off',
             'import/order': [
                 'warn',
                 {

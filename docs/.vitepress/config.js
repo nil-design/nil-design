@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import reactLive from './theme/components/react-live';
 
 export default defineConfig({
     title: 'Nil Design',
@@ -48,5 +49,10 @@ export default defineConfig({
             ],
         },
         socialLinks: [{ icon: 'github', link: 'https://github.com/nil-design/nil-design' }],
+    },
+    markdown: {
+        config: md => {
+            md.use(reactLive);
+        },
     },
 });
