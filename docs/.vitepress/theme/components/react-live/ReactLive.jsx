@@ -1,35 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import clsx from 'clsx';
+import { IconProvider, DEFAULT_ICON_CONFIGS, Code, CollapseTextInput, Copy } from '@icon-park/react';
 import * as components from '@nild/components';
 import useTheme from './useTheme';
 
 const ReactLive = ({ dark = false, code: initialCode }) => {
     const [editorVisible, setEditorVisible] = useState(true);
     const [code, setCode] = useState(decodeURIComponent(initialCode));
+    const [copyActive, setCopyActive] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    const errorRef = useRef(null);
     const theme = useTheme(dark);
 
+    /** 未暴露 onError，监听 dom 收集状态 */
+    useEffect(() => {
+        if (!errorRef.current) return;
+
+        const observer = new MutationObserver(() => {
+            setHasError(!!errorRef.current.querySelector('pre'));
+        });
+
+        observer.observe(errorRef.current, {
+            childList: true,
+            subtree: true,
+        });
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <LiveProvider noInline theme={theme} code={code} scope={{ React, ...components }}>
-            <div className="live-demo flex flex-col">
-                <LivePreview className="live-preview px-6 py-6 rounded-t-lg bg-[#65758529]" />
-                <div className={clsx('live-actions flex justify-end gap-4 px-4 py-2 bg-[#202127]', !editorVisible && 'rounded-b-lg')}>
-                    <button className="action-btn" onClick={() => setEditorVisible(v => !v)}>
-                        {editorVisible ? '隐藏代码' : '显示代码'}
-                    </button>
-                    <button
-                        className="action-btn"
-                        onClick={() => {
-                            navigator.clipboard.writeText(code);
-                        }}
+        <IconProvider value={{ ...DEFAULT_ICON_CONFIGS, size: 16, theme: 'outline' }}>
+            <LiveProvider noInline theme={theme} code={code} scope={{ React, ...components }}>
+                <div className="live-demo flex flex-col rounded-lg bg-vp-info">
+                    {!hasError && <LivePreview className="live-preview px-6 py-8" />}
+                    <div
+                        className={clsx('live-error rounded-t-lg', hasError ? 'px-6 py-8 bg-vp-danger' : 'hidden')}
+                        ref={errorRef}
                     >
-                        复制代码
-                    </button>
+                        <LiveError className="m-0" />
+                    </div>
+                    <div
+                        className={clsx(
+                            'live-actions flex justify-end gap-4 px-4 py-2 text-vp-brand-1 bg-vp-info',
+                            !editorVisible && 'rounded-b-lg',
+                        )}
+                    >
+                        <button className="px-1" onClick={() => setEditorVisible(v => !v)}>
+                            {editorVisible ? <CollapseTextInput /> : <Code />}{' '}
+                        </button>
+                        <button
+                            className="px-1"
+                            onClick={() => {
+                                navigator.clipboard.writeText(code);
+                            }}
+                            onMouseDown={() => setCopyActive(true)}
+                            onMouseUp={() => setCopyActive(false)}
+                            onMouseLeave={() => setCopyActive(false)}
+                        >
+                            <Copy theme={copyActive ? 'filled' : 'outline'} />
+                        </button>
+                    </div>
+                    {editorVisible && <LiveEditor className="live-editor" onChange={setCode} />}
                 </div>
-                {editorVisible && <LiveEditor className="live-editor" onChange={setCode} />}
-                <LiveError />
-            </div>
-        </LiveProvider>
+            </LiveProvider>
+        </IconProvider>
     );
 };
 

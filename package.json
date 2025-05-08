@@ -7,7 +7,7 @@
         "name": "Morilence",
         "email": "1280659615@qq.com"
     },
-    "license": "MIT",
+    "license": "Apache-2.0",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/nil-design/nil-design.git"
@@ -29,6 +29,7 @@
         "@commitlint/config-conventional": "19.8.0",
         "@commitlint/types": "19.8.0",
         "@eslint/js": "9.23.0",
+        "@icon-park/react": "1.4.2",
         "@nild/components": "workspace:*",
         "@testing-library/jest-dom": "6.6.3",
         "@testing-library/react": "16.3.0",
