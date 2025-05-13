@@ -1,4 +1,6 @@
 import { defineConfig } from 'vitepress';
+import autoprefixer from 'autoprefixer';
+import tailwindcss from 'tailwindcss';
 import reactLive from './theme/components/react-live';
 
 export default defineConfig({
@@ -49,6 +51,13 @@ export default defineConfig({
             ],
         },
         socialLinks: [{ icon: 'github', link: 'https://github.com/nil-design/nil-design' }],
+    },
+    vite: {
+        css: {
+            postcss: {
+                plugins: [autoprefixer, tailwindcss],
+            },
+        },
     },
     markdown: {
         config: md => {
