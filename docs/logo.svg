@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="100" height="100">
+  <rect x="0" y="0" width="100%" height="100%" fill="#feffff" fill-opacity="1"/>
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="250" height="250" viewBox="0 0 340.000000 250.000000" preserveAspectRatio="xMidYMid meet" color-interpolation-filters="sRGB">
+    <g fill="#333" class="iconlettersvg-g iconlettersvg" transform="translate(0,0)">
+      <g>
+        <g class="tp-name" transform="translate(25,-5)">
+          <g transform="scale(1)">
+            <g transform="translate(0, 0)">
+              <g class="name-imagesvg">
+                <g>
+                  <rect fill="#333" fill-opacity="0" stroke-width="2" x="0" y="0" width="44.26771749661663" height="50" class="image-rect"/>
+                  <svg filter="url(#colors6349990959)" x="0" y="0" width="44.26771749661663" height="50" filtersec="colorsb1787519294" class="image-svg-svg primary" style="overflow: visible;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.12 31.75">
+                      <g fill="#323333">
+                        <path d="M9.59 19.4v12.35h-.81V17.74l18.53 12.35V0h.8v31.75L9.59 19.4z"/>
+                        <path d="M0 31.43V0l18.52 12.13V0h3.24v18.93L3.24 6.8v24.95H0v-.32z"/>
+                      </g>
+                    </svg>
+                  </svg>
+                  <defs>
+                    <filter id="colors6349990959">
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.19921875 0 0 0 0 0.19921875 0 0 0 0 0.19921875 0 0 0 1 0" class="icon-feColorMatrix"/>
+                    </filter>
+                    <filter id="colorsf3236988637">
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.99609375 0 0 0 0 0.99609375 0 0 0 0 0.99609375 0 0 0 1 0" class="icon-fecolormatrix"/>
+                    </filter>
+                    <filter id="colorsb1787519294">
+                      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" class="icon-fecolormatrix"/>
+                    </filter>
+                  </defs>
+                </g>
+              </g>
+            </g>
+            <g transform="translate(44.26771749661663, 0)">
+              <g class="name-imagesvg">
+                <g>
+                  <rect fill="#333" fill-opacity="0" stroke-width="2" x="0" y="0" width="15.647652770933377" height="50" class="image-rect"/>
+                  <svg filter="url(#colors7920648706)" x="0" y="0" width="15.647652770933377" height="50" filtersec="colorsb9016358248" class="image-svg-svg primary" style="overflow: visible;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9.93 31.73">
+                      <g fill="#323333">
+                        <path d="M9.12 31.73V0h.81v31.73h-.81zM0 31.73V0h3.24v31.73H0z"/>
+                      </g>
+                    </svg>
+                  </svg>
+                  <defs>
+                    <filter id="colors7920648706">
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.19921875 0 0 0 0 0.19921875 0 0 0 0 0.19921875 0 0 0 1 0" class="icon-fecolormatrix"/>
+                    </filter>
+                    <filter id="colorsf3216719279">
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.99609375 0 0 0 0 0.99609375 0 0 0 0 0.99609375 0 0 0 1 0" class="icon-fecolormatrix"/>
+                    </filter>
+                    <filter id="colorsb9016358248">
+                      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" class="icon-fecolormatrix"/>
+                    </filter>
+                  </defs>
+                </g>
+              </g>
+            </g>
+            <g transform="translate(59.91537026755001, 0)">
+              <g class="name-imagesvg">
+                <g>
+                  <rect fill="#333" fill-opacity="0" stroke-width="2" x="0" y="0" width="27.442663140478597" height="50" class="image-rect"/>
+                  <svg filter="url(#colors7798359930)" x="0" y="0" width="27.442663140478597" height="50" filtersec="colorsb4411375584" class="image-svg-svg primary" style="overflow: visible;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.47 31.83">
+                      <g fill="#323333">
+                        <path d="M0 31.83V0h.81v31.02h16.66v.81H0z"/>
+                        <path d="M6.69 26.11V0h3.24v22.87h7.54v3.24H6.69z"/>
+                      </g>
+                    </svg>
+                  </svg>
+                  <defs>
+                    <filter id="colors7798359930">
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.19921875 0 0 0 0 0.19921875 0 0 0 0 0.19921875 0 0 0 1 0" class="icon-fecolormatrix"/>
+                    </filter>
+                    <filter id="colorsf7268496283">
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.99609375 0 0 0 0 0.99609375 0 0 0 0 0.99609375 0 0 0 1 0" class="icon-fecolormatrix"/>
+                    </filter>
+                    <filter id="colorsb4411375584">
+                      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" class="icon-fecolormatrix"/>
+                    </filter>
+                  </defs>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+</svg>

@@ -7,6 +7,7 @@ export default defineConfig({
     title: 'Nil Design',
     description: 'A Diversified React Development Library',
     themeConfig: {
+        logo: '/logo.svg',
         nav: [
             { text: '指南', link: '/guide/' },
             { text: '组件', link: '/components/' },
