@@ -1,10 +1,11 @@
 import { FC, ReactNode } from 'react';
 
 export interface ButtonProps {
+    className?: string;
     children?: ReactNode;
 }
 
-export const Button: FC<ButtonProps> = ({ children }) => {
+const Button: FC<ButtonProps> = ({ children }) => {
     return <button>{children}</button>;
 };
 

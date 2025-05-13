@@ -23,6 +23,9 @@ export default tslint.config(
                 },
             },
         },
+        rules: {
+            'no-unused-vars': 'warn',
+        },
     },
     importPlugin.flatConfigs.recommended,
     {
