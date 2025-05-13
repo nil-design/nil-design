@@ -42,7 +42,7 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
                     </div>
                     <div
                         className={clsx(
-                            'live-actions flex justify-end gap-4 px-4 py-2 text-vp-brand-1 bg-vp-info',
+                            'live-actions flex justify-end gap-4 px-4 py-2 text-vp-text-1 bg-vp-info',
                             !editorVisible && 'rounded-b-lg',
                         )}
                     >
