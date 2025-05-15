@@ -4,7 +4,7 @@ import clsx from 'clsx';
 export interface ButtonProps {
     className?: string;
     children?: ReactNode;
-    type?: 'primary' | 'outlined' | 'text';
+    type?: 'solid' | 'outlined' | 'text';
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ className, children }, ref) => {
