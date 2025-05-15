@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import postcssNested from 'postcss-nested';
 import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
 import reactLive from './theme/components/react-live';
@@ -56,7 +57,7 @@ export default defineConfig({
     vite: {
         css: {
             postcss: {
-                plugins: [autoprefixer, tailwindcss],
+                plugins: [postcssNested, autoprefixer, tailwindcss],
             },
         },
     },

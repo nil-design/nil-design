@@ -4,6 +4,10 @@ export default {
     corePlugins: {
         preflight: false,
     },
+    experimental: {
+        /** @link https://github.com/tailwindlabs/tailwindcss/discussions/7317 */
+        optimizeUniversalDefaults: true,
+    },
     theme: {
         extend: {
             textColor: {
