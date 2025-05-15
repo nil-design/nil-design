@@ -1,14 +1,19 @@
 {
     "name": "@nild/components",
     "private": false,
-    "main": "./dist/index.js",
+    "type": "module",
     "module": "./dist/index.mjs",
-    "types": "./dist/index.d.ts",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.js"
+            "import": "./dist/index.mjs"
+        },
+        "./style": {
+            "import": "./dist/style.css"
+        },
+        "./button": {
+            "types": "./dist/button/index.d.ts",
+            "import": "./dist/button/index.mjs"
         }
     },
     "files": [
@@ -24,7 +29,8 @@
         "@icon-park/react": "1.4.2"
     },
     "peerDependencies": {
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react": ">=18.2.0",
+        "react-dom": ">=18.2.0",
+        "clsx": ">=2.1.1"
     }
 }

@@ -1,38 +1,41 @@
 import { resolve } from 'path';
-import { defineConfig, mergeConfig } from 'vite';
+import { defineConfig } from 'vite';
+import postcssImport from 'postcss-import';
+import postcssNested from 'postcss-nested';
+import autoprefixer from 'autoprefixer';
+import tailwindcss from 'tailwindcss';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
-import baseConfig from '../../vite.config.base.js';
+import pkg from './package.json';
 
 export default defineConfig(({ mode }) => {
-    return mergeConfig(baseConfig, {
+    const peerDeps = Object.keys(pkg.peerDependencies || {});
+
+    return {
         plugins: [react(), dts({ tsconfigPath: './tsconfig.json' })],
+        css: {
+            postcss: {
+                plugins: [postcssImport, postcssNested, autoprefixer, tailwindcss],
+            },
+        },
         build: {
             lib: {
                 entry: resolve(__dirname, 'src/index.ts'),
-                formats: ['es', 'cjs'],
-                fileName: format => {
-                    switch (format) {
-                        case 'es':
-                            return 'index.mjs';
-                        case 'cjs':
-                            return 'index.js';
-                        default:
-                            return 'index.js';
-                    }
-                },
+                formats: ['es'],
             },
-            rollupOptions: {
-                external: ['react', 'react-dom'],
-                output: {
-                    globals: {
-                        react: 'React',
-                        'react-dom': 'ReactDOM',
-                    },
-                },
-            },
+            emptyOutDir: true,
             sourcemap: mode === 'DEV',
             minify: mode === 'PROD',
+            rollupOptions: {
+                external: [...peerDeps, 'react/jsx-runtime'],
+                output: {
+                    format: 'es',
+                    preserveModules: true,
+                    preserveModulesRoot: 'src',
+                    entryFileNames: '[name].mjs',
+                    assetFileNames: '[name].css',
+                },
+            },
         },
-    });
+    };
 });

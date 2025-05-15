@@ -1,10 +1,14 @@
 import { defineConfig } from 'vitepress';
+import postcssNested from 'postcss-nested';
+import autoprefixer from 'autoprefixer';
+import tailwindcss from 'tailwindcss';
 import reactLive from './theme/components/react-live';
 
 export default defineConfig({
     title: 'Nil Design',
     description: 'A Diversified React Development Library',
     themeConfig: {
+        logo: '/logo.svg',
         nav: [
             { text: '指南', link: '/guide/' },
             { text: '组件', link: '/components/' },
@@ -49,6 +53,13 @@ export default defineConfig({
             ],
         },
         socialLinks: [{ icon: 'github', link: 'https://github.com/nil-design/nil-design' }],
+    },
+    vite: {
+        css: {
+            postcss: {
+                plugins: [postcssNested, autoprefixer, tailwindcss],
+            },
+        },
     },
     markdown: {
         config: md => {

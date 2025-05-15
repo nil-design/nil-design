@@ -3,6 +3,7 @@ import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import clsx from 'clsx';
 import { IconProvider, DEFAULT_ICON_CONFIGS, Code, CollapseTextInput, Copy } from '@icon-park/react';
 import * as components from '@nild/components';
+import '@nild/components/style';
 import useTheme from './useTheme';
 
 const ReactLive = ({ dark = false, code: initialCode }) => {
@@ -42,7 +43,7 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
                     </div>
                     <div
                         className={clsx(
-                            'live-actions flex justify-end gap-4 px-4 py-2 text-vp-brand-1 bg-vp-info',
+                            'live-actions flex justify-end gap-4 px-4 py-2 text-vp-text-1 bg-vp-info',
                             !editorVisible && 'rounded-b-lg',
                         )}
                     >

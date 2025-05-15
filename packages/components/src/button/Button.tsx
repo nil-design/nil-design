@@ -1,11 +1,20 @@
-import { FC, ReactNode } from 'react';
+import { ReactNode, forwardRef } from 'react';
+import clsx from 'clsx';
 
 export interface ButtonProps {
+    className?: string;
     children?: ReactNode;
+    type?: 'solid' | 'outlined' | 'text';
 }
 
-export const Button: FC<ButtonProps> = ({ children }) => {
-    return <button>{children}</button>;
-};
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ className, children }, ref) => {
+    return (
+        <button className={clsx('nd-button', 'nd-cursor-pointer', className)} ref={ref}>
+            {children}
+        </button>
+    );
+});
+
+Button.displayName = 'Button';
 
 export default Button;
