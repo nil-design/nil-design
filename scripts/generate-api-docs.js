@@ -7,7 +7,7 @@ const { join } = posix;
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const rootDir = join(__dirname, '..');
 const componentsDir = join(rootDir, 'packages/components/src');
-const docsDir = join(rootDir, 'docs/components');
+const docsDir = join(rootDir, 'docs/zh-CN/components');
 
 /**
  * @param {string} str

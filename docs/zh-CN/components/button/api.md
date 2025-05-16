@@ -2,3 +2,4 @@
 | --- | --- | --- | --- |
 | children | - | `React.ReactNode` | - |
 | className | - | `string` | - |
+| type | - | ` \|  \| ` | - |
