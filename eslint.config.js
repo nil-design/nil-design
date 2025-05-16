@@ -8,9 +8,11 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
 export default tslint.config(
+    {
+        ignores: ['**/dist/**', '**/node_modules/**', '**/assets/**'],
+    },
     eslint.configs.recommended,
     {
-        ignores: ['node_modules/', 'dist/', 'assets/'],
         languageOptions: {
             globals: {
                 ...globals.node,
@@ -29,7 +31,7 @@ export default tslint.config(
     },
     importPlugin.flatConfigs.recommended,
     {
-        /** 仅利用排序功能 */
+        /** only use sorting functionality */
         rules: {
             'import/named': 'off',
             'import/no-unresolved': 'off',
