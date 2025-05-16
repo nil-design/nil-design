@@ -1,8 +1,24 @@
 {
     "name": "@nild/hooks",
     "private": false,
+    "type": "module",
+    "module": "./dist/index.mjs",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "vite build --mode PROD",
+        "dev": "vite build --mode DEV --watch"
+    },
     "peerDependencies": {
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "@types/lodash-es": ">=4.17.12",
+        "react": ">=18.2.0",
+        "lodash-es": ">=4.17.21"
     }
 }
