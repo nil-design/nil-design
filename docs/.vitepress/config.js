@@ -1,7 +1,7 @@
-import { defineConfig } from 'vitepress';
-import postcssNested from 'postcss-nested';
 import autoprefixer from 'autoprefixer';
+import postcssNested from 'postcss-nested';
 import tailwindcss from 'tailwindcss';
+import { defineConfig } from 'vitepress';
 import reactLive from './theme/components/react-live';
 
 export default defineConfig({

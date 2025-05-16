@@ -1,10 +1,10 @@
 import { resolve } from 'path';
-import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import autoprefixer from 'autoprefixer';
 import postcssImport from 'postcss-import';
 import postcssNested from 'postcss-nested';
-import autoprefixer from 'autoprefixer';
 import tailwindcss from 'tailwindcss';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import pkg from './package.json';
 

@@ -1,6 +1,6 @@
+import { readdirSync, writeFileSync, existsSync } from 'node:fs';
 import { posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readdirSync, writeFileSync, existsSync } from 'node:fs';
 import { Application, TSConfigReader, TypeDocReader, ReflectionKind } from 'typedoc';
 
 const { join } = posix;
