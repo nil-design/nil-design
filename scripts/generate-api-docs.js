@@ -7,7 +7,7 @@ const { join } = posix;
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const rootDir = join(__dirname, '..');
 const componentsDir = join(rootDir, 'packages/components/src');
-const docsDir = join(rootDir, 'docs/zh-CN/components');
+const docsDir = join(rootDir, 'docs');
 
 /**
  * @param {string} str
@@ -24,8 +24,11 @@ const kebabToPascal = str => {
  * @param {import('typedoc').DeclarationReflection} reflection
  * @returns {string}
  */
-const generateMarkdownTable = reflection => {
-    const headers = ['属性名', '描述', '类型', '默认值'];
+const generateMarkdownTable = (reflection, locale = 'zh-CN') => {
+    const headers = {
+        'zh-CN': ['属性名', '描述', '类型', '默认值'],
+        'en-US': ['Property', 'Description', 'Type', 'Default'],
+    }[locale];
     const data = (reflection.children || []).map(prop => {
         const type =
             prop.type?.type === 'union'
@@ -47,14 +50,14 @@ const generateMarkdownTable = reflection => {
     return [headers, headers.map(() => '---'), ...rows].map(row => `| ${row.join(' | ')} |`).join('\n');
 };
 
-async function generateDocs() {
+async function generateDocs(locale = 'zh-CN') {
     const components = readdirSync(componentsDir, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name);
 
     for (const component of components) {
         const componentDir = join(componentsDir, component);
-        const outputPath = join(docsDir, component, `api.md`);
+        const outputPath = join(docsDir, locale, 'components', component, `api.md`);
         const componentName = kebabToPascal(component);
         const entryPoint = join(componentDir, 'index.ts');
 
