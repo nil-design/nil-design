@@ -3,6 +3,7 @@ import postcssNested from 'postcss-nested';
 import tailwindcss from 'tailwindcss';
 import { defineConfig } from 'vitepress';
 import reactLive from './theme/components/react-live';
+import { getThemeConfig } from './utils';
 
 export default defineConfig({
     title: 'Nil Design',
@@ -12,58 +13,17 @@ export default defineConfig({
         socialLinks: [{ icon: 'github', link: 'https://github.com/nil-design/nil-design' }],
     },
     locales: {
-        root: {
+        'zh-CN': {
             label: '简体中文',
             lang: 'zh-CN',
-            themeConfig: {
-                nav: [
-                    { text: '指南', link: '/zh-CN/guide/', activeMatch: '/zh-CN/guide/' },
-                    { text: '组件', link: '/zh-CN/components/', activeMatch: '/zh-CN/components/' },
-                    { text: '物料', link: '/zh-CN/materials/', activeMatch: '/zh-CN/materials/' },
-                    { text: 'Hooks', link: '/zh-CN/hooks/', activeMatch: '/zh-CN/hooks/' },
-                    { text: '国际化', link: '/zh-CN/i18n/', activeMatch: '/zh-CN/i18n/' },
-                ],
-                sidebar: {
-                    '/zh-CN/guide/': [
-                        {
-                            text: '简介',
-                            items: [],
-                        },
-                        {
-                            text: '自定义',
-                            items: [],
-                        },
-                    ],
-                    '/zh-CN/components/': [
-                        {
-                            text: '基础组件',
-                            items: [{ text: 'Button 按钮', link: '/zh-CN/components/button/' }],
-                        },
-                    ],
-                    '/zh-CN/hooks/': [
-                        {
-                            text: 'Hooks',
-                            items: [],
-                        },
-                    ],
-                    '/zh-CN/i18n/': [
-                        {
-                            text: '国际化',
-                            items: [],
-                        },
-                    ],
-                    '/zh-CN/materials/': [
-                        {
-                            text: '物料',
-                            items: [],
-                        },
-                    ],
-                },
-            },
+            link: '/zh-CN/',
+            themeConfig: getThemeConfig('zh-CN'),
         },
         'en-US': {
             label: 'English',
             lang: 'en-US',
+            link: '/en-US/',
+            themeConfig: getThemeConfig('en-US'),
         },
     },
     vite: {
