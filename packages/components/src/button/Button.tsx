@@ -4,16 +4,33 @@ import { ReactNode, forwardRef } from 'react';
 export interface ButtonProps {
     className?: string;
     children?: ReactNode;
-    type?: 'solid' | 'outlined' | 'text';
+    variant?: 'solid' | 'outlined' | 'text';
+    size?: 'small' | 'medium' | 'large';
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ className, children }, ref) => {
-    return (
-        <button className={clsx('nd-button', 'nd-cursor-pointer', className)} ref={ref}>
-            {children}
-        </button>
-    );
-});
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+    ({ className, children, variant = 'solid', size = 'medium' }, ref) => {
+        return (
+            <button
+                type="button"
+                className={clsx(
+                    'nd-button',
+                    ['nd-cursor-pointer', 'nd-rounded'],
+                    variant === 'solid' && [],
+                    variant === 'outlined' && [],
+                    variant === 'text' && [],
+                    size === 'small' && [],
+                    size === 'medium' && [],
+                    size === 'large' && [],
+                    className,
+                )}
+                ref={ref}
+            >
+                {children}
+            </button>
+        );
+    },
+);
 
 Button.displayName = 'Button';
 
