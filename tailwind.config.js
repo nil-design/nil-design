@@ -21,6 +21,9 @@ export default {
                 'vp-tip': 'var(--vp-custom-block-tip-bg)',
                 'vp-danger': 'var(--vp-custom-block-danger-bg)',
             },
+            borderColor: {
+                'vp-divider': 'var(--vp-c-divider)',
+            },
         },
     },
 };

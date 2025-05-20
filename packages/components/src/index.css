@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --nd-h-primary: 215;
+    --nd-s-primary: 25%;
+    --nd-l-primary: 27%;
+    --nd-color-primary: hsl(var(--nd-h-primary) var(--nd-s-primary) var(--nd-l-primary));
+    --nd-color-primary-hover: hsl(var(--nd-h-primary) var(--nd-s-primary) calc(var(--nd-l-primary) + 5%));
+    --nd-color-primary-active: hsl(var(--nd-h-primary) var(--nd-s-primary) calc(var(--nd-l-primary) - 5%));
+
+    --nd-h-secondary: var(--nd-h-primary);
+    --nd-s-secondary: var(--nd-s-primary);
+    --nd-l-secondary: calc(var(--nd-l-primary) + 67.5%);
+    --nd-color-secondary: hsl(var(--nd-h-secondary) var(--nd-s-secondary) var(--nd-l-secondary));
+    --nd-color-secondary-hover: hsl(var(--nd-h-secondary) var(--nd-s-secondary) calc(var(--nd-l-secondary) - 2.5%));
+    --nd-color-secondary-active: hsl(var(--nd-h-secondary) var(--nd-s-secondary) calc(var(--nd-l-secondary) - 5%));
+
+    --nd-h-contrast: var(--nd-h-primary);
+    --nd-s-contrast: var(--nd-s-primary);
+    --nd-l-contrast: calc(var(--nd-l-primary) + 69%);
+    --nd-color-contrast: hsl(var(--nd-h-contrast), var(--nd-s-contrast), var(--nd-l-contrast));
+
+    --nd-font-size-sm: 0.75rem;
+    --nd-font-size-md: 0.875rem;
+    --nd-font-size-lg: 1rem;
+    --nd-font-size-xl: 1.125rem;
+
+    --nd-line-height-sm: 1rem;
+    --nd-line-height-md: 1.25rem;
+    --nd-line-height-lg: 1.5rem;
+    --nd-line-height-xl: 1.75rem;
+
+    --nd-border-radius-sm: 0.125rem;
+    --nd-border-radius: 0.25rem;
+    --nd-border-radius-lg: 0.375rem;
+    --nd-border-radius-xl: 0.5rem;
+}
+
+.dark {
+    --nd-l-primary: 96%;
+    --nd-color-primary-hover: hsl(var(--nd-h-primary) var(--nd-s-primary) calc(var(--nd-l-primary) - 5%));
+    --nd-color-primary-active: hsl(var(--nd-h-primary) var(--nd-s-primary) calc(var(--nd-l-primary) + 5%));
+
+    --nd-l-secondary: calc(var(--nd-l-primary) - 72.5%);
+
+    --nd-l-contrast: calc(var(--nd-l-primary) - 69%);
+}

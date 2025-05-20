@@ -1,16 +1,18 @@
 import eslint from '@eslint/js';
-import * as tslint from 'typescript-eslint';
-import globals from 'globals';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
+import eslintPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import globals from 'globals';
+import * as tslint from 'typescript-eslint';
 
 export default tslint.config(
+    {
+        ignores: ['**/dist/**', '**/node_modules/**', '**/assets/**'],
+    },
     eslint.configs.recommended,
     {
-        ignores: ['node_modules/', 'dist/', 'assets/'],
         languageOptions: {
             globals: {
                 ...globals.node,
@@ -29,7 +31,7 @@ export default tslint.config(
     },
     importPlugin.flatConfigs.recommended,
     {
-        /** 仅利用排序功能 */
+        /** only use sorting functionality */
         rules: {
             'import/named': 'off',
             'import/no-unresolved': 'off',
@@ -40,6 +42,10 @@ export default tslint.config(
             'import/order': [
                 'warn',
                 {
+                    alphabetize: {
+                        order: 'asc',
+                        caseInsensitive: true,
+                    },
                     groups: [
                         'builtin',
                         'external',
@@ -52,6 +58,7 @@ export default tslint.config(
                         'unknown',
                     ],
                     'newlines-between': 'never',
+                    warnOnUnassignedImports: true,
                 },
             ],
         },

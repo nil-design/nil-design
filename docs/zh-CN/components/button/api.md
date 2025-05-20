@@ -2,3 +2,5 @@
 | --- | --- | --- | --- |
 | children | - | `React.ReactNode` | - |
 | className | - | `string` | - |
+| size | - | `ButtonSize` | - |
+| variant | - | `ButtonVariant` | - |

@@ -1,58 +1,30 @@
-import { defineConfig } from 'vitepress';
-import postcssNested from 'postcss-nested';
 import autoprefixer from 'autoprefixer';
+import postcssNested from 'postcss-nested';
 import tailwindcss from 'tailwindcss';
+import { defineConfig } from 'vitepress';
 import reactLive from './theme/components/react-live';
+import { getThemeConfig } from './utils';
 
 export default defineConfig({
     title: 'Nil Design',
     description: 'A Diversified React Development Library',
     themeConfig: {
         logo: '/logo.svg',
-        nav: [
-            { text: '指南', link: '/guide/' },
-            { text: '组件', link: '/components/' },
-            { text: '物料', link: '/materials/' },
-            { text: 'Hooks', link: '/hooks/' },
-            { text: '国际化', link: '/i18n/' },
-        ],
-        sidebar: {
-            '/guide/': [
-                {
-                    text: '简介',
-                    items: [],
-                },
-                {
-                    text: '自定义',
-                    items: [],
-                },
-            ],
-            '/components/': [
-                {
-                    text: '基础组件',
-                    items: [{ text: 'Button 按钮', link: '/components/button' }],
-                },
-            ],
-            '/hooks/': [
-                {
-                    text: 'Hooks',
-                    items: [],
-                },
-            ],
-            '/i18n/': [
-                {
-                    text: '国际化',
-                    items: [],
-                },
-            ],
-            '/materials/': [
-                {
-                    text: '物料',
-                    items: [],
-                },
-            ],
-        },
         socialLinks: [{ icon: 'github', link: 'https://github.com/nil-design/nil-design' }],
+    },
+    locales: {
+        'zh-CN': {
+            label: '简体中文',
+            lang: 'zh-CN',
+            link: '/zh-CN/',
+            themeConfig: getThemeConfig('zh-CN'),
+        },
+        'en-US': {
+            label: 'English',
+            lang: 'en-US',
+            link: '/en-US/',
+            themeConfig: getThemeConfig('en-US'),
+        },
     },
     vite: {
         css: {
