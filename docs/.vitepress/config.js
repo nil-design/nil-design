@@ -6,6 +6,7 @@ import reactLive from './theme/components/react-live';
 import { getThemeConfig } from './utils';
 
 export default defineConfig({
+    base: process.env.NODE_ENV === 'production' ? '/nil-design/' : '/',
     title: 'Nil Design',
     description: 'A Diversified React Development Library',
     themeConfig: {
