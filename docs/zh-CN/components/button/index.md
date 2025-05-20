@@ -8,22 +8,37 @@ order: 1
 
 按钮用于开始一个即时操作。
 
-## 基础用法
+## 基础变体
 
 ::: react-live
-
 ```tsx
-const Demo = (abc = "asd") => {
-  let str = `aa${abc}`;
-  let b: boolean = false;
-  return (
-    <Button className="hhh">默认\$/'""'按钮{str}</Button>
-  );
+const Demo = () => {
+  return <div class="flex gap-4">
+    <Button>Solid</Button>
+    <Button variant="outlined">Outlined</Button>
+    <Button variant="filled">Filled</Button>
+    <Button variant="text">Text</Button>
+  </div>;
 }
 
 render(<Demo />);
 ```
+:::
 
+## 按钮尺寸
+
+::: react-live
+```tsx
+const Demo = () => {
+  return <div class="flex items-end gap-4">
+    <Button size="small">Small</Button>
+    <Button>Medium</Button>
+    <Button size="large">Large</Button>
+  </div>;
+}
+
+render(<Demo />);
+```
 :::
 
 ## API

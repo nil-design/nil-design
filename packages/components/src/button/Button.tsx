@@ -1,11 +1,12 @@
 import clsx from 'clsx';
-import { ReactNode, forwardRef } from 'react';
+import { ReactNode, ButtonHTMLAttributes, forwardRef } from 'react';
+import { ButtonVariant, ButtonSize, variantClassNames, sizeClassNames } from './style';
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     children?: ReactNode;
-    variant?: 'solid' | 'outlined' | 'text';
-    size?: 'small' | 'medium' | 'large';
+    variant?: ButtonVariant;
+    size?: ButtonSize;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -14,14 +15,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <button
                 type="button"
                 className={clsx(
-                    'nd-button',
-                    ['nd-cursor-pointer', 'nd-rounded'],
-                    variant === 'solid' && [],
-                    variant === 'outlined' && [],
-                    variant === 'text' && [],
-                    size === 'small' && [],
-                    size === 'medium' && [],
-                    size === 'large' && [],
+                    ['nd-button', 'nd-font-sans', 'nd-cursor-pointer', 'nd-rounded', 'nd-transition-colors'],
+                    variantClassNames[variant],
+                    sizeClassNames[size],
                     className,
                 )}
                 ref={ref}
