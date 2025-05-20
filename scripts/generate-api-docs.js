@@ -32,7 +32,16 @@ const generateMarkdownTable = (reflection, locale = 'zh-CN') => {
     const data = (reflection.children || []).map(prop => {
         const type =
             prop.type?.type === 'union'
-                ? prop.type?.types.map(t => t.qualifiedName ?? t.name).join(' \\| ')
+                ? prop.type?.types
+                      .map(t => {
+                          if (t.type === 'literal') {
+                              return `"${t.value}"`;
+                          } else if (t.type === 'reference') {
+                              return t.qualifiedName ?? t.name;
+                          }
+                          return t.type;
+                      })
+                      .join(' \\| ')
                 : (prop.type?.qualifiedName ?? prop.type?.name ?? '-');
         const defaultValue = prop.defaultValue ?? '-';
         const description = prop.comment?.shortText ?? '-';
