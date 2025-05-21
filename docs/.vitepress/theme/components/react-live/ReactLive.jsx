@@ -7,7 +7,7 @@ import '@nild/components/style';
 import useTheme from './useTheme';
 
 const ReactLive = ({ dark = false, code: initialCode }) => {
-    const [editorVisible, setEditorVisible] = useState(true);
+    const [editorVisible, setEditorVisible] = useState(false);
     const [code, setCode] = useState(decodeURIComponent(initialCode));
     const [copyActive, setCopyActive] = useState(false);
     const [hasError, setHasError] = useState(false);
