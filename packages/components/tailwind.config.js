@@ -20,17 +20,17 @@ export default {
                 'secondary-active': 'var(--nd-color-secondary-active)',
                 contrast: 'var(--nd-color-contrast)',
             },
-        },
-        fontSize: {
-            sm: ['var(--nd-font-size-sm)', 'var(--nd-line-height-sm)'],
-            md: ['var(--nd-font-size-md)', 'var(--nd-line-height-md)'],
-            lg: ['var(--nd-font-size-lg)', 'var(--nd-line-height-lg)'],
-            xl: ['var(--nd-font-size-xl)', 'var(--nd-line-height-xl)'],
-        },
-        borderRadius: {
-            sm: 'var(--nd-border-radius-sm)',
-            DEFAULT: 'var(--nd-border-radius)',
-            lg: 'var(--nd-border-radius-lg)',
+            fontSize: {
+                sm: ['var(--nd-font-size-sm)', 'var(--nd-line-height-sm)'],
+                md: ['var(--nd-font-size-md)', 'var(--nd-line-height-md)'],
+                lg: ['var(--nd-font-size-lg)', 'var(--nd-line-height-lg)'],
+                xl: ['var(--nd-font-size-xl)', 'var(--nd-line-height-xl)'],
+            },
+            borderRadius: {
+                sm: 'var(--nd-border-radius-sm)',
+                DEFAULT: 'var(--nd-border-radius)',
+                lg: 'var(--nd-border-radius-lg)',
+            },
         },
     },
 };

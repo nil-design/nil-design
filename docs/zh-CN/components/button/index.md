@@ -25,6 +25,23 @@ render(<Demo />);
 ```
 :::
 
+## 禁用状态
+
+::: react-live
+```tsx
+const Demo = () => {
+  return <div class="flex gap-4">
+    <Button disabled>Solid</Button>
+    <Button disabled variant="outlined">Outlined</Button>
+    <Button disabled variant="filled">Filled</Button>
+    <Button disabled variant="text">Text</Button>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
 ## 按钮尺寸
 
 ::: react-live
@@ -34,6 +51,49 @@ const Demo = () => {
     <Button size="small">Small</Button>
     <Button>Medium</Button>
     <Button size="large">Large</Button>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
+## 块级按钮
+
+::: react-live
+```tsx
+const Demo = () => {
+  return <div class="flex flex-col items-start gap-4">
+    <Button block>Solid</Button>
+    <Button block variant="outlined">Outlined</Button>
+    <Button block variant="filled">Filled</Button>
+    <Button block variant="text">Text</Button>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
+## 按钮组合
+
+::: react-live
+```tsx
+const Demo = () => {
+  return <div class="flex flex-col items-start gap-4">
+    <Button.Group>
+      <Button>Prev</Button>
+      <Button>Next</Button>
+    </Button.Group>
+    <Button.Group variant="outlined">
+      <Button>%</Button>
+      <Button>‰</Button>
+      <Button>‱</Button>
+    </Button.Group>
+    <Button.Group variant="filled" direction="vertical">
+      <Button>▲</Button>
+      <Button>▼</Button>
+    </Button.Group>
   </div>;
 }
 
