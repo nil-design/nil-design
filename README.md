@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/logo_with_slogan.svg" height="100" alt="Nil Design's Logo">
+  <img src="./docs/public/logo_with_slogan.svg" height="100" alt="Nil Design's Logo">
 </p>
 
 <p align="center">
