@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/logo.svg" height="100" alt="Nil Design's Logo"/>
+  <img src="./docs/logo_with_slogan.svg" height="100" alt="Nil Design's Logo">
 </p>
 
 <p align="center">
@@ -9,6 +9,12 @@
   <a><img src="https://img.shields.io/github/forks/nil-design/nil-design"></a>
   <a><img src="https://img.shields.io/github/stars/nil-design/nil-design"></a>
 </p>
+
+<style>
+  [data-color-mode="dark"] img[alt="Nil Design's Logo"] {
+    filter: invert(1);
+  }
+</style>
 
 ---
 

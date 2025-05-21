@@ -11,6 +11,8 @@ export default defineConfig({
     description: 'A Diversified React Development Library',
     themeConfig: {
         logo: '/logo.svg',
+        siteTitle: false,
+        i18nRouting: false,
         socialLinks: [{ icon: 'github', link: 'https://github.com/nil-design/nil-design' }],
     },
     locales: {
