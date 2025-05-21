@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="200" height="200" viewBox="0 0 340 250" preserveAspectRatio="xMidYMid meet" color-interpolation-filters="sRGB">
+  <g fill="currentColor" class="iconlettersvg-g iconlettersvg" transform="translate(0,0) scale(3.892186)">
+    <g>
+      <g class="tp-name" transform="translate(0,0)">
+        <g transform="scale(1)">
+          <g transform="translate(0, 0)">
+            <g class="name-imagesvg">
+              <g>
+                <svg x="0" y="0" width="44.26771749661663" height="50" class="image-svg-svg primary" style="overflow: visible;">
+                  <svg viewBox="0 0 28.12 31.75">
+                    <g>
+                      <path d="M9.59 19.4v12.35h-.81V17.74l18.53 12.35V0h.8v31.75L9.59 19.4z"/>
+                      <path d="M0 31.43V0l18.52 12.13V0h3.24v18.93L3.24 6.8v24.95H0v-.32z"/>
+                    </g>
+                  </svg>
+                </svg>  
+              </g>
+            </g>
+          </g>
+          <g transform="translate(44.26771749661663, 0)">
+            <g class="name-imagesvg">
+              <g>
+                <svg x="0" y="0" width="15.647652770933377" height="50" class="image-svg-svg primary" style="overflow: visible;">
+                  <svg viewBox="0 0 9.93 31.73">
+                    <g>
+                      <path d="M9.12 31.73V0h.81v31.73h-.81zM0 31.73V0h3.24v31.73H0z"/>
+                    </g>
+                  </svg>
+                </svg>  
+              </g>
+            </g>
+          </g>
+          <g transform="translate(59.91537026755001, 0)">
+            <g class="name-imagesvg">
+              <g>
+                <svg x="0" y="0" width="27.442663140478597" height="50" class="image-svg-svg primary" style="overflow: visible;">
+                  <svg viewBox="0 0 17.47 31.83">
+                    <g>
+                      <path d="M0 31.83V0h.81v31.02h16.66v.81H0z"/>
+                      <path d="M6.69 26.11V0h3.24v22.87h7.54v3.24H6.69z"/>
+                    </g>
+                  </svg>
+                </svg>  
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>  
+    <g class="tp-slogan" transform="translate(21.674015045166016,56.00048828125)"> 
+      <g transform="scale(1, 1)">
+        <g transform="scale(1)">
+          <path d="M4.41 0L0.94 0L0.94-8.58L4.45-8.58Q7.92-8.39 8.06-4.41L8.06-4.41Q7.88-0.09 4.41 0L4.41 0ZM4.27-7.64L2.11-7.64L2.11-0.98L4.36-0.98Q6.80-1.13 6.89-4.31L6.89-4.31Q6.84-7.55 4.27-7.64L4.27-7.64ZM10.83-1.03L15.98-1.03L15.98 0L9.66 0L9.66-8.58L15.89-8.58L15.89-7.59L10.83-7.59L10.83-4.92L15.52-4.92L15.52-3.89L10.83-3.89L10.83-1.03ZM23.77-6.09L23.77-6.09L22.69-6.09Q22.59-7.73 20.53-7.83L20.53-7.83Q18.61-7.78 18.61-6.33L18.61-6.33Q18.61-5.39 19.64-5.25L19.64-5.25L22.08-4.69Q24-4.22 24-2.34L24-2.34Q23.95 0.05 20.63 0.14L20.63 0.14Q18.80 0.14 18.05-0.61L18.05-0.61Q17.11-1.31 17.16-2.77L17.16-2.77L18.28-2.77Q18.33-0.80 20.63-0.75L20.63-0.75Q22.88-0.80 22.92-2.20L22.92-2.20Q23.11-3.38 21.05-3.75L21.05-3.75L19.27-4.13Q17.44-4.64 17.44-6.19L17.44-6.19Q17.58-8.72 20.44-8.81L20.44-8.81Q23.67-8.81 23.77-6.09ZM25.64-8.58L26.81-8.58L26.81 0L25.64 0L25.64-8.58ZM35.20-3.61L32.58-3.61L32.58-4.59L36.33-4.59L36.33 0L35.58 0L35.30-1.08Q34.31 0.09 32.48 0.14L32.48 0.14Q30.75 0.14 29.81-0.75L29.81-0.75Q28.41-2.06 28.45-4.36L28.45-4.36Q28.78-8.63 32.53-8.81L32.53-8.81Q35.72-8.63 36.19-6L36.19-6L35.06-6Q34.59-7.78 32.48-7.83L32.48-7.83Q29.81-7.64 29.67-4.31L29.67-4.31Q29.67-0.75 32.53-0.75L32.53-0.75Q33.56-0.75 34.31-1.31L34.31-1.31Q35.25-2.06 35.20-3.61L35.20-3.61ZM39.52-8.58L43.83-1.64L43.83-8.58L44.95-8.58L44.95 0L43.64 0L39.28-6.94L39.23-6.94L39.23 0L38.11 0L38.11-8.58L39.52-8.58Z" transform="translate(-0.9375, 8.8125)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

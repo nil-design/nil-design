@@ -9,3 +9,13 @@
     }
   }
 }
+
+.VPImage.logo {
+  --vp-nav-logo-height: 32px;
+}
+
+.dark {
+  .VPImage.logo {
+    filter: invert(1);
+  }
+}

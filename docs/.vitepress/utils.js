@@ -6,6 +6,22 @@ import matter from 'gray-matter';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const docsDir = join(__dirname, '..');
 
+const getFooter = locale => {
+    const licenseAnchor = '<a href="https://github.com/nil-design/nil-design/blob/main/LICENSE">Apache License 2.0</a>';
+    const copyrightAnchor = '<a href="https://github.com/Morilence">Morilence</a>';
+
+    return {
+        'zh-CN': {
+            message: `基于 ${licenseAnchor} 发布`,
+            copyright: `版权所有 © 2025-present ${copyrightAnchor}`,
+        },
+        'en-US': {
+            message: `Released under the ${licenseAnchor}`,
+            copyright: `Copyright © 2025-present ${copyrightAnchor}`,
+        },
+    }[locale];
+};
+
 const getDocsWithTitle = dir => {
     return readdirSync(dir, { withFileTypes: true }).reduce((docs, dirent) => {
         const direntPath = join(dir, dirent.name);
@@ -81,5 +97,5 @@ export const getThemeConfig = locale => {
 
     navs.sort((a, b) => a.order - b.order);
 
-    return { nav: navs, sidebar: sidebars };
+    return { nav: navs, sidebar: sidebars, footer: getFooter(locale) };
 };
