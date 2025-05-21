@@ -1,18 +1,39 @@
 export type ButtonVariant = 'solid' | 'outlined' | 'filled' | 'text';
 
+export const disabledClassNames = [
+    'disabled:nd-cursor-not-allowed',
+    'disabled:nd-grayscale-[50%]',
+    'disabled:nd-opacity-50',
+];
+
 export const variantClassNames: Record<ButtonVariant, string[]> = {
-    solid: ['nd-bg-primary', 'nd-text-contrast', 'hover:nd-bg-primary-hover', 'active:nd-bg-primary-active'],
+    solid: [
+        'nd-bg-primary',
+        'nd-text-contrast',
+        'enabled:hover:nd-bg-primary-hover',
+        'enabled:active:nd-bg-primary-active',
+    ],
     outlined: [
         'nd-bg-transparent',
         'nd-border-solid',
         'nd-border',
         'nd-border-primary',
         'nd-text-primary',
-        'hover:nd-bg-secondary-hover',
-        'active:nd-bg-secondary-active',
+        'enabled:hover:nd-bg-secondary-hover',
+        'enabled:active:nd-bg-secondary-active',
     ],
-    filled: ['nd-bg-secondary', 'nd-text-primary', 'hover:nd-bg-secondary-hover', 'active:nd-bg-secondary-active'],
-    text: ['nd-bg-transparent', 'nd-text-primary', 'hover:nd-bg-secondary-hover', 'active:nd-bg-secondary-active'],
+    filled: [
+        'nd-bg-secondary',
+        'nd-text-primary',
+        'enabled:hover:nd-bg-secondary-hover',
+        'enabled:active:nd-bg-secondary-active',
+    ],
+    text: [
+        'nd-bg-transparent',
+        'nd-text-primary',
+        'enabled:hover:nd-bg-secondary-hover',
+        'enabled:active:nd-bg-secondary-active',
+    ],
 } as const;
 
 export type ButtonSize = 'small' | 'medium' | 'large';

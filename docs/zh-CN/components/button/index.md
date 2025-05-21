@@ -25,6 +25,23 @@ render(<Demo />);
 ```
 :::
 
+## 禁用状态
+
+::: react-live
+```tsx
+const Demo = () => {
+  return <div class="flex gap-4">
+    <Button disabled>Solid</Button>
+    <Button disabled variant="outlined">Outlined</Button>
+    <Button disabled variant="filled">Filled</Button>
+    <Button disabled variant="text">Text</Button>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
 ## 按钮尺寸
 
 ::: react-live
