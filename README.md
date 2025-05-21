@@ -10,12 +10,6 @@
   <a><img src="https://img.shields.io/github/stars/nil-design/nil-design"></a>
 </p>
 
-<style>
-  [data-color-mode="dark"] img[alt="Nil Design's Logo"] {
-    filter: invert(1);
-  }
-</style>
-
 ---
 
 Stay tuned...
