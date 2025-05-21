@@ -58,6 +58,49 @@ render(<Demo />);
 ```
 :::
 
+## 块级按钮
+
+::: react-live
+```tsx
+const Demo = () => {
+  return <div class="flex flex-col items-start gap-4">
+    <Button block>Solid</Button>
+    <Button block variant="outlined">Outlined</Button>
+    <Button block variant="filled">Filled</Button>
+    <Button block variant="text">Text</Button>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
+## 按钮组合
+
+::: react-live
+```tsx
+const Demo = () => {
+  return <div class="flex flex-col items-start gap-4">
+    <Button.Group>
+      <Button>Prev</Button>
+      <Button>Next</Button>
+    </Button.Group>
+    <Button.Group variant="outlined">
+      <Button>%</Button>
+      <Button>‰</Button>
+      <Button>‱</Button>
+    </Button.Group>
+    <Button.Group variant="filled" direction="vertical">
+      <Button>▲</Button>
+      <Button>▼</Button>
+    </Button.Group>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
 ## API
 
 <!--@include: ./api.md-->
