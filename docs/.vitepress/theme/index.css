@@ -14,6 +14,40 @@
   --vp-nav-logo-height: 32px;
 }
 
+/**
+ * Resolve conflicting styles
+ */
+.vp-doc {
+  .nd-text {
+    code {
+      @apply text-inherit text-[length:var(--nd-font-size-sm)] bg-[var(--nd-color-primary-code)] p-0 ps-1.5 pe-1.5 rounded-sm;
+    }
+  }
+
+  .nd-title {
+    @apply font-semibold tracking-normal p-0 mt-[1em] mb-[0.5em] border-none;
+  }
+
+  h1.nd-title {
+    @apply text-[length:var(--nd-font-size-5xl)] leading-[var(--nd-line-height-5xl)];
+  }
+  h2.nd-title {
+    @apply text-[length:var(--nd-font-size-4xl)] leading-[var(--nd-line-height-4xl)];
+  }
+  h3.nd-title {
+    @apply text-[length:var(--nd-font-size-3xl)] leading-[var(--nd-line-height-3xl)];
+  }
+  h4.nd-title {
+    @apply text-[length:var(--nd-font-size-2xl)] leading-[var(--nd-line-height-2xl)];
+  }
+  h5.nd-title {
+    @apply text-[length:var(--nd-font-size-xl)] leading-[var(--nd-line-height-xl)];
+  }
+  h6.nd-title {
+    @apply text-[length:var(--nd-font-size-lg)] leading-[var(--nd-line-height-lg)];
+  }
+}
+
 .dark {
   .VPImage.logo {
     filter: invert(1);

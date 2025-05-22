@@ -7,12 +7,12 @@ import {
     RefAttributes,
     ReactElement,
 } from 'react';
+import { disabledClassNames } from '../__core__/style';
 import {
     ButtonVariant,
     ButtonSize,
     variantClassNames,
     sizeClassNames,
-    disabledClassNames,
     groupFirstClassNames,
     groupLastClassNames,
     groupDividerClassNames,

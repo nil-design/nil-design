@@ -1,11 +1,5 @@
 export type ButtonVariant = 'solid' | 'outlined' | 'filled' | 'text';
 
-export const disabledClassNames = [
-    'disabled:nd-cursor-not-allowed',
-    'disabled:nd-grayscale-[50%]',
-    'disabled:nd-opacity-50',
-];
-
 export const variantClassNames: Record<ButtonVariant, string[]> = {
     solid: [
         'nd-bg-primary',

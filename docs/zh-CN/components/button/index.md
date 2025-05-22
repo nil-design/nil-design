@@ -90,10 +90,16 @@ const Demo = () => {
       <Button>‰</Button>
       <Button>‱</Button>
     </Button.Group>
-    <Button.Group variant="filled" direction="vertical">
-      <Button>▲</Button>
-      <Button>▼</Button>
-    </Button.Group>
+    <div class="flex gap-4">
+      <Button.Group variant="filled" direction="vertical">
+        <Button>▲</Button>
+        <Button>▼</Button>
+      </Button.Group>
+      <Button.Group variant="text" direction="vertical">
+        <Button>Up</Button>
+        <Button>Down</Button>
+      </Button.Group>
+    </div>
   </div>;
 }
 
