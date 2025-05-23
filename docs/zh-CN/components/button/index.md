@@ -109,4 +109,11 @@ render(<Demo />);
 
 ## API
 
-<!--@include: ./api.md-->
+| 属性名 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| className | - | `string` | - |
+| children | - | `React.ReactNode` | - |
+| variant | - | `"solid" \| "outlined" \| "filled" \| "text"` | `"solid"` |
+| size | - | `"small" \| "medium" \| "large"` | `"medium"` |
+| disabled | - | `boolean` | - |
+| block | - | `boolean` | - |
