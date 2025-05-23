@@ -40,7 +40,6 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, children, variant = 'solid', size = 'medium', disabled, block, ...restProps }, ref) => {
         const plain = isPlainChildren(children);
-        console.log(plain);
 
         return (
             <button
