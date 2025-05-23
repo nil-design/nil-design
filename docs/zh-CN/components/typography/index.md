@@ -49,3 +49,27 @@ const Demo = () => {
 render(<Demo />);
 ```
 :::
+
+## Title API
+
+| 属性名 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| className | - | `string` | - |
+| children | - | `React.ReactNode` | - |
+| level | - | `1 \| 2 \| 3 \| 4 \| 5 \| 6` | `1` |
+
+## Text API
+
+| 属性名 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| className | - | `string` | - |
+| children | - | `React.ReactNode` | - |
+| disabled | - | `boolean` | - |
+| secondary | - | `boolean` | - |
+| strong | - | `boolean` | - |
+| del | - | `boolean` | - |
+| u | - | `boolean` | - |
+| i | - | `boolean` | - |
+| mark | - | `boolean` | - |
+| code | - | `boolean` | - |
+| kbd | - | `boolean` | - |
