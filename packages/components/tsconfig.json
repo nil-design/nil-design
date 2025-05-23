@@ -3,7 +3,7 @@
     "compilerOptions": {
         "outDir": "./dist",
         "rootDir": "./src",
-        "types": ["react", "react-dom", "vitest/globals", "@testing-library/jest-dom"]
+        "types": ["react", "react-dom", "vite/client", "vitest/globals", "@testing-library/jest-dom"]
     },
     "include": ["src"]
 }

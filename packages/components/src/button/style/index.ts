@@ -33,9 +33,9 @@ export const variantClassNames: Record<ButtonVariant, string[]> = {
 export type ButtonSize = 'small' | 'medium' | 'large';
 
 export const sizeClassNames: Record<ButtonSize, string[]> = {
-    small: ['nd-px-2', 'nd-h-6', 'nd-text-sm'],
-    medium: ['nd-px-4', 'nd-h-8', 'nd-text-md'],
-    large: ['nd-px-6', 'nd-h-10', 'nd-text-lg'],
+    small: ['nd-px-2', 'nd-text-sm'],
+    medium: ['nd-px-4', 'nd-text-md'],
+    large: ['nd-px-6', 'nd-text-lg'],
 } as const;
 
 export type ButtonGroupDirection = 'horizontal' | 'vertical';

@@ -58,7 +58,7 @@ export default tslint.config(
                         'unknown',
                     ],
                     'newlines-between': 'never',
-                    warnOnUnassignedImports: true,
+                    warnOnUnassignedImports: false,
                 },
             ],
         },

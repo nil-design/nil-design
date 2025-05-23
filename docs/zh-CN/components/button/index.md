@@ -13,7 +13,7 @@ order: 1
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex gap-4">
+  return <div className="flex flex-wrap gap-4">
     <Button>Solid</Button>
     <Button variant="outlined">Outlined</Button>
     <Button variant="filled">Filled</Button>
@@ -30,7 +30,7 @@ render(<Demo />);
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex gap-4">
+  return <div className="flex flex-wrap gap-4">
     <Button disabled>Solid</Button>
     <Button disabled variant="outlined">Outlined</Button>
     <Button disabled variant="filled">Filled</Button>
@@ -47,7 +47,7 @@ render(<Demo />);
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex items-end gap-4">
+  return <div className="flex flex-wrap items-end gap-4">
     <Button size="small">Small</Button>
     <Button>Medium</Button>
     <Button size="large">Large</Button>
@@ -63,7 +63,7 @@ render(<Demo />);
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex flex-col items-start gap-4">
+  return <div className="flex flex-col items-start gap-4">
     <Button block>Solid</Button>
     <Button block variant="outlined">Outlined</Button>
     <Button block variant="filled">Filled</Button>
@@ -80,7 +80,7 @@ render(<Demo />);
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex flex-col items-start gap-4">
+  return <div className="flex flex-col items-start gap-4">
     <Button.Group>
       <Button>Prev</Button>
       <Button>Next</Button>
@@ -90,7 +90,7 @@ const Demo = () => {
       <Button>‰</Button>
       <Button>‱</Button>
     </Button.Group>
-    <div class="flex gap-4">
+    <div className="flex gap-4">
       <Button.Group variant="filled" direction="vertical">
         <Button>▲</Button>
         <Button>▼</Button>
@@ -109,4 +109,11 @@ render(<Demo />);
 
 ## API
 
-<!--@include: ./api.md-->
+| 属性名 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| className | - | `string` | - |
+| children | - | `React.ReactNode` | - |
+| variant | - | `"solid" \| "outlined" \| "filled" \| "text"` | `"solid"` |
+| size | - | `"small" \| "medium" \| "large"` | `"medium"` |
+| disabled | - | `boolean` | - |
+| block | - | `boolean` | - |

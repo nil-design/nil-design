@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
-import { disabledClassNames } from '../__core__/style';
+import { disabledClassNames } from '../_core/style';
 
 export interface TextProps extends HTMLAttributes<HTMLSpanElement> {
     className?: string;
@@ -58,7 +58,7 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
             <span
                 {...restProps}
                 className={clsx(
-                    ['nd-text', 'nd-font-sans', 'nd-text-md'],
+                    ['nd-text', 'nd-font-sans', 'nd-text-[length:inherit]'],
                     disabled && 'nd-disabled',
                     !secondary ? 'nd-text-primary' : 'nd-text-secondary',
                     disabledClassNames,
