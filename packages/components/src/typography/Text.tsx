@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
-import { disabledClassNames } from '../__core__/style';
+import { disabledClassNames } from '../_core/style';
 
 export interface TextProps extends HTMLAttributes<HTMLSpanElement> {
     className?: string;
