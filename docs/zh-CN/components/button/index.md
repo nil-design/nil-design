@@ -90,7 +90,7 @@ const Demo = () => {
       <Button>‰</Button>
       <Button>‱</Button>
     </Button.Group>
-    <div class="flex gap-4">
+    <div className="flex gap-4">
       <Button.Group variant="filled" direction="vertical">
         <Button>▲</Button>
         <Button>▼</Button>

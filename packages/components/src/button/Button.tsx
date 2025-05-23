@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { isArray, isNil, isNumber, isString } from 'lodash-es';
 import {
     ReactNode,
     ButtonHTMLAttributes,
@@ -7,7 +8,7 @@ import {
     RefAttributes,
     ReactElement,
 } from 'react';
-import { disabledClassNames } from '../__core__/style';
+import { disabledClassNames } from '../_core/style';
 import {
     ButtonVariant,
     ButtonSize,
@@ -17,6 +18,15 @@ import {
     groupLastClassNames,
     groupDividerClassNames,
 } from './style';
+
+const isPlainChildren = (children: ReactNode): boolean => {
+    if (isNil(children)) return false;
+    if (isString(children) || isNumber(children)) return true;
+    if (isArray(children)) {
+        return children.every(child => isPlainChildren(child));
+    }
+    return false;
+};
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
@@ -29,6 +39,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, children, variant = 'solid', size = 'medium', disabled, block, ...restProps }, ref) => {
+        const plain = isPlainChildren(children);
+        console.log(plain);
+
         return (
             <button
                 type="button"
@@ -38,7 +51,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                     ['nd-button', 'nd-font-sans', 'nd-cursor-pointer', 'nd-rounded', 'nd-transition-colors'],
                     block && ['nd-w-full'],
                     variantClassNames[variant],
-                    sizeClassNames[size],
+                    sizeClassNames[size].concat(
+                        {
+                            small: [plain ? 'nd-h-6' : 'nd-py-1'],
+                            medium: [plain ? 'nd-h-8' : 'nd-py-1.5'],
+                            large: [plain ? 'nd-h-10' : 'nd-py-2'],
+                        }[size],
+                    ),
                     disabledClassNames,
                     className,
                 )}
