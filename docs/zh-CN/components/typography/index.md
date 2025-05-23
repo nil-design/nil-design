@@ -32,7 +32,7 @@ render(<Demo />);
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex flex-col items-start gap-4">
+  return <div className="flex flex-col items-start gap-4">
     <Typography.Text>Nil Design</Typography.Text>
     <Typography.Text secondary>Nil Design</Typography.Text>
     <Typography.Text disabled>Nil Design</Typography.Text>

@@ -13,7 +13,7 @@ order: 1
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex gap-4">
+  return <div className="flex flex-wrap gap-4">
     <Button>Solid</Button>
     <Button variant="outlined">Outlined</Button>
     <Button variant="filled">Filled</Button>
@@ -30,7 +30,7 @@ render(<Demo />);
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex gap-4">
+  return <div className="flex flex-wrap gap-4">
     <Button disabled>Solid</Button>
     <Button disabled variant="outlined">Outlined</Button>
     <Button disabled variant="filled">Filled</Button>
@@ -47,7 +47,7 @@ render(<Demo />);
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex items-end gap-4">
+  return <div className="flex flex-wrap items-end gap-4">
     <Button size="small">Small</Button>
     <Button>Medium</Button>
     <Button size="large">Large</Button>
@@ -63,7 +63,7 @@ render(<Demo />);
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex flex-col items-start gap-4">
+  return <div className="flex flex-col items-start gap-4">
     <Button block>Solid</Button>
     <Button block variant="outlined">Outlined</Button>
     <Button block variant="filled">Filled</Button>
@@ -80,7 +80,7 @@ render(<Demo />);
 ::: react-live
 ```tsx
 const Demo = () => {
-  return <div class="flex flex-col items-start gap-4">
+  return <div className="flex flex-col items-start gap-4">
     <Button.Group>
       <Button>Prev</Button>
       <Button>Next</Button>
