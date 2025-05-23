@@ -33,7 +33,7 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
         <IconProvider value={{ ...DEFAULT_ICON_CONFIGS, size: 16, theme: 'outline' }}>
             <LiveProvider noInline theme={theme} code={code} scope={{ React, ...components }}>
                 <div className="live-demo flex flex-col rounded-lg bg-transparent border border-vp-divider">
-                    {!hasError && <LivePreview className="live-preview px-6 py-8" />}
+                    {<LivePreview className={clsx("live-preview px-6 py-8", hasError && 'hidden')} />}
                     <div
                         className={clsx('live-error rounded-t-lg', hasError ? 'px-6 py-8 bg-vp-danger' : 'hidden')}
                         ref={errorRef}
