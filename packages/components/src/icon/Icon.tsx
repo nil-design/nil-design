@@ -16,19 +16,23 @@ const iconImporters = import.meta.glob<false, string, ComponentType<unknown>>(
         import: 'default',
     },
 );
+const iconCaches = new Map<string, ComponentType<unknown>>();
 
 const Icon: FC<IconProps> = ({ className, name: rawName = 'file-failed', component: Component, ...restProps }) => {
     const name = kebabToPascal(rawName);
-    const [DynamicIcon, setDynamicIcon] = useState<ComponentType<unknown> | null>(null);
+    const [DynamicIcon, setDynamicIcon] = useState<ComponentType<unknown> | null>(() => iconCaches.get(name) ?? null);
     const importer = iconImporters[`/node_modules/@icon-park/react/es/icons/${name}.js`];
 
     useEffect(() => {
-        if (!Component && isFunction(importer)) {
+        if (!Component && !DynamicIcon && isFunction(importer)) {
             importer().then(SvgIcon => {
-                setDynamicIcon(() => SvgIcon);
+                setDynamicIcon(() => {
+                    iconCaches.set(name, SvgIcon);
+                    return SvgIcon;
+                });
             });
         }
-    }, [Component, importer]);
+    }, [Component, name]);
 
     const commonProps = {
         ...restProps,
@@ -37,7 +41,10 @@ const Icon: FC<IconProps> = ({ className, name: rawName = 'file-failed', compone
 
     if (!Component) {
         if (!DynamicIcon) {
-            return null;
+            const PlaceholderIcon = IconWrapper('placeholder-icon', false, ({ size }) => (
+                <svg width={size} height={size}></svg>
+            ));
+            return <PlaceholderIcon {...commonProps} />;
         }
         return <DynamicIcon {...commonProps} />;
     }
