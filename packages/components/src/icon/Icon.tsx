@@ -32,6 +32,7 @@ const Icon: FC<IconProps> = ({ className, name: rawName = 'file-failed', compone
                 });
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [Component, name]);
 
     const commonProps = {
