@@ -8,7 +8,11 @@ export interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement> {
 
 const Paragraph = forwardRef<HTMLParagraphElement, ParagraphProps>(({ className, children, ...restProps }, ref) => {
     return (
-        <p {...restProps} className={clsx('nd-paragraph', className)} ref={ref}>
+        <p
+            {...restProps}
+            className={clsx('nd-paragraph', 'nd-text-[length:inherit]', 'nd-m-t-0 nd-m-b-[1em]', className)}
+            ref={ref}
+        >
             {children}
         </p>
     );
