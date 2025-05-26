@@ -26,6 +26,9 @@ export default {
             textColor: {
                 primary: 'var(--nd-text-color-primary)',
                 secondary: 'var(--nd-text-color-secondary)',
+                link: 'var(--nd-color-primary)',
+                'link-hover': 'var(--nd-color-primary-hover)',
+                'link-active': 'var(--nd-color-primary-active)',
             },
             fontSize: {
                 sm: ['var(--nd-font-size-sm)', 'var(--nd-line-height-sm)'],
@@ -45,9 +48,18 @@ export default {
         },
     },
     plugins: [
-        plugin(({ addVariant }) => {
+        plugin(({ addVariant, addUtilities }) => {
             /** with prefix: nd-disabled */
             addVariant('disabled', ['&.disabled', '&:disabled']);
+            addUtilities(
+                {
+                    '.underline': {
+                        textDecorationLine: 'underline',
+                        textUnderlineOffset: '2px',
+                    },
+                },
+                { respectPrefix: true },
+            );
         }),
     ],
 };
