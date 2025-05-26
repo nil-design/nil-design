@@ -8,28 +8,40 @@ export interface TextProps extends HTMLAttributes<HTMLSpanElement> {
     disabled?: boolean;
     secondary?: boolean;
     strong?: boolean;
-    /** strikethrough */
-    del?: boolean;
-    /** underline */
-    u?: boolean;
-    /** italic */
-    i?: boolean;
-    mark?: boolean;
-    code?: boolean;
-    /** keyboard */
-    kbd?: boolean;
+    deleted?: boolean;
+    underlined?: boolean;
+    italic?: boolean;
+    marked?: boolean;
+    coded?: boolean;
+    keyboarded?: boolean;
 }
 
 const Text = forwardRef<HTMLSpanElement, TextProps>(
-    ({ className, children, disabled, secondary, strong, del, u, i, mark, code, kbd, ...restProps }, ref) => {
+    (
+        {
+            className,
+            children,
+            disabled,
+            secondary,
+            strong,
+            deleted,
+            underlined,
+            italic,
+            marked,
+            coded,
+            keyboarded,
+            ...restProps
+        },
+        ref,
+    ) => {
         let finalChildren = children;
 
         strong && (finalChildren = <strong>{finalChildren}</strong>);
-        del && (finalChildren = <del>{finalChildren}</del>);
-        u && (finalChildren = <u>{finalChildren}</u>);
-        i && (finalChildren = <i>{finalChildren}</i>);
-        mark && (finalChildren = <mark className="nd-text-primary nd-bg-primary-mark">{finalChildren}</mark>);
-        code &&
+        deleted && (finalChildren = <del>{finalChildren}</del>);
+        underlined && (finalChildren = <u className="nd-underline">{finalChildren}</u>);
+        italic && (finalChildren = <i>{finalChildren}</i>);
+        marked && (finalChildren = <mark className="nd-text-primary nd-bg-primary-mark">{finalChildren}</mark>);
+        coded &&
             (finalChildren = (
                 <code
                     className={clsx(
@@ -41,7 +53,7 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
                     {finalChildren}
                 </code>
             ));
-        kbd &&
+        keyboarded &&
             (finalChildren = (
                 <kbd
                     className={clsx(

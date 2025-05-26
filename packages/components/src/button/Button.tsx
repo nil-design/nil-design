@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { isArray, isNil, isNumber, isString } from 'lodash-es';
+import { isArray } from 'lodash-es';
 import {
     ReactNode,
     ButtonHTMLAttributes,
@@ -9,6 +9,7 @@ import {
     ReactElement,
 } from 'react';
 import { disabledClassNames } from '../_core/style';
+import { isEmptyChildren, isPlainChildren } from '../_core/utils';
 import {
     ButtonVariant,
     ButtonSize,
@@ -18,15 +19,6 @@ import {
     groupLastClassNames,
     groupDividerClassNames,
 } from './style';
-
-const isPlainChildren = (children: ReactNode): boolean => {
-    if (isNil(children)) return false;
-    if (isString(children) || isNumber(children)) return true;
-    if (isArray(children)) {
-        return children.every(child => isPlainChildren(child));
-    }
-    return false;
-};
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
@@ -80,11 +72,11 @@ export interface ButtonGroupProps extends Pick<ButtonProps, 'variant' | 'size' |
 
 const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
     ({ children, className, variant = 'solid', size = 'medium', disabled, direction = 'horizontal' }, ref) => {
-        if (!children) {
+        if (!children || isEmptyChildren(children)) {
             return <></>;
         }
 
-        if (!Array.isArray(children)) {
+        if (!isArray(children)) {
             return <Button {...children.props} {...{ variant, size, disabled }} />;
         }
 

@@ -1,11 +1,14 @@
-import { IIconProps as ParkIconProps, IconWrapper } from '@icon-park/react/es/runtime';
+import { IIconProps as ParkIconProps, Theme as ParkIconTheme, IconWrapper } from '@icon-park/react/es/runtime';
 import clsx from 'clsx';
 import { isFunction } from 'lodash-es';
 import { ComponentType, FC, SVGProps, useState, useEffect } from 'react';
 import { kebabToPascal } from '../_core/utils';
 
-export interface IconProps extends ParkIconProps {
+type IconVariant = 'outlined' | 'filled' | 'two-tone' | 'multi-color';
+
+export interface IconProps extends Omit<ParkIconProps, 'theme' | 'size'> {
     name?: string;
+    variant?: IconVariant;
     component?: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
@@ -18,25 +21,34 @@ const iconImporters = import.meta.glob<false, string, ComponentType<unknown>>(
 );
 const iconCaches = new Map<string, ComponentType<unknown>>();
 
-const Icon: FC<IconProps> = ({ className, name: rawName = '', component: Component, ...restProps }) => {
-    const name = kebabToPascal(rawName);
-    const [DynamicIcon, setDynamicIcon] = useState<ComponentType<unknown> | null>(() => iconCaches.get(name) ?? null);
-    const importer = iconImporters[`/node_modules/@icon-park/react/es/icons/${name}.js`];
+const Icon: FC<IconProps> = ({ className, name = '', variant = 'outlined', component: Component, ...restProps }) => {
+    const resolvedName = kebabToPascal(name);
+    const resolvedTheme =
+        (
+            {
+                outlined: 'outline',
+            } as Record<IconVariant, ParkIconTheme>
+        )[variant] ?? variant;
+    const [DynamicIcon, setDynamicIcon] = useState<ComponentType<unknown> | null>(
+        () => iconCaches.get(resolvedName) ?? null,
+    );
+    const importer = iconImporters[`/node_modules/@icon-park/react/es/icons/${resolvedName}.js`];
 
     useEffect(() => {
         if (!Component && !DynamicIcon && isFunction(importer)) {
             importer().then(SvgIcon => {
                 setDynamicIcon(() => {
-                    iconCaches.set(name, SvgIcon);
+                    iconCaches.set(resolvedName, SvgIcon);
                     return SvgIcon;
                 });
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [Component, name]);
+    }, [Component, resolvedName]);
 
     const commonProps = {
         ...restProps,
+        theme: resolvedTheme,
         className: clsx('nd-icon', 'nd-text-primary', 'nd-text-[length:inherit]', className),
     };
 

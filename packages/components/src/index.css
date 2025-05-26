@@ -24,6 +24,8 @@
     --nd-l-contrast: 95%;
     --nd-color-contrast: hsl(var(--nd-h-contrast), var(--nd-s-contrast), var(--nd-l-contrast));
 
+    --nd-color-split: hsl(var(--nd-h-primary) var(--nd-s-primary) var(--nd-l-primary) / 0.15);
+
     --nd-text-color-primary: hsl(var(--nd-h-primary) var(--nd-s-primary) 5%);
     --nd-text-color-secondary: hsl(var(--nd-h-primary) var(--nd-s-primary) 5% / 0.6);
 

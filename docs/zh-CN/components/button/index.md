@@ -7,7 +7,7 @@ catOrder: 1
 
 # Button 按钮
 
-按钮用于开始一个即时操作。
+用于开始一个即时操作。
 
 ## 基础变体
 
@@ -108,7 +108,7 @@ render(<Demo />);
 ```
 :::
 
-## API
+## Button API
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -118,3 +118,14 @@ render(<Demo />);
 | size | - | `"small" \| "medium" \| "large"` | `"medium"` |
 | disabled | - | `boolean` | - |
 | block | - | `boolean` | - |
+
+## Button.Group API
+
+| 属性名 | 描述 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| className | - | `string` | - |
+| children | - | `React.ReactNode` | - |
+| direction | - | `"horizontal" \| "vertical"` | `"horizontal"` |
+| variant | - | `"solid" \| "outlined" \| "filled" \| "text"` | `"solid"` |
+| size | - | `"small" \| "medium" \| "large"` | `"medium"` |
+| disabled | - | `boolean` | - |

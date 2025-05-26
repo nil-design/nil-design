@@ -46,6 +46,30 @@
   h6.nd-title {
     @apply text-[length:var(--nd-font-size-lg)] leading-[var(--nd-line-height-lg)];
   }
+
+  .nd-paragraph {
+    @apply mt-0 mb-[1em];
+  }
+
+  .nd-link {
+    color: var(--nd-color-primary);
+
+    &:hover {
+      color: var(--nd-color-primary-hover);
+    }
+
+    &:active {
+      color: var(--nd-color-primary-active);
+    }
+
+    &.nd-underline {
+      text-decoration-line: underline;
+    }
+
+    &.nd-no-underline {
+      text-decoration-line: none;
+    }
+  }
 }
 
 .dark {

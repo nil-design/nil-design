@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { forwardRef, ForwardRefExoticComponent, HTMLAttributes, ReactNode } from 'react';
-import Anchor from './Anchor';
+import Link from './Link';
 import Paragraph from './Paragraph';
 import Text from './Text';
 import Title from './Title';
 
-interface TypographyProps extends HTMLAttributes<HTMLElement> {
+export interface TypographyProps extends HTMLAttributes<HTMLElement> {
     className?: string;
     children?: ReactNode;
 }
@@ -17,13 +17,13 @@ const Typography = forwardRef<HTMLElement, TypographyProps>(({ className, childr
         </article>
     );
 }) as ForwardRefExoticComponent<TypographyProps> & {
-    Anchor: typeof Anchor;
+    Link: typeof Link;
     Paragraph: typeof Paragraph;
     Text: typeof Text;
     Title: typeof Title;
 };
 
-Typography.Anchor = Anchor;
+Typography.Link = Link;
 Typography.Paragraph = Paragraph;
 Typography.Text = Text;
 Typography.Title = Title;
