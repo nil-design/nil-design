@@ -22,6 +22,7 @@ export default {
                 'secondary-hover': 'var(--nd-color-secondary-hover)',
                 'secondary-active': 'var(--nd-color-secondary-active)',
                 contrast: 'var(--nd-color-contrast)',
+                split: 'var(--nd-color-split)',
             },
             textColor: {
                 primary: 'var(--nd-text-color-primary)',

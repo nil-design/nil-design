@@ -47,6 +47,10 @@
     @apply text-[length:var(--nd-font-size-lg)] leading-[var(--nd-line-height-lg)];
   }
 
+  .nd-paragraph {
+    @apply mt-0 mb-[1em];
+  }
+
   .nd-link {
     color: var(--nd-color-primary);
 
