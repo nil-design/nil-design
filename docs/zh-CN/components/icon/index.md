@@ -8,9 +8,8 @@ cat: 通用
 
 语义化的矢量图形。
 
-::: info
-引自 [IconPark 官方图标库](https://iconpark.oceanengine.com/official)
-:::
+> [!NOTE]
+> 引自 [IconPark 官方图标库](https://iconpark.oceanengine.com/official)
 
 ## 图标风格
 
