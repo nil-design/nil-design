@@ -2,6 +2,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
+import { isUndefined } from 'lodash-es';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const docsDir = join(__dirname, '..');
@@ -58,15 +59,15 @@ export const getThemeConfig = locale => {
 
             getDocsWithTitle(navDir).forEach(({ path: docPath, data }) => {
                 if (docPath === join(navDir, 'index.md')) {
-                    const { title, order = 0 } = data;
+                    const { title, order = 0, rewrite = '' } = data;
                     navs.push({
                         text: title,
-                        link: `/${locale}/${navName}/`,
+                        link: `/${locale}/${navName}${rewrite.startsWith('/') ? rewrite : `/${rewrite}`}`,
                         activeMatch: `/${locale}/${navName}/`,
                         order,
                     });
                 } else {
-                    const { title, category, order = 0 } = data;
+                    const { title, category, order = 0, catOrder } = data;
                     if (category) {
                         const item = {
                             text: title,
@@ -75,15 +76,18 @@ export const getThemeConfig = locale => {
                         };
                         const categoryIdx = categories.findIndex(({ text }) => text === category);
                         if (categoryIdx === -1) {
-                            categories.push({ text: category, items: [item] });
+                            categories.push({ text: category, items: [item], catOrder });
                         } else {
+                            if (!isUndefined(catOrder)) {
+                                categories[categoryIdx].catOrder = catOrder;
+                            }
                             categories[categoryIdx].items.push(item);
                         }
                     }
                 }
             });
 
-            categories.sort((a, b) => a.order - b.order);
+            categories.sort((a, b) => a.catOrder - b.catOrder);
             categories.forEach(category => {
                 category.items.sort((a, b) => a.order - b.order);
             });
