@@ -5,7 +5,7 @@ import Paragraph from './Paragraph';
 import Text from './Text';
 import Title from './Title';
 
-interface TypographyProps extends HTMLAttributes<HTMLElement> {
+export interface TypographyProps extends HTMLAttributes<HTMLElement> {
     className?: string;
     children?: ReactNode;
 }
