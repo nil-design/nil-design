@@ -10,7 +10,12 @@ const Paragraph = forwardRef<HTMLParagraphElement, ParagraphProps>(({ className,
     return (
         <p
             {...restProps}
-            className={clsx('nd-paragraph', 'nd-text-[length:inherit]', 'nd-m-t-0 nd-m-b-[1em]', className)}
+            className={clsx(
+                'nd-paragraph',
+                'nd-text-primary nd-text-[length:inherit]',
+                'nd-m-t-0 nd-m-b-[1em]',
+                className,
+            )}
             ref={ref}
         >
             {children}
