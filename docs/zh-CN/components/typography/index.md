@@ -130,6 +130,8 @@ render(<Demo />);
 | --- | --- | --- | --- |
 | className | - | `string` | - |
 | children | - | `React.ReactNode` | - |
+| href | - | `string` | - |
+| target | - | `"_self" \| "_blank" \| "_parent" \| "_top"` | `"_self"` |
 | disabled | - | `boolean` | - |
 | underlined | - | `boolean` | - |
 
