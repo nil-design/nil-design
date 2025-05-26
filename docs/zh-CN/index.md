@@ -7,7 +7,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /zh-CN/guide
+      link: /zh-CN/guide/quick-start.md
     - theme: alt
       text: GitHub
       link: https://github.com/nil-design/nil-design
