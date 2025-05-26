@@ -67,16 +67,16 @@ export const getThemeConfig = locale => {
                         order,
                     });
                 } else {
-                    const { title, category, order = 0, catOrder } = data;
-                    if (category) {
+                    const { title, order = 0, cat, catOrder } = data;
+                    if (cat) {
                         const item = {
                             text: title,
                             link: relative(navDir, docPath).replace(/\\/, '/'),
                             order,
                         };
-                        const categoryIdx = categories.findIndex(({ text }) => text === category);
+                        const categoryIdx = categories.findIndex(({ text }) => text === cat);
                         if (categoryIdx === -1) {
-                            categories.push({ text: category, items: [item], catOrder });
+                            categories.push({ text: cat, items: [item], catOrder });
                         } else {
                             if (!isUndefined(catOrder)) {
                                 categories[categoryIdx].catOrder = catOrder;

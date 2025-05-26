@@ -1,7 +1,7 @@
 ---
 title: Divider 分割线
-category: 布局
 order: 1
+cat: 布局
 catOrder: 2
 ---
 
