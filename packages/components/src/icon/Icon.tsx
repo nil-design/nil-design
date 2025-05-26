@@ -18,7 +18,7 @@ const iconImporters = import.meta.glob<false, string, ComponentType<unknown>>(
 );
 const iconCaches = new Map<string, ComponentType<unknown>>();
 
-const Icon: FC<IconProps> = ({ className, name: rawName = 'file-failed', component: Component, ...restProps }) => {
+const Icon: FC<IconProps> = ({ className, name: rawName = '', component: Component, ...restProps }) => {
     const name = kebabToPascal(rawName);
     const [DynamicIcon, setDynamicIcon] = useState<ComponentType<unknown> | null>(() => iconCaches.get(name) ?? null);
     const importer = iconImporters[`/node_modules/@icon-park/react/es/icons/${name}.js`];

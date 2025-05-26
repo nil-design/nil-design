@@ -1,7 +1,7 @@
 ---
 title: Typography 排版
-category: 通用
 order: 3
+cat: 通用
 ---
 
 # Typography 排版
