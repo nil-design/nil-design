@@ -1,9 +1,6 @@
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
-import autoprefixer from 'autoprefixer';
-import postcssImport from 'postcss-import';
 import postcssNested from 'postcss-nested';
-import tailwindcss from 'tailwindcss';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import pkg from './package.json';
@@ -15,7 +12,7 @@ export default defineConfig(({ mode }) => {
         plugins: [react(), dts({ tsconfigPath: './tsconfig.json' })],
         css: {
             postcss: {
-                plugins: [postcssImport, postcssNested, autoprefixer, tailwindcss],
+                plugins: [postcssNested],
             },
         },
         build: {
@@ -33,7 +30,7 @@ export default defineConfig(({ mode }) => {
                     preserveModules: true,
                     preserveModulesRoot: 'src',
                     entryFileNames: '[name].mjs',
-                    assetFileNames: '[name].css',
+                    assetFileNames: 'tailwind.css',
                 },
             },
         },

@@ -1,8 +1,7 @@
 import { IIconProps as ParkIconProps, Theme as ParkIconTheme, IconWrapper } from '@icon-park/react/es/runtime';
-import clsx from 'clsx';
 import { isFunction } from 'lodash-es';
 import { ComponentType, FC, SVGProps, useState, useEffect } from 'react';
-import { kebabToPascal } from '../_core/utils';
+import { cn, kebabToPascal } from '../_core/utils';
 
 type IconVariant = 'outlined' | 'filled' | 'two-tone' | 'multi-color';
 
@@ -49,7 +48,7 @@ const Icon: FC<IconProps> = ({ className, name = '', variant = 'outlined', compo
     const commonProps = {
         ...restProps,
         theme: resolvedTheme,
-        className: clsx('nd-icon', 'nd-text-primary', 'nd-text-[length:inherit]', className),
+        className: cn('nd-icon', 'text-primary', 'text-[length:inherit]', className),
     };
 
     if (!Component) {

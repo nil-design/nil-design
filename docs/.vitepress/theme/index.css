@@ -1,75 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import '@nild/components/tailwindcss';
+
+@source '../../../node_modules/@nild/components/dist';
+
+@theme {
+  --text-color-vp-brand-1: var(--vp-c-brand-1);
+  --text-color-vp-text-1: var(--vp-c-text-1);
+  --text-color-vp-info: var(--vp-custom-block-info-text);
+  --text-color-vp-tip: var(--vp-custom-block-tip-text);
+
+  --background-color-vp-info: var(--vp-custom-block-info-bg);
+  --background-color-vp-tip: var(--vp-custom-block-tip-bg);
+  --background-color-vp-danger: var(--vp-custom-block-danger-bg);
+
+  --border-color-vp-divider: var(--vp-c-divider);
+}
 
 @layer components {
   .live-editor {
     .prism-code {
-      @apply px-6 py-5 rounded-b-lg whitespace-nowrap overflow-auto !important;
+      @apply px-6! py-5! rounded-b-lg! whitespace-nowrap! overflow-auto!;
     }
   }
 }
 
 .VPImage.logo {
   --vp-nav-logo-height: 32px;
-}
-
-/**
- * Resolve conflicting styles
- */
-.vp-doc {
-  .nd-text {
-    code {
-      @apply text-inherit text-[length:var(--nd-font-size-sm)] bg-[var(--nd-color-primary-code)] p-0 ps-1.5 pe-1.5 rounded-sm;
-    }
-  }
-
-  .nd-title {
-    @apply font-semibold tracking-normal p-0 mt-[1em] mb-[0.5em] border-none;
-  }
-
-  h1.nd-title {
-    @apply text-[length:var(--nd-font-size-5xl)] leading-[var(--nd-line-height-5xl)];
-  }
-  h2.nd-title {
-    @apply text-[length:var(--nd-font-size-4xl)] leading-[var(--nd-line-height-4xl)];
-  }
-  h3.nd-title {
-    @apply text-[length:var(--nd-font-size-3xl)] leading-[var(--nd-line-height-3xl)];
-  }
-  h4.nd-title {
-    @apply text-[length:var(--nd-font-size-2xl)] leading-[var(--nd-line-height-2xl)];
-  }
-  h5.nd-title {
-    @apply text-[length:var(--nd-font-size-xl)] leading-[var(--nd-line-height-xl)];
-  }
-  h6.nd-title {
-    @apply text-[length:var(--nd-font-size-lg)] leading-[var(--nd-line-height-lg)];
-  }
-
-  .nd-paragraph {
-    @apply mt-0 mb-[1em];
-  }
-
-  .nd-link {
-    color: var(--nd-color-primary);
-
-    &:hover {
-      color: var(--nd-color-primary-hover);
-    }
-
-    &:active {
-      color: var(--nd-color-primary-active);
-    }
-
-    &.nd-underline {
-      text-decoration-line: underline;
-    }
-
-    &.nd-no-underline {
-      text-decoration-line: none;
-    }
-  }
 }
 
 .dark {

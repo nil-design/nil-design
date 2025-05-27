@@ -1,6 +1,6 @@
 export const disabledClassNames = [
-    'disabled:nd-cursor-not-allowed',
-    'disabled:nd-grayscale-[50%]',
-    'disabled:nd-opacity-50',
-    'disabled:nd-select-none',
+    'disabled:cursor-not-allowed',
+    'disabled:grayscale-[50%]',
+    'disabled:opacity-50',
+    'disabled:select-none',
 ];

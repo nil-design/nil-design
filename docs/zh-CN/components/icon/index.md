@@ -33,7 +33,7 @@ const Demo = () => {
       ))}
       {['dolphin', 'duck', 'eagle', 'frog'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" variant="two-tone" fill={['var(--nd-color-primary)', 'var(--vp-c-brand-1)']}/>
+          <Icon name={name} className="text-2xl" variant="two-tone" fill={['var(--color-primary)', 'var(--vp-c-brand-1)']}/>
           <Text>{name}</Text>
         </Button>
       ))}

@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { isArray } from 'lodash-es';
 import {
     ReactNode,
@@ -9,7 +8,7 @@ import {
     ReactElement,
 } from 'react';
 import { disabledClassNames } from '../_core/style';
-import { isEmptyChildren, isPlainChildren } from '../_core/utils';
+import { cn, isEmptyChildren, isPlainChildren } from '../_core/utils';
 import {
     ButtonVariant,
     ButtonSize,
@@ -38,15 +37,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 type="button"
                 {...restProps}
                 disabled={disabled}
-                className={clsx(
-                    ['nd-button', 'nd-font-sans', 'nd-cursor-pointer', 'nd-rounded', 'nd-transition-colors'],
-                    block && ['nd-w-full'],
+                className={cn(
+                    ['nd-button', 'font-sans', 'cursor-pointer', 'rounded-md', 'transition-colors'],
+                    block && ['w-full'],
                     variantClassNames[variant],
                     sizeClassNames[size].concat(
                         {
-                            small: [plain ? 'nd-h-6' : 'nd-py-1'],
-                            medium: [plain ? 'nd-h-8' : 'nd-py-1.5'],
-                            large: [plain ? 'nd-h-10' : 'nd-py-2'],
+                            small: [plain ? 'h-6' : 'py-1'],
+                            medium: [plain ? 'h-8' : 'py-1.5'],
+                            large: [plain ? 'h-10' : 'py-2'],
                         }[size],
                     ),
                     disabledClassNames,
@@ -83,18 +82,18 @@ const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
         const horizontal = direction === 'horizontal';
 
         return (
-            <div className={clsx('nd-button-group', 'nd-flex', !horizontal && 'nd-flex-col', className)} ref={ref}>
+            <div className={cn('nd-button-group', 'flex', !horizontal && 'flex-col', className)} ref={ref}>
                 {children.map((child, index) => (
                     <Button
                         key={index}
                         {...child.props}
-                        className={clsx([
+                        className={cn([
                             index === 0
                                 ? groupFirstClassNames[direction]
                                 : index === children.length - 1
                                   ? groupLastClassNames[direction]
-                                  : 'nd-rounded-none',
-                            index !== 0 && (horizontal ? 'nd-border-l-0' : 'nd-border-t-0'),
+                                  : 'rounded-none',
+                            index !== 0 && (horizontal ? 'border-l-0' : 'border-t-0'),
                             index !== children.length - 1 && groupDividerClassNames[direction][variant],
                         ])}
                         {...{ variant, size, disabled }}

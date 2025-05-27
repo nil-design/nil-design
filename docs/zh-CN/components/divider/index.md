@@ -18,7 +18,7 @@ catOrder: 2
 ```tsx
 const { Paragraph, Text } = Typography;
 const Demo = () => {
-  return <div className="flex flex-col gap-4 text-[length:var(--nd-font-size-md)]">
+  return <div className="flex flex-col gap-4 text-md">
     <div>
       <Paragraph>学而不思则罔，思而不学则殆。 —— 孔子</Paragraph>
       <Divider />
@@ -42,7 +42,7 @@ render(<Demo />);
 ```tsx
 const { Paragraph } = Typography;
 const Demo = () => {
-  return <div className="text-[length:var(--nd-font-size-md)]">
+  return <div className="text-md">
     <Paragraph>学而不思则罔，思而不学则殆。 —— 孔子</Paragraph>
     <Divider className="border-[color:var(--vp-c-brand-1)]" />
     <Paragraph>不积跬步，无以至千里；不积小流，无以成江海。 —— 荀子</Paragraph>
@@ -66,7 +66,7 @@ render(<Demo />);
 ```tsx
 const { Paragraph, Text, Link } = Typography;
 const Demo = () => {
-  return <div className="text-[length:var(--nd-font-size-md)]">
+  return <div className="text-md">
     <Paragraph>学而不思则罔，思而不学则殆。 —— 孔子</Paragraph>
     <Divider>
       <Text className="px-2">Text</Text>

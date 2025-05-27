@@ -1,66 +1,51 @@
 export type ButtonVariant = 'solid' | 'outlined' | 'filled' | 'text';
 
 export const variantClassNames: Record<ButtonVariant, string[]> = {
-    solid: [
-        'nd-bg-primary',
-        'nd-text-contrast',
-        'enabled:hover:nd-bg-primary-hover',
-        'enabled:active:nd-bg-primary-active',
-    ],
+    solid: ['bg-primary', 'text-contrast', 'enabled:hover:bg-primary-hover', 'enabled:active:bg-primary-active'],
     outlined: [
-        'nd-bg-transparent',
-        'nd-border-solid',
-        'nd-border',
-        'nd-border-primary',
-        'nd-text-primary',
-        'enabled:hover:nd-bg-secondary-hover',
-        'enabled:active:nd-bg-secondary-active',
+        'bg-transparent',
+        'border-solid',
+        'border',
+        'border-primary',
+        'text-primary',
+        'enabled:hover:bg-secondary-hover',
+        'enabled:active:bg-secondary-active',
     ],
-    filled: [
-        'nd-bg-secondary',
-        'nd-text-primary',
-        'enabled:hover:nd-bg-secondary-hover',
-        'enabled:active:nd-bg-secondary-active',
-    ],
-    text: [
-        'nd-bg-transparent',
-        'nd-text-primary',
-        'enabled:hover:nd-bg-secondary-hover',
-        'enabled:active:nd-bg-secondary-active',
-    ],
+    filled: ['bg-secondary', 'text-primary', 'enabled:hover:bg-secondary-hover', 'enabled:active:bg-secondary-active'],
+    text: ['bg-transparent', 'text-primary', 'enabled:hover:bg-secondary-hover', 'enabled:active:bg-secondary-active'],
 } as const;
 
 export type ButtonSize = 'small' | 'medium' | 'large';
 
 export const sizeClassNames: Record<ButtonSize, string[]> = {
-    small: ['nd-px-2', 'nd-text-sm'],
-    medium: ['nd-px-4', 'nd-text-md'],
-    large: ['nd-px-6', 'nd-text-lg'],
+    small: ['px-2', 'text-sm'],
+    medium: ['px-4', 'text-md'],
+    large: ['px-6', 'text-lg'],
 } as const;
 
 export type ButtonGroupDirection = 'horizontal' | 'vertical';
 
 export const groupFirstClassNames: Record<ButtonGroupDirection, string[]> = {
-    horizontal: ['nd-rounded-r-none'],
-    vertical: ['nd-rounded-b-none'],
+    horizontal: ['rounded-r-none'],
+    vertical: ['rounded-b-none'],
 } as const;
 
 export const groupLastClassNames: Record<ButtonGroupDirection, string[]> = {
-    horizontal: ['nd-rounded-l-none'],
-    vertical: ['nd-rounded-t-none'],
+    horizontal: ['rounded-l-none'],
+    vertical: ['rounded-t-none'],
 } as const;
 
 export const groupDividerClassNames: Record<ButtonGroupDirection, Record<ButtonVariant, string[]>> = {
     horizontal: {
-        solid: ['nd-border-solid', 'nd-border-r', 'nd-border-r-primary-hover'],
+        solid: ['border-solid', 'border-r', 'border-r-primary-hover'],
         outlined: [],
-        filled: ['nd-border-solid', 'nd-border-r', 'nd-border-r-secondary-hover'],
-        text: ['nd-border-solid', 'nd-border-r', 'nd-border-r-secondary-hover'],
+        filled: ['border-solid', 'border-r', 'border-r-secondary-hover'],
+        text: ['border-solid', 'border-r', 'border-r-secondary-hover'],
     },
     vertical: {
-        solid: ['nd-border-solid', 'nd-border-b', 'nd-border-b-primary-hover'],
+        solid: ['border-solid', 'border-b', 'border-b-primary-hover'],
         outlined: [],
-        filled: ['nd-border-solid', 'nd-border-b', 'nd-border-b-secondary-hover'],
-        text: ['nd-border-solid', 'nd-border-b', 'nd-border-b-secondary-hover'],
+        filled: ['border-solid', 'border-b', 'border-b-secondary-hover'],
+        text: ['border-solid', 'border-b', 'border-b-secondary-hover'],
     },
 } as const;

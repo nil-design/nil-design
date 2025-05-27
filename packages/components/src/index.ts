@@ -3,6 +3,6 @@ import Button from './button';
 import Divider from './divider';
 import Icon from './icon';
 import Typography from './typography';
-import './index.css';
+import './tailwind.css';
 
 export { Button, Divider, Icon, Typography };

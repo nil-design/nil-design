@@ -1,6 +1,6 @@
-import clsx from 'clsx';
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import { disabledClassNames } from '../_core/style';
+import { cn } from '../_core/utils';
 
 export interface TextProps extends HTMLAttributes<HTMLSpanElement> {
     className?: string;
@@ -38,28 +38,22 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
 
         strong && (finalChildren = <strong>{finalChildren}</strong>);
         deleted && (finalChildren = <del>{finalChildren}</del>);
-        underlined && (finalChildren = <u className="nd-underline">{finalChildren}</u>);
+        underlined && (finalChildren = <u className="underline">{finalChildren}</u>);
         italic && (finalChildren = <i>{finalChildren}</i>);
-        marked && (finalChildren = <mark className="nd-text-primary nd-bg-primary-mark">{finalChildren}</mark>);
+        marked && (finalChildren = <mark className="text-primary bg-primary-mark">{finalChildren}</mark>);
         coded &&
             (finalChildren = (
-                <code
-                    className={clsx(
-                        'nd-text-sm',
-                        'nd-ps-1.5 nd-pe-1.5',
-                        'nd-rounded-sm nd-border nd-border-solid nd-border-secondary',
-                    )}
-                >
+                <code className={cn('text-sm', 'ps-1.5 pe-1.5', 'rounded-sm border border-solid border-secondary')}>
                     {finalChildren}
                 </code>
             ));
         keyboarded &&
             (finalChildren = (
                 <kbd
-                    className={clsx(
-                        'nd-text-sm',
-                        'nd-ps-1.5 nd-pe-1.5',
-                        'nd-rounded-sm nd-border nd-border-b-2 nd-border-solid nd-border-secondary',
+                    className={cn(
+                        'text-sm',
+                        'ps-1.5 pe-1.5',
+                        'rounded-sm border border-b-2 border-solid border-secondary',
                     )}
                 >
                     {finalChildren}
@@ -69,10 +63,10 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
         return (
             <span
                 {...restProps}
-                className={clsx(
-                    ['nd-text', 'nd-font-sans', 'nd-text-[length:inherit]'],
-                    disabled && 'nd-disabled',
-                    !secondary ? 'nd-text-primary' : 'nd-text-secondary',
+                className={cn(
+                    ['nd-text', 'font-sans', 'text-[length:inherit]'],
+                    disabled && 'disabled',
+                    !secondary ? 'text-primary' : 'text-secondary',
                     disabledClassNames,
                     className,
                 )}

@@ -1,6 +1,5 @@
-import clsx from 'clsx';
 import { HTMLAttributes, ReactNode, forwardRef } from 'react';
-import { isEmptyChildren } from '../_core/utils';
+import { cn, isEmptyChildren } from '../_core/utils';
 import {
     DividerVariant,
     DividerDirection,
@@ -26,10 +25,10 @@ const Divider = forwardRef<HTMLDivElement, DividerProps>(
         return (
             <div
                 {...restProps}
-                className={clsx(
+                className={cn(
                     'nd-divider',
-                    'nd-border-split',
-                    'nd-text-primary',
+                    'border-split',
+                    'text-primary',
                     horizontal && hasChildren
                         ? directionWithChildrenClassNames[direction][variant].concat(alignClassNames[align])
                         : directionWithoutChildrenClassNames[direction][variant],
