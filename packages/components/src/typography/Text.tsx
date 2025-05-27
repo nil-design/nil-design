@@ -43,7 +43,13 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
         marked && (finalChildren = <mark className="text-primary bg-primary-mark">{finalChildren}</mark>);
         coded &&
             (finalChildren = (
-                <code className={cn('text-sm', 'ps-1.5 pe-1.5', 'rounded-sm border border-solid border-secondary')}>
+                <code
+                    className={cn(
+                        'text-sm',
+                        'ps-1.5 pe-1.5',
+                        'bg-primary-code rounded-sm border border-solid border-secondary',
+                    )}
+                >
                     {finalChildren}
                 </code>
             ));
