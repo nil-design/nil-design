@@ -32,8 +32,8 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
     return (
         <IconProvider value={{ ...DEFAULT_ICON_CONFIGS, size: 16, theme: 'outline' }}>
             <LiveProvider noInline theme={theme} code={code} scope={{ React, ...components }}>
-                <div className="live-demo flex flex-col rounded-lg bg-transparent border border-vp-divider">
-                    {<LivePreview className={clsx("live-preview px-6 py-8", hasError && 'hidden')} />}
+                <div className="live-demo vp-raw flex flex-col rounded-lg bg-transparent border border-vp-divider">
+                    {<LivePreview className={clsx('live-preview px-6 py-8', hasError && 'hidden')} />}
                     <div
                         className={clsx('live-error rounded-t-lg', hasError ? 'px-6 py-8 bg-vp-danger' : 'hidden')}
                         ref={errorRef}
@@ -46,11 +46,11 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
                             !editorVisible && 'rounded-b-lg',
                         )}
                     >
-                        <button className="px-1" onClick={() => setEditorVisible(v => !v)}>
+                        <button className="px-1 cursor-pointer" onClick={() => setEditorVisible(v => !v)}>
                             {editorVisible ? <CollapseTextInput /> : <Code />}{' '}
                         </button>
                         <button
-                            className="px-1"
+                            className="px-1 cursor-pointer"
                             onClick={() => {
                                 navigator.clipboard.writeText(code);
                             }}

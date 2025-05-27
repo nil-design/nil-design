@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import { cn } from '../_core/utils';
 
 export interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement> {
     className?: string;
@@ -10,12 +10,7 @@ const Paragraph = forwardRef<HTMLParagraphElement, ParagraphProps>(({ className,
     return (
         <p
             {...restProps}
-            className={clsx(
-                'nd-paragraph',
-                'nd-text-primary nd-text-[length:inherit]',
-                'nd-mt-0 nd-mb-[1em]',
-                className,
-            )}
+            className={cn('nd-paragraph', 'text-primary', 'text-[length:inherit]', 'mt-0 mb-[1em]', className)}
             ref={ref}
         >
             {children}

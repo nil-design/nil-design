@@ -1,6 +1,57 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+    --color-primary: var(--nd-color-primary);
+    --color-primary-hover: var(--nd-color-primary-hover);
+    --color-primary-active: var(--nd-color-primary-active);
+    --color-primary-mark: var(--nd-color-primary-mark);
+    --color-primary-code: var(--nd-color-primary-code);
+
+    --color-secondary: var(--nd-color-secondary);
+    --color-secondary-hover: var(--nd-color-secondary-hover);
+    --color-secondary-active: var(--nd-color-secondary-active);
+
+    --color-contrast: var(--nd-color-contrast);
+
+    --color-split: var(--nd-color-split);
+
+    --text-color-primary: var(--nd-text-color-primary);
+    --text-color-secondary: var(--nd-text-color-secondary);
+    --text-color-link: var(--nd-color-primary);
+    --text-color-link-hover: var(--nd-color-primary-hover);
+    --text-color-link-active: var(--nd-color-primary-active);
+
+    --text-sm: 0.75rem;
+    --text-sm--line-height: 1rem;
+    --text-md: 0.875rem;
+    --text-md--line-height: 1.25rem;
+    --text-lg: 1rem;
+    --text-lg--line-height: 1.5rem;
+    --text-xl: 1.125rem;
+    --text-xl--line-height: 1.75rem;
+    --text-2xl: 1.25rem;
+    --text-2xl--line-height: 1.75rem;
+    --text-3xl: 1.5rem;
+    --text-3xl--line-height: 2rem;
+    --text-4xl: 1.875rem;
+    --text-4xl--line-height: 2.25rem;
+    --text-5xl: 2.25rem;
+    --text-5xl--line-height: 2.5rem;
+
+    --radius-sm: 0.125rem;
+    --radius-md: 0.25rem;
+    --radius-lg: 0.375rem;
+}
+
+@utility underline {
+    text-decoration: underline;
+    text-underline-offset: 0.125rem;
+}
+
+@custom-variant disabled {
+    &.disabled,
+    &:disabled {
+        @slot;
+    }
+}
 
 :root {
     --nd-h-primary: 215;
@@ -28,29 +79,6 @@
 
     --nd-text-color-primary: hsl(var(--nd-h-primary) var(--nd-s-primary) 5%);
     --nd-text-color-secondary: hsl(var(--nd-h-primary) var(--nd-s-primary) 5% / 0.6);
-
-    --nd-font-size-sm: 0.75rem;
-    --nd-font-size-md: 0.875rem;
-    --nd-font-size-lg: 1rem;
-    --nd-font-size-xl: 1.125rem;
-    --nd-font-size-2xl: 1.25rem;
-    --nd-font-size-3xl: 1.5rem;
-    --nd-font-size-4xl: 1.875rem;
-    --nd-font-size-5xl: 2.25rem;
-
-    --nd-line-height-sm: 1rem;
-    --nd-line-height-md: 1.25rem;
-    --nd-line-height-lg: 1.5rem;
-    --nd-line-height-xl: 1.75rem;
-    --nd-line-height-2xl: 1.75rem;
-    --nd-line-height-3xl: 2rem;
-    --nd-line-height-4xl: 2.25rem;
-    --nd-line-height-5xl: 2.5rem;
-
-    --nd-border-radius-sm: 0.125rem;
-    --nd-border-radius: 0.25rem;
-    --nd-border-radius-lg: 0.375rem;
-    --nd-border-radius-xl: 0.5rem;
 }
 
 .dark {

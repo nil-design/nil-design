@@ -1,7 +1,6 @@
-import clsx from 'clsx';
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import { cn } from '../_core/utils';
 import { HeadingLevel, headingClassNames } from './style';
-
 export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
     className?: string;
     children?: ReactNode;
@@ -14,8 +13,8 @@ const Title = forwardRef<HTMLHeadingElement, TitleProps>(({ className, children,
     return (
         <Heading
             {...restProps}
-            className={clsx(
-                ['nd-title', 'nd-font-sans', 'nd-font-semibold', 'nd-text-primary', 'nd-mt-[1em] nd-mb-[0.5em]'],
+            className={cn(
+                ['nd-title', 'font-sans', 'font-semibold', 'text-primary', 'mt-[1em] mb-[0.5em]'],
                 headingClassNames[level],
                 className,
             )}

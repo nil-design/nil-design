@@ -58,7 +58,7 @@ render(<Demo />);
 ```tsx
 const { Text } = Typography;
 const Demo = () => {
-  return <div className="flex flex-col items-start gap-4 text-[length:var(--nd-font-size-md)]">
+  return <div className="flex flex-col items-start gap-4 text-md">
     <Text>Nil Design</Text>
     <Text secondary>Nil Design</Text>
     <Text disabled>Nil Design</Text>
@@ -82,7 +82,7 @@ render(<Demo />);
 ```tsx
 const { Link } = Typography;
 const Demo = () => {
-  return <div className="flex gap-4 text-[length:var(--nd-font-size-md)]">
+  return <div className="flex gap-4 text-md">
     <Link>Nil Design</Link>
     <Link underlined>Nil Design</Link>
     <Link disabled>Nil Design</Link>

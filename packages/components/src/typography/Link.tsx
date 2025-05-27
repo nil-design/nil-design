@@ -1,6 +1,6 @@
-import clsx from 'clsx';
 import { forwardRef, AnchorHTMLAttributes, ReactNode } from 'react';
 import { disabledClassNames } from '../_core/style';
+import { cn, isEmptyChildren } from '../_core/utils';
 
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     className?: string;
@@ -17,17 +17,18 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
             <a
                 {...restProps}
                 href={resolvedHref}
-                className={clsx(
+                className={cn(
                     [
                         'nd-link',
-                        'nd-font-sans',
-                        'nd-text-link nd-text-[length:inherit]',
-                        'nd-cursor-pointer',
-                        'hover:nd-text-link-hover',
-                        'active:nd-text-link-active',
+                        'font-sans',
+                        'text-link',
+                        'text-[length:inherit]',
+                        'cursor-pointer',
+                        'hover:text-link-hover',
+                        'active:text-link-active',
                     ],
-                    underlined ? 'nd-underline' : 'nd-no-underline',
-                    disabled && 'nd-disabled',
+                    underlined ? 'underline' : 'no-underline',
+                    disabled && 'disabled',
                     disabledClassNames,
                     className,
                 )}
