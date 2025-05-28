@@ -1,6 +1,6 @@
 import { forwardRef, AnchorHTMLAttributes, ReactNode } from 'react';
-import { disabledClassNames } from '../_core/style';
-import { cn, isEmptyChildren } from '../_core/utils';
+import { DISABLED_CLS } from '../_core/style';
+import { cn } from '../_core/utils';
 
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     className?: string;
@@ -29,7 +29,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
                     ],
                     underlined ? 'underline' : 'no-underline',
                     disabled && 'disabled',
-                    disabledClassNames,
+                    DISABLED_CLS,
                     className,
                 )}
                 ref={ref}

@@ -1,6 +1,6 @@
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
-export const headingClassNames: Record<HeadingLevel, string[]> = {
+export const HEADING_LEVEL_CLS_MAP: Record<HeadingLevel, string[]> = {
     1: ['text-5xl'],
     2: ['text-4xl'],
     3: ['text-3xl'],

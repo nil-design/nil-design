@@ -4,9 +4,9 @@ import {
     DividerVariant,
     DividerDirection,
     DividerAlign,
-    directionWithoutChildrenClassNames,
-    directionWithChildrenClassNames,
-    alignClassNames,
+    DIRECTION_WITHOUT_CHILDREN_CLS_MAP,
+    DIRECTION_WITH_CHILDREN_CLS_MAP,
+    ALIGN_CLS_MAP,
 } from './style';
 
 export interface DividerProps extends HTMLAttributes<HTMLDivElement> {
@@ -30,8 +30,8 @@ const Divider = forwardRef<HTMLDivElement, DividerProps>(
                     'border-split',
                     'text-primary',
                     horizontal && hasChildren
-                        ? directionWithChildrenClassNames[direction][variant].concat(alignClassNames[align])
-                        : directionWithoutChildrenClassNames[direction][variant],
+                        ? DIRECTION_WITH_CHILDREN_CLS_MAP[direction][variant].concat(ALIGN_CLS_MAP[align])
+                        : DIRECTION_WITHOUT_CHILDREN_CLS_MAP[direction][variant],
                     className,
                 )}
                 ref={ref}

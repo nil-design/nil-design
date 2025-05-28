@@ -1,5 +1,5 @@
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
-import { disabledClassNames } from '../_core/style';
+import { DISABLED_CLS } from '../_core/style';
 import { cn } from '../_core/utils';
 
 export interface TextProps extends HTMLAttributes<HTMLSpanElement> {
@@ -73,7 +73,7 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
                     ['nd-text', 'font-sans', 'text-[length:inherit]'],
                     disabled && 'disabled',
                     !secondary ? 'text-primary' : 'text-secondary',
-                    disabledClassNames,
+                    DISABLED_CLS,
                     className,
                 )}
                 ref={ref}
