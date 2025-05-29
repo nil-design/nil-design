@@ -1,6 +1,7 @@
 {
     "name": "@nild/components",
     "private": false,
+    "version": "0.0.1",
     "type": "module",
     "module": "./dist/index.mjs",
     "exports": {
@@ -27,6 +28,7 @@
         "@icon-park/react": "1.4.2"
     },
     "peerDependencies": {
+        "@nild/hooks": "workspace:*",
         "react": ">=18.2.0",
         "react-dom": ">=18.2.0",
         "clsx": ">=2.1.1",

@@ -1,6 +1,6 @@
 import { forwardRef, AnchorHTMLAttributes, ReactNode } from 'react';
-import { disabledClassNames } from '../_core/style';
-import { cn, isEmptyChildren } from '../_core/utils';
+import { DISABLED_CLS } from '../_core/style';
+import { cn } from '../_core/utils';
 
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     className?: string;
@@ -24,12 +24,12 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
                         'text-link',
                         'text-[length:inherit]',
                         'cursor-pointer',
-                        'hover:text-link-hover',
-                        'active:text-link-active',
+                        'enabled:hover:text-link-hover',
+                        'enabled:active:text-link-active',
                     ],
                     underlined ? 'underline' : 'no-underline',
                     disabled && 'disabled',
-                    disabledClassNames,
+                    DISABLED_CLS,
                     className,
                 )}
                 ref={ref}

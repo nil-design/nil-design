@@ -1,8 +1,9 @@
 import { ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { twMerge, ClassNameValue } from 'tailwind-merge';
 
-const cn = (...inputs: ClassValue[]) => {
-    return twMerge(clsx(inputs));
+const cn = (...classNames: [...ClassValue[], ClassNameValue]) => {
+    const lastClassName = classNames.pop();
+    return twMerge(clsx(...classNames), lastClassName as ClassNameValue);
 };
 
 export default cn;

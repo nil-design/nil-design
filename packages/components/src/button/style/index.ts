@@ -1,6 +1,6 @@
 export type ButtonVariant = 'solid' | 'outlined' | 'filled' | 'text';
 
-export const variantClassNames: Record<ButtonVariant, string[]> = {
+export const VARIANT_CLS_MAP: Record<ButtonVariant, string[]> = {
     solid: ['bg-primary', 'text-contrast', 'enabled:hover:bg-primary-hover', 'enabled:active:bg-primary-active'],
     outlined: [
         'bg-transparent',
@@ -17,7 +17,7 @@ export const variantClassNames: Record<ButtonVariant, string[]> = {
 
 export type ButtonSize = 'small' | 'medium' | 'large';
 
-export const sizeClassNames: Record<ButtonSize, string[]> = {
+export const SIZE_CLS_MAP: Record<ButtonSize, string[]> = {
     small: ['px-2', 'text-sm'],
     medium: ['px-4', 'text-md'],
     large: ['px-6', 'text-lg'],
@@ -25,17 +25,17 @@ export const sizeClassNames: Record<ButtonSize, string[]> = {
 
 export type ButtonGroupDirection = 'horizontal' | 'vertical';
 
-export const groupFirstClassNames: Record<ButtonGroupDirection, string[]> = {
+export const GROUP_FIRST_CLS_MAP: Record<ButtonGroupDirection, string[]> = {
     horizontal: ['rounded-r-none'],
     vertical: ['rounded-b-none'],
 } as const;
 
-export const groupLastClassNames: Record<ButtonGroupDirection, string[]> = {
+export const GROUP_LAST_CLS_MAP: Record<ButtonGroupDirection, string[]> = {
     horizontal: ['rounded-l-none'],
     vertical: ['rounded-t-none'],
 } as const;
 
-export const groupDividerClassNames: Record<ButtonGroupDirection, Record<ButtonVariant, string[]>> = {
+export const GROUP_DIVIDER_CLS_MAP: Record<ButtonGroupDirection, Record<ButtonVariant, string[]>> = {
     horizontal: {
         solid: ['border-solid', 'border-r', 'border-r-primary-hover'],
         outlined: [],

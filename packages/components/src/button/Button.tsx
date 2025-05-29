@@ -7,16 +7,16 @@ import {
     RefAttributes,
     ReactElement,
 } from 'react';
-import { disabledClassNames } from '../_core/style';
+import { DISABLED_CLS } from '../_core/style';
 import { cn, isEmptyChildren, isPlainChildren } from '../_core/utils';
 import {
     ButtonVariant,
     ButtonSize,
-    variantClassNames,
-    sizeClassNames,
-    groupFirstClassNames,
-    groupLastClassNames,
-    groupDividerClassNames,
+    VARIANT_CLS_MAP,
+    SIZE_CLS_MAP,
+    GROUP_FIRST_CLS_MAP,
+    GROUP_LAST_CLS_MAP,
+    GROUP_DIVIDER_CLS_MAP,
 } from './style';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -40,15 +40,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 className={cn(
                     ['nd-button', 'font-sans', 'cursor-pointer', 'rounded-md', 'transition-colors'],
                     block && ['w-full'],
-                    variantClassNames[variant],
-                    sizeClassNames[size].concat(
+                    VARIANT_CLS_MAP[variant],
+                    SIZE_CLS_MAP[size].concat(
                         {
                             small: [plain ? 'h-6' : 'py-1'],
                             medium: [plain ? 'h-8' : 'py-1.5'],
                             large: [plain ? 'h-10' : 'py-2'],
                         }[size],
                     ),
-                    disabledClassNames,
+                    DISABLED_CLS,
                     className,
                 )}
                 ref={ref}
@@ -89,12 +89,12 @@ const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
                         {...child.props}
                         className={cn([
                             index === 0
-                                ? groupFirstClassNames[direction]
+                                ? GROUP_FIRST_CLS_MAP[direction]
                                 : index === children.length - 1
-                                  ? groupLastClassNames[direction]
+                                  ? GROUP_LAST_CLS_MAP[direction]
                                   : 'rounded-none',
                             index !== 0 && (horizontal ? 'border-l-0' : 'border-t-0'),
-                            index !== children.length - 1 && groupDividerClassNames[direction][variant],
+                            index !== children.length - 1 && GROUP_DIVIDER_CLS_MAP[direction][variant],
                         ])}
                         {...{ variant, size, disabled }}
                     />

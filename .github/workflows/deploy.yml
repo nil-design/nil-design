@@ -36,8 +36,8 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
-      - name: Build components
-        run: pnpm components:build
+      - name: Build packages
+        run: pnpm build
       - name: Build docs
         run: pnpm docs:build
       - name: Setup Pages
