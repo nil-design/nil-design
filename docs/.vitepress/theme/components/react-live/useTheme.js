@@ -6,7 +6,7 @@ const useTheme = (dark = false) => {
             plain: {
                 color: dark ? '#E1E4E8' : '#24292E',
                 backgroundColor: 'var(--vp-code-block-bg)',
-                fontFamily: 'monospace',
+                fontFamily: 'var(--vp-font-family-mono)',
                 fontSize: '14px',
                 lineHeight: 'var(--vp-code-line-height)',
             },
