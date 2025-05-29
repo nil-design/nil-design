@@ -1,3 +1,7 @@
+/**
+ * Tailwind Overrides
+ */
+
 @theme {
     --color-primary: var(--nd-color-primary);
     --color-primary-hover: var(--nd-color-primary-hover);
@@ -52,6 +56,10 @@
         @slot;
     }
 }
+
+/**
+ * Nil Design Tokens
+ */
 
 :root {
     --nd-h-primary: 215;
