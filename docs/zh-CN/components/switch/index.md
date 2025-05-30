@@ -31,6 +31,7 @@ render(<Demo />);
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
     <Switch disabled />
+    <Switch disabled defaultChecked />
     <Switch variant="outlined" disabled />
   </div>;
 }

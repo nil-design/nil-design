@@ -59,6 +59,23 @@ render(<Demo />);
 ```
 :::
 
+## 圆形按钮
+
+::: react-live
+```tsx
+const Demo = () => {
+  return <div className="flex flex-wrap gap-4">
+    <Button shape="round">Solid</Button>
+    <Button shape="round" variant="outlined" shape="round">Outlined</Button>
+    <Button shape="round" variant="filled">Filled</Button>
+    <Button shape="round" variant="text">Text</Button>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
 ## 块级按钮
 
 ::: react-live
@@ -69,6 +86,28 @@ const Demo = () => {
     <Button block variant="outlined">Outlined</Button>
     <Button block variant="filled">Filled</Button>
     <Button block variant="text">Text</Button>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
+## 等宽高按钮
+
+::: react-live
+```tsx
+const Demo = () => {
+  return <div className="flex flex-wrap items-end gap-4">
+    <Button equal>
+      <Icon name="plus" />
+    </Button>
+    <Button variant="outlined" equal>
+      <Icon name="search" />
+    </Button>
+    <Button variant="filled" shape="round" equal>
+      <Icon name="power" />
+    </Button>
   </div>;
 }
 
@@ -116,8 +155,10 @@ render(<Demo />);
 | children | - | `React.ReactNode` | - |
 | variant | - | `"solid" \| "outlined" \| "filled" \| "text"` | `"solid"` |
 | size | - | `"small" \| "medium" \| "large"` | `"medium"` |
+| shape | - | `"round" \| "square"` | `"square"` |
 | disabled | - | `boolean` | - |
 | block | - | `boolean` | - |
+| equal | - | `boolean` | - |
 
 ## Button.Group API
 
