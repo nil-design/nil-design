@@ -12,8 +12,11 @@ import { cn, isEmptyChildren, isPlainChildren } from '../_core/utils';
 import {
     ButtonVariant,
     ButtonSize,
+    ButtonShape,
     VARIANT_CLS_MAP,
     SIZE_CLS_MAP,
+    SHAPE_CLS_MAP,
+    EQUAL_CLS_MAP,
     GROUP_FIRST_CLS_MAP,
     GROUP_LAST_CLS_MAP,
     GROUP_DIVIDER_CLS_MAP,
@@ -24,12 +27,27 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children?: ReactNode;
     variant?: ButtonVariant;
     size?: ButtonSize;
+    shape?: ButtonShape;
+    equal?: boolean;
     disabled?: boolean;
     block?: boolean;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, children, variant = 'solid', size = 'medium', disabled, block, ...restProps }, ref) => {
+    (
+        {
+            className,
+            children,
+            variant = 'solid',
+            size = 'medium',
+            shape = 'square',
+            equal = false,
+            disabled,
+            block,
+            ...restProps
+        },
+        ref,
+    ) => {
         const plain = isPlainChildren(children);
 
         return (
@@ -38,16 +56,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {...restProps}
                 disabled={disabled}
                 className={cn(
-                    ['nd-button', 'font-sans', 'cursor-pointer', 'rounded-md', 'transition-colors'],
+                    ['nd-button', 'font-sans', 'cursor-pointer', 'transition-colors'],
                     block && ['w-full'],
                     VARIANT_CLS_MAP[variant],
-                    SIZE_CLS_MAP[size].concat(
-                        {
-                            small: [plain ? 'h-6' : 'py-1'],
-                            medium: [plain ? 'h-8' : 'py-1.5'],
-                            large: [plain ? 'h-10' : 'py-2'],
-                        }[size],
-                    ),
+                    SIZE_CLS_MAP[size][`${plain}`],
+                    SHAPE_CLS_MAP[shape],
+                    equal && EQUAL_CLS_MAP[size],
                     DISABLED_CLS,
                     className,
                 )}
