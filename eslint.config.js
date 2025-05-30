@@ -26,6 +26,7 @@ export default tslint.config(
             },
         },
         rules: {
+            'no-console': 'warn',
             'no-unused-vars': 'warn',
         },
     },
