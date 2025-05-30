@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import clsx from 'clsx';
 import { IconProvider, DEFAULT_ICON_CONFIGS, Code, CollapseTextInput, Copy } from '@icon-park/react';
@@ -6,6 +6,7 @@ import * as components from '@nild/components';
 import useTheme from './useTheme';
 
 const ReactLive = ({ dark = false, code: initialCode }) => {
+    const scope = useMemo(() => ({ React, ...components }), []);
     const [editorVisible, setEditorVisible] = useState(false);
     const [code, setCode] = useState(decodeURIComponent(initialCode));
     const [copyActive, setCopyActive] = useState(false);
@@ -31,7 +32,7 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
 
     return (
         <IconProvider value={{ ...DEFAULT_ICON_CONFIGS, size: 16, theme: 'outline' }}>
-            <LiveProvider noInline theme={theme} code={code} scope={{ React, ...components }}>
+            <LiveProvider noInline theme={theme} code={code} scope={scope}>
                 <div className="live-demo vp-raw flex flex-col rounded-lg bg-transparent border border-vp-divider">
                     {<LivePreview className={clsx('live-preview px-6 py-8', hasError && 'hidden')} />}
                     <div
@@ -61,7 +62,7 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
                             <Copy theme={copyActive ? 'filled' : 'outline'} />
                         </button>
                     </div>
-                    {editorVisible && <LiveEditor className="live-editor" onChange={setCode} />}
+                    {<LiveEditor className={clsx('live-editor', !editorVisible && 'hidden')} onChange={setCode} />}
                 </div>
             </LiveProvider>
         </IconProvider>
