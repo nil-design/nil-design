@@ -27,6 +27,9 @@ export interface SwitchProps
     value?: boolean;
     defaultValue?: boolean;
     disabled?: boolean;
+    checkedContent?: React.ReactNode;
+    uncheckedContent?: React.ReactNode;
+    thumbContent?: React.ReactNode;
     onChange?: (checked: boolean) => void;
 }
 
@@ -42,6 +45,9 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
             value: valueProp,
             defaultValue,
             disabled,
+            checkedContent,
+            uncheckedContent,
+            thumbContent,
             onChange,
             style: styleProp,
             ...restProps
@@ -94,7 +100,9 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                             checked ? ['ms-0 me-0'] : ['-ms-[100%] me-[100%]'],
                         ),
                     )}
-                ></div>
+                >
+                    {checkedContent}
+                </div>
                 <div
                     className={cx(
                         'h-[var(--nd-switch-height)] flex justify-center items-center',
@@ -106,16 +114,21 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                             checked ? ['ms-[100%] -me-[100%]'] : ['ms-0 me-0'],
                         ),
                     )}
-                ></div>
+                >
+                    {uncheckedContent}
+                </div>
                 <div
                     className={cx(
+                        'flex justify-center items-center',
                         'h-[var(--nd-switch-height)] absolute aspect-square scale-80',
-                        'transition-[left]',
+                        'text-contrast transition-[left]',
                         VARIANT_THUMB_CLS_MAP[variant],
                         SHAPE_CLS_MAP[shape],
                         checked ? 'left-[calc(100%-var(--nd-switch-height))]' : 'left-0',
                     )}
-                ></div>
+                >
+                    {thumbContent}
+                </div>
             </button>
         );
     },

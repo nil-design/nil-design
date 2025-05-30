@@ -70,6 +70,37 @@ render(<Demo />);
 ```
 :::
 
+## 自定义内容
+
+::: react-live
+```tsx
+const { useState } = React;
+const Demo = () => {
+  const [checked, setChecked] = useState(false);
+
+  return <div className="flex flex-wrap gap-4">
+    <Switch
+      checkedContent={'Open'}
+      uncheckedContent={'Close'}
+    />
+    <Switch
+      shape="square"
+      checkedContent={<Icon name="check" />}
+      uncheckedContent={<Icon name="close" />}
+    />
+    <Switch
+      variant="outlined"
+      checked={checked}
+      thumbContent={<Icon name={checked ? 'dark-mode' : 'sun-one'} />}
+      onChange={setChecked}
+    />
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
 ## API
 
 | 属性名 | 描述 | 类型 | 默认值 |
@@ -79,3 +110,6 @@ render(<Demo />);
 | size | - | `"small" \| "medium" \| "large"` | `"medium"` |
 | shape | - | `"round" \| "square"` | `"round"` |
 | disabled | - | `boolean` | - |
+| checkedContent | - | `React.ReactNode` | - |
+| uncheckedContent | - | `React.ReactNode` | - |
+| thumbContent | - | `React.ReactNode` | - |

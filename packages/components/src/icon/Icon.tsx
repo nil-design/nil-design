@@ -34,7 +34,9 @@ const Icon: FC<IconProps> = ({ className, name = '', variant = 'outlined', compo
     const importer = iconImporters[`/node_modules/@icon-park/react/es/icons/${resolvedName}.js`];
 
     useEffect(() => {
-        if (!Component && !DynamicIcon && isFunction(importer)) {
+        if (iconCaches.has(resolvedName)) {
+            setDynamicIcon(() => iconCaches.get(resolvedName) ?? null);
+        } else if (!Component && isFunction(importer)) {
             importer().then(SvgIcon => {
                 setDynamicIcon(() => {
                     iconCaches.set(resolvedName, SvgIcon);
