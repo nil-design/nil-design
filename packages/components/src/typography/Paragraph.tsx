@@ -1,5 +1,5 @@
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
-import { cn } from '../_core/utils';
+import { cn } from '../_shared/utils';
 
 export interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement> {
     className?: string;

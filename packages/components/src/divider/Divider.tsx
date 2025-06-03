@@ -1,5 +1,5 @@
 import { HTMLAttributes, ReactNode, forwardRef } from 'react';
-import { cn, isEmptyChildren } from '../_core/utils';
+import { cn, isEmptyChildren } from '../_shared/utils';
 import {
     DividerVariant,
     DividerDirection,

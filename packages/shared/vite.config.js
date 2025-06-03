@@ -5,13 +5,18 @@ import { getPeerDeps } from '../../scripts/shared';
 import pkg from './package.json';
 
 export default defineConfig(({ mode }) => {
-    const peerDeps = getPeerDeps(pkg.name, '@nild/shared');
+    const peerDeps = getPeerDeps(pkg.name);
 
     return {
-        plugins: [dts({ tsconfigPath: './tsconfig.json' })],
+        plugins: [
+            dts({
+                tsconfigPath: './tsconfig.json',
+                copyDtsFiles: true,
+            }),
+        ],
         build: {
             lib: {
-                entry: resolve(__dirname, 'src/index.ts'),
+                entry: [resolve(__dirname, 'src/index.ts'), resolve(__dirname, 'src/utils/index.ts')],
                 formats: ['es'],
             },
             emptyOutDir: true,

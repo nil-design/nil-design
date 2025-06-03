@@ -1,7 +1,7 @@
 import { IIconProps as ParkIconProps, Theme as ParkIconTheme, IconWrapper } from '@icon-park/react/es/runtime';
-import { isFunction } from 'lodash-es';
+import { isFunction, kebabToPascal } from '@nild/shared/utils';
 import { ComponentType, FC, SVGProps, useState, useEffect } from 'react';
-import { cn, kebabToPascal } from '../_core/utils';
+import { cn } from '../_shared/utils';
 
 type IconVariant = 'outlined' | 'filled' | 'two-tone' | 'multi-color';
 

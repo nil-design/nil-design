@@ -1,5 +1,5 @@
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
-import { cn } from '../_core/utils';
+import { cn } from '../_shared/utils';
 import { HeadingLevel, HEADING_LEVEL_CLS_MAP } from './style';
 export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
     className?: string;
