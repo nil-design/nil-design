@@ -1,6 +1,6 @@
 import { forwardRef, AnchorHTMLAttributes, ReactNode } from 'react';
-import { DISABLED_CLS } from '../_core/style';
-import { cn } from '../_core/utils';
+import { DISABLED_CLS } from '../_shared/style';
+import { cn } from '../_shared/utils';
 
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
     className?: string;

@@ -1,4 +1,4 @@
-import { isArray } from 'lodash-es';
+import { isArray } from '@nild/shared/utils';
 import {
     ReactNode,
     ButtonHTMLAttributes,
@@ -7,8 +7,8 @@ import {
     RefAttributes,
     ReactElement,
 } from 'react';
-import { DISABLED_CLS } from '../_core/style';
-import { cn, isEmptyChildren, isPlainChildren } from '../_core/utils';
+import { DISABLED_CLS } from '../_shared/style';
+import { cn, isEmptyChildren, isPlainChildren } from '../_shared/utils';
 import {
     ButtonVariant,
     ButtonSize,

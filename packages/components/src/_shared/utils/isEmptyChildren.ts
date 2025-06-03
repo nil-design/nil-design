@@ -1,4 +1,4 @@
-import { isNil, isArray, isEmpty } from 'lodash-es';
+import { isNil, isArray, isEmpty } from '@nild/shared/utils';
 import { ReactNode, Fragment } from 'react';
 
 const isEmptyChildren = (children: ReactNode): boolean => {

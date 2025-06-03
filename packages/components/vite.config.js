@@ -3,10 +3,11 @@ import react from '@vitejs/plugin-react';
 import postcssNested from 'postcss-nested';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import { getPeerDeps } from '../../scripts/shared';
 import pkg from './package.json';
 
 export default defineConfig(({ mode }) => {
-    const peerDeps = Object.keys(pkg.peerDependencies || {});
+    const peerDeps = getPeerDeps(pkg.name, '@nild/shared', '@nild/hooks');
 
     return {
         plugins: [react(), dts({ tsconfigPath: './tsconfig.json' })],

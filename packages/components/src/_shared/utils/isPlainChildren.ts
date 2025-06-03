@@ -1,4 +1,4 @@
-import { isNil, isNumber, isString, isArray } from 'lodash-es';
+import { isNil, isNumber, isString, isArray } from '@nild/shared/utils';
 import { ReactNode } from 'react';
 
 const isPlainChildren = (children: ReactNode): children is string | number => {

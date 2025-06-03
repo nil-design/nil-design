@@ -1,9 +1,9 @@
 import { useControllable } from '@nild/hooks';
+import { CSSPropertiesWithVars } from '@nild/shared/types';
 import cx from 'clsx';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
-import { DISABLED_CLS } from '../_core/style';
-import { CSSPropertiesWithVars } from '../_core/types';
-import { cn } from '../_core/utils';
+import { DISABLED_CLS } from '../_shared/style';
+import { cn } from '../_shared/utils';
 import {
     SwitchVariant,
     SwitchSize,

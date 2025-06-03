@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefExoticComponent, HTMLAttributes, ReactNode } from 'react';
-import { cn } from '../_core/utils';
+import { cn } from '../_shared/utils';
 import Link from './Link';
 import Paragraph from './Paragraph';
 import Text from './Text';

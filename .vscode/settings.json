@@ -7,5 +7,5 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "cSpell.words": ["commitlint", "Morilence", "Navs", "nild", "vitepress"]
+    "cSpell.words": ["commitlint", "Morilence", "Navs", "nild", "pascalize", "vitepress"]
 }

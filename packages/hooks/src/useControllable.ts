@@ -1,4 +1,4 @@
-import { isFunction, isUndefined } from 'lodash-es';
+import { isFunction, isUndefined } from '@nild/shared/utils';
 import { useState, Dispatch, SetStateAction, useCallback } from 'react';
 import useUpdate from './useUpdate';
 
