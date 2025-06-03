@@ -17,7 +17,7 @@ export default md => {
             }
 
             if (content) {
-                return `<ClientOnly><ReactLive code="${encodeURIComponent(content)}" /></ClientOnly>`;
+                return `<ReactLive code="${encodeURIComponent(content)}" />`;
             }
 
             return '';
