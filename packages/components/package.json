@@ -9,11 +9,7 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.mjs"
         },
-        "./tailwindcss": "./dist/tailwind.css",
-        "./button": {
-            "types": "./dist/button/index.d.ts",
-            "import": "./dist/button/index.mjs"
-        }
+        "./tailwindcss": "./dist/tailwind.css"
     },
     "files": [
         "dist"
