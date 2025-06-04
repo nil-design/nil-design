@@ -30,17 +30,8 @@ export default defineConfig(({ mode }) => {
                     format: 'es',
                     preserveModules: true,
                     preserveModulesRoot: 'src',
-                    entryFileNames: '[name].mjs',
+                    entryFileNames: '[name].js',
                     assetFileNames: 'tailwind.css',
-                },
-            },
-            terserOptions: {
-                compress: {
-                    drop_console: true,
-                    drop_debugger: true,
-                },
-                format: {
-                    comments: false,
                 },
             },
         },
