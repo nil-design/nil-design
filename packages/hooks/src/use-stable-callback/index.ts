@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import useLatest from './useLatest';
+import useLatest from '../use-latest';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyCallback = (...args: any[]) => any;
