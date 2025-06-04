@@ -34,6 +34,15 @@ export default defineConfig(({ mode }) => {
                     assetFileNames: 'tailwind.css',
                 },
             },
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                    drop_debugger: true,
+                },
+                format: {
+                    comments: false,
+                },
+            },
         },
     };
 });

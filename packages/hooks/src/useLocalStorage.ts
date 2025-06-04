@@ -23,6 +23,7 @@ const useLocalStorage = <T>(
         } catch (error) {
             onError?.(error);
         }
+
         return isFunction(defaultValue) ? defaultValue() : defaultValue;
     }, [defaultValue, storage, key, deserializer, onError]);
 
@@ -37,6 +38,7 @@ const useLocalStorage = <T>(
                 } catch (error) {
                     onError?.(error);
                 }
+
                 return value;
             });
         },
@@ -58,6 +60,7 @@ const useLocalStorage = <T>(
         };
 
         window.addEventListener('storage', handleStorageChange);
+
         return () => window.removeEventListener('storage', handleStorageChange);
     }, [key, defaultValue, onError, deserializer]);
 

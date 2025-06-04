@@ -31,8 +31,6 @@
         "@nild/shared": "workspace:*",
         "@nild/hooks": "workspace:*",
         "react": ">=18.2.0",
-        "react-dom": ">=18.2.0",
-        "clsx": ">=2.1.1",
-        "tailwind-merge": ">=3.3.0"
+        "react-dom": ">=18.2.0"
     }
 }

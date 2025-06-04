@@ -1,5 +1,5 @@
+import { cnMerge } from '@nild/shared/utils';
 import { forwardRef, ForwardRefExoticComponent, HTMLAttributes, ReactNode } from 'react';
-import { cn } from '../_shared/utils';
 import Link from './Link';
 import Paragraph from './Paragraph';
 import Text from './Text';
@@ -12,7 +12,7 @@ export interface TypographyProps extends HTMLAttributes<HTMLElement> {
 
 const Typography = forwardRef<HTMLElement, TypographyProps>(({ className, children, ...restProps }, ref) => {
     return (
-        <article {...restProps} className={cn('nd-typography', 'font-sans', 'text-md', className)} ref={ref}>
+        <article {...restProps} className={cnMerge('nd-typography', 'font-sans', 'text-md', className)} ref={ref}>
             {children}
         </article>
     );

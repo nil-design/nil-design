@@ -68,7 +68,6 @@
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-live": "4.1.8",
-        "tailwind-merge": "3.3.0",
         "tailwindcss": "4.1.7",
         "typedoc": "0.28.4",
         "typescript": "5.8.2",

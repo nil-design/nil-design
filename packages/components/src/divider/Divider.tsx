@@ -1,5 +1,6 @@
+import { cnMerge } from '@nild/shared/utils';
 import { HTMLAttributes, ReactNode, forwardRef } from 'react';
-import { cn, isEmptyChildren } from '../_shared/utils';
+import { isEmptyChildren } from '../_shared/utils';
 import {
     DividerVariant,
     DividerDirection,
@@ -25,7 +26,7 @@ const Divider = forwardRef<HTMLDivElement, DividerProps>(
         return (
             <div
                 {...restProps}
-                className={cn(
+                className={cnMerge(
                     'nd-divider',
                     'border-split',
                     'text-primary',
