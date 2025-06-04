@@ -57,7 +57,7 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       esbuild:
-        specifier: ^0.25.5
+        specifier: 0.25.5
         version: 0.25.5
       eslint:
         specifier: 9.23.0
