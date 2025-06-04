@@ -11,6 +11,7 @@ const pkgDirMap = readdirSync(join(getRootDir(), 'packages'), { withFileTypes: t
             dirMap[pkgJson.name] = pkgDir;
         }
     }
+
     return dirMap;
 }, {});
 

@@ -11,6 +11,7 @@ const getPeerDeps = (...pkgNames) => {
 
         if (existsSync(pkgJsonPath)) {
             const pkgJson = JSON.parse(readFileSync(pkgJsonPath, 'utf-8'));
+
             return peerDeps.concat(
                 Object.keys(pkgJson.peerDependencies ?? {}).map(dep =>
                     has(pkgDirMap, dep) ? new RegExp(`^${dep}/?`) : dep,
