@@ -11,7 +11,7 @@ const useLocalStorage = <T>(
     },
 ): [T, Dispatch<SetStateAction<T>>] => {
     // eslint-disable-next-line no-console
-    const { serializer = JSON.stringify, deserializer = JSON.parse, onError = console.error } = options || {};
+    const { serializer = JSON.stringify, deserializer = JSON.parse, onError = console.error } = options ?? {};
 
     const getStoredValue = useCallback((): T => {
         if (!isBrowser()) {
