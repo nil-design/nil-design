@@ -1,9 +1,8 @@
 import { useControllable } from '@nild/hooks';
-import { CSSPropertiesWithVars } from '@nild/shared/types';
-import cx from 'clsx';
+import { CSSPropertiesWithVars } from '@nild/shared/interfaces';
+import { cnMerge } from '@nild/shared/utils';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { DISABLED_CLS } from '../_shared/style';
-import { cn } from '../_shared/utils';
 import {
     SwitchVariant,
     SwitchSize,
@@ -65,6 +64,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         const handleClick = () => {
             setChecked(checked => {
                 onChange?.(!checked);
+
                 return !checked;
             });
         };
@@ -76,14 +76,14 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                 role="switch"
                 aria-checked={checked}
                 disabled={disabled}
-                className={cn(
+                className={cnMerge(
                     'nd-switch',
                     ['relative', 'inline-block', 'font-sans', 'overflow-hidden', 'cursor-pointer'],
                     ['h-[var(--nd-switch-height)]'],
+                    DISABLED_CLS,
                     VARIANT_CLS_MAP[variant],
                     SIZE_CLS_MAP[size],
                     SHAPE_CLS_MAP[shape],
-                    DISABLED_CLS,
                     className,
                 )}
                 style={{ ...style, ...styleProp }}
@@ -91,7 +91,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                 onClick={handleClick}
             >
                 <div
-                    className={cx(
+                    className={cnMerge(
                         'h-[var(--nd-switch-height)] flex justify-center items-center',
                         'text-center text-contrast',
                         'ps-[calc(var(--nd-switch-height)/3)] pe-[calc(var(--nd-switch-height)*1.1)]',
@@ -104,7 +104,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                     {checkedContent}
                 </div>
                 <div
-                    className={cx(
+                    className={cnMerge(
                         'h-[var(--nd-switch-height)] flex justify-center items-center',
                         'text-center text-contrast',
                         '-mt-[var(--nd-switch-height)]',
@@ -118,7 +118,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                     {uncheckedContent}
                 </div>
                 <div
-                    className={cx(
+                    className={cnMerge(
                         'flex justify-center items-center',
                         'h-[var(--nd-switch-height)] absolute aspect-square scale-80',
                         'text-contrast transition-[left]',

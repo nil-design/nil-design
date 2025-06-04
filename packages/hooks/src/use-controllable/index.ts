@@ -1,6 +1,6 @@
 import { isFunction, isUndefined } from '@nild/shared/utils';
 import { useState, Dispatch, SetStateAction, useCallback } from 'react';
-import useUpdate from './useUpdate';
+import useUpdate from '../use-update';
 
 const useControllable = <T>(
     controlledValue: T | undefined,

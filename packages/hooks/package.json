@@ -3,23 +3,11 @@
     "private": false,
     "version": "0.0.1",
     "type": "module",
-    "module": "./dist/index.mjs",
+    "module": "./dist/index.js",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs"
-        },
-        "./useControllable": {
-            "types": "./dist/useControllable.d.ts",
-            "import": "./dist/useControllable.mjs"
-        },
-        "./useLocalStorage": {
-            "types": "./dist/useLocalStorage.d.ts",
-            "import": "./dist/useLocalStorage.mjs"
-        },
-        "./useUpdate": {
-            "types": "./dist/useUpdate.d.ts",
-            "import": "./dist/useUpdate.mjs"
+            "import": "./dist/index.js"
         }
     },
     "files": [

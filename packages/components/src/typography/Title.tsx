@@ -1,5 +1,5 @@
+import { cnMerge } from '@nild/shared/utils';
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
-import { cn } from '../_shared/utils';
 import { HeadingLevel, HEADING_LEVEL_CLS_MAP } from './style';
 export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
     className?: string;
@@ -13,7 +13,7 @@ const Title = forwardRef<HTMLHeadingElement, TitleProps>(({ className, children,
     return (
         <Heading
             {...restProps}
-            className={cn(
+            className={cnMerge(
                 ['nd-title', 'font-sans', 'font-semibold', 'text-primary', 'mt-[1em] mb-[0.5em]'],
                 HEADING_LEVEL_CLS_MAP[level],
                 className,

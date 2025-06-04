@@ -3,17 +3,13 @@
     "private": false,
     "version": "0.0.1",
     "type": "module",
-    "module": "./dist/index.mjs",
+    "module": "./dist/index.js",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs"
+            "import": "./dist/index.js"
         },
-        "./tailwindcss": "./dist/tailwind.css",
-        "./button": {
-            "types": "./dist/button/index.d.ts",
-            "import": "./dist/button/index.mjs"
-        }
+        "./tailwindcss": "./dist/tailwind.css"
     },
     "files": [
         "dist"
@@ -31,8 +27,6 @@
         "@nild/shared": "workspace:*",
         "@nild/hooks": "workspace:*",
         "react": ">=18.2.0",
-        "react-dom": ">=18.2.0",
-        "clsx": ">=2.1.1",
-        "tailwind-merge": ">=3.3.0"
+        "react-dom": ">=18.2.0"
     }
 }

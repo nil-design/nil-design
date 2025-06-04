@@ -10,7 +10,7 @@ export default {
         'type-case': [2, 'always', 'lower-case'],
         'type-empty': [2, 'never'],
         'scope-empty': [0, 'never'],
-        'scope-case': [2, 'always', 'lower-case'],
+        'scope-case': [2, 'always', ['lower-case', 'camel-case', 'pascal-case']],
         'subject-case': [0, 'never'],
         'subject-empty': [2, 'never'],
         'subject-full-stop': [2, 'never', '.'],

@@ -1,4 +1,4 @@
-import { isArray } from '@nild/shared/utils';
+import { cnMerge, isArray } from '@nild/shared/utils';
 import {
     ReactNode,
     ButtonHTMLAttributes,
@@ -8,7 +8,7 @@ import {
     ReactElement,
 } from 'react';
 import { DISABLED_CLS } from '../_shared/style';
-import { cn, isEmptyChildren, isPlainChildren } from '../_shared/utils';
+import { isEmptyChildren, isPlainChildren } from '../_shared/utils';
 import {
     ButtonVariant,
     ButtonSize,
@@ -55,14 +55,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 type="button"
                 {...restProps}
                 disabled={disabled}
-                className={cn(
+                className={cnMerge(
                     ['nd-button', 'font-sans', 'cursor-pointer', 'transition-colors'],
+                    DISABLED_CLS,
                     block && ['w-full'],
                     VARIANT_CLS_MAP[variant],
                     SIZE_CLS_MAP[size][`${plain}`],
                     SHAPE_CLS_MAP[shape],
                     equal && EQUAL_CLS_MAP[size],
-                    DISABLED_CLS,
                     className,
                 )}
                 ref={ref}
@@ -96,12 +96,12 @@ const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
         const horizontal = direction === 'horizontal';
 
         return (
-            <div className={cn('nd-button-group', 'flex', !horizontal && 'flex-col', className)} ref={ref}>
+            <div className={cnMerge('nd-button-group', 'flex', !horizontal && 'flex-col', className)} ref={ref}>
                 {children.map((child, index) => (
                     <Button
                         key={index}
                         {...child.props}
-                        className={cn([
+                        className={cnMerge(
                             index === 0
                                 ? GROUP_FIRST_CLS_MAP[direction]
                                 : index === children.length - 1
@@ -109,7 +109,7 @@ const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
                                   : 'rounded-none',
                             index !== 0 && (horizontal ? 'border-l-0' : 'border-t-0'),
                             index !== children.length - 1 && GROUP_DIVIDER_CLS_MAP[direction][variant],
-                        ])}
+                        )}
                         {...{ variant, size, disabled }}
                     />
                 ))}

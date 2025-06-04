@@ -28,6 +28,7 @@ export default tslint.config(
         rules: {
             'no-console': 'warn',
             'no-unused-vars': 'warn',
+            'padding-line-between-statements': ['warn', { blankLine: 'always', prev: '*', next: 'return' }],
         },
     },
     importPlugin.flatConfigs.recommended,

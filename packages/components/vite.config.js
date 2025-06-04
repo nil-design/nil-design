@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import postcssNested from 'postcss-nested';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import { minifyES } from '../../scripts/plugins';
 import { getPeerDeps } from '../../scripts/shared';
 import pkg from './package.json';
 
@@ -26,11 +27,12 @@ export default defineConfig(({ mode }) => {
             minify: mode === 'PROD',
             rollupOptions: {
                 external: [...peerDeps, 'react/jsx-runtime'],
+                plugins: [mode === 'PROD' && minifyES()],
                 output: {
                     format: 'es',
                     preserveModules: true,
                     preserveModulesRoot: 'src',
-                    entryFileNames: '[name].mjs',
+                    entryFileNames: '[name].js',
                     assetFileNames: 'tailwind.css',
                 },
             },

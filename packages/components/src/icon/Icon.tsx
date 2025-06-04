@@ -1,7 +1,6 @@
 import { IIconProps as ParkIconProps, Theme as ParkIconTheme, IconWrapper } from '@icon-park/react/es/runtime';
-import { isFunction, kebabToPascal } from '@nild/shared/utils';
+import { cnMerge, isFunction, pascalize } from '@nild/shared/utils';
 import { ComponentType, FC, SVGProps, useState, useEffect } from 'react';
-import { cn } from '../_shared/utils';
 
 type IconVariant = 'outlined' | 'filled' | 'two-tone' | 'multi-color';
 
@@ -21,7 +20,7 @@ const iconImporters = import.meta.glob<false, string, ComponentType<unknown>>(
 const iconCaches = new Map<string, ComponentType<unknown>>();
 
 const Icon: FC<IconProps> = ({ className, name = '', variant = 'outlined', component: Component, ...restProps }) => {
-    const resolvedName = kebabToPascal(name);
+    const resolvedName = pascalize(name);
     const resolvedTheme =
         (
             {
@@ -40,6 +39,7 @@ const Icon: FC<IconProps> = ({ className, name = '', variant = 'outlined', compo
             importer().then(SvgIcon => {
                 setDynamicIcon(() => {
                     iconCaches.set(resolvedName, SvgIcon);
+
                     return SvgIcon;
                 });
             });
@@ -50,7 +50,7 @@ const Icon: FC<IconProps> = ({ className, name = '', variant = 'outlined', compo
     const commonProps = {
         ...restProps,
         theme: resolvedTheme,
-        className: cn('nd-icon', 'text-primary', 'text-[length:inherit]', className),
+        className: cnMerge('nd-icon', 'text-primary', 'text-[length:inherit]', className),
     };
 
     if (!Component) {
@@ -58,12 +58,15 @@ const Icon: FC<IconProps> = ({ className, name = '', variant = 'outlined', compo
             const PlaceholderIcon = IconWrapper('placeholder-icon', false, ({ size }) => (
                 <svg width={size} height={size}></svg>
             ));
+
             return <PlaceholderIcon {...commonProps} />;
         }
+
         return <DynamicIcon {...commonProps} />;
     }
 
     const LiteralIcon = IconWrapper('literal-icon', false, () => <Component />);
+
     return <LiteralIcon {...commonProps} />;
 };
 

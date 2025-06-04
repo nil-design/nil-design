@@ -1,6 +1,6 @@
+import { cnJoin, cnMerge } from '@nild/shared/utils';
 import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import { DISABLED_CLS } from '../_shared/style';
-import { cn } from '../_shared/utils';
 
 export interface TextProps extends HTMLAttributes<HTMLSpanElement> {
     className?: string;
@@ -44,7 +44,7 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
         coded &&
             (finalChildren = (
                 <code
-                    className={cn(
+                    className={cnJoin(
                         'text-sm',
                         'ps-1.5 pe-1.5',
                         'bg-primary-code rounded-sm border border-solid border-secondary',
@@ -56,7 +56,7 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
         keyboarded &&
             (finalChildren = (
                 <kbd
-                    className={cn(
+                    className={cnJoin(
                         'text-sm',
                         'ps-1.5 pe-1.5',
                         'rounded-sm border border-b-2 border-solid border-secondary',
@@ -69,11 +69,11 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
         return (
             <span
                 {...restProps}
-                className={cn(
+                className={cnMerge(
                     ['nd-text', 'font-sans', 'text-[length:inherit]'],
+                    DISABLED_CLS,
                     disabled && 'disabled',
                     !secondary ? 'text-primary' : 'text-secondary',
-                    DISABLED_CLS,
                     className,
                 )}
                 ref={ref}

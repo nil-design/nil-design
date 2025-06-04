@@ -1,4 +1,4 @@
-import { isBrowser, isFunction } from '@nild/shared/utils';
+import { isBrowser, isFunction, isNil } from '@nild/shared/utils';
 import { useState, useEffect, useCallback, SetStateAction, Dispatch } from 'react';
 
 const useLocalStorage = <T>(
@@ -10,24 +10,22 @@ const useLocalStorage = <T>(
         onError?: (error: unknown) => void;
     },
 ): [T, Dispatch<SetStateAction<T>>] => {
+    const storage = isBrowser() ? window.localStorage : null;
     // eslint-disable-next-line no-console
-    const { serializer = JSON.stringify, deserializer = JSON.parse, onError = console.error } = options || {};
+    const { serializer = JSON.stringify, deserializer = JSON.parse, onError = console.error } = options ?? {};
 
     const getStoredValue = useCallback((): T => {
-        if (!isBrowser()) {
-            return isFunction(defaultValue) ? defaultValue() : defaultValue;
-        } else {
-            try {
-                const storedValue = window.localStorage.getItem(key);
-                if (storedValue !== null) {
-                    return deserializer(storedValue);
-                }
-            } catch (error) {
-                onError?.(error);
+        try {
+            const storedValue = storage?.getItem(key);
+            if (!isNil(storedValue)) {
+                return deserializer(storedValue);
             }
-            return isFunction(defaultValue) ? defaultValue() : defaultValue;
+        } catch (error) {
+            onError?.(error);
         }
-    }, [defaultValue, key, deserializer, onError]);
+
+        return isFunction(defaultValue) ? defaultValue() : defaultValue;
+    }, [defaultValue, storage, key, deserializer, onError]);
 
     const [value, setValue] = useState<T>(getStoredValue);
 
@@ -35,17 +33,16 @@ const useLocalStorage = <T>(
         nextValue => {
             setValue(prevValue => {
                 const value = isFunction(nextValue) ? nextValue(prevValue) : nextValue;
-                if (isBrowser()) {
-                    try {
-                        window.localStorage.setItem(key, serializer(value));
-                    } catch (error) {
-                        onError?.(error);
-                    }
+                try {
+                    storage?.setItem(key, serializer(value));
+                } catch (error) {
+                    onError?.(error);
                 }
+
                 return value;
             });
         },
-        [key, onError, serializer],
+        [key, onError, serializer, storage],
     );
 
     useEffect(() => {
@@ -54,7 +51,7 @@ const useLocalStorage = <T>(
         const handleStorageChange = (event: StorageEvent) => {
             if (event.key === key && event.newValue !== event.oldValue) {
                 try {
-                    const newValue = event.newValue ? JSON.parse(event.newValue) : defaultValue;
+                    const newValue = event.newValue ? deserializer(event.newValue) : defaultValue;
                     setValue(newValue);
                 } catch (error) {
                     onError?.(error);
@@ -63,8 +60,9 @@ const useLocalStorage = <T>(
         };
 
         window.addEventListener('storage', handleStorageChange);
+
         return () => window.removeEventListener('storage', handleStorageChange);
-    }, [key, defaultValue, onError]);
+    }, [key, defaultValue, onError, deserializer]);
 
     useEffect(() => {
         setValue(getStoredValue());
