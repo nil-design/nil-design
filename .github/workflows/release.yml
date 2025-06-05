@@ -26,8 +26,8 @@ jobs:
       - name: Create release PR & Publish
         uses: changesets/action@v1
         with:
-          publish: pnpm dlx changeset publish --tag alpha
-          version: pnpm dlx changeset version
+          publish: pnpm changeset publish --tag alpha
+          version: pnpm changeset version
           commit: "ci: release new versions"
           title: "ci: release new versions"
         env:
