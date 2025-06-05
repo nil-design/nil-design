@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 
-const useUpdate = () => {
+const useForceUpdate = () => {
     const [, setState] = useState({});
 
     return useCallback(() => setState({}), []);
 };
 
-export default useUpdate;
+export default useForceUpdate;

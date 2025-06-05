@@ -1,13 +1,13 @@
 import { isFunction, isUndefined } from '@nild/shared/utils';
 import { useState, Dispatch, SetStateAction, useCallback } from 'react';
-import useUpdate from '../use-update';
+import useForceUpdate from '../use-force-update';
 
 const useControllable = <T>(
     controlledValue: T | undefined,
     defaultValue: T | (() => T),
 ): [T, Dispatch<SetStateAction<T>>] => {
     const [uncontrolledValue, setUncontrolledValue] = useState<T>(defaultValue);
-    const forceUpdate = useUpdate();
+    const forceUpdate = useForceUpdate();
     const dispatchUpdate = useCallback(
         (action: SetStateAction<T>) => {
             isFunction(action) && !isUndefined(controlledValue) && action(controlledValue);
