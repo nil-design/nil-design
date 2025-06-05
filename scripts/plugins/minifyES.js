@@ -5,13 +5,13 @@ import { transform } from 'esbuild';
  * @link https://github.com/vitejs/vite/issues/6555
  * @returns {import('rollup').Plugin}
  */
-const minifyES = () => {
+const minifyES = (enabled = true) => {
     return {
         name: 'minifyES',
         renderChunk: {
             order: 'post',
             async handler(code, chunk, outputOptions) {
-                if (outputOptions.format === 'es' && chunk.fileName.endsWith('.js')) {
+                if (enabled && outputOptions.format === 'es' && chunk.fileName.endsWith('.js')) {
                     return await transform(code, { minify: true });
                 }
 

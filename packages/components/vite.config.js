@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
             minify: mode === 'PROD',
             rollupOptions: {
                 external: [...peerDeps, 'react/jsx-runtime'],
-                plugins: [mode === 'PROD' && minifyES()],
+                plugins: [minifyES(mode === 'PROD')],
                 output: {
                     format: 'es',
                     preserveModules: true,

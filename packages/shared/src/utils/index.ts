@@ -2,6 +2,7 @@ import camelize from './camelize';
 import cnJoin from './cn-join';
 import cnMerge from './cn-merge';
 import isBrowser from './is-browser';
+import isNumeric from './is-numeric';
 import mergeRefs from './merge-refs';
 import pascalize from './pascalize';
 import snakeize from './snakeize';
@@ -40,4 +41,4 @@ export {
     isWeakMap,
     isWeakSet,
 } from 'lodash-es';
-export { camelize, cnJoin, cnMerge, isBrowser, mergeRefs, pascalize, snakeize };
+export { camelize, cnJoin, cnMerge, isBrowser, isNumeric, mergeRefs, pascalize, snakeize };

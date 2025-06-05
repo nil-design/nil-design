@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
             minify: mode === 'PROD',
             rollupOptions: {
                 external: [...peerDeps],
-                plugins: [mode === 'PROD' && minifyES()],
+                plugins: [minifyES(mode === 'PROD')],
                 output: {
                     format: 'es',
                     preserveModules: true,

@@ -11,8 +11,19 @@
         },
         "./tailwindcss": "./dist/tailwind.css"
     },
+    "homepage": "https://nil-design.github.io/nil-design/zh-CN/components",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nil-design/nil-design/issues"
+    },
     "files": [
-        "dist"
+        "dist",
+        "package.json",
+        "LICENSE",
+        "NOTICE"
     ],
     "scripts": {
         "build": "vite build --mode PROD",
@@ -24,8 +35,8 @@
         "@icon-park/react": "1.4.2"
     },
     "peerDependencies": {
-        "@nild/shared": "workspace:*",
-        "@nild/hooks": "workspace:*",
+        "@nild/shared": ">=0.0.1",
+        "@nild/hooks": ">=0.0.1",
         "react": ">=18.2.0",
         "react-dom": ">=18.2.0"
     }
