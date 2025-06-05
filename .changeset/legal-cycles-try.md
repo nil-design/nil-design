@@ -4,4 +4,4 @@
 '@nild/shared': patch
 ---
 
-first release
+first release by ci
