@@ -1,3 +1,3 @@
-import { snakeCase as snakeize } from 'lodash-es';
+import { snakeCase } from 'lodash-es';
 
-export default snakeize;
+export default snakeCase;
