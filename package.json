@@ -33,6 +33,7 @@
         "components:test": "pnpm --filter @nild/components test",
         "hooks:dev": "pnpm --filter @nild/hooks dev",
         "hooks:build": "pnpm --filter @nild/hooks build",
+        "ci:publish": "pnpm -r publish --access public --tag alpha --registry=https://registry.npmjs.org",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix"
     },
