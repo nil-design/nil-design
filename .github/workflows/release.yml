@@ -28,8 +28,8 @@ jobs:
         with:
           publish: pnpm dlx changeset publish --tag alpha
           version: pnpm dlx changeset version
-          commit: "chore: version packages"
-          title: "chore: release new versions"
+          commit: "ci: release new versions"
+          title: "ci: release new versions"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
