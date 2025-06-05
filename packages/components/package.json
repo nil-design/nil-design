@@ -11,8 +11,19 @@
         },
         "./tailwindcss": "./dist/tailwind.css"
     },
+    "homepage": "https://nil-design.github.io/nil-design/zh-CN/components",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nil-design/nil-design/issues"
+    },
     "files": [
-        "dist"
+        "dist",
+        "package.json",
+        "LICENSE",
+        "NOTICE"
     ],
     "scripts": {
         "build": "vite build --mode PROD",
