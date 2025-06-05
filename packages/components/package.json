@@ -35,8 +35,8 @@
         "@icon-park/react": "1.4.2"
     },
     "peerDependencies": {
-        "@nild/shared": "workspace:*",
-        "@nild/hooks": "workspace:*",
+        "@nild/shared": ">=0.0.1",
+        "@nild/hooks": ">=0.0.1",
         "react": ">=18.2.0",
         "react-dom": ">=18.2.0"
     }

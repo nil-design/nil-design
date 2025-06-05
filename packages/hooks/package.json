@@ -29,7 +29,7 @@
         "dev": "vite build --mode DEV --watch"
     },
     "peerDependencies": {
-        "@nild/shared": "workspace:*",
+        "@nild/shared": ">=0.0.1",
         "react": ">=18.2.0"
     }
 }

@@ -8,9 +8,13 @@
         "email": "1280659615@qq.com"
     },
     "license": "Apache-2.0",
+    "homepage": "https://nil-design.github.io/nil-design/zh-CN/",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nil-design/nil-design/issues"
     },
     "engines": {
         "node": ">=20.18.0"
@@ -33,6 +37,7 @@
         "lint:fix": "eslint . --fix"
     },
     "devDependencies": {
+        "@changesets/cli": "2.29.4",
         "@commitlint/cli": "19.8.0",
         "@commitlint/config-conventional": "19.8.0",
         "@commitlint/types": "19.8.0",
