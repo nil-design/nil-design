@@ -1,6 +1,4 @@
-import { isUndefined } from 'lodash-es';
-
-const browser = !!(!isUndefined(window) && window.document && window.document.createElement);
+const browser = typeof window !== 'undefined' && window.document && window.document.createElement;
 
 const isBrowser = () => browser;
 
