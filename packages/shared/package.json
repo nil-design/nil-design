@@ -20,13 +20,11 @@
         "build": "vite build --mode PROD",
         "dev": "vite build --mode DEV --watch"
     },
-    "dependencies": {
-        "lodash-es": "4.17.21",
-        "clsx": "2.1.1",
-        "tailwind-merge": "3.3.0"
-    },
     "peerDependencies": {
+        "clsx": ">=2.1.1",
+        "lodash-es": ">=4.17.21",
         "react": ">=18.2.0",
+        "tailwind-merge": ">=3.3.0",
         "tailwindcss": ">=4.0.0"
     }
 }
