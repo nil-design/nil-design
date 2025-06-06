@@ -34,7 +34,6 @@ flowchart TD
 > [!NOTE]
 > PNPM 建议设置 `auto-install-peers=true`
 
-- [clsx](https://www.npmjs.com/package/clsx): >=2.1.1
 - [lodash-es](https://www.npmjs.com/package/lodash-es): >=4.17.21
 - [react](https://www.npmjs.com/package/react): >=18.2.0
 - [react-dom](https://www.npmjs.com/package/react-dom): >=18.2.0
