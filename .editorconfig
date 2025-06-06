@@ -11,3 +11,9 @@ max_line_length = 120 # => printWidth
 end_of_line = crlf # => endOfLine
 indent_style = space # => useTabs
 indent_size = 4 # => tabWidth
+
+[*.{css,less}]
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_size = 2
