@@ -1,14 +1,24 @@
-name: Release
+name: Publish
 
 on:
   workflow_dispatch:
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - refs/heads/main
+    paths:
+      - ".changeset/**"
+      - "package.json"
+      - "**/package.json"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  release:
+  publish:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request_target' && github.event.pull_request.merged == true) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,13 +33,13 @@ jobs:
         run: pnpm install
       - name: Build packages
         run: pnpm build
-      - name: Create release PR & Publish
+      - name: Create PR & Publish
         uses: changesets/action@v1
         with:
           publish: pnpm ci:publish
           version: pnpm changeset version
-          commit: "ci: release new versions"
-          title: "ci: release new versions"
+          commit: "ci: publish new versions"
+          title: "ci: publish new versions"
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
