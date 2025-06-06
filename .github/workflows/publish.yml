@@ -7,8 +7,6 @@ on:
       - closed
     branches:
       - main
-    branches-ignore:
-      - "changeset-release/main"
     paths:
       - ".changeset/**"
       - "package.json"
