@@ -6,7 +6,9 @@ on:
     types:
       - closed
     branches:
-      - refs/heads/main
+      - main
+    branches-ignore:
+      - "changeset-release/main"
     paths:
       - "docs/**"
       - "packages/**"
