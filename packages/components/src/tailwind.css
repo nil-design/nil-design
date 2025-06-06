@@ -1,27 +1,47 @@
 /**
+ * Nil Design Tokens
+ * @link https://colorbox.io/?c0=%26p%24s%24%3D11%26p%24h%24st%24%3D0%26p%24h%24e%24%3D0%26p%24h%24c%24%3Deqi%26p%24sa%24st%24%3D0%26p%24sa%24e%24%3D0%26p%24sa%24r%24%3D1%26p%24sa%24c%24%3Deqo%26p%24b%24st%24%3D0.98%26p%24b%24e%24%3D0.09%26p%24b%24c%24%3Desio%26o%24n%24%3DBlue+%F0%9F%8C%9E%26o%24ms%24%3D0%2C1%26o%24ro%24%3Dcw%26o%24pi%24%3Dt
+ */
+@theme static {
+    --nd-color-primary-0: light-dark(#fafafa, #171717);
+    --nd-color-primary-5: light-dark(#f7f7f7, #1e1e1e);
+    --nd-color-primary-10: light-dark(#f4f4f4, #242424);
+    --nd-color-primary-15: light-dark(#ededed, #2c2c2c);
+    --nd-color-primary-20: light-dark(#e5e5e5, #333333);
+    --nd-color-primary-30: light-dark(#cecece, #434343);
+    --nd-color-primary-40: light-dark(#aeaeae, #575757);
+    --nd-color-primary-50: light-dark(#888888, #888888);
+    --nd-color-primary-60: light-dark(#626262, #b9b9b9);
+    --nd-color-primary-70: light-dark(#424242, #cdcdcd);
+    --nd-color-primary-80: light-dark(#2b2b2b, #dedede);
+    --nd-color-primary-90: light-dark(#1d1d1d, #ececec);
+    --nd-color-primary-100: light-dark(#171717, #fafafa);
+}
+
+/**
  * Tailwind Overrides
  */
-
 @theme {
-    --color-primary: var(--nd-color-primary);
-    --color-primary-hover: var(--nd-color-primary-hover);
-    --color-primary-active: var(--nd-color-primary-active);
-    --color-primary-mark: var(--nd-color-primary-mark);
-    --color-primary-code: var(--nd-color-primary-code);
+    --color-primary: var(--nd-color-primary-80);
+    --color-primary-hover: var(--nd-color-primary-70);
+    --color-primary-active: var(--nd-color-primary-90);
 
-    --color-secondary: var(--nd-color-secondary);
-    --color-secondary-hover: var(--nd-color-secondary-hover);
-    --color-secondary-active: var(--nd-color-secondary-active);
+    --color-secondary: var(--nd-color-primary-20);
+    --color-secondary-hover: var(--nd-color-primary-30);
+    --color-secondary-active: var(--nd-color-primary-40);
 
-    --color-contrast: var(--nd-color-contrast);
+    --color-tertiary: var(--nd-color-primary-15);
+    --color-tertiary-hover: var(--nd-color-primary-20);
+    --color-tertiary-active: var(--nd-color-primary-30);
 
-    --color-split: var(--nd-color-split);
+    --color-contrast: var(--nd-color-primary-0);
+    --color-split: var(--nd-color-primary-20);
 
-    --text-color-primary: var(--nd-text-color-primary);
-    --text-color-secondary: var(--nd-text-color-secondary);
-    --text-color-link: var(--nd-color-primary);
-    --text-color-link-hover: var(--nd-color-primary-hover);
-    --text-color-link-active: var(--nd-color-primary-active);
+    --text-color-primary: var(--nd-color-primary-100);
+    --text-color-secondary: var(--nd-color-primary-60);
+    --text-color-link: var(--color-primary);
+    --text-color-link-hover: var(--color-primary-hover);
+    --text-color-link-active: var(--color-primary-active);
 
     --text-sm: 0.75rem;
     --text-sm--line-height: 1.25rem;
@@ -57,48 +77,3 @@
     }
 }
 
-/**
- * Nil Design Tokens
- */
-
-:root {
-    --nd-h-primary: 215;
-    --nd-s-primary: 25%;
-    --nd-l-primary: 27%;
-    --nd-color-primary: hsl(var(--nd-h-primary) var(--nd-s-primary) var(--nd-l-primary));
-    --nd-color-primary-hover: hsl(var(--nd-h-primary) var(--nd-s-primary) calc(var(--nd-l-primary) + 5%));
-    --nd-color-primary-active: hsl(var(--nd-h-primary) var(--nd-s-primary) calc(var(--nd-l-primary) - 5%));
-    --nd-color-primary-mark: hsl(var(--nd-h-primary) var(--nd-s-primary) 90%);
-    --nd-color-primary-code: hsl(var(--nd-h-primary) var(--nd-s-primary) 75% / 0.2);
-
-    --nd-h-secondary: var(--nd-h-primary);
-    --nd-s-secondary: var(--nd-s-primary);
-    --nd-l-secondary: 92.5%;
-    --nd-color-secondary: hsl(var(--nd-h-secondary) var(--nd-s-secondary) var(--nd-l-secondary));
-    --nd-color-secondary-hover: hsl(var(--nd-h-secondary) var(--nd-s-secondary) calc(var(--nd-l-secondary) - 2.5%));
-    --nd-color-secondary-active: hsl(var(--nd-h-secondary) var(--nd-s-secondary) calc(var(--nd-l-secondary) - 5%));
-
-    --nd-h-contrast: var(--nd-h-primary);
-    --nd-s-contrast: var(--nd-s-primary);
-    --nd-l-contrast: 95%;
-    --nd-color-contrast: hsl(var(--nd-h-contrast), var(--nd-s-contrast), var(--nd-l-contrast));
-
-    --nd-color-split: hsl(var(--nd-h-primary) var(--nd-s-primary) var(--nd-l-primary) / 0.15);
-
-    --nd-text-color-primary: hsl(var(--nd-h-primary) var(--nd-s-primary) 5%);
-    --nd-text-color-secondary: hsl(var(--nd-h-primary) var(--nd-s-primary) 5% / 0.6);
-}
-
-.dark {
-    --nd-l-primary: 95%;
-    --nd-color-primary-hover: hsl(var(--nd-h-primary) var(--nd-s-primary) calc(var(--nd-l-primary) - 5%));
-    --nd-color-primary-active: hsl(var(--nd-h-primary) var(--nd-s-primary) calc(var(--nd-l-primary) + 5%));
-    --nd-color-primary-mark: hsl(var(--nd-h-primary) var(--nd-s-primary) 25%);
-
-    --nd-l-secondary: 22.5%;
-
-    --nd-l-contrast: 27%;
-
-    --nd-text-color-primary: hsl(var(--nd-h-primary) var(--nd-s-primary) 95%);
-    --nd-text-color-secondary: hsl(var(--nd-h-primary) var(--nd-s-primary) 95% / 0.8);
-}

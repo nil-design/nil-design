@@ -40,14 +40,14 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
         deleted && (finalChildren = <del>{finalChildren}</del>);
         underlined && (finalChildren = <u className="underline">{finalChildren}</u>);
         italic && (finalChildren = <i>{finalChildren}</i>);
-        marked && (finalChildren = <mark className="text-primary bg-primary-mark">{finalChildren}</mark>);
+        marked && (finalChildren = <mark className="text-contrast bg-primary">{finalChildren}</mark>);
         coded &&
             (finalChildren = (
                 <code
                     className={cnJoin(
                         'text-sm',
                         'ps-1.5 pe-1.5',
-                        'bg-primary-code rounded-sm border border-solid border-secondary',
+                        'bg-secondary rounded-sm border border-solid border-secondary',
                     )}
                 >
                     {finalChildren}
