@@ -1,6 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 import postcssNested from 'postcss-nested';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
+import mermaid from './theme/components/mermaid';
 import reactLive from './theme/components/react-live';
 import { getThemeConfig } from './utils';
 
@@ -44,6 +45,7 @@ export default defineConfig({
     markdown: {
         config: md => {
             md.use(reactLive);
+            md.use(mermaid);
         },
     },
 });

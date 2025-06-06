@@ -8,11 +8,11 @@ export const VARIANT_CLS_MAP: Record<ButtonVariant, string[]> = {
         'border',
         'border-primary',
         'text-primary',
-        'enabled:hover:bg-secondary-hover',
-        'enabled:active:bg-secondary-active',
+        'enabled:hover:bg-tertiary-hover',
+        'enabled:active:bg-tertiary-active',
     ],
-    filled: ['bg-secondary', 'text-primary', 'enabled:hover:bg-secondary-hover', 'enabled:active:bg-secondary-active'],
-    text: ['bg-transparent', 'text-primary', 'enabled:hover:bg-secondary-hover', 'enabled:active:bg-secondary-active'],
+    filled: ['bg-tertiary', 'text-primary', 'enabled:hover:bg-tertiary-hover', 'enabled:active:bg-tertiary-active'],
+    text: ['bg-transparent', 'text-primary', 'enabled:hover:bg-tertiary-hover', 'enabled:active:bg-tertiary-active'],
 } as const;
 
 export type ButtonShape = 'round' | 'square';
@@ -61,13 +61,13 @@ export const GROUP_DIVIDER_CLS_MAP: Record<ButtonGroupDirection, Record<ButtonVa
     horizontal: {
         solid: ['border-solid', 'border-r', 'border-r-primary-hover'],
         outlined: [],
-        filled: ['border-solid', 'border-r', 'border-r-secondary-hover'],
-        text: ['border-solid', 'border-r', 'border-r-secondary-hover'],
+        filled: ['border-solid', 'border-r', 'border-r-tertiary-hover'],
+        text: ['border-solid', 'border-r', 'border-r-tertiary-hover'],
     },
     vertical: {
         solid: ['border-solid', 'border-b', 'border-b-primary-hover'],
         outlined: [],
-        filled: ['border-solid', 'border-b', 'border-b-secondary-hover'],
-        text: ['border-solid', 'border-b', 'border-b-secondary-hover'],
+        filled: ['border-solid', 'border-b', 'border-b-tertiary-hover'],
+        text: ['border-solid', 'border-b', 'border-b-tertiary-hover'],
     },
 } as const;

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-import clsx from 'clsx';
+import { cnJoin } from '@nild/shared/utils';
 import { IconProvider, DEFAULT_ICON_CONFIGS, Code, CollapseTextInput, Copy } from '@icon-park/react';
 import * as components from '@nild/components';
 import useTheme from './useTheme';
@@ -34,15 +34,15 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
         <IconProvider value={{ ...DEFAULT_ICON_CONFIGS, size: 16, theme: 'outline' }}>
             <LiveProvider noInline theme={theme} code={code} scope={scope}>
                 <div className="live-demo vp-raw flex flex-col rounded-lg bg-transparent border border-vp-divider">
-                    {<LivePreview className={clsx('live-preview px-6 py-8', hasError && 'hidden')} />}
+                    {<LivePreview className={cnJoin('live-preview px-6 py-8', hasError && 'hidden')} />}
                     <div
-                        className={clsx('live-error rounded-t-lg', hasError ? 'px-6 py-8 bg-vp-danger' : 'hidden')}
+                        className={cnJoin('live-error rounded-t-lg', hasError ? 'px-6 py-8 bg-vp-danger' : 'hidden')}
                         ref={errorRef}
                     >
                         <LiveError className="m-0" />
                     </div>
                     <div
-                        className={clsx(
+                        className={cnJoin(
                             'live-actions flex justify-end gap-4 px-4 py-2 text-vp-text-1 bg-vp-info',
                             !editorVisible && 'rounded-b-lg',
                         )}
@@ -62,7 +62,7 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
                             <Copy theme={copyActive ? 'filled' : 'outline'} />
                         </button>
                     </div>
-                    {<LiveEditor className={clsx('live-editor', !editorVisible && 'hidden')} onChange={setCode} />}
+                    {<LiveEditor className={cnJoin('live-editor', !editorVisible && 'hidden')} onChange={setCode} />}
                 </div>
             </LiveProvider>
         </IconProvider>
