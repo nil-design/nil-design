@@ -11,6 +11,7 @@ const isEmptyChildren = (children: ReactNode): boolean => {
         isEmptyChildren(children.props.children)
     )
         return true;
+
     return false;
 };
 
