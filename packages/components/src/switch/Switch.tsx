@@ -1,4 +1,4 @@
-import { useControllable } from '@nild/hooks';
+import { useControllableState } from '@nild/hooks';
 import { CSSPropertiesWithVars } from '@nild/shared/interfaces';
 import { cnMerge } from '@nild/shared/utils';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
@@ -56,7 +56,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         const style: CSSPropertiesWithVars = {
             '--nd-switch-height': SIZE_VAR_MAP[size],
         };
-        const [checked, setChecked] = useControllable(
+        const [checked, setChecked] = useControllableState(
             checkedProp ?? valueProp,
             defaultChecked ?? defaultValue ?? false,
         );
