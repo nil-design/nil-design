@@ -39,16 +39,16 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
             variant = 'solid',
             size = 'medium',
             shape = 'round',
-            checked: checkedProp,
+            checked: externalChecked,
             defaultChecked,
-            value: valueProp,
+            value: externalValue,
             defaultValue,
             disabled,
             checkedContent,
             uncheckedContent,
             thumbContent,
             onChange,
-            style: styleProp,
+            style: externalStyle,
             ...restProps
         },
         ref,
@@ -57,7 +57,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
             '--nd-switch-height': SIZE_VAR_MAP[size],
         };
         const [checked, setChecked] = useControllableState(
-            checkedProp ?? valueProp,
+            externalChecked ?? externalValue,
             defaultChecked ?? defaultValue ?? false,
         );
 
@@ -86,7 +86,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                     SHAPE_CLS_MAP[shape],
                     className,
                 )}
-                style={{ ...style, ...styleProp }}
+                style={{ ...style, ...externalStyle }}
                 ref={ref}
                 onClick={handleClick}
             >
