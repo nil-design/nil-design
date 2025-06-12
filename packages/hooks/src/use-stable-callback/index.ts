@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import useLatest from '../use-latest';
+import useLatestRef from '../use-latest-ref';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyCallback = (...args: any[]) => any;
@@ -7,7 +7,7 @@ type AnyCallback = (...args: any[]) => any;
 type StableCallback<T extends AnyCallback> = (this: ThisParameterType<T>, ...args: Parameters<T>) => ReturnType<T>;
 
 export function useStableCallback<T extends AnyCallback>(callback: T) {
-    const cbRef = useLatest(callback);
+    const cbRef = useLatestRef(callback);
     const stableRef = useRef<StableCallback<T>>();
 
     if (!stableRef.current) {
