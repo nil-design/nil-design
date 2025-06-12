@@ -72,18 +72,18 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         );
     },
 ) as ForwardRefExoticComponent<ButtonProps & RefAttributes<HTMLButtonElement>> & {
-    Group: typeof ButtonGroup;
+    Group: typeof Group;
 };
 
 Button.displayName = 'Button';
 
-export interface ButtonGroupProps extends Pick<ButtonProps, 'variant' | 'size' | 'disabled'> {
+export interface GroupProps extends Pick<ButtonProps, 'variant' | 'size' | 'disabled'> {
     className?: string;
     children?: ReactElement<ButtonProps> | ReactElement<ButtonProps>[];
     direction?: 'horizontal' | 'vertical';
 }
 
-const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
+const Group = forwardRef<HTMLDivElement, GroupProps>(
     ({ children, className, variant = 'solid', size = 'medium', disabled, direction = 'horizontal' }, ref) => {
         if (!children || isEmptyChildren(children)) {
             return <></>;
@@ -118,8 +118,8 @@ const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
     },
 );
 
-ButtonGroup.displayName = 'Button.Group';
+Group.displayName = 'Button.Group';
 
-Button.Group = ButtonGroup;
+Button.Group = Group;
 
 export default Button;
