@@ -37,7 +37,6 @@ flowchart TD
 - [lodash-es](https://www.npmjs.com/package/lodash-es): >=4.17.21
 - [react](https://www.npmjs.com/package/react): >=18.2.0
 - [react-dom](https://www.npmjs.com/package/react-dom): >=18.2.0
-- [tailwind-merge](https://www.npmjs.com/package/tailwind-merge): >=3.3.0
 - [tailwindcss](https://www.npmjs.com/package/tailwindcss): >=4.0.0
 
 ## 安装

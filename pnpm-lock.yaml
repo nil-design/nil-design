@@ -125,9 +125,6 @@ importers:
       stylelint-config-standard:
         specifier: 38.0.0
         version: 38.0.0(stylelint@16.19.1(typescript@5.8.2))
-      tailwind-merge:
-        specifier: 3.3.0
-        version: 3.3.0
       tailwindcss:
         specifier: 4.1.7
         version: 4.1.7
@@ -210,7 +207,7 @@ importers:
         specifier: '>=18.2.0'
         version: 18.2.0
       tailwind-merge:
-        specifier: '>=3.3.0'
+        specifier: 3.3.0
         version: 3.3.0
       tailwindcss:
         specifier: '>=4.0.0'
