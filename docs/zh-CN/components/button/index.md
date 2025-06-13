@@ -13,6 +13,8 @@ catOrder: 1
 
 ::: react-live
 ```tsx
+import { Button } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
     <Button>Solid</Button>
@@ -30,6 +32,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
     <Button disabled>Solid</Button>
@@ -47,6 +51,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-wrap items-end gap-4">
     <Button size="small">Small</Button>
@@ -63,6 +69,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
     <Button shape="round">Solid</Button>
@@ -80,6 +88,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
     <Button block>Solid</Button>
@@ -97,6 +107,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button, Icon } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-wrap items-end gap-4">
     <Button equal>
@@ -119,6 +131,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
     <Button.Group>

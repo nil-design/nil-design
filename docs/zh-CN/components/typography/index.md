@@ -12,6 +12,8 @@ cat: 通用
 
 ::: react-live
 ```tsx
+import { Typography } from '@nild/components';
+
 const { Title } = Typography;
 const Demo = () => {
   return <div>
@@ -32,6 +34,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Typography } from '@nild/components';
+
 const { Title, Paragraph, Text } = Typography;
 const Demo = () => {
   return (
@@ -56,6 +60,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Typography } from '@nild/components';
+
 const { Text } = Typography;
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4 text-md">
@@ -80,6 +86,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Typography } from '@nild/components';
+
 const { Link } = Typography;
 const Demo = () => {
   return <div className="flex gap-4 text-md">

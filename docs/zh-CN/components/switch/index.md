@@ -13,6 +13,8 @@ catOrder: 3
 
 ::: react-live
 ```tsx
+import { Switch } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
     <Switch />
@@ -28,6 +30,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Switch } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
     <Switch disabled />
@@ -44,6 +48,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Switch } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-wrap items-end gap-4">
     <Switch size="small" />
@@ -60,6 +66,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Switch } from '@nild/components';
+
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
     <Switch shape="square" />
@@ -75,7 +83,9 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
-const { useState } = React;
+import { useState } from 'react';
+import { Icon, Switch } from '@nild/components';
+
 const Demo = () => {
   const [checked, setChecked] = useState(false);
 

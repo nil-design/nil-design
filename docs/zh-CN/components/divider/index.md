@@ -16,6 +16,8 @@ catOrder: 2
 
 ::: react-live
 ```tsx
+import { Divider, Typography } from '@nild/components';
+
 const { Paragraph, Text } = Typography;
 const Demo = () => {
   return <div className="flex flex-col gap-4 text-md">
@@ -40,6 +42,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Divider, Typography } from '@nild/components';
+
 const { Paragraph } = Typography;
 const Demo = () => {
   return <div className="text-md">
@@ -64,6 +68,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button, Divider, Icon, Typography } from '@nild/components';
+
 const { Paragraph, Text, Link } = Typography;
 const Demo = () => {
   return <div className="text-md">

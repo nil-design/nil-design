@@ -13,6 +13,8 @@ catOrder: 4
 
 ::: react-live
 ```tsx
+import { Button, Typography, Popover } from '@nild/components'
+
 const { Text } = Typography;
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">

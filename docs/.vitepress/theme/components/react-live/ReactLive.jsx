@@ -2,17 +2,29 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import { cnJoin } from '@nild/shared/utils';
 import { IconProvider, DEFAULT_ICON_CONFIGS, Code, CollapseTextInput, Copy } from '@icon-park/react';
-import * as components from '@nild/components';
+import * as __Components__ from '@nild/components';
+import * as __Icons__ from '@nild/icons';
+import replaceImports from './replaceImports';
 import useTheme from './useTheme';
 
-const ReactLive = ({ dark = false, code: initialCode }) => {
-    const scope = useMemo(() => ({ React, ...components }), []);
+const ReactLive = ({ dark = false, code: encodedCode }) => {
+    const scope = useMemo(() => ({ __React__: React, __Components__, __Icons__ }), []);
     const [editorVisible, setEditorVisible] = useState(false);
-    const [code, setCode] = useState(decodeURIComponent(initialCode));
+    const [rawCode, setRawCode] = useState(decodeURIComponent(encodedCode));
     const [copyActive, setCopyActive] = useState(false);
     const [hasError, setHasError] = useState(false);
     const errorRef = useRef(null);
     const theme = useTheme(dark);
+
+    const resolvedCode = useMemo(
+        () =>
+            replaceImports(rawCode, {
+                react: '__React__',
+                '@nild/components': '__Components__',
+                '@nild/icons': '__Icons__',
+            }),
+        [rawCode],
+    );
 
     /** 未暴露 onError，监听 dom 收集状态 */
     useEffect(() => {
@@ -32,7 +44,7 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
 
     return (
         <IconProvider value={{ ...DEFAULT_ICON_CONFIGS, size: 16, theme: 'outline' }}>
-            <LiveProvider noInline theme={theme} code={code} scope={scope}>
+            <LiveProvider noInline theme={theme} code={resolvedCode} scope={scope}>
                 <div className="live-demo vp-raw flex flex-col rounded-lg bg-transparent border border-vp-divider">
                     {<LivePreview className={cnJoin('live-preview px-6 py-8', hasError && 'hidden')} />}
                     <div
@@ -53,7 +65,7 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
                         <button
                             className="px-1 cursor-pointer"
                             onClick={() => {
-                                navigator.clipboard.writeText(code);
+                                navigator.clipboard.writeText(rawCode);
                             }}
                             onMouseDown={() => setCopyActive(true)}
                             onMouseUp={() => setCopyActive(false)}
@@ -62,7 +74,13 @@ const ReactLive = ({ dark = false, code: initialCode }) => {
                             <Copy theme={copyActive ? 'filled' : 'outline'} />
                         </button>
                     </div>
-                    {<LiveEditor className={cnJoin('live-editor', !editorVisible && 'hidden')} onChange={setCode} />}
+                    {
+                        <LiveEditor
+                            className={cnJoin('live-editor', !editorVisible && 'hidden')}
+                            code={rawCode}
+                            onChange={setRawCode}
+                        />
+                    }
                 </div>
             </LiveProvider>
         </IconProvider>

@@ -15,6 +15,8 @@ cat: 通用
 
 ::: react-live
 ```tsx
+import { Button, Icon, Typography } from '@nild/components';
+
 const { Text } = Typography;
 const Demo = () => {
   return (
@@ -49,6 +51,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button, Icon, Typography } from '@nild/components';
+
 const { Text } = Typography;
 const Demo = () => {
   return (
@@ -83,6 +87,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button, Icon, Typography } from '@nild/components';
+
 const { Text } = Typography;
 const Demo = () => {
   return (
