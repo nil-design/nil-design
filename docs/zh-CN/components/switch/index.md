@@ -84,7 +84,8 @@ render(<Demo />);
 ::: react-live
 ```tsx
 import { useState } from 'react';
-import { Icon, Switch } from '@nild/components';
+import { Switch } from '@nild/components';
+import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
   const [checked, setChecked] = useState(false);
@@ -96,13 +97,13 @@ const Demo = () => {
     />
     <Switch
       shape="square"
-      checkedContent={<Icon name="check" />}
-      uncheckedContent={<Icon name="close" />}
+      checkedContent={<DynamicIcon name="check" />}
+      uncheckedContent={<DynamicIcon name="close" />}
     />
     <Switch
       variant="outlined"
       checked={checked}
-      thumbContent={<Icon name={checked ? 'dark-mode' : 'sun-one'} />}
+      thumbContent={<DynamicIcon name={checked ? 'dark-mode' : 'sun-one'} />}
       onChange={setChecked}
     />
   </div>;

@@ -15,7 +15,8 @@ cat: 通用
 
 ::: react-live
 ```tsx
-import { Button, Icon, Typography } from '@nild/components';
+import { Button, Typography } from '@nild/components';
+import { DynamicIcon } from '@nild/icons';
 
 const { Text } = Typography;
 const Demo = () => {
@@ -23,19 +24,19 @@ const Demo = () => {
     <div className="grid grid-cols-4 gap-4">
       {['bat', 'bear', 'bee', 'bird'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" />
+          <DynamicIcon name={name} className="text-2xl" />
           <Text>{name}</Text>
         </Button>
       ))}
       {['butterfly', 'cat', 'deer', 'dog'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" variant="filled" />
+          <DynamicIcon name={name} className="text-2xl" variant="filled" />
           <Text>{name}</Text>
         </Button>
       ))}
       {['dolphin', 'duck', 'eagle', 'frog'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" variant="two-tone" fill={['var(--color-primary)', 'var(--vp-c-brand-1)']}/>
+          <DynamicIcon name={name} className="text-2xl" variant="two-tone" fill={['var(--color-primary)', 'var(--vp-c-brand-1)']}/>
           <Text>{name}</Text>
         </Button>
       ))}
@@ -51,7 +52,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
-import { Button, Icon, Typography } from '@nild/components';
+import { Button, Typography } from '@nild/components';
+import { DynamicIcon } from '@nild/icons';
 
 const { Text } = Typography;
 const Demo = () => {
@@ -59,19 +61,19 @@ const Demo = () => {
     <div className="grid grid-cols-4 gap-4">
       {['compression', 'copy-one', 'doc-search', 'doc-fail'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" />
+          <DynamicIcon name={name} className="text-2xl" />
           <Text>{name}</Text>
         </Button>
       ))}
       {['compression', 'copy-one', 'doc-search', 'doc-fail'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" strokeLinecap="butt" />
+          <DynamicIcon name={name} className="text-2xl" strokeLinecap="butt" />
           <Text>{name}</Text>
         </Button>
       ))}
       {['compression', 'copy-one', 'doc-search', 'doc-fail'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" strokeLinecap="square" />
+          <DynamicIcon name={name} className="text-2xl" strokeLinecap="square" />
           <Text>{name}</Text>
         </Button>
       ))}
@@ -87,7 +89,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
-import { Button, Icon, Typography } from '@nild/components';
+import { Button, Typography } from '@nild/components';
+import { DynamicIcon } from '@nild/icons';
 
 const { Text } = Typography;
 const Demo = () => {
@@ -95,19 +98,19 @@ const Demo = () => {
     <div className="grid grid-cols-4 gap-4">
       {['tips', 'config', 'lightning', 'sleep'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" />
+          <DynamicIcon name={name} className="text-2xl" />
           <Text>{name}</Text>
         </Button>
       ))}
       {['tips', 'config', 'lightning', 'sleep'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" strokeLinejoin="miter" />
+          <DynamicIcon name={name} className="text-2xl" strokeLinejoin="miter" />
           <Text>{name}</Text>
         </Button>
       ))}
       {['tips', 'config', 'lightning', 'sleep'].map((name, index) => (
         <Button key={index} className="flex flex-col items-center gap-1" variant="text">
-          <Icon name={name} className="text-2xl" strokeLinejoin="bevel" />
+          <DynamicIcon name={name} className="text-2xl" strokeLinejoin="bevel" />
           <Text>{name}</Text>
         </Button>
       ))}

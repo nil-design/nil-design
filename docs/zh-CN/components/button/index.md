@@ -107,18 +107,19 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
-import { Button, Icon } from '@nild/components';
+import { Button } from '@nild/components';
+import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
   return <div className="flex flex-wrap items-end gap-4">
     <Button equal>
-      <Icon name="plus" />
+      <DynamicIcon name="plus" />
     </Button>
     <Button variant="outlined" equal>
-      <Icon name="search" />
+      <DynamicIcon name="search" />
     </Button>
     <Button variant="filled" shape="round" equal>
-      <Icon name="power" />
+      <DynamicIcon name="power" />
     </Button>
   </div>;
 }

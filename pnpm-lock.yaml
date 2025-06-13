@@ -23,15 +23,15 @@ importers:
       '@eslint/js':
         specifier: 9.23.0
         version: 9.23.0
-      '@icon-park/react':
-        specifier: 1.4.2
-        version: 1.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@nild/components':
         specifier: workspace:*
         version: link:packages/components
       '@nild/hooks':
         specifier: workspace:*
         version: link:packages/hooks
+      '@nild/icons':
+        specifier: workspace:*
+        version: link:packages/icons
       '@nild/shared':
         specifier: workspace:*
         version: link:packages/shared
@@ -158,9 +158,6 @@ importers:
       '@floating-ui/dom':
         specifier: 1.7.1
         version: 1.7.1
-      '@icon-park/react':
-        specifier: 1.4.2
-        version: 1.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@nild/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -191,6 +188,18 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+
+  packages/icons:
+    dependencies:
+      '@icon-park/react':
+        specifier: 1.4.2
+        version: 1.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@nild/shared':
+        specifier: workspace:*
+        version: link:../shared
+      react:
+        specifier: '>=18.2.0'
+        version: 18.2.0
 
   packages/materials:
     dependencies:
