@@ -1,4 +1,4 @@
-import { useControllableState, useStableCallback } from '@nild/hooks';
+import { useStableCallback } from '@nild/hooks';
 import { FC, HTMLAttributes, ReactNode } from 'react';
 import { usePopup } from '../_shared/hooks';
 import Portal from '../portal';
@@ -19,11 +19,11 @@ const Popover: FC<PopoverProps> & {
     Trigger: typeof Trigger;
     Portal: typeof Portal;
 } = ({ children, placement, offset, action, open: externalOpen, defaultOpen, onOpenChange }) => {
-    const [open, setOpen] = useControllableState(externalOpen, defaultOpen);
-    const { renderTrigger, renderPortal } = usePopup(children, {
+    const [_open, { setOpen, renderTrigger, renderPortal }] = usePopup(children, {
         placement,
         offset,
-        open,
+        open: externalOpen,
+        defaultOpen,
     });
 
     const handleToggle = useStableCallback(() => {
