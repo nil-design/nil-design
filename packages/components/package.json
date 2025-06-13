@@ -32,7 +32,8 @@
         "test:coverage": "vitest run --environment jsdom --globals --coverage"
     },
     "dependencies": {
-        "@icon-park/react": "1.4.2"
+        "@icon-park/react": "1.4.2",
+        "@floating-ui/dom": "1.7.1"
     },
     "peerDependencies": {
         "@nild/shared": "workspace:*",
