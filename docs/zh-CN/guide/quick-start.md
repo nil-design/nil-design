@@ -9,19 +9,21 @@ catOrder: 1
 
 ## 简介
 
-Nil Design 为提供一站式的开发体验，共实现了五个包，它们的名称及关系依赖如下图所示：
+Nil Design 为提供一站式的开发体验，共实现了六个包，它们的名称及关系依赖如下图所示：
 
 ```mermaid
 flowchart TD
-  shared["@nild/shared"]
+  components["@nild/components"]
   hooks["@nild/hooks"]
   i18n["@nild/i18n"]
-  components["@nild/components"]
+  icons["@nild/icons"]
   materials["@nild/materials"]
+  shared["@nild/shared"]
 
   hooks --> shared
   i18n --> shared
   i18n --> hooks
+  icons --> shared
   components --> shared
   components --> hooks
   materials --> shared
@@ -46,6 +48,7 @@ flowchart TD
 npm install @nild/shared
 npm install @nild/hooks
 npm install @nild/i18n
+npm install @nild/icons
 npm install @nild/components
 npm install @nild/materials
 ```
@@ -53,6 +56,7 @@ npm install @nild/materials
 pnpm add @nild/shared
 pnpm add @nild/hooks
 pnpm add @nild/i18n
+pnpm add @nild/icons
 pnpm add @nild/components
 pnpm add @nild/materials
 ```
