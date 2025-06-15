@@ -56,7 +56,7 @@ const usePopup = (
     const portalRef = useRef<HTMLElement>(null);
     const arrowRef = useRef<Element>(null);
 
-    const [hasOpened, setHasOpened] = useState(defaultOpen);
+    const [mounted, setMounted] = useState(defaultOpen);
     const [open, setOpen] = useControllableState(externalOpen, defaultOpen);
     const [portalCoords, setPortalCoords] = useState<Coords>({ x: 0, y: 0 });
     const [arrowCoords, setArrowCoords] = useState<Coords>({ x: 0, y: 0 });
@@ -112,7 +112,7 @@ const usePopup = (
     });
 
     const renderPortal = useStableCallback((props?: PortalProps) => {
-        if (hasOpened && portal) {
+        if (mounted && portal) {
             return createPortal(
                 cloneElement(portal, {
                     ...portal.props,
@@ -152,18 +152,18 @@ const usePopup = (
     });
 
     useIsomorphicLayoutEffect(() => {
-        if (open && !hasOpened) {
-            setHasOpened(true);
-        } else if (open && hasOpened) {
+        if (open && !mounted) {
+            setMounted(true);
+        } else if (open && mounted) {
             update();
         }
-    }, [open, hasOpened, update]);
+    }, [open, mounted]);
 
     useIsomorphicLayoutEffect(() => {
-        if (!triggerRef.current || !portalRef.current || !open) return;
+        if (!triggerRef.current || !portalRef.current || !mounted) return;
 
         return autoUpdate(triggerRef.current, portalRef.current, update);
-    }, [placement, strategy, offset, open]);
+    }, [placement, strategy, offset, mounted]);
 
     return [
         open,
