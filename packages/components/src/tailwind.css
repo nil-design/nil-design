@@ -43,6 +43,8 @@
   --text-color-link-hover: var(--color-primary-hover);
   --text-color-link-active: var(--color-primary-active);
 
+  --background-color-container: light-dark(var(--nd-color-primary-0), var(--nd-color-primary-5));
+
   --text-sm: 0.75rem;
   --text-sm--line-height: 1.25rem;
   --text-md: 0.875rem;

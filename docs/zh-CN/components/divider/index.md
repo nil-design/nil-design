@@ -16,6 +16,8 @@ catOrder: 2
 
 ::: react-live
 ```tsx
+import { Divider, Typography } from '@nild/components';
+
 const { Paragraph, Text } = Typography;
 const Demo = () => {
   return <div className="flex flex-col gap-4 text-md">
@@ -40,6 +42,8 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Divider, Typography } from '@nild/components';
+
 const { Paragraph } = Typography;
 const Demo = () => {
   return <div className="text-md">
@@ -64,6 +68,9 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
+import { Button, Divider, Typography } from '@nild/components';
+import { DynamicIcon } from '@nild/icons';
+
 const { Paragraph, Text, Link } = Typography;
 const Demo = () => {
   return <div className="text-md">
@@ -73,7 +80,7 @@ const Demo = () => {
     </Divider>
     <Paragraph>不积跬步，无以至千里；不积小流，无以成江海。 —— 荀子</Paragraph>
     <Divider align="left">
-      <Icon className="px-2" name="bookmark" />
+      <DynamicIcon name="bookmark" className="px-2" />
     </Divider>
     <Paragraph>富贵不能淫，贫贱不能移，威武不能屈。 —— 孟子</Paragraph>
     <Divider align="right">

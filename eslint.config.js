@@ -27,7 +27,7 @@ export default tslint.config(
         },
         rules: {
             'no-console': 'warn',
-            'no-unused-vars': 'warn',
+            'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
             'padding-line-between-statements': ['warn', { blankLine: 'always', prev: '*', next: 'return' }],
         },
     },
@@ -88,7 +88,13 @@ export default tslint.config(
         extends: [tslint.configs.recommended],
         rules: {
             '@typescript-eslint/ban-ts-comment': 'warn',
-            '@typescript-eslint/no-unused-vars': 'warn',
+            '@typescript-eslint/no-unused-vars': [
+                'warn',
+                {
+                    argsIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                },
+            ],
             '@typescript-eslint/no-explicit-any': 'warn',
             '@typescript-eslint/no-duplicate-enum-values': 'warn',
             '@typescript-eslint/no-unsafe-function-type': 'warn',

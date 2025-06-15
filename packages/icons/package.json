@@ -1,7 +1,7 @@
 {
-    "name": "@nild/components",
+    "name": "@nild/icons",
     "private": false,
-    "version": "0.0.4",
+    "version": "0.0.1",
     "type": "module",
     "module": "./dist/index.js",
     "exports": {
@@ -9,9 +9,8 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js"
         },
-        "./tailwindcss": "./dist/tailwind.css"
+        "./css": "./dist/index.css"
     },
-    "homepage": "https://nil-design.github.io/nil-design/zh-CN/components",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/nil-design/nil-design.git"
@@ -27,17 +26,13 @@
     ],
     "scripts": {
         "build": "vite build --mode PROD",
-        "dev": "vite build --mode DEV --watch",
-        "test": "vitest run --environment jsdom --globals",
-        "test:coverage": "vitest run --environment jsdom --globals --coverage"
+        "dev": "vite build --mode DEV --watch"
     },
     "dependencies": {
-        "@floating-ui/dom": "1.7.1"
+        "@icon-park/react": "1.4.2"
     },
     "peerDependencies": {
         "@nild/shared": "workspace:*",
-        "@nild/hooks": "workspace:*",
-        "react": ">=18.2.0",
-        "react-dom": ">=18.2.0"
+        "react": ">=18.2.0"
     }
 }

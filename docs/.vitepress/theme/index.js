@@ -1,4 +1,4 @@
-import '@icon-park/react/styles/index.css';
+import '@nild/icons/css';
 import DefaultTheme from 'vitepress/theme';
 import Mermaid from './components/mermaid/Mermaid.vue';
 import ReactBridge from './components/react-bridge/ReactBridge.vue';

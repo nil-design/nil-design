@@ -23,15 +23,15 @@ importers:
       '@eslint/js':
         specifier: 9.23.0
         version: 9.23.0
-      '@icon-park/react':
-        specifier: 1.4.2
-        version: 1.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@nild/components':
         specifier: workspace:*
         version: link:packages/components
       '@nild/hooks':
         specifier: workspace:*
         version: link:packages/hooks
+      '@nild/icons':
+        specifier: workspace:*
+        version: link:packages/icons
       '@nild/shared':
         specifier: workspace:*
         version: link:packages/shared
@@ -125,9 +125,6 @@ importers:
       stylelint-config-standard:
         specifier: 38.0.0
         version: 38.0.0(stylelint@16.19.1(typescript@5.8.2))
-      tailwind-merge:
-        specifier: 3.3.0
-        version: 3.3.0
       tailwindcss:
         specifier: 4.1.7
         version: 4.1.7
@@ -158,9 +155,9 @@ importers:
 
   packages/components:
     dependencies:
-      '@icon-park/react':
-        specifier: 1.4.2
-        version: 1.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@floating-ui/dom':
+        specifier: 1.7.1
+        version: 1.7.1
       '@nild/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -192,6 +189,18 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
 
+  packages/icons:
+    dependencies:
+      '@icon-park/react':
+        specifier: 1.4.2
+        version: 1.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@nild/shared':
+        specifier: workspace:*
+        version: link:../shared
+      react:
+        specifier: '>=18.2.0'
+        version: 18.2.0
+
   packages/materials:
     dependencies:
       react:
@@ -210,7 +219,7 @@ importers:
         specifier: '>=18.2.0'
         version: 18.2.0
       tailwind-merge:
-        specifier: '>=3.3.0'
+        specifier: 3.3.0
         version: 3.3.0
       tailwindcss:
         specifier: '>=4.0.0'
@@ -931,6 +940,15 @@ packages:
   '@eslint/plugin-kit@0.2.8':
     resolution: {integrity: sha512-ZAoA40rNMPwSm+AeHpCq8STiNAwzWLJuP8Xv4CHIc9wv/PSuExjMrmjfYNj682vW0OOiZ1HKxzvjQr9XZIisQA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@floating-ui/core@1.7.1':
+    resolution: {integrity: sha512-azI0DrjMMfIug/ExbBaeDVJXcY0a7EPvPjb2xAJPa4HeimBX+Z18HK8QQR3jb6356SnDDdxx+hinMLcJEDdOjw==}
+
+  '@floating-ui/dom@1.7.1':
+    resolution: {integrity: sha512-cwsmW/zyw5ltYTUeeYJ60CnQuPqmGwuGVhG9w0PRaRKkAyi38BT5CKrpIbb+jtahSwUl04cWzSx9ZOIxeS6RsQ==}
+
+  '@floating-ui/utils@0.2.9':
+    resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
   '@gerrit0/mini-shiki@3.5.0':
     resolution: {integrity: sha512-RQ1YHbN0EsRMP62QB61jFxrgpb8VIUE+PhR8CjBarIat6b2UeYHBo2s+IL7Fny6F4FuV4S63ksSNWiImsUKR+A==}
@@ -5507,6 +5525,17 @@ snapshots:
     dependencies:
       '@eslint/core': 0.13.0
       levn: 0.4.1
+
+  '@floating-ui/core@1.7.1':
+    dependencies:
+      '@floating-ui/utils': 0.2.9
+
+  '@floating-ui/dom@1.7.1':
+    dependencies:
+      '@floating-ui/core': 1.7.1
+      '@floating-ui/utils': 0.2.9
+
+  '@floating-ui/utils@0.2.9': {}
 
   '@gerrit0/mini-shiki@3.5.0':
     dependencies:
