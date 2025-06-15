@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.4
+
+### Patch Changes
+
+- cfd381d: add utils about dpr
+
 ## 0.0.3
 
 ### Patch Changes

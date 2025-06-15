@@ -1,5 +1,13 @@
 # @nild/hooks
 
+## 0.0.5
+
+### Patch Changes
+
+- b962160: usePreviousRef
+- Updated dependencies [cfd381d]
+  - @nild/shared@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes
