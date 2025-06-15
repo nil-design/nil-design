@@ -1,6 +1,6 @@
 import { useStableCallback } from '@nild/hooks';
 import { cnJoin, mergeRefs } from '@nild/shared/utils';
-import { ReactNode, ReactElement, forwardRef, isValidElement, cloneElement } from 'react';
+import { ReactNode, ReactElement, forwardRef, isValidElement, cloneElement, Children } from 'react';
 
 export type TriggerAction = 'click' | 'hover' | 'focus' | 'contextMenu';
 
@@ -14,7 +14,7 @@ export interface TriggerProps {
 
 const Trigger = forwardRef<Element, TriggerProps>(
     ({ children, action = 'click', onToggle, onOpen, onClose, ...restProps }, ref) => {
-        const child = Array.isArray(children) ? children[0] : children;
+        const child = Children.only(children);
         const actions = Array.isArray(action) ? action : [action];
         const handleClick = useStableCallback(() => actions.includes('click') && onToggle?.());
         const handleMouseEnter = useStableCallback(() => actions.includes('hover') && onOpen?.());
@@ -31,12 +31,12 @@ const Trigger = forwardRef<Element, TriggerProps>(
 
         if (!child || !isValidElement(child)) return null;
 
-        const firstChild = child as ReactElement;
+        const onlyChild = child as ReactElement;
 
-        return cloneElement(firstChild, {
+        return cloneElement(onlyChild, {
             ...restProps,
-            className: cnJoin('nd-trigger', firstChild?.props?.className),
-            ref: mergeRefs(ref, firstChild?.props?.ref),
+            className: cnJoin('nd-trigger', onlyChild?.props?.className),
+            ref: mergeRefs(ref, onlyChild?.props?.ref),
             onClick: handleClick,
             onMouseEnter: handleMouseEnter,
             onMouseLeave: handleMouseLeave,

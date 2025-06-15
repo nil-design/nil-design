@@ -8,7 +8,9 @@ import {
     forwardRef,
     isValidElement,
     cloneElement,
+    Children,
 } from 'react';
+import { createPortal } from 'react-dom';
 import Arrow from './Arrow';
 import { ArrowOrientation, PaddingSize, PADDING_SIZE_CLS_MAP } from './style';
 
@@ -22,23 +24,24 @@ export interface PortalProps extends HTMLAttributes<HTMLDivElement> {
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(
     ({ children, paddingSize = 'medium', arrowRef, arrowStyle, arrowOrientation, ...restProps }, ref) => {
-        const child = Array.isArray(children) ? children[0] : children;
+        const child = Children.only(children);
         if (!child || !isValidElement(child)) return null;
 
-        const firstChild = child as ReactElement;
+        const onlyChild = child as ReactElement;
 
-        return (
+        return createPortal(
             <div {...restProps} className="nd-portal absolute top-0 left-0" ref={ref}>
-                {cloneElement(firstChild, {
-                    ...firstChild.props,
+                {cloneElement(onlyChild, {
+                    ...onlyChild.props,
                     className: cnMerge(
                         'bg-container rounded-md outline-solid outline-1 outline-split shadow-lg',
                         PADDING_SIZE_CLS_MAP[paddingSize],
-                        firstChild?.props?.className,
+                        onlyChild?.props?.className,
                     ),
                 })}
                 <Arrow className="absolute" ref={arrowRef} style={arrowStyle} orientation={arrowOrientation} />
-            </div>
+            </div>,
+            document.body,
         );
     },
 );

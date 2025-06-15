@@ -113,22 +113,19 @@ const usePopup = (
 
     const renderPortal = useStableCallback((props?: PortalProps) => {
         if (mounted && portal) {
-            return createPortal(
-                cloneElement(portal, {
-                    ...portal.props,
-                    ...props,
-                    style: {
-                        display: open ? 'block' : 'none',
-                        transform: `translate(${portalCoords.x}px, ${portalCoords.y}px)`,
-                        ...(getDPR() >= 1.5 && { willChange: 'transform' }),
-                    },
-                    ref: portalRef,
-                    arrowRef,
-                    arrowStyle: arrowRelativePosition,
-                    arrowOrientation,
-                }),
-                document.body,
-            );
+            return cloneElement(portal, {
+                ...portal.props,
+                ...props,
+                style: {
+                    display: open ? 'block' : 'none',
+                    transform: `translate(${portalCoords.x}px, ${portalCoords.y}px)`,
+                    ...(getDPR() >= 1.5 && { willChange: 'transform' }),
+                },
+                ref: portalRef,
+                arrowRef,
+                arrowStyle: arrowRelativePosition,
+                arrowOrientation,
+            });
         }
     });
 
