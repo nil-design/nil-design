@@ -20,7 +20,6 @@ import {
     useState,
     Dispatch,
 } from 'react';
-import { createPortal } from 'react-dom';
 import Portal, { PortalProps } from '../../portal';
 import Trigger, { TriggerProps } from '../../trigger';
 import type { Placement, Strategy, OffsetOptions, Coords, Side } from '@floating-ui/dom';
@@ -77,24 +76,24 @@ const usePopup = (
     }[side];
 
     let firstBareChild: ReactElement | undefined;
-    let trigger: ReactElement | undefined;
-    let portal: ReactElement | undefined;
+    let triggerChild: ReactElement | undefined;
+    let portalChild: ReactElement | undefined;
 
     Children.forEach(children, child => {
         if (isValidElement(child) && child.type !== Trigger && child.type !== Portal) {
             firstBareChild = child;
         }
         if (isValidElement(child) && child.type === Trigger) {
-            trigger = child;
+            triggerChild = child;
         }
         if (isValidElement(child) && child.type === Portal) {
-            portal = child;
+            portalChild = child;
         }
     });
 
     const renderTrigger = useStableCallback((props?: TriggerProps & Partial<any>) => {
-        if (trigger) {
-            return cloneElement(trigger, {
+        if (triggerChild) {
+            return cloneElement(triggerChild, {
                 ...props,
                 ref: triggerRef,
             });
@@ -112,9 +111,9 @@ const usePopup = (
     });
 
     const renderPortal = useStableCallback((props?: PortalProps) => {
-        if (mounted && portal) {
-            return cloneElement(portal, {
-                ...portal.props,
+        if (mounted && portalChild) {
+            return cloneElement(portalChild, {
+                ...portalChild.props,
                 ...props,
                 style: {
                     display: open ? 'block' : 'none',
@@ -122,9 +121,11 @@ const usePopup = (
                     ...(getDPR() >= 1.5 && { willChange: 'transform' }),
                 },
                 ref: portalRef,
-                arrowRef,
-                arrowStyle: arrowRelativePosition,
-                arrowOrientation,
+                arrow: {
+                    ref: arrowRef,
+                    style: arrowRelativePosition,
+                    orientation: arrowOrientation,
+                },
             });
         }
     });

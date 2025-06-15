@@ -8,7 +8,7 @@ import {
     ARROW_ORIENTATION_STYLE_MAP,
 } from './style';
 
-interface ArrowProps extends HTMLAttributes<HTMLSpanElement> {
+export interface ArrowProps extends HTMLAttributes<HTMLSpanElement> {
     className?: string;
     style?: CSSProperties;
     orientation?: ArrowOrientation;

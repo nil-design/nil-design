@@ -4,26 +4,28 @@ import {
     ReactNode,
     ReactElement,
     Ref,
-    CSSProperties,
     forwardRef,
     isValidElement,
     cloneElement,
     Children,
 } from 'react';
 import { createPortal } from 'react-dom';
-import Arrow from './Arrow';
-import { ArrowOrientation, PaddingSize, PADDING_SIZE_CLS_MAP } from './style';
+import Arrow, { ArrowProps } from './Arrow';
+import { PaddingSize, PADDING_SIZE_CLS_MAP } from './style';
+
+interface ArrowOptions extends ArrowProps {
+    ref: Ref<HTMLDivElement>;
+}
 
 export interface PortalProps extends HTMLAttributes<HTMLDivElement> {
     children?: ReactNode;
+    container?: Element | DocumentFragment;
     paddingSize?: PaddingSize;
-    arrowRef?: Ref<HTMLDivElement>;
-    arrowStyle?: CSSProperties;
-    arrowOrientation?: ArrowOrientation;
+    arrow?: ArrowOptions | false;
 }
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(
-    ({ children, paddingSize = 'medium', arrowRef, arrowStyle, arrowOrientation, ...restProps }, ref) => {
+    ({ children, container = document.body, paddingSize = 'medium', arrow = false, ...restProps }, ref) => {
         const child = Children.only(children);
         if (!child || !isValidElement(child)) return null;
 
@@ -39,9 +41,9 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
                         onlyChild?.props?.className,
                     ),
                 })}
-                <Arrow className="absolute" ref={arrowRef} style={arrowStyle} orientation={arrowOrientation} />
+                {arrow !== false && <Arrow {...arrow} className={cnMerge('absolute', arrow.className)} />}
             </div>,
-            document.body,
+            container,
         );
     },
 );
