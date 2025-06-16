@@ -5,20 +5,20 @@ import Portal from '../portal';
 import Trigger, { TriggerAction } from '../trigger';
 import type { Placement, OffsetOptions } from '@floating-ui/dom';
 
-interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
+interface PopoverProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
     children?: ReactNode;
     placement?: Placement;
     offset?: OffsetOptions;
     action?: TriggerAction | TriggerAction[];
     open?: boolean;
     defaultOpen?: boolean;
-    onOpenChange?: (open: boolean) => void;
+    onChange?: (open: boolean) => void;
 }
 
 const Popover: FC<PopoverProps> & {
     Trigger: typeof Trigger;
     Portal: typeof Portal;
-} = ({ children, placement, offset, action, open: externalOpen, defaultOpen, onOpenChange }) => {
+} = ({ children, placement, offset, action, open: externalOpen, defaultOpen, onChange }) => {
     const [_open, { setOpen, renderTrigger, renderPortal }] = usePopup(children, {
         placement,
         offset,
@@ -28,7 +28,7 @@ const Popover: FC<PopoverProps> & {
 
     const handleToggle = useStableCallback(() => {
         setOpen(v => {
-            onOpenChange?.(!v);
+            onChange?.(!v);
 
             return !v;
         });
@@ -36,7 +36,7 @@ const Popover: FC<PopoverProps> & {
 
     const handleOpen = useStableCallback(() => {
         setOpen(() => {
-            onOpenChange?.(true);
+            onChange?.(true);
 
             return true;
         });
@@ -44,7 +44,7 @@ const Popover: FC<PopoverProps> & {
 
     const handleClose = useStableCallback(() => {
         setOpen(() => {
-            onOpenChange?.(false);
+            onChange?.(false);
 
             return false;
         });

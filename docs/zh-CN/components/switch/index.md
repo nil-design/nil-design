@@ -125,3 +125,6 @@ render(<Demo />);
 | checkedContent | - | `React.ReactNode` | - |
 | uncheckedContent | - | `React.ReactNode` | - |
 | thumbContent | - | `React.ReactNode` | - |
+| checked | - | `boolean` | - |
+| defaultChecked | - | `boolean` | `false` |
+| onChange | - | `(checked: boolean) => void` | - |
