@@ -23,21 +23,16 @@ enum Status {
 interface TransitionProps {
     children?: ReactNode;
     visible?: boolean;
-    timeout?: number;
 }
 
-const Transition: FC<TransitionProps> = ({ children, visible, timeout = 0 }) => {
+const Transition: FC<TransitionProps> = ({ children, visible }) => {
     const child = Children.toArray(children).find(child => isValidElement(child));
     const targetStatus = child ? (visible ? Status.ENTERED : Status.EXITED) : Status.UNMOUNTED;
     const [status, setStatus] = useState<Status>(targetStatus);
     const updateCallbackRef = useRef<{ (): void; cancel(): void }>();
+    const resolvedChildRef = useRef(child);
 
-    const cancelUpdateCallback = useStableCallback(() => {
-        if (updateCallbackRef.current) {
-            updateCallbackRef.current.cancel();
-            updateCallbackRef.current = undefined;
-        }
-    });
+    resolvedChildRef.current = status === Status.UNMOUNTED ? child : (child ?? resolvedChildRef.current);
 
     const setUpdateCallback = useStableCallback((callback: () => void) => {
         cancelUpdateCallback();
@@ -57,58 +52,95 @@ const Transition: FC<TransitionProps> = ({ children, visible, timeout = 0 }) => 
         updateCallbackRef.current = callbackWrapper;
     });
 
-    useEffect(() => {
+    const executeUpdateCallback = useStableCallback(() => {
         if (updateCallbackRef.current) {
             updateCallbackRef.current();
             updateCallbackRef.current = undefined;
         }
+    });
+
+    const cancelUpdateCallback = useStableCallback(() => {
+        if (updateCallbackRef.current) {
+            updateCallbackRef.current.cancel();
+            updateCallbackRef.current = undefined;
+        }
+    });
+
+    const handleTransitionEnd = useStableCallback(() => {
+        if (targetStatus === Status.UNMOUNTED && status === Status.EXITED) {
+            setStatus(Status.UNMOUNTED);
+        }
+    });
+
+    useEffect(() => {
+        executeUpdateCallback();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status]);
 
     useEffect(() => {
-        if (targetStatus === Status.ENTERED) {
-            if (status !== Status.ENTERING && status !== Status.ENTERED) {
-                if (status === Status.UNMOUNTED) {
-                    setStatus(Status.EXITED);
-                } else {
+        switch (targetStatus) {
+            case Status.ENTERED:
+                if (status !== Status.ENTERING && status !== Status.ENTERED) {
+                    if (status === Status.UNMOUNTED) {
+                        setStatus(Status.EXITED);
+                    } else {
+                        cancelUpdateCallback();
+                        setStatus(Status.ENTERING);
+                        setUpdateCallback(() => {
+                            setUpdateCallback(() => {
+                                setStatus(Status.ENTERED);
+                            });
+                            if (updateCallbackRef.current) {
+                                setTimeout(updateCallbackRef.current, 0);
+                            }
+                        });
+                    }
+                }
+                break;
+            case Status.EXITED:
+                if (status === Status.ENTERING || status === Status.ENTERED) {
                     cancelUpdateCallback();
-                    setStatus(Status.ENTERING);
+                    setStatus(Status.EXITING);
                     setUpdateCallback(() => {
                         setUpdateCallback(() => {
-                            setStatus(Status.ENTERED);
+                            setStatus(Status.EXITED);
                         });
                         if (updateCallbackRef.current) {
-                            setTimeout(updateCallbackRef.current, timeout);
+                            setTimeout(updateCallbackRef.current, 0);
                         }
                     });
                 }
-            }
-        } else {
-            if (status === Status.ENTERING || status === Status.ENTERED) {
-                cancelUpdateCallback();
-                setStatus(Status.EXITING);
-                setUpdateCallback(() => {
+                break;
+            case Status.UNMOUNTED:
+            default:
+                if (status !== Status.EXITED && status !== Status.UNMOUNTED) {
+                    cancelUpdateCallback();
+                    setStatus(Status.EXITING);
                     setUpdateCallback(() => {
-                        setStatus(Status.EXITED);
+                        setUpdateCallback(() => {
+                            setStatus(Status.EXITED);
+                        });
+                        if (updateCallbackRef.current) {
+                            setTimeout(updateCallbackRef.current, 0);
+                        }
                     });
-                    if (updateCallbackRef.current) {
-                        setTimeout(updateCallbackRef.current, timeout);
-                    }
-                });
-            }
+                }
+                break;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible, targetStatus, status]);
 
-    if (!child) return null;
+    if (!resolvedChildRef.current) return null;
 
-    return cloneElement(child as ReactElement, {
-        ...child.props,
-        className: cnJoin(child.props.className, 'transition-[opacity,visibility]'),
+    return cloneElement(resolvedChildRef.current as ReactElement, {
+        ...resolvedChildRef.current.props,
+        className: cnJoin(resolvedChildRef.current.props.className, 'transition-[opacity,visibility]'),
         style: {
-            ...child.props.style,
+            ...resolvedChildRef.current.props.style,
             opacity: status === Status.ENTERED ? 1 : 0,
             visibility: status === Status.ENTERED ? 'visible' : 'hidden',
         },
+        onTransitionEnd: handleTransitionEnd,
     });
 };
 
