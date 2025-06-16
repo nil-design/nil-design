@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve, basename } from 'path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -26,7 +26,15 @@ export default defineConfig(({ mode }) => {
                     format: 'es',
                     preserveModules: true,
                     preserveModulesRoot: 'src',
-                    entryFileNames: '[name].js',
+                    entryFileNames: chunkInfo => {
+                        if (chunkInfo.facadeModuleId.includes('@icon-park/react/es/icons/')) {
+                            return `icons/${basename(chunkInfo.facadeModuleId)}`;
+                        } else if (chunkInfo.facadeModuleId.includes('@icon-park/react/es/runtime/')) {
+                            return 'runtime/index.js';
+                        }
+
+                        return '[name].js';
+                    },
                     assetFileNames: 'index.css',
                 },
             },
