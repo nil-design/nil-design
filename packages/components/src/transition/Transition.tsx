@@ -27,8 +27,8 @@ interface TransitionProps {
 }
 
 const Transition: FC<TransitionProps> = ({ children, visible, timeout = 0 }) => {
-    const onlyChild = Children.toArray(children).find(child => isValidElement(child));
-    const targetStatus = onlyChild ? (visible ? Status.ENTERED : Status.EXITED) : Status.UNMOUNTED;
+    const child = Children.toArray(children).find(child => isValidElement(child));
+    const targetStatus = child ? (visible ? Status.ENTERED : Status.EXITED) : Status.UNMOUNTED;
     const [status, setStatus] = useState<Status>(targetStatus);
     const updateCallbackRef = useRef<{ (): void; cancel(): void }>();
 
@@ -99,13 +99,13 @@ const Transition: FC<TransitionProps> = ({ children, visible, timeout = 0 }) => 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible, targetStatus, status]);
 
-    if (!onlyChild) return null;
+    if (!child) return null;
 
-    return cloneElement(onlyChild as ReactElement, {
-        ...onlyChild.props,
-        className: cnJoin(onlyChild.props.className, 'transition-[opacity,visibility]'),
+    return cloneElement(child as ReactElement, {
+        ...child.props,
+        className: cnJoin(child.props.className, 'transition-[opacity,visibility]'),
         style: {
-            ...onlyChild.props.style,
+            ...child.props.style,
             opacity: status === Status.ENTERED ? 1 : 0,
             visibility: status === Status.ENTERED ? 'visible' : 'hidden',
         },
