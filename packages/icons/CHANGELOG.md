@@ -1,5 +1,11 @@
 # @nild/icons
 
+## 0.0.3
+
+### Patch Changes
+
+- 3b334bf: optimize the dist structure & support on-demand import
+
 ## 0.0.2
 
 ### Patch Changes
