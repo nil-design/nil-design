@@ -31,7 +31,7 @@ const Demo = () => {
       uncheckedContent={'invisible'}
     />
     <Transition className="duration-600" visible={checked}>
-        <DynamicIcon name="ghost" className="text-3xl" />
+        <DynamicIcon name="ghost" className="text-2xl" />
     </Transition>
   </div>;
 }
@@ -59,7 +59,7 @@ const Demo = () => {
       uncheckedContent={'destroy'}
     />
     <Transition className="duration-600">
-        {checked && <DynamicIcon name="skull" className="text-3xl" />}
+        {checked && <DynamicIcon name="skull" className="text-2xl" />}
     </Transition>
   </div>;
 }
