@@ -25,14 +25,14 @@ export interface PortalProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(
-    ({ children, container = document.body, paddingSize = 'medium', arrow = false, ...restProps }, ref) => {
+    ({ className, children, container = document.body, paddingSize = 'medium', arrow = false, ...restProps }, ref) => {
         const child = Children.only(children);
         if (!child || !isValidElement(child)) return null;
 
         const onlyChild = child as ReactElement;
 
         return createPortal(
-            <div {...restProps} className="nd-portal absolute top-0 left-0" ref={ref}>
+            <div {...restProps} className={cnMerge('nd-portal', 'absolute top-0 left-0', className)} ref={ref}>
                 {cloneElement(onlyChild, {
                     ...onlyChild.props,
                     className: cnMerge(
