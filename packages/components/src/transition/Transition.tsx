@@ -1,5 +1,5 @@
 import { useStableCallback } from '@nild/hooks';
-import { cnJoin } from '@nild/shared/utils';
+import { cnMerge } from '@nild/shared/utils';
 import {
     FC,
     ReactNode,
@@ -21,11 +21,12 @@ enum Status {
 }
 
 interface TransitionProps {
+    className?: string;
     children?: ReactNode;
     visible?: boolean;
 }
 
-const Transition: FC<TransitionProps> = ({ children, visible }) => {
+const Transition: FC<TransitionProps> = ({ className, children, visible = true }) => {
     const child = Children.toArray(children).find(child => isValidElement(child));
     const targetStatus = child ? (visible ? Status.ENTERED : Status.EXITED) : Status.UNMOUNTED;
     const [status, setStatus] = useState<Status>(targetStatus);
@@ -134,7 +135,7 @@ const Transition: FC<TransitionProps> = ({ children, visible }) => {
 
     return cloneElement(resolvedChildRef.current as ReactElement, {
         ...resolvedChildRef.current.props,
-        className: cnJoin(resolvedChildRef.current.props.className, 'transition-[opacity,visibility]'),
+        className: cnMerge(resolvedChildRef.current.props.className, 'transition-[opacity,visibility]', className),
         style: {
             ...resolvedChildRef.current.props.style,
             opacity: status === Status.ENTERED ? 1 : 0,
