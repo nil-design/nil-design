@@ -1,5 +1,15 @@
 # @nild/hooks
 
+## 0.0.5
+
+### Patch Changes
+
+- b962160: usePreviousRef
+- d595fd3: useMount & useUnmount
+- 44308fb: exposed usePreviousRef
+- Updated dependencies [cfd381d]
+  - @nild/shared@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes
