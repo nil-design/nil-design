@@ -159,10 +159,10 @@ const usePopup = (
     }, [open, mounted]);
 
     useIsomorphicLayoutEffect(() => {
-        if (!triggerRef.current || !portalRef.current || !mounted) return;
+        if (!triggerRef.current || !portalRef.current || !open) return;
 
         return autoUpdate(triggerRef.current, portalRef.current, update);
-    }, [placement, strategy, offset, mounted]);
+    }, [placement, strategy, offset, open]);
 
     return [
         open,
