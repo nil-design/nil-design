@@ -4,18 +4,27 @@ import { cnJoin } from '@nild/shared/utils';
 import * as __SharedUtils__ from '@nild/shared/utils';
 import * as __Components__ from '@nild/components';
 import { DynamicIcon, Icon } from '@nild/icons';
+import Layers from '@nild/icons/Layers';
 import replaceImports from './replaceImports';
 import useTheme from './useTheme';
 
 const ReactLive = ({ dark = false, code: encodedCode }) => {
-    const scope = useMemo(() => ({ __React__: React, __SharedUtils__, __Components__, __Icons__: { DynamicIcon, Icon } }), []);
     const [editorVisible, setEditorVisible] = useState(false);
     const [rawCode, setRawCode] = useState(decodeURIComponent(encodedCode));
     const [copyActive, setCopyActive] = useState(false);
     const [hasError, setHasError] = useState(false);
     const errorRef = useRef(null);
     const theme = useTheme(dark);
-
+    const scope = useMemo(
+        () => ({
+            __React__: React,
+            __SharedUtils__,
+            __Components__,
+            __Icons__: { DynamicIcon, Icon },
+            __Icon_Layers__: Layers,
+        }),
+        [],
+    );
     const resolvedCode = useMemo(
         () =>
             replaceImports(rawCode, {
@@ -23,6 +32,7 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
                 '@nild/shared/utils': '__SharedUtils__',
                 '@nild/components': '__Components__',
                 '@nild/icons': '__Icons__',
+                '@nild/icons/Layers': '__Icon_Layers__',
             }),
         [rawCode],
     );

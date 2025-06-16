@@ -11,6 +11,39 @@ cat: 通用
 > [!NOTE]
 > 引自 [IconPark 官方图标库](https://iconpark.oceanengine.com/official)
 
+## 按需引入
+
+::: react-live
+```tsx
+import { Icon } from '@nild/icons';
+import Layers from '@nild/icons/Layers';
+
+const Demo = () => {
+  return (
+    <Icon component={Layers} className="text-2xl" />
+  );
+};
+
+render(<Demo />);
+```
+:::
+
+## 动态导入
+
+::: react-live
+```tsx
+import { DynamicIcon } from '@nild/icons';
+
+const Demo = () => {
+  return (
+    <DynamicIcon name={'loading'} className="text-2xl" />
+  );
+};
+
+render(<Demo />);
+```
+:::
+
 ## 图标风格
 
 ::: react-live
