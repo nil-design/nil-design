@@ -56,9 +56,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {...restProps}
                 disabled={disabled}
                 className={cnMerge(
-                    ['nd-button', 'font-sans', 'cursor-pointer', 'transition-colors'],
+                    'nd-button',
+                    'font-sans cursor-pointer transition-colors',
                     DISABLED_CLS,
-                    block && ['w-full'],
+                    block && 'w-full',
+                    plain && 'whitespace-nowrap truncate',
                     VARIANT_CLS_MAP[variant],
                     SIZE_CLS_MAP[size][`${plain}`],
                     SHAPE_CLS_MAP[shape],
