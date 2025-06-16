@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import { cnJoin } from '@nild/shared/utils';
+import * as __SharedUtils__ from '@nild/shared/utils';
 import * as __Components__ from '@nild/components';
 import { DynamicIcon, Icon } from '@nild/icons';
 import replaceImports from './replaceImports';
 import useTheme from './useTheme';
 
 const ReactLive = ({ dark = false, code: encodedCode }) => {
-    const scope = useMemo(() => ({ __React__: React, __Components__, __Icons__: { DynamicIcon, Icon } }), []);
+    const scope = useMemo(() => ({ __React__: React, __SharedUtils__, __Components__, __Icons__: { DynamicIcon, Icon } }), []);
     const [editorVisible, setEditorVisible] = useState(false);
     const [rawCode, setRawCode] = useState(decodeURIComponent(encodedCode));
     const [copyActive, setCopyActive] = useState(false);
@@ -19,6 +20,7 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
         () =>
             replaceImports(rawCode, {
                 react: '__React__',
+                '@nild/shared/utils': '__SharedUtils__',
                 '@nild/components': '__Components__',
                 '@nild/icons': '__Icons__',
             }),
