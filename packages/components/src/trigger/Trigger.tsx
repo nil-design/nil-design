@@ -14,7 +14,7 @@ export interface TriggerProps {
 
 const Trigger = forwardRef<Element, TriggerProps>(
     ({ children, action = 'click', onToggle, onOpen, onClose, ...restProps }, ref) => {
-        const child = Children.only(children);
+        const child = Children.toArray(children).find(child => isValidElement(child));
         const actions = Array.isArray(action) ? action : [action];
         const handleClick = useStableCallback(() => actions.includes('click') && onToggle?.());
         const handleMouseEnter = useStableCallback(() => actions.includes('hover') && onOpen?.());
@@ -29,14 +29,12 @@ const Trigger = forwardRef<Element, TriggerProps>(
             (evt: MouseEvent) => actions.includes('contextMenu') && (evt.preventDefault(), onOpen?.()),
         );
 
-        if (!child || !isValidElement(child)) return null;
+        if (!child) return null;
 
-        const onlyChild = child as ReactElement;
-
-        return cloneElement(onlyChild, {
+        return cloneElement(child as ReactElement, {
             ...restProps,
-            className: cnJoin('nd-trigger', onlyChild?.props?.className),
-            ref: mergeRefs(ref, onlyChild?.props?.ref),
+            className: cnJoin('nd-trigger', child?.props?.className),
+            ref: mergeRefs(ref, child?.props?.ref),
             onClick: handleClick,
             onMouseEnter: handleMouseEnter,
             onMouseLeave: handleMouseLeave,

@@ -13,7 +13,6 @@ import {
     ReactElement,
     Children,
     cloneElement,
-    createElement,
     isValidElement,
     useMemo,
     useRef,
@@ -21,6 +20,7 @@ import {
     Dispatch,
 } from 'react';
 import Portal, { PortalProps } from '../../portal';
+import Transition from '../../transition';
 import Trigger, { TriggerProps } from '../../trigger';
 import type { Placement, Strategy, OffsetOptions, Coords, Side } from '@floating-ui/dom';
 
@@ -99,34 +99,35 @@ const usePopup = (
             });
         }
         if (firstBareChild) {
-            return createElement(
-                Trigger,
-                {
-                    ...props,
-                    ref: triggerRef,
-                },
-                firstBareChild,
+            return (
+                <Trigger {...props} ref={triggerRef}>
+                    {firstBareChild}
+                </Trigger>
             );
         }
     });
 
     const renderPortal = useStableCallback((props?: PortalProps) => {
-        if (mounted && portalChild) {
-            return cloneElement(portalChild, {
-                ...portalChild.props,
-                ...props,
-                style: {
-                    display: open ? 'block' : 'none',
-                    transform: `translate(${portalCoords.x}px, ${portalCoords.y}px)`,
-                    ...(getDPR() >= 1.5 && { willChange: 'transform' }),
-                },
-                ref: portalRef,
-                arrow: {
-                    ref: arrowRef,
-                    style: arrowRelativePosition,
-                    orientation: arrowOrientation,
-                },
-            });
+        if (portalChild) {
+            return (
+                <Transition visible={open}>
+                    {mounted &&
+                        cloneElement(portalChild, {
+                            ...portalChild.props,
+                            ...props,
+                            style: {
+                                transform: `translate(${portalCoords.x}px, ${portalCoords.y}px)`,
+                                ...(getDPR() >= 1.5 && { willChange: 'transform' }),
+                            },
+                            ref: portalRef,
+                            arrow: {
+                                ref: arrowRef,
+                                style: arrowRelativePosition,
+                                orientation: arrowOrientation,
+                            },
+                        })}
+                </Transition>
+            );
         }
     });
 
@@ -158,10 +159,10 @@ const usePopup = (
     }, [open, mounted]);
 
     useIsomorphicLayoutEffect(() => {
-        if (!triggerRef.current || !portalRef.current || !mounted) return;
+        if (!triggerRef.current || !portalRef.current || !open) return;
 
         return autoUpdate(triggerRef.current, portalRef.current, update);
-    }, [placement, strategy, offset, mounted]);
+    }, [placement, strategy, offset, open]);
 
     return [
         open,
