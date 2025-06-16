@@ -1,5 +1,19 @@
 # @nild/components
 
+## 0.0.5
+
+### Patch Changes
+
+- e580672: separate icons from the components package
+- c367c9a: add Transition component
+- 69b85c4: usePopup & Popover
+- Updated dependencies [b962160]
+- Updated dependencies [cfd381d]
+- Updated dependencies [d595fd3]
+- Updated dependencies [44308fb]
+  - @nild/hooks@0.0.5
+  - @nild/shared@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes
