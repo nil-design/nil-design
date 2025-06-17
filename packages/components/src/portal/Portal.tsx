@@ -24,7 +24,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
                 {cloneElement(child as ReactElement, {
                     ...child.props,
                     className: cnMerge(
-                        'bg-container rounded-md outline-solid outline-1 outline-split shadow-lg',
+                        'bg-container rounded-md outline-solid outline-1 outline-edge shadow-lg',
                         PADDING_SIZE_CLS_MAP[paddingSize],
                         child?.props?.className,
                     ),
