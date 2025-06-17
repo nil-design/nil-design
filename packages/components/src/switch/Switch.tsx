@@ -78,8 +78,8 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                 disabled={disabled}
                 className={cnMerge(
                     'nd-switch',
-                    ['relative', 'inline-block', 'font-sans', 'overflow-hidden', 'cursor-pointer'],
-                    ['h-[var(--nd-switch-height)]'],
+                    'group',
+                    'h-[var(--nd-switch-height)] relative inline-block font-sans overflow-hidden cursor-pointer',
                     DISABLED_CLS,
                     VARIANT_CLS_MAP[variant],
                     SIZE_CLS_MAP[size],
@@ -121,7 +121,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                     className={cnMerge(
                         'flex justify-center items-center',
                         'h-[var(--nd-switch-height)] absolute aspect-square scale-80',
-                        'text-contrast transition-[left]',
+                        'text-contrast transition-[left,background-color]',
                         VARIANT_THUMB_CLS_MAP[variant],
                         SHAPE_CLS_MAP[shape],
                         checked ? 'left-[calc(100%-var(--nd-switch-height))]' : 'left-0',
