@@ -30,6 +30,9 @@ render(<Demo />);
 
 ## 动态导入
 
+> [!NOTE]
+> 所有图标都将参与构建
+
 ::: react-live
 ```tsx
 import { DynamicIcon } from '@nild/icons';

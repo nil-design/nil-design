@@ -36,7 +36,7 @@ type UsePopupReturn = [
     boolean,
     {
         setOpen: Dispatch<React.SetStateAction<boolean>>;
-        renderTrigger: (props?: TriggerProps & Partial<any>) => ReactElement | undefined;
+        renderTrigger: (props?: TriggerProps) => ReactElement | undefined;
         renderPortal: (props?: PortalProps) => ReactElement | undefined;
     },
 ];
@@ -91,7 +91,7 @@ const usePopup = (
         }
     });
 
-    const renderTrigger = useStableCallback((props?: TriggerProps & Partial<any>) => {
+    const renderTrigger = useStableCallback((props?: TriggerProps) => {
         if (triggerChild) {
             return cloneElement(triggerChild, {
                 ...props,

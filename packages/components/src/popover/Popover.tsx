@@ -1,11 +1,11 @@
 import { useStableCallback } from '@nild/hooks';
-import { FC, HTMLAttributes, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { usePopup } from '../_shared/hooks';
 import Portal from '../portal';
 import Trigger, { TriggerAction } from '../trigger';
 import type { Placement, OffsetOptions } from '@floating-ui/dom';
 
-interface PopoverProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+interface PopoverProps {
     children?: ReactNode;
     placement?: Placement;
     offset?: OffsetOptions;
