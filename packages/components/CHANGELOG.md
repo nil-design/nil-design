@@ -1,5 +1,14 @@
 # @nild/components
 
+## 0.0.6
+
+### Patch Changes
+
+- b5b588a: optimize the dist structure 4 components & shared
+- Updated dependencies [b5b588a]
+  - @nild/shared@0.0.5
+  - @nild/hooks@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes

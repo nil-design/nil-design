@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.5
+
+### Patch Changes
+
+- b5b588a: optimize the dist structure 4 components & shared
+
 ## 0.0.4
 
 ### Patch Changes
