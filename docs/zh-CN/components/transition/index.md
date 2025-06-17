@@ -24,12 +24,10 @@ const Demo = () => {
   const [checked, setChecked] = useState(true);
 
   return <div className="flex flex-col items-start gap-4">
-    <Switch
-      checked={checked}
-      onChange={setChecked}
-      checkedContent={'visible'}
-      uncheckedContent={'invisible'}
-    />
+    <Switch checked={checked} onChange={setChecked}>
+      <Switch.Checked>Visible</Switch.Checked>
+      <Switch.Unchecked>Invisible</Switch.Unchecked>
+    </Switch>
     <Transition className="duration-600" visible={checked}>
         <DynamicIcon name="ghost" className="text-2xl" />
     </Transition>
@@ -52,12 +50,10 @@ const Demo = () => {
   const [checked, setChecked] = useState(true);
 
   return <div className="flex flex-col items-start gap-4">
-    <Switch
-      checked={checked}
-      onChange={setChecked}
-      checkedContent={'create'}
-      uncheckedContent={'destroy'}
-    />
+    <Switch checked={checked} onChange={setChecked}>
+      <Switch.Checked>Create</Switch.Checked>
+      <Switch.Unchecked>Destroy</Switch.Unchecked>
+    </Switch>
     <Transition className="duration-600">
         {checked && <DynamicIcon name="skull" className="text-2xl" />}
     </Transition>

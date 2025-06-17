@@ -91,21 +91,23 @@ const Demo = () => {
   const [checked, setChecked] = useState(false);
 
   return <div className="flex flex-wrap gap-4">
-    <Switch
-      checkedContent={'Open'}
-      uncheckedContent={'Close'}
-    />
-    <Switch
-      shape="square"
-      checkedContent={<DynamicIcon name="check" />}
-      uncheckedContent={<DynamicIcon name="close" />}
-    />
-    <Switch
-      variant="outlined"
-      checked={checked}
-      thumbContent={<DynamicIcon name={checked ? 'dark-mode' : 'sun-one'} />}
-      onChange={setChecked}
-    />
+    <Switch>
+      <Switch.Checked>Open</Switch.Checked>
+      <Switch.Unchecked>Close</Switch.Unchecked>
+    </Switch>
+    <Switch shape="square">
+      <Switch.Checked>
+        <DynamicIcon name="check" />
+      </Switch.Checked>
+      <Switch.Unchecked>
+        <DynamicIcon name="close" />
+      </Switch.Unchecked>
+    </Switch>
+    <Switch variant="outlined" checked={checked} onChange={setChecked}>
+      <Switch.Thumb>
+        <DynamicIcon name={checked ? 'dark-mode' : 'sun-one'} />
+      </Switch.Thumb>
+    </Switch>
   </div>;
 }
 
@@ -122,9 +124,6 @@ render(<Demo />);
 | size | - | `"small" \| "medium" \| "large"` | `"medium"` |
 | shape | - | `"round" \| "square"` | `"round"` |
 | disabled | - | `boolean` | - |
-| checkedContent | - | `React.ReactNode` | - |
-| uncheckedContent | - | `React.ReactNode` | - |
-| thumbContent | - | `React.ReactNode` | - |
 | checked | - | `boolean` | - |
 | defaultChecked | - | `boolean` | `false` |
 | onChange | - | `(checked: boolean) => void` | - |

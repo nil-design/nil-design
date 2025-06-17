@@ -7,8 +7,11 @@ export const VARIANT_CLS_MAP: Record<SwitchVariant, string[]> = {
 
 export const VARIANT_TRACK_CLS_MAP: Record<SwitchVariant, Record<'true' | 'false', string[]>> = {
     solid: {
-        true: ['bg-primary'],
-        false: ['bg-[--alpha(var(--color-primary)/45%)]'],
+        true: ['bg-primary', 'group-enabled:group-hover:bg-primary-hover'],
+        false: [
+            'bg-[--alpha(var(--color-primary)/40%)]',
+            'group-enabled:group-hover:bg-[--alpha(var(--color-primary)/50%)]',
+        ],
     },
     outlined: {
         true: ['bg-transparent'],
@@ -18,7 +21,7 @@ export const VARIANT_TRACK_CLS_MAP: Record<SwitchVariant, Record<'true' | 'false
 
 export const VARIANT_THUMB_CLS_MAP: Record<SwitchVariant, string[]> = {
     solid: ['bg-contrast', 'top-0'],
-    outlined: ['bg-primary', '-top-[1px]'],
+    outlined: ['bg-primary', 'group-enabled:group-hover:bg-primary-hover', '-top-[1px]'],
 } as const;
 
 export type SwitchSize = 'small' | 'medium' | 'large';
