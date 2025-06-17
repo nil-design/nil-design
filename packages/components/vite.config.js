@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve, basename } from 'path';
 import react from '@vitejs/plugin-react';
 import postcssNested from 'postcss-nested';
 import { defineConfig } from 'vite';
@@ -32,7 +32,13 @@ export default defineConfig(({ mode }) => {
                     format: 'es',
                     preserveModules: true,
                     preserveModulesRoot: 'src',
-                    entryFileNames: '[name].js',
+                    entryFileNames: chunkInfo => {
+                        if (chunkInfo.facadeModuleId.includes('@floating-ui/')) {
+                            return `_lib/${basename(chunkInfo.facadeModuleId, '.mjs')}.js`;
+                        }
+
+                        return '[name].js';
+                    },
                     assetFileNames: 'tailwind.css',
                 },
             },
