@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve, basename } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { minifyES } from '../../scripts/plugins';
@@ -30,7 +30,13 @@ export default defineConfig(({ mode }) => {
                     format: 'es',
                     preserveModules: true,
                     preserveModulesRoot: 'src',
-                    entryFileNames: '[name].js',
+                    entryFileNames: chunkInfo => {
+                        if (chunkInfo.facadeModuleId.includes('tailwind-merge/')) {
+                            return `_lib/${basename(chunkInfo.facadeModuleId, '.mjs')}.js`;
+                        }
+
+                        return '[name].js';
+                    },
                 },
             },
         },
