@@ -1,14 +1,5 @@
-import { cnMerge } from '@nild/shared/utils';
-import {
-    HTMLAttributes,
-    ReactNode,
-    ReactElement,
-    Ref,
-    forwardRef,
-    isValidElement,
-    cloneElement,
-    Children,
-} from 'react';
+import { cnJoin, cnMerge } from '@nild/shared/utils';
+import { HTMLAttributes, ReactElement, Ref, forwardRef, isValidElement, cloneElement, Children } from 'react';
 import { createPortal } from 'react-dom';
 import Arrow, { ArrowProps } from './Arrow';
 import { PaddingSize, PADDING_SIZE_CLS_MAP } from './style';
@@ -18,7 +9,6 @@ interface ArrowOptions extends ArrowProps {
 }
 
 export interface PortalProps extends HTMLAttributes<HTMLDivElement> {
-    children?: ReactNode;
     container?: Element | DocumentFragment;
     paddingSize?: PaddingSize;
     arrow?: ArrowOptions | false;
@@ -39,7 +29,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
                         child?.props?.className,
                     ),
                 })}
-                {arrow !== false && <Arrow {...arrow} className={cnMerge('absolute', arrow.className)} />}
+                {arrow !== false && <Arrow {...arrow} className={cnJoin('absolute', arrow.className)} />}
             </div>,
             container,
         );

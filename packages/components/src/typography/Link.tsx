@@ -1,10 +1,8 @@
 import { cnMerge } from '@nild/shared/utils';
-import { forwardRef, AnchorHTMLAttributes, ReactNode } from 'react';
+import { AnchorHTMLAttributes, forwardRef } from 'react';
 import { DISABLED_CLS } from '../_shared/style';
 
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-    className?: string;
-    children?: ReactNode;
     disabled?: boolean;
     underlined?: boolean;
 }
@@ -18,8 +16,8 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
                 {...restProps}
                 href={resolvedHref}
                 className={cnMerge(
+                    'nd-link',
                     [
-                        'nd-link',
                         'font-sans',
                         'text-link',
                         'text-[length:inherit]',

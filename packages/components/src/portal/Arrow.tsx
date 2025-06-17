@@ -9,7 +9,6 @@ import {
 } from './style';
 
 export interface ArrowProps extends HTMLAttributes<HTMLSpanElement> {
-    className?: string;
     style?: CSSProperties;
     orientation?: ArrowOrientation;
     size?: ArrowSize;

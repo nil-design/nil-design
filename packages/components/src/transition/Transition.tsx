@@ -135,12 +135,12 @@ const Transition: FC<TransitionProps> = ({ className, children, visible = true }
 
     return cloneElement(resolvedChildRef.current as ReactElement, {
         ...resolvedChildRef.current.props,
-        className: cnMerge(resolvedChildRef.current.props.className, 'transition-[opacity,visibility]', className),
-        style: {
-            ...resolvedChildRef.current.props.style,
-            opacity: status === Status.ENTERED ? 1 : 0,
-            visibility: status === Status.ENTERED ? 'visible' : 'hidden',
-        },
+        className: cnMerge(
+            resolvedChildRef.current.props.className,
+            'transition-[opacity,visibility]',
+            status === Status.ENTERED ? 'opacity-100 visible' : 'opacity-0 invisible',
+            className,
+        ),
         onTransitionEnd: handleTransitionEnd,
     });
 };
