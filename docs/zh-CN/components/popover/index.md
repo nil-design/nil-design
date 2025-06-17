@@ -132,7 +132,6 @@ render(<Demo />);
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | - | `string` | - |
 | children | - | `React.ReactNode` | - |
 | action | - | `"click" \| "hover" \| "focus" \| "contextMenu"` | `"click"` |
 | placement | - | `"top-start" \| "top" \| "top-end" \| "right-start" \| "right" \| "right-end" \| "bottom-start" \| "bottom" \| "bottom-end" \| "left-start" \| "left" \| "left-end"` | `"bottom"` |
