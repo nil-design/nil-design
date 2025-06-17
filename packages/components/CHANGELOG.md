@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.7
+
+### Patch Changes
+
+- f5336c2: refactor from props to slots 4 Switch
+
 ## 0.0.6
 
 ### Patch Changes
