@@ -1,4 +1,4 @@
-import { useStableCallback } from '@nild/hooks';
+import { useEffectCallback } from '@nild/hooks';
 import { cnJoin, mergeRefs } from '@nild/shared/utils';
 import { ReactNode, ReactElement, forwardRef, isValidElement, cloneElement, Children } from 'react';
 
@@ -16,16 +16,16 @@ const Trigger = forwardRef<Element, TriggerProps>(
     ({ children, action = 'click', onToggle, onOpen, onClose, ...restProps }, ref) => {
         const child = Children.toArray(children).find(child => isValidElement(child));
         const actions = Array.isArray(action) ? action : [action];
-        const handleClick = useStableCallback(() => actions.includes('click') && onToggle?.());
-        const handleMouseEnter = useStableCallback(() => actions.includes('hover') && onOpen?.());
-        const handleMouseLeave = useStableCallback(() => actions.includes('hover') && onClose?.());
-        const handleFocus = useStableCallback(() => actions.includes('focus') && onOpen?.());
-        const handleBlur = useStableCallback(
+        const handleClick = useEffectCallback(() => actions.includes('click') && onToggle?.());
+        const handleMouseEnter = useEffectCallback(() => actions.includes('hover') && onOpen?.());
+        const handleMouseLeave = useEffectCallback(() => actions.includes('hover') && onClose?.());
+        const handleFocus = useEffectCallback(() => actions.includes('focus') && onOpen?.());
+        const handleBlur = useEffectCallback(
             () =>
                 (actions.includes('click') || actions.includes('focus') || actions.includes('contextMenu')) &&
                 onClose?.(),
         );
-        const handleContextMenu = useStableCallback(
+        const handleContextMenu = useEffectCallback(
             (evt: MouseEvent) => actions.includes('contextMenu') && (evt.preventDefault(), onOpen?.()),
         );
 

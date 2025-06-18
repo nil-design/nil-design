@@ -1,12 +1,12 @@
 import { useRef } from 'react';
 import useLatestRef from '../use-latest-ref';
+import type { AnyCallback, StableCallback } from '../_shared/interfaces';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyCallback = (...args: any[]) => any;
-
-type StableCallback<T extends AnyCallback> = (this: ThisParameterType<T>, ...args: Parameters<T>) => ReturnType<T>;
-
-export function useStableCallback<T extends AnyCallback>(callback: T) {
+/**
+ * Provide stable callback references and ensure the latest state when calling
+ * @description The callback must be a pure function to ensure its use anywhere
+ */
+export function usePureCallback<T extends AnyCallback>(callback: T) {
     const cbRef = useLatestRef(callback);
     const stableRef = useRef<StableCallback<T>>();
 
@@ -19,4 +19,4 @@ export function useStableCallback<T extends AnyCallback>(callback: T) {
     return stableRef.current;
 }
 
-export default useStableCallback;
+export default usePureCallback;

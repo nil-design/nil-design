@@ -6,7 +6,7 @@ import {
     flip as flipMiddleware,
     arrow as arrowMiddleware,
 } from '@floating-ui/dom';
-import { useControllableState, useIsomorphicLayoutEffect, useStableCallback } from '@nild/hooks';
+import { useControllableState, useEffectCallback, useIsomorphicLayoutEffect, usePureCallback } from '@nild/hooks';
 import { getDPR, roundByDPR } from '@nild/shared/utils';
 import {
     ReactNode,
@@ -91,7 +91,7 @@ const usePopup = (
         }
     });
 
-    const renderTrigger = useStableCallback((props?: TriggerProps) => {
+    const renderTrigger = usePureCallback((props?: TriggerProps) => {
         if (triggerChild) {
             return cloneElement(triggerChild, {
                 ...props,
@@ -107,7 +107,7 @@ const usePopup = (
         }
     });
 
-    const renderPortal = useStableCallback((props?: PortalProps) => {
+    const renderPortal = usePureCallback((props?: PortalProps) => {
         if (portalChild) {
             return (
                 <Transition visible={open}>
@@ -131,7 +131,7 @@ const usePopup = (
         }
     });
 
-    const update = useStableCallback(() => {
+    const update = useEffectCallback(() => {
         if (!triggerRef.current || !portalRef.current) return;
 
         computePosition(triggerRef.current, portalRef.current, {

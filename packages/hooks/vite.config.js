@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
     const peerDeps = getPeerDeps(pkg.name, '@nild/shared');
 
     return {
-        plugins: [dts({ tsconfigPath: './tsconfig.json' })],
+        plugins: [dts({ tsconfigPath: './tsconfig.json', copyDtsFiles: true })],
         build: {
             lib: {
                 entry: resolve(__dirname, 'src/index.ts'),

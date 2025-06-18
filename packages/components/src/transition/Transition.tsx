@@ -1,4 +1,4 @@
-import { useStableCallback } from '@nild/hooks';
+import { useEffectCallback } from '@nild/hooks';
 import { cnMerge } from '@nild/shared/utils';
 import {
     FC,
@@ -33,9 +33,10 @@ const Transition: FC<TransitionProps> = ({ className, children, visible = true }
     const updateCallbackRef = useRef<{ (): void; cancel(): void }>();
     const resolvedChildRef = useRef(child);
 
+    // This ref is completely dependent on the props and state of the component, so its execution is idempotent
     resolvedChildRef.current = status === Status.UNMOUNTED ? child : (child ?? resolvedChildRef.current);
 
-    const setUpdateCallback = useStableCallback((callback: () => void) => {
+    const setUpdateCallback = useEffectCallback((callback: () => void) => {
         cancelUpdateCallback();
 
         let active = true;
@@ -53,21 +54,21 @@ const Transition: FC<TransitionProps> = ({ className, children, visible = true }
         updateCallbackRef.current = callbackWrapper;
     });
 
-    const executeUpdateCallback = useStableCallback(() => {
+    const executeUpdateCallback = useEffectCallback(() => {
         if (updateCallbackRef.current) {
             updateCallbackRef.current();
             updateCallbackRef.current = undefined;
         }
     });
 
-    const cancelUpdateCallback = useStableCallback(() => {
+    const cancelUpdateCallback = useEffectCallback(() => {
         if (updateCallbackRef.current) {
             updateCallbackRef.current.cancel();
             updateCallbackRef.current = undefined;
         }
     });
 
-    const handleTransitionEnd = useStableCallback(() => {
+    const handleTransitionEnd = useEffectCallback(() => {
         if (targetStatus === Status.UNMOUNTED && status === Status.EXITED) {
             setStatus(Status.UNMOUNTED);
         }
