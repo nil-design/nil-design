@@ -1,5 +1,13 @@
 # @nild/components
 
+## 0.0.8
+
+### Patch Changes
+
+- 721dec1: improve the usage and experience of hooks implemented using useRef
+- Updated dependencies [721dec1]
+  - @nild/hooks@0.0.7
+
 ## 0.0.7
 
 ### Patch Changes
