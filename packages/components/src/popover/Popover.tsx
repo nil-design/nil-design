@@ -1,4 +1,4 @@
-import { useStableCallback } from '@nild/hooks';
+import { useEffectCallback } from '@nild/hooks';
 import { FC, ReactNode } from 'react';
 import { usePopup } from '../_shared/hooks';
 import Portal from '../portal';
@@ -26,7 +26,7 @@ const Popover: FC<PopoverProps> & {
         defaultOpen,
     });
 
-    const handleToggle = useStableCallback(() => {
+    const handleToggle = useEffectCallback(() => {
         setOpen(v => {
             onChange?.(!v);
 
@@ -34,7 +34,7 @@ const Popover: FC<PopoverProps> & {
         });
     });
 
-    const handleOpen = useStableCallback(() => {
+    const handleOpen = useEffectCallback(() => {
         setOpen(() => {
             onChange?.(true);
 
@@ -42,7 +42,7 @@ const Popover: FC<PopoverProps> & {
         });
     });
 
-    const handleClose = useStableCallback(() => {
+    const handleClose = useEffectCallback(() => {
         setOpen(() => {
             onChange?.(false);
 
