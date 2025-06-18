@@ -34,6 +34,7 @@ const getDocsWithTitle = dir => {
                 docs.push({ path: direntPath, data, content });
             }
         }
+
         return docs;
     }, []);
 };
@@ -59,19 +60,20 @@ export const getThemeConfig = locale => {
 
             getDocsWithTitle(navDir).forEach(({ path: docPath, data }) => {
                 if (docPath === join(navDir, 'index.md')) {
-                    const { title, order = 0, rewrite = '' } = data;
+                    const { title, navOrder = 0, rewrite = '' } = data;
                     navs.push({
                         text: title,
                         link: `/${locale}/${navName}${rewrite.startsWith('/') ? rewrite : `/${rewrite}`}`,
                         activeMatch: `/${locale}/${navName}/`,
-                        order,
+                        navOrder,
                     });
                 } else {
                     const { title, order = 0, cat, catOrder } = data;
+                    const link = relative(navDir, docPath).replace(/\\/, '/');
                     if (cat) {
                         const item = {
                             text: title,
-                            link: relative(navDir, docPath).replace(/\\/, '/'),
+                            link,
                             order,
                         };
                         const categoryIdx = categories.findIndex(({ text }) => text === cat);
@@ -83,13 +85,18 @@ export const getThemeConfig = locale => {
                             }
                             categories[categoryIdx].items.push(item);
                         }
+                    } else {
+                        categories.push({
+                            text: title,
+                            link,
+                        });
                     }
                 }
             });
 
             categories.sort((a, b) => a.catOrder - b.catOrder);
             categories.forEach(category => {
-                category.items.sort((a, b) => a.order - b.order);
+                category.items?.sort((a, b) => a.order - b.order);
             });
 
             sidebars[`/${locale}/${navName}`] = {
@@ -99,7 +106,7 @@ export const getThemeConfig = locale => {
         }
     }, {});
 
-    navs.sort((a, b) => a.order - b.order);
+    navs.sort((a, b) => a.navOrder - b.navOrder);
 
     return { nav: navs, sidebar: sidebars, footer: getFooter(locale) };
 };

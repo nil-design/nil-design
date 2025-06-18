@@ -1,6 +1,6 @@
 ---
 title: 组件
-order: 2
+navOrder: 2
 ---
 
 # 总览
