@@ -1,4 +1,4 @@
 ---
 title: 物料
-order: 3
+navOrder: 3
 ---
