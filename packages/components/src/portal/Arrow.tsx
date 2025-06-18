@@ -9,7 +9,6 @@ import {
 } from './style';
 
 export interface ArrowProps extends HTMLAttributes<HTMLSpanElement> {
-    className?: string;
     style?: CSSProperties;
     orientation?: ArrowOrientation;
     size?: ArrowSize;
@@ -23,7 +22,7 @@ const Arrow = forwardRef<HTMLDivElement, ArrowProps>(
                 style={{ ...ARROW_ORIENTATION_STYLE_MAP[orientation], ...externalStyle }}
                 className={cnMerge(
                     'nd-arrow',
-                    'bg-container border-solid border-split',
+                    'bg-container border-solid border-edge',
                     ARROW_ORIENTATION_CLS_MAP[orientation],
                     ARROW_SIZE_CLS_MAP[size],
                     className,

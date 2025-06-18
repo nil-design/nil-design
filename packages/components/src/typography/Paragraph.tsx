@@ -1,16 +1,13 @@
 import { cnMerge } from '@nild/shared/utils';
-import { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import { HTMLAttributes, forwardRef } from 'react';
 
-export interface ParagraphProps extends HTMLAttributes<HTMLParagraphElement> {
-    className?: string;
-    children?: ReactNode;
-}
+export type ParagraphProps = HTMLAttributes<HTMLParagraphElement>;
 
 const Paragraph = forwardRef<HTMLParagraphElement, ParagraphProps>(({ className, children, ...restProps }, ref) => {
     return (
         <p
             {...restProps}
-            className={cnMerge('nd-paragraph', 'text-primary', 'text-[length:inherit]', 'mt-0 mb-[1em]', className)}
+            className={cnMerge('nd-paragraph', 'text-primary text-[length:inherit]', 'mt-0 mb-[1em]', className)}
             ref={ref}
         >
             {children}

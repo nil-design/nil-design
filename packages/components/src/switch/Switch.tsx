@@ -5,7 +5,6 @@ import {
     ForwardRefExoticComponent,
     ButtonHTMLAttributes,
     HTMLAttributes,
-    ReactNode,
     RefAttributes,
     forwardRef,
     Children,
@@ -28,8 +27,6 @@ import {
 
 export interface SwitchProps
     extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'value' | 'defaultValue' | 'onChange'> {
-    className?: string;
-    children?: ReactNode;
     variant?: SwitchVariant;
     size?: SwitchSize;
     shape?: SwitchShape;

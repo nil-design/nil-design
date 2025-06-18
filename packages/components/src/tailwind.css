@@ -36,6 +36,7 @@
 
   --color-contrast: var(--nd-color-primary-0);
   --color-split: var(--nd-color-primary-20);
+  --color-edge: var(--nd-color-primary-30);
 
   --text-color-primary: var(--nd-color-primary-100);
   --text-color-secondary: var(--nd-color-primary-60);

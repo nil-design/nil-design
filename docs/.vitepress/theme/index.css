@@ -26,7 +26,7 @@
 
 :root {
   --vp-c-bg: light-dark(var(--nd-color-primary-0), var(--nd-color-primary-5));
-  --vp-c-bg-alt: light-dark(var(--nd-color-primary-5), var(--nd-color-primary-0));
+  --vp-c-bg-alt: light-dark(var(--nd-color-primary-10), var(--nd-color-primary-0));
   --vp-c-text-1: var(--text-color-primary);
   --vp-c-text-2: var(--text-color-secondary);
 }

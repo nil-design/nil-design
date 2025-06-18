@@ -1,11 +1,11 @@
-import { cnMerge, isArray } from '@nild/shared/utils';
+import { cnJoin, cnMerge, isArray } from '@nild/shared/utils';
 import {
-    ReactNode,
-    ButtonHTMLAttributes,
-    forwardRef,
-    ForwardRefExoticComponent,
-    RefAttributes,
     ReactElement,
+    ButtonHTMLAttributes,
+    HTMLAttributes,
+    RefAttributes,
+    ForwardRefExoticComponent,
+    forwardRef,
 } from 'react';
 import { DISABLED_CLS } from '../_shared/style';
 import { isEmptyChildren, isPlainChildren } from '../_shared/utils';
@@ -23,8 +23,6 @@ import {
 } from './style';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    className?: string;
-    children?: ReactNode;
     variant?: ButtonVariant;
     size?: ButtonSize;
     shape?: ButtonShape;
@@ -79,14 +77,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'Button';
 
-export interface GroupProps extends Pick<ButtonProps, 'variant' | 'size' | 'disabled'> {
-    className?: string;
+export interface GroupProps extends HTMLAttributes<HTMLDivElement>, Pick<ButtonProps, 'variant' | 'size' | 'disabled'> {
     children?: ReactElement<ButtonProps> | ReactElement<ButtonProps>[];
     direction?: 'horizontal' | 'vertical';
 }
 
 const Group = forwardRef<HTMLDivElement, GroupProps>(
-    ({ children, className, variant = 'solid', size = 'medium', disabled, direction = 'horizontal' }, ref) => {
+    (
+        { children, className, variant = 'solid', size = 'medium', disabled, direction = 'horizontal', ...restProps },
+        ref,
+    ) => {
         if (!children || isEmptyChildren(children)) {
             return <></>;
         }
@@ -98,12 +98,16 @@ const Group = forwardRef<HTMLDivElement, GroupProps>(
         const horizontal = direction === 'horizontal';
 
         return (
-            <div className={cnMerge('nd-button-group', 'flex', !horizontal && 'flex-col', className)} ref={ref}>
+            <div
+                {...restProps}
+                className={cnMerge('nd-button-group', 'flex', !horizontal && 'flex-col', className)}
+                ref={ref}
+            >
                 {children.map((child, index) => (
                     <Button
                         key={index}
                         {...child.props}
-                        className={cnMerge(
+                        className={cnJoin(
                             index === 0
                                 ? GROUP_FIRST_CLS_MAP[direction]
                                 : index === children.length - 1

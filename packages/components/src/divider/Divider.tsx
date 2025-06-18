@@ -1,5 +1,5 @@
 import { cnMerge } from '@nild/shared/utils';
-import { HTMLAttributes, ReactNode, forwardRef } from 'react';
+import { HTMLAttributes, forwardRef } from 'react';
 import { isEmptyChildren } from '../_shared/utils';
 import {
     DividerVariant,
@@ -11,8 +11,6 @@ import {
 } from './style';
 
 export interface DividerProps extends HTMLAttributes<HTMLDivElement> {
-    className?: string;
-    children?: ReactNode;
     variant?: DividerVariant;
     direction?: DividerDirection;
     align?: DividerAlign;
