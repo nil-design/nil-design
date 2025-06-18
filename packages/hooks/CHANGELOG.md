@@ -1,5 +1,11 @@
 # @nild/hooks
 
+## 0.0.7
+
+### Patch Changes
+
+- 721dec1: improve the usage and experience of hooks implemented using useRef
+
 ## 0.0.6
 
 ### Patch Changes
