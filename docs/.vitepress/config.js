@@ -6,11 +6,22 @@ import getThemeConfig from './getThemeConfig.js';
 import mermaid from './theme/components/mermaid';
 import reactLive from './theme/components/react-live';
 
+const base = process.env.NODE_ENV === 'production' ? '/nil-design/' : '/';
+
 export default defineConfig({
-    base: process.env.NODE_ENV === 'production' ? '/nil-design/' : '/',
+    base,
     title: 'Nil Design',
     description: 'A Diversified React Development Library',
-    head: [['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }]],
+    head: [
+        [
+            'link',
+            {
+                rel: 'icon',
+                href: `${base}favicon.svg`,
+                type: 'image/svg+xml',
+            },
+        ],
+    ],
     lastUpdated: true,
     themeConfig: {
         logo: '/logo.svg',
