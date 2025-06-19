@@ -1,12 +1,16 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import matter from 'gray-matter';
 import { isUndefined } from 'lodash-es';
+import getDocsWithTitle from '../../scripts/shared/getDocsWithTitle.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const docsDir = join(__dirname, '..');
 
+/**
+ * @param {string} locale
+ * @returns {import('vitepress').DefaultTheme.Footer}
+ */
 const getFooter = locale => {
     const licenseAnchor = '<a href="https://github.com/nil-design/nil-design/blob/main/LICENSE">Apache License 2.0</a>';
     const copyrightAnchor = '<a href="https://github.com/Morilence">Morilence</a>';
@@ -23,29 +27,33 @@ const getFooter = locale => {
     }[locale];
 };
 
-const getDocsWithTitle = dir => {
-    return readdirSync(dir, { withFileTypes: true }).reduce((docs, dirent) => {
-        const direntPath = join(dir, dirent.name);
-        if (dirent.isDirectory()) {
-            docs.push(...getDocsWithTitle(direntPath));
-        } else if (dirent.isFile() && dirent.name.endsWith('.md')) {
-            const { data, content } = matter.read(direntPath);
-            if (data.title) {
-                docs.push({ path: direntPath, data, content });
-            }
-        }
-
-        return docs;
-    }, []);
+/**
+ * @param {string} locale
+ * @returns {import('vitepress').DefaultTheme.Config['lastUpdated']}
+ */
+const getLastUpdated = locale => {
+    return {
+        text: {
+            'zh-CN': '最后更新于',
+            'en-US': 'Last updated',
+        }[locale],
+        formatOptions: {
+            dateStyle: 'short',
+            timeStyle: 'short',
+        },
+    };
 };
 
 /**
  * @param {string} locale
- * @returns {{nav: (import('vitepress').DefaultTheme.NavItem)[], sidebar: Record<string, (import('vitepress').DefaultTheme.SidebarItem)[]>}}
+ * @returns {{
+ *  nav: (import('vitepress').DefaultTheme.NavItem)[],
+ *  sidebar: Record<string, (import('vitepress').DefaultTheme.SidebarItem)[]>,
+ * }}
  */
-export const getThemeConfig = locale => {
-    const navs = [];
-    const sidebars = {};
+const getNavAndSidebar = locale => {
+    const nav = [];
+    const sidebar = {};
     const localeDir = join(docsDir, locale);
 
     if (!existsSync(localeDir)) {
@@ -61,7 +69,7 @@ export const getThemeConfig = locale => {
             getDocsWithTitle(navDir).forEach(({ path: docPath, data }) => {
                 if (docPath === join(navDir, 'index.md')) {
                     const { title, navOrder = 0, rewrite = '' } = data;
-                    navs.push({
+                    nav.push({
                         text: title,
                         link: `/${locale}/${navName}${rewrite.startsWith('/') ? rewrite : `/${rewrite}`}`,
                         activeMatch: `/${locale}/${navName}/`,
@@ -85,7 +93,7 @@ export const getThemeConfig = locale => {
                             }
                             categories[categoryIdx].items.push(item);
                         }
-                    } else {
+                    } else if (title) {
                         categories.push({
                             text: title,
                             link,
@@ -99,14 +107,28 @@ export const getThemeConfig = locale => {
                 category.items?.sort((a, b) => a.order - b.order);
             });
 
-            sidebars[`/${locale}/${navName}`] = {
+            sidebar[`/${locale}/${navName}`] = {
                 base: `/${locale}/${navName}/`,
                 items: categories,
             };
         }
     }, {});
 
-    navs.sort((a, b) => a.navOrder - b.navOrder);
+    nav.sort((a, b) => a.navOrder - b.navOrder);
 
-    return { nav: navs, sidebar: sidebars, footer: getFooter(locale) };
+    return { nav, sidebar };
 };
+
+/**
+ * @param {string} locale
+ * @returns {import('vitepress').DefaultTheme.Config}
+ */
+const getThemeConfig = locale => {
+    return {
+        ...getNavAndSidebar(locale),
+        lastUpdated: getLastUpdated(locale),
+        footer: getFooter(locale),
+    };
+};
+
+export default getThemeConfig;
