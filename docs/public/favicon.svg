@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="200" height="200" viewBox="0 0 340 250" preserveAspectRatio="xMidYMid meet" color-interpolation-filters="sRGB">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      path { fill: white; }
+    }
+  </style>
+  <g fill="currentColor" class="iconlettersvg-g iconlettersvg" transform="translate(35,-12.5) scale(5.5)"> 
+    <g> 
+      <g class="tp-name" transform="translate(0,0)"> 
+        <g transform="scale(1)"> 
+          <g transform="translate(0, 0)"> 
+            <g class="name-imagesvg"> 
+              <g> 
+                <svg x="0" y="0" width="44.26771749661663" height="50" class="image-svg-svg primary" style="overflow: visible;"> 
+                  <svg viewBox="0 0 28.12 31.75">  
+                    <g> 
+                      <path d="M9.59 19.4v12.35h-.81V17.74l18.53 12.35V0h.8v31.75L9.59 19.4z"/>  
+                      <path d="M0 31.43V0l18.52 12.13V0h3.24v18.93L3.24 6.8v24.95H0v-.32z"/> 
+                    </g> 
+                  </svg> 
+                </svg> 
+              </g> 
+            </g> 
+          </g>  
+          <g transform="translate(44.26771749661663, 0)"> 
+            <g class="name-imagesvg"> 
+              <g> 
+                <svg x="0" y="0" width="15.647652770933377" height="50" class="image-svg-svg primary" style="overflow: visible;"> 
+                  <svg viewBox="0 0 9.93 31.73">  
+                    <g> 
+                      <path d="M0 31.73V0h3.24v31.73H0z"/> 
+                    </g> 
+                  </svg> 
+                </svg> 
+              </g> 
+            </g> 
+          </g>  
+        </g> 
+      </g> 
+    </g> 
+  </g> 
+</svg>
