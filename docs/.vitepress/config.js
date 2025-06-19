@@ -10,6 +10,7 @@ export default defineConfig({
     base: process.env.NODE_ENV === 'production' ? '/nil-design/' : '/',
     title: 'Nil Design',
     description: 'A Diversified React Development Library',
+    head: [['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }]],
     lastUpdated: true,
     themeConfig: {
         logo: '/logo.svg',
