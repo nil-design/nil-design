@@ -1,4 +1,4 @@
-import { cnMerge } from '@nild/shared/utils';
+import { cnMerge } from '@nild/shared';
 import { HTMLAttributes, forwardRef } from 'react';
 import { isEmptyChildren } from '../_shared/utils';
 import {

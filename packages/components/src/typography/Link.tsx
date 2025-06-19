@@ -1,4 +1,4 @@
-import { cnMerge } from '@nild/shared/utils';
+import { cnMerge } from '@nild/shared';
 import { AnchorHTMLAttributes, forwardRef } from 'react';
 import { DISABLED_CLS } from '../_shared/style';
 

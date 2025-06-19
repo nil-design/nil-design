@@ -1,4 +1,4 @@
-import { cnJoin, cnMerge } from '@nild/shared/utils';
+import { cnJoin, cnMerge } from '@nild/shared';
 import { HTMLAttributes, forwardRef } from 'react';
 import { DISABLED_CLS } from '../_shared/style';
 

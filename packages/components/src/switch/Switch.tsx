@@ -1,6 +1,5 @@
 import { useControllableState } from '@nild/hooks';
-import { CSSPropertiesWithVars } from '@nild/shared/interfaces';
-import { cnJoin, cnMerge } from '@nild/shared/utils';
+import { CSSPropertiesWithVars, cnJoin, cnMerge } from '@nild/shared';
 import {
     ForwardRefExoticComponent,
     ButtonHTMLAttributes,

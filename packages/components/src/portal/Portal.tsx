@@ -1,4 +1,4 @@
-import { cnJoin, cnMerge } from '@nild/shared/utils';
+import { cnJoin, cnMerge } from '@nild/shared';
 import { HTMLAttributes, ReactElement, Ref, forwardRef, isValidElement, cloneElement, Children } from 'react';
 import { createPortal } from 'react-dom';
 import Arrow, { ArrowProps } from './Arrow';

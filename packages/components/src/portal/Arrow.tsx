@@ -1,4 +1,4 @@
-import { cnMerge } from '@nild/shared/utils';
+import { cnMerge } from '@nild/shared';
 import { CSSProperties, HTMLAttributes, forwardRef } from 'react';
 import {
     ArrowSize,

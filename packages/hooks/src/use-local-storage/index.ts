@@ -1,4 +1,4 @@
-import { isBrowser, isFunction, isNil } from '@nild/shared/utils';
+import { isBrowser, isFunction, isNil } from '@nild/shared';
 import { useState, useEffect, useCallback, SetStateAction, Dispatch } from 'react';
 
 const useLocalStorage = <T>(

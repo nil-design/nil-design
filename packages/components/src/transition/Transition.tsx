@@ -1,5 +1,5 @@
 import { useEffectCallback } from '@nild/hooks';
-import { cnMerge } from '@nild/shared/utils';
+import { cnMerge } from '@nild/shared';
 import {
     FC,
     ReactNode,
