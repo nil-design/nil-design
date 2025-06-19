@@ -1,4 +1,4 @@
-import { cnMerge } from '@nild/shared/utils';
+import { cnMerge } from '@nild/shared';
 import { HTMLAttributes, ForwardRefExoticComponent, forwardRef } from 'react';
 import Link from './Link';
 import Paragraph from './Paragraph';

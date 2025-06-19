@@ -100,7 +100,7 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
-import { isObject } from '@nild/shared/utils';
+import { isObject } from '@nild/shared';
 import { Button, Popover } from '@nild/components';
 
 const Demo = () => {

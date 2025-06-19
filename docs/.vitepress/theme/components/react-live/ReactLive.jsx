@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-import { cnJoin } from '@nild/shared/utils';
-import * as __SharedUtils__ from '@nild/shared/utils';
+import { cnJoin } from '@nild/shared';
+import * as __Shared__ from '@nild/shared';
 import * as __Components__ from '@nild/components';
+import * as __Hooks__ from '@nild/hooks';
 import { DynamicIcon, Icon } from '@nild/icons';
 import Layers from '@nild/icons/Layers';
 import replaceImports from './replaceImports';
@@ -18,8 +19,9 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
     const scope = useMemo(
         () => ({
             __React__: React,
-            __SharedUtils__,
+            __Shared__,
             __Components__,
+            __Hooks__,
             __Icons__: { DynamicIcon, Icon },
             __Icon_Layers__: Layers,
         }),
@@ -29,8 +31,9 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
         () =>
             replaceImports(rawCode, {
                 react: '__React__',
-                '@nild/shared/utils': '__SharedUtils__',
+                '@nild/shared': '__Shared__',
                 '@nild/components': '__Components__',
+                '@nild/hooks': '__Hooks__',
                 '@nild/icons': '__Icons__',
                 '@nild/icons/Layers': '__Icon_Layers__',
             }),

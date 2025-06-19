@@ -1,4 +1,4 @@
-import { isFunction, isUndefined } from '@nild/shared/utils';
+import { isFunction, isUndefined } from '@nild/shared';
 import { useState, Dispatch, SetStateAction, useCallback } from 'react';
 import useForceUpdate from '../use-force-update';
 

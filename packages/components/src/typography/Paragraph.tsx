@@ -1,4 +1,4 @@
-import { cnMerge } from '@nild/shared/utils';
+import { cnMerge } from '@nild/shared';
 import { HTMLAttributes, forwardRef } from 'react';
 
 export type ParagraphProps = HTMLAttributes<HTMLParagraphElement>;

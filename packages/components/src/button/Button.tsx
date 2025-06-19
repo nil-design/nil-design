@@ -1,4 +1,4 @@
-import { cnJoin, cnMerge, isArray } from '@nild/shared/utils';
+import { cnJoin, cnMerge, isArray } from '@nild/shared';
 import {
     ReactElement,
     ButtonHTMLAttributes,

@@ -1,5 +1,5 @@
 import { useEffectCallback } from '@nild/hooks';
-import { cnJoin, mergeRefs } from '@nild/shared/utils';
+import { cnJoin, mergeRefs } from '@nild/shared';
 import { ReactNode, ReactElement, forwardRef, isValidElement, cloneElement, Children } from 'react';
 
 export type TriggerAction = 'click' | 'hover' | 'focus' | 'contextMenu';

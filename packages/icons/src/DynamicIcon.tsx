@@ -1,5 +1,5 @@
 import { IIconProps as ParkIconProps, Theme as ParkIconTheme, IconWrapper } from '@icon-park/react/es/runtime';
-import { cnMerge, isFunction, pascalize } from '@nild/shared/utils';
+import { cnMerge, isFunction, pascalize } from '@nild/shared';
 import { ComponentType, FC, useState, useEffect } from 'react';
 import type { IconVariant } from './_shared/interfaces';
 
