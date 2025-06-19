@@ -1,19 +1,22 @@
 import tailwindcss from '@tailwindcss/vite';
 import postcssNested from 'postcss-nested';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
+import getSearch from './getSearch.js';
+import getThemeConfig from './getThemeConfig.js';
 import mermaid from './theme/components/mermaid';
 import reactLive from './theme/components/react-live';
-import { getThemeConfig } from './utils';
 
 export default defineConfig({
-    base: process.env.NODE_ENV === 'production' ? '/nil-design/' : '/',
+    base: process.env.NODE_ENV === 'production' ? '/' : '/',
     title: 'Nil Design',
     description: 'A Diversified React Development Library',
+    lastUpdated: true,
     themeConfig: {
         logo: '/logo.svg',
         siteTitle: false,
         i18nRouting: false,
         socialLinks: [{ icon: 'github', link: 'https://github.com/nil-design/nil-design' }],
+        search: getSearch(),
     },
     locales: {
         'zh-CN': {
