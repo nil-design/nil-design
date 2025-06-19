@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.6
+
+### Patch Changes
+
+- be570e3: import directly from @nild/shared instead of @nild/shared/utils
+
 ## 0.0.5
 
 ### Patch Changes
