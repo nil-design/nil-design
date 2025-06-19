@@ -2,7 +2,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isUndefined } from 'lodash-es';
-import getDocsWithMatter from '../../scripts/shared/getDocsWithMatter.js';
+import { getDocsWithMatter } from '../../scripts/shared/index.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const docsDir = join(__dirname, '..');
