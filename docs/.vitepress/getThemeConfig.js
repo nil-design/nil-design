@@ -2,7 +2,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isUndefined } from 'lodash-es';
-import getDocsWithTitle from '../../scripts/shared/getDocsWithTitle.js';
+import { getDocsWithMatter } from '../../scripts/shared/index.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const docsDir = join(__dirname, '..');
@@ -66,7 +66,7 @@ const getNavAndSidebar = locale => {
             const navDir = join(localeDir, dirent.name);
             const categories = [];
 
-            getDocsWithTitle(navDir).forEach(({ path: docPath, data }) => {
+            getDocsWithMatter(navDir).forEach(({ path: docPath, data }) => {
                 if (docPath === join(navDir, 'index.md')) {
                     const { title, navOrder = 0, rewrite = '' } = data;
                     nav.push({
