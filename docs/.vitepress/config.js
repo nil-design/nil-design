@@ -7,7 +7,7 @@ import mermaid from './theme/components/mermaid';
 import reactLive from './theme/components/react-live';
 
 export default defineConfig({
-    base: process.env.NODE_ENV === 'production' ? '/' : '/',
+    base: process.env.NODE_ENV === 'production' ? '/nil-design/' : '/',
     title: 'Nil Design',
     description: 'A Diversified React Development Library',
     lastUpdated: true,
