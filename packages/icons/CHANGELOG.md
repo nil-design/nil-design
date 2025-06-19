@@ -1,5 +1,13 @@
 # @nild/icons
 
+## 0.0.5
+
+### Patch Changes
+
+- be570e3: import directly from @nild/shared instead of @nild/shared/utils
+- Updated dependencies [be570e3]
+  - @nild/shared@0.0.6
+
 ## 0.0.4
 
 ### Patch Changes
