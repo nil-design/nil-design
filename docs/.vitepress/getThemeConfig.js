@@ -42,6 +42,13 @@ const getLastUpdated = locale => {
     };
 };
 
+const getEditLink = locale => {
+    return {
+        pattern: 'https://github.com/nil-design/nil-design/edit/main/docs/:path',
+        text: locales[locale]['edit.this.page.on.github'],
+    };
+};
+
 /**
  * @param {string} locale
  * @returns {{
@@ -125,6 +132,7 @@ const getThemeConfig = locale => {
     return {
         ...getNavAndSidebar(locale),
         lastUpdated: getLastUpdated(locale),
+        editLink: getEditLink(locale),
         footer: getFooter(locale),
     };
 };

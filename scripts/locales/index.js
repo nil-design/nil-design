@@ -1,6 +1,7 @@
 export default {
     'zh-CN': {
         search: '搜索',
+        'edit.this.page.on.github': '在 GitHub 上编辑此页面',
         'last.updated': '最后更新于',
         'property.name': '属性名',
         description: '描述',
@@ -11,6 +12,7 @@ export default {
     },
     'en-US': {
         search: 'Search',
+        'edit.this.page.on.github': 'Edit this page on GitHub',
         'last.updated': 'Last updated',
         'property.name': 'Property Name',
         description: 'Description',
