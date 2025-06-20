@@ -96,10 +96,4 @@ render(<Demo />);
 
 ## API
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| children | - | `React.ReactNode` | - |
-| variant | - | `"solid" \| "dashed" \| "dotted"` | `"solid"` |
-| direction | - | `"horizontal" \| "vertical"` | `"horizontal"` |
-| align | - | `"left" \| "center" \| "right"` | `"center"` |
+<!--@include: ../../../../packages/components/src/divider/API.zh-CN.md-->

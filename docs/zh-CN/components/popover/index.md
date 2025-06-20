@@ -130,12 +130,4 @@ render(<Demo />);
 
 ## API
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| children | - | `React.ReactNode` | - |
-| action | - | `"click" \| "hover" \| "focus" \| "contextMenu"` | `"click"` |
-| placement | - | `"top-start" \| "top" \| "top-end" \| "right-start" \| "right" \| "right-end" \| "bottom-start" \| "bottom" \| "bottom-end" \| "left-start" \| "left" \| "left-end"` | `"bottom"` |
-| offset | - | `number \| { mainAxis?: number; crossAxis?: number; alignmentAxis?: number \| null; }` | `12` |
-| open | - | `boolean` | - |
-| defaultOpen | - | `boolean` | `false` |
-| onChange | - | `(open: boolean) => void` | - |
+<!--@include: ../../../../packages/components/src/popover/API.zh-CN.md-->

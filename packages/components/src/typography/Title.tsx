@@ -1,6 +1,7 @@
 import { cnMerge } from '@nild/shared';
 import { HTMLAttributes, forwardRef } from 'react';
 import { HeadingLevel, HEADING_LEVEL_CLS_MAP } from './style';
+
 export interface TitleProps extends HTMLAttributes<HTMLHeadingElement> {
     level?: HeadingLevel;
 }

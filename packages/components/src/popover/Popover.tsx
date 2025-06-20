@@ -5,7 +5,7 @@ import Portal from '../portal';
 import Trigger, { TriggerAction } from '../trigger';
 import type { Placement, OffsetOptions } from '@floating-ui/dom';
 
-interface PopoverProps {
+export interface PopoverProps {
     children?: ReactNode;
     placement?: Placement;
     offset?: OffsetOptions;
@@ -15,6 +15,9 @@ interface PopoverProps {
     onChange?: (open: boolean) => void;
 }
 
+/**
+ * @category Components
+ */
 const Popover: FC<PopoverProps> & {
     Trigger: typeof Trigger;
     Portal: typeof Portal;

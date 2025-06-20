@@ -117,13 +117,4 @@ render(<Demo />);
 
 ## API
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| variant | - | `"solid" \| "outlined"` | `"solid"` |
-| size | - | `"small" \| "medium" \| "large"` | `"medium"` |
-| shape | - | `"round" \| "square"` | `"round"` |
-| disabled | - | `boolean` | - |
-| checked | - | `boolean` | - |
-| defaultChecked | - | `boolean` | `false` |
-| onChange | - | `(checked: boolean) => void` | - |
+<!--@include: ../../../../packages/components/src/switch/API.zh-CN.md-->

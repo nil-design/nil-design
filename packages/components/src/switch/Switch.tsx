@@ -37,6 +37,9 @@ export interface SwitchProps
     onChange?: (checked: boolean) => void;
 }
 
+/**
+ * @category Components
+ */
 const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
     (
         {

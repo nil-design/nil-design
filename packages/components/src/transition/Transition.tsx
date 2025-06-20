@@ -20,12 +20,15 @@ enum Status {
     EXITED = 'exited',
 }
 
-interface TransitionProps {
+export interface TransitionProps {
     className?: string;
     children?: ReactNode;
     visible?: boolean;
 }
 
+/**
+ * @category Components
+ */
 const Transition: FC<TransitionProps> = ({ className, children, visible = true }) => {
     const child = Children.toArray(children).find(child => isValidElement(child));
     const targetStatus = child ? (visible ? Status.ENTERED : Status.EXITED) : Status.UNMOUNTED;

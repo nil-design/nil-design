@@ -66,8 +66,4 @@ render(<Demo />);
 
 ## API
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| children | - | `React.ReactNode` | - |
-| visible | - | `boolean` | `true` |
+<!--@include: ../../../../packages/components/src/transition/API.zh-CN.md-->

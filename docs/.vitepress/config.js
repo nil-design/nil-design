@@ -27,6 +27,7 @@ export default defineConfig({
         logo: '/logo.svg',
         siteTitle: false,
         i18nRouting: false,
+        outline: 'deep',
         socialLinks: [{ icon: 'github', link: 'https://github.com/nil-design/nil-design' }],
         search: getSearch(),
     },

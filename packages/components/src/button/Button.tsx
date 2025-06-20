@@ -13,6 +13,7 @@ import {
     ButtonVariant,
     ButtonSize,
     ButtonShape,
+    GroupDirection,
     VARIANT_CLS_MAP,
     SIZE_CLS_MAP,
     SHAPE_CLS_MAP,
@@ -31,6 +32,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     block?: boolean;
 }
 
+/**
+ * @category Components
+ */
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     (
         {
@@ -79,7 +83,7 @@ Button.displayName = 'Button';
 
 export interface GroupProps extends HTMLAttributes<HTMLDivElement>, Pick<ButtonProps, 'variant' | 'size' | 'disabled'> {
     children?: ReactElement<ButtonProps> | ReactElement<ButtonProps>[];
-    direction?: 'horizontal' | 'vertical';
+    direction?: GroupDirection;
 }
 
 const Group = forwardRef<HTMLDivElement, GroupProps>(

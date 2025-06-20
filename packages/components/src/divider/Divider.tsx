@@ -16,6 +16,9 @@ export interface DividerProps extends HTMLAttributes<HTMLDivElement> {
     align?: DividerAlign;
 }
 
+/**
+ * @category Components
+ */
 const Divider = forwardRef<HTMLDivElement, DividerProps>(
     ({ className, children, variant = 'solid', direction = 'horizontal', align = 'center', ...restProps }, ref) => {
         const horizontal = direction === 'horizontal';

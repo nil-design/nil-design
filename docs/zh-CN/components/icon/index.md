@@ -160,12 +160,4 @@ render(<Demo />);
 
 ## API
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| name | - | `string` | - |
-| variant | - | `"outlined" \| "filled" \| "two-tone" \| "multi-color"` | `"outlined"` |
-| strokeWidth | - | `number` | - |
-| strokeLinecap | - | `"butt" \| "round" \| "square"` | `"round"` |
-| strokeLinejoin | - | `"miter" \| "round" \| "bevel"` | `"round"` |
-| fill | - | `string \| string[]` | - |
+<!--@include: ../../../../packages/icons/src/API.zh-CN.md-->

@@ -1,13 +1,27 @@
-import { IconWrapper, IIconProps as ParkIconProps, Theme as ParkIconTheme } from '@icon-park/react/es/runtime';
+import {
+    IconWrapper,
+    IIconProps as ParkIconProps,
+    Theme as ParkIconTheme,
+    StrokeLinecap,
+    StrokeLinejoin,
+} from '@icon-park/react/es/runtime';
 import { cnMerge } from '@nild/shared';
-import { FC } from 'react';
+import { HTMLAttributes, FC } from 'react';
 import { IconVariant } from './_shared/interfaces';
 
-interface IconProps extends Omit<ParkIconProps, 'theme' | 'size'> {
+export interface IconProps extends HTMLAttributes<HTMLSpanElement> {
     component?: FC<ParkIconProps>;
     variant?: IconVariant;
+    strokeWidth?: number;
+    strokeLinecap?: StrokeLinecap;
+    strokeLinejoin?: StrokeLinejoin;
+    fill?: string | string[];
+    spin?: boolean;
 }
 
+/**
+ * @category Components
+ */
 const Icon: FC<IconProps> = ({ component: Component, className, variant = 'outlined', ...restProps }) => {
     const resolvedTheme =
         (
