@@ -2,6 +2,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isUndefined } from 'lodash-es';
+import locales from '../../scripts/locales/index.js';
 import { getDocsWithMatter } from '../../scripts/shared/index.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -33,10 +34,7 @@ const getFooter = locale => {
  */
 const getLastUpdated = locale => {
     return {
-        text: {
-            'zh-CN': '最后更新于',
-            'en-US': 'Last updated',
-        }[locale],
+        text: locales[locale]['last.updated'],
         formatOptions: {
             dateStyle: 'short',
             timeStyle: 'short',
