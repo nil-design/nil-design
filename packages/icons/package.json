@@ -27,7 +27,8 @@
     ],
     "scripts": {
         "build": "vite build --mode PROD",
-        "dev": "vite build --mode DEV --watch"
+        "dev": "vite build --mode DEV --watch",
+        "api": "node scripts/generate-api.js"
     },
     "dependencies": {
         "@icon-park/react": "1.4.2"

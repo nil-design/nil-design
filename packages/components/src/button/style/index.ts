@@ -45,19 +45,19 @@ export const EQUAL_CLS_MAP: Record<ButtonSize, string[]> = {
     large: ['w-10 h-10', 'p-2', 'flex justify-center items-center'],
 } as const;
 
-export type ButtonGroupDirection = 'horizontal' | 'vertical';
+export type GroupDirection = 'horizontal' | 'vertical';
 
-export const GROUP_FIRST_CLS_MAP: Record<ButtonGroupDirection, string[]> = {
+export const GROUP_FIRST_CLS_MAP: Record<GroupDirection, string[]> = {
     horizontal: ['rounded-r-none'],
     vertical: ['rounded-b-none'],
 } as const;
 
-export const GROUP_LAST_CLS_MAP: Record<ButtonGroupDirection, string[]> = {
+export const GROUP_LAST_CLS_MAP: Record<GroupDirection, string[]> = {
     horizontal: ['rounded-l-none'],
     vertical: ['rounded-t-none'],
 } as const;
 
-export const GROUP_DIVIDER_CLS_MAP: Record<ButtonGroupDirection, Record<ButtonVariant, string[]>> = {
+export const GROUP_DIVIDER_CLS_MAP: Record<GroupDirection, Record<ButtonVariant, string[]>> = {
     horizontal: {
         solid: ['border-solid', 'border-r', 'border-r-primary-hover'],
         outlined: [],

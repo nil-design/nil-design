@@ -101,46 +101,8 @@ render(<Demo />);
 ```
 :::
 
-## Typography.Title API
+## API
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| children | - | `React.ReactNode` | - |
-| level | - | `1 \| 2 \| 3 \| 4 \| 5 \| 6` | `1` |
-
-## Typography.Paragraph API
-
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| children | - | `React.ReactNode` | - |
-
-## Typography.Text API
-
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| children | - | `React.ReactNode` | - |
-| disabled | - | `boolean` | - |
-| secondary | - | `boolean` | - |
-| strong | - | `boolean` | - |
-| deleted | - | `boolean` | - |
-| underlined | - | `boolean` | - |
-| italic | - | `boolean` | - |
-| marked | - | `boolean` | - |
-| coded | - | `boolean` | - |
-| keyboarded | - | `boolean` | - |
-
-## Typography.Link API
-
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| children | - | `React.ReactNode` | - |
-| href | - | `string` | - |
-| target | - | `"_self" \| "_blank" \| "_parent" \| "_top"` | `"_self"` |
-| disabled | - | `boolean` | - |
-| underlined | - | `boolean` | - |
+<!--@include: ../../../../packages/components/src/typography/API.zh-CN.md-->
 
 

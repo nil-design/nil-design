@@ -12,6 +12,9 @@ export interface TriggerProps {
     onClose?: () => void;
 }
 
+/**
+ * @category Components
+ */
 const Trigger = forwardRef<Element, TriggerProps>(
     ({ children, action = 'click', onToggle, onOpen, onClose, ...restProps }, ref) => {
         const child = Children.toArray(children).find(child => isValidElement(child));

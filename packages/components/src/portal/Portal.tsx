@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import Arrow, { ArrowProps } from './Arrow';
 import { PaddingSize, PADDING_SIZE_CLS_MAP } from './style';
 
-interface ArrowOptions extends ArrowProps {
+export interface ArrowOptions extends ArrowProps {
     ref: Ref<HTMLDivElement>;
 }
 
@@ -14,6 +14,9 @@ export interface PortalProps extends HTMLAttributes<HTMLDivElement> {
     arrow?: ArrowOptions | false;
 }
 
+/**
+ * @category Components
+ */
 const Portal = forwardRef<HTMLDivElement, PortalProps>(
     ({ className, children, container = document.body, paddingSize = 'medium', arrow = false, ...restProps }, ref) => {
         const child = Children.toArray(children).find(child => isValidElement(child));

@@ -1,11 +1,16 @@
-import { IIconProps as ParkIconProps, Theme as ParkIconTheme, IconWrapper } from '@icon-park/react/es/runtime';
+import { Theme as ParkIconTheme, IconWrapper, StrokeLinecap, StrokeLinejoin } from '@icon-park/react/es/runtime';
 import { cnMerge, isFunction, pascalize } from '@nild/shared';
-import { ComponentType, FC, useState, useEffect } from 'react';
+import { HTMLAttributes, ComponentType, FC, useState, useEffect } from 'react';
 import type { IconVariant } from './_shared/interfaces';
 
-export interface DynamicIconProps extends Omit<ParkIconProps, 'theme' | 'size'> {
+export interface DynamicIconProps extends HTMLAttributes<HTMLSpanElement> {
     name?: string;
     variant?: IconVariant;
+    strokeWidth?: number;
+    strokeLinecap?: StrokeLinecap;
+    strokeLinejoin?: StrokeLinejoin;
+    fill?: string | string[];
+    spin?: boolean;
 }
 
 const iconImporters = import.meta.glob<false, string, ComponentType<unknown>>(
@@ -17,6 +22,9 @@ const iconImporters = import.meta.glob<false, string, ComponentType<unknown>>(
 );
 const iconCaches = new Map<string, ComponentType<unknown>>();
 
+/**
+ * @category Components
+ */
 const DynamicIcon: FC<DynamicIconProps> = ({ className, name = '', variant = 'outlined', ...restProps }) => {
     const resolvedName = pascalize(name);
     const resolvedTheme =

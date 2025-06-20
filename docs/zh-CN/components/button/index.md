@@ -162,26 +162,6 @@ render(<Demo />);
 ```
 :::
 
-## Button API
+## API
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| children | - | `React.ReactNode` | - |
-| variant | - | `"solid" \| "outlined" \| "filled" \| "text"` | `"solid"` |
-| size | - | `"small" \| "medium" \| "large"` | `"medium"` |
-| shape | - | `"round" \| "square"` | `"square"` |
-| disabled | - | `boolean` | - |
-| block | - | `boolean` | - |
-| equal | - | `boolean` | - |
-
-## Button.Group API
-
-| 属性名 | 描述 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | - | `string` | - |
-| children | - | `React.ReactNode` | - |
-| direction | - | `"horizontal" \| "vertical"` | `"horizontal"` |
-| variant | - | `"solid" \| "outlined" \| "filled" \| "text"` | `"solid"` |
-| size | - | `"small" \| "medium" \| "large"` | `"medium"` |
-| disabled | - | `boolean` | - |
+<!--@include: ../../../../packages/components/src/button/API.zh-CN.md-->
