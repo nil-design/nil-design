@@ -1,5 +1,11 @@
 # @nild/icons
 
+## 0.0.6
+
+### Patch Changes
+
+- 3fb1c5b: use typedoc to generate and parse reflections
+
 ## 0.0.5
 
 ### Patch Changes

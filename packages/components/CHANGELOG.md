@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.10
+
+### Patch Changes
+
+- 3fb1c5b: use typedoc to generate and parse reflections
+
 ## 0.0.9
 
 ### Patch Changes
