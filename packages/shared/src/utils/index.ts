@@ -42,5 +42,6 @@ export {
     isUndefined,
     isWeakMap,
     isWeakSet,
+    merge,
 } from 'lodash-es';
 export { camelize, cnJoin, cnMerge, getDPR, isBrowser, isNumeric, mergeRefs, pascalize, roundByDPR, snakeize };
