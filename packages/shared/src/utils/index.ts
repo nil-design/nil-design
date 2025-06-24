@@ -11,6 +11,7 @@ import snakeize from './snakeize';
 import uuid from './uuid';
 
 export {
+    escapeRegExp,
     isArray,
     isArrayBuffer,
     isArrayLike,
