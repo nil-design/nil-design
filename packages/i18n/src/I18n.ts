@@ -77,10 +77,11 @@ class I18n<Options extends I18nOptions = I18nOptions, U extends UnknownContext =
         const { language: specifiedLanguage, namespace: specifiedNamespace } = context;
         const { language: contextualLanguage, namespace: contextualNamespace } = this.getContext();
         const parts = key.split(this.namespaceDelimiter);
-        const derivedNamespace = key.includes(this.namespaceDelimiter) ? parts[0] : undefined;
+        const hasDerivedNamespace = key.includes(this.namespaceDelimiter);
+        const derivedNamespace = hasDerivedNamespace ? parts[0] : undefined;
         const language = specifiedLanguage ?? contextualLanguage;
         const namespace = derivedNamespace ?? specifiedNamespace ?? contextualNamespace;
-        const indexKey = parts.join(this.namespaceDelimiter);
+        const indexKey = (hasDerivedNamespace ? parts.slice(1) : parts).join(this.namespaceDelimiter);
 
         if (!language) {
             return indexKey;
