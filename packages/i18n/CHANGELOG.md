@@ -1,5 +1,11 @@
 # @nild/i18n
 
+## 0.0.3
+
+### Patch Changes
+
+- c8a03ee: improve the generation conditions of the indexKey
+
 ## 0.0.2
 
 ### Patch Changes
