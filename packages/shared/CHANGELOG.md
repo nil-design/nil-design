@@ -1,5 +1,15 @@
 # @nild/shared
 
+## 0.0.7
+
+### Patch Changes
+
+- d762bd5: add UnionToIntersection type util
+- 1f57492: export escapeRegExp from lodash
+- dfbe477: add Optional util type
+- 0ece281: export merge from lodash
+- f0d07a1: provide uuid function
+
 ## 0.0.6
 
 ### Patch Changes
