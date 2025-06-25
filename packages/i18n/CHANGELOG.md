@@ -1,5 +1,11 @@
 # @nild/i18n
 
+## 0.0.2
+
+### Patch Changes
+
+- 0f6d01c: remove README.md temporarily
+
 ## 0.0.1
 
 ### Patch Changes
