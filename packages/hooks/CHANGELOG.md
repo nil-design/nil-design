@@ -1,5 +1,16 @@
 # @nild/hooks
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [d762bd5]
+- Updated dependencies [1f57492]
+- Updated dependencies [dfbe477]
+- Updated dependencies [0ece281]
+- Updated dependencies [f0d07a1]
+  - @nild/shared@0.0.7
+
 ## 0.0.8
 
 ### Patch Changes
