@@ -6,8 +6,7 @@ export interface Plugin<T extends UnknownContext = UnknownContext> {
     apply(text: string, context: Context<T>): string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PluginCreator<T extends UnknownContext = UnknownContext> = (...args: any[]) => Plugin<T>;
+export type PluginCreator<O, T extends UnknownContext = UnknownContext> = (options: O) => Plugin<T>;
 
 export interface PluginManagerOptions<Plugins extends readonly Plugin[] = readonly Plugin[]> {
     plugins?: Plugins;

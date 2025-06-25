@@ -5,9 +5,12 @@ interface InterpolatorOptions {
     closeToken?: string;
 }
 
-const interpolator: PluginCreator<{
-    parameters?: Record<string, unknown>;
-}> = ({ openToken = '{{', closeToken = '}}' }: InterpolatorOptions = {}) => {
+const interpolator: PluginCreator<
+    InterpolatorOptions,
+    {
+        parameters?: Record<string, unknown>;
+    }
+> = ({ openToken = '{{', closeToken = '}}' } = {}) => {
     const interpolate = (text: string, parameters: Record<string, unknown>): string => {
         const tokens: string[] = [];
         const stack: number[] = [];
