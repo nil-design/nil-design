@@ -91,19 +91,19 @@ class I18n<Options extends I18nOptions = I18nOptions, U extends UnknownContext =
         }
 
         const locale = this.localeManager.get({ language, namespace })!;
-
-        if (indexKey in locale && isString(locale[indexKey])) {
-            return locale[indexKey];
-        }
-
-        const keyParts = indexKey.split('.');
         let result: string | Locale = locale;
 
-        for (const keyPart of keyParts) {
-            if (isObject(result) && keyPart in result) {
-                result = result[keyPart];
-            } else {
-                return indexKey;
+        if (indexKey in locale) {
+            result = locale[indexKey];
+        } else {
+            const keyParts = indexKey.split('.');
+
+            for (const keyPart of keyParts) {
+                if (isObject(result) && keyPart in result) {
+                    result = result[keyPart];
+                } else {
+                    return indexKey;
+                }
             }
         }
 
