@@ -73,10 +73,6 @@ class I18n<Options extends I18nOptions = I18nOptions, U extends UnknownContext =
         this.localeManager.add(context, locale);
     }
 
-    removeLocale(context: Context) {
-        this.localeManager.remove(context);
-    }
-
     t(key: string, context: Context<U> = {} as Context<U>) {
         const { language: specifiedLanguage, namespace: specifiedNamespace } = context;
         const { language: contextualLanguage, namespace: contextualNamespace } = this.getContext();
@@ -103,9 +99,9 @@ class I18n<Options extends I18nOptions = I18nOptions, U extends UnknownContext =
         const keyParts = indexKey.split('.');
         let result: string | Locale = locale;
 
-        for (const part of keyParts) {
-            if (isObject(result) && part in result) {
-                result = result[part];
+        for (const keyPart of keyParts) {
+            if (isObject(result) && keyPart in result) {
+                result = result[keyPart];
             } else {
                 return indexKey;
             }
