@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { readdir, writeFile } from 'node:fs/promises';
 import { posix, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import locales from '../../../scripts/locales/index.js';
+import i18n from '../../../locales/index.js';
 import {
     getProjectReflection,
     getAffiliatedComponentReflections,
@@ -67,7 +67,7 @@ readdir(srcDir, { withFileTypes: true }).then(async dirents => {
         }
 
         for (const locale of ['zh-CN']) {
-            const i18n = locales[locale];
+            i18n.setLanguage(locale);
             const outputPath = join(direntPath, `API.${locale}.md`);
             const content = [];
 
@@ -77,12 +77,17 @@ readdir(srcDir, { withFileTypes: true }).then(async dirents => {
                 const { props = [], extendTypes = [], equalType } = propsDeclaration;
 
                 content.push(`### ${name} Props`);
-                extendTypes.length && content.push(`> ${i18n['extends.from']} \`${extendTypes.join(', ')}\``);
-                equalType && content.push(`> ${i18n['equal.with']} \`${equalType}\``);
+                extendTypes.length && content.push(`> ${i18n.t('extends.from')} \`${extendTypes.join(', ')}\``);
+                equalType && content.push(`> ${i18n.t('equal.with')} \`${equalType}\``);
                 props.length &&
                     content.push(
                         getMarkdownTable({
-                            headers: [i18n['property.name'], i18n.description, i18n.type, i18n['default.value']],
+                            headers: [
+                                i18n.t('property.name'),
+                                i18n.t('description'),
+                                i18n.t('type'),
+                                i18n.t('default.value'),
+                            ],
                             rows: props.map(prop => [
                                 `${prop.name}${prop.optional ? '' : '*'}`,
                                 prop.description,

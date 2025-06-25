@@ -2,7 +2,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isUndefined } from 'lodash-es';
-import locales from '../../scripts/locales/index.js';
+import i18n from '../../locales/index.js';
 import { getDocsWithMatter } from '../../scripts/shared/index.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -17,15 +17,9 @@ const getFooter = locale => {
     const copyrightAnchor = '<a href="https://github.com/Morilence">Morilence</a>';
 
     return {
-        'zh-CN': {
-            message: `基于 ${licenseAnchor} 发布`,
-            copyright: `版权所有 © 2025-present ${copyrightAnchor}`,
-        },
-        'en-US': {
-            message: `Released under the ${licenseAnchor}`,
-            copyright: `Copyright © 2025-present ${copyrightAnchor}`,
-        },
-    }[locale];
+        message: i18n.t('footer.message', { language: locale, parameters: { licenseAnchor } }),
+        copyright: i18n.t('footer.copyright', { language: locale, parameters: { copyrightAnchor } }),
+    };
 };
 
 /**
@@ -34,7 +28,7 @@ const getFooter = locale => {
  */
 const getLastUpdated = locale => {
     return {
-        text: locales[locale]['last.updated'],
+        text: i18n.t('last.updated', { language: locale }),
         formatOptions: {
             dateStyle: 'short',
             timeStyle: 'short',
@@ -45,7 +39,7 @@ const getLastUpdated = locale => {
 const getEditLink = locale => {
     return {
         pattern: 'https://github.com/nil-design/nil-design/edit/main/docs/:path',
-        text: locales[locale]['edit.this.page.on.github'],
+        text: i18n.t('edit.this.page.on.github', { language: locale }),
     };
 };
 

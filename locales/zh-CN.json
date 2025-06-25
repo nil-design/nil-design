@@ -1,0 +1,13 @@
+{
+    "search": "搜索",
+    "edit.this.page.on.github": "在 GitHub 上编辑此页面",
+    "last.updated": "最后更新于",
+    "property.name": "属性名",
+    "description": "描述",
+    "type": "类型",
+    "default.value": "默认值",
+    "extends.from": "继承自",
+    "equal.with": "等价于",
+    "footer.message": "基于 {{ licenseAnchor }} 发布",
+    "footer.copyright": "版权所有 © 2025-present {{ copyrightAnchor }}"
+}

@@ -8,8 +8,10 @@ import mergeRefs from './merge-refs';
 import pascalize from './pascalize';
 import roundByDPR from './round-by-dpr';
 import snakeize from './snakeize';
+import uuid from './uuid';
 
 export {
+    escapeRegExp,
     isArray,
     isArrayBuffer,
     isArrayLike,
@@ -42,5 +44,6 @@ export {
     isUndefined,
     isWeakMap,
     isWeakSet,
+    merge,
 } from 'lodash-es';
-export { camelize, cnJoin, cnMerge, getDPR, isBrowser, isNumeric, mergeRefs, pascalize, roundByDPR, snakeize };
+export { camelize, cnJoin, cnMerge, getDPR, isBrowser, isNumeric, mergeRefs, pascalize, roundByDPR, snakeize, uuid };
