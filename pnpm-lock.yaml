@@ -29,6 +29,9 @@ importers:
       '@nild/hooks':
         specifier: workspace:*
         version: link:packages/hooks
+      '@nild/i18n':
+        specifier: workspace:*
+        version: link:packages/i18n
       '@nild/icons':
         specifier: workspace:*
         version: link:packages/icons
@@ -182,12 +185,12 @@ importers:
 
   packages/i18n:
     dependencies:
+      '@nild/shared':
+        specifier: workspace:*
+        version: link:../shared
       react:
         specifier: ^18.2.0
         version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
 
   packages/icons:
     dependencies:

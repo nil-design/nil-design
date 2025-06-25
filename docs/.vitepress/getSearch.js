@@ -1,4 +1,4 @@
-import locales from '../../scripts/locales/index.js';
+import i18n from '../../locales/index.js';
 
 const tokenize = text => {
     const segmenter = new Intl.Segmenter(['zh-CN', 'en-US'], { granularity: 'word' });
@@ -23,8 +23,8 @@ const getSearch = () => {
                 'zh-CN': {
                     translations: {
                         button: {
-                            buttonText: locales['zh-CN']['search'],
-                            buttonAriaLabel: locales['zh-CN']['search'],
+                            buttonText: i18n.t('search'),
+                            buttonAriaLabel: i18n.t('search'),
                         },
                     },
                 },
