@@ -39,7 +39,7 @@ import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
   return (
-    <DynamicIcon name={'loading'} className="text-2xl" />
+    <DynamicIcon name={'download-two'} className="text-2xl" />
   );
 };
 
@@ -47,7 +47,23 @@ render(<Demo />);
 ```
 :::
 
-## 图标风格
+## 旋转
+
+::: react-live
+```tsx
+import { DynamicIcon } from '@nild/icons';
+
+const Demo = () => {
+  return (
+    <DynamicIcon spin name={'rotation'} className="text-2xl" />
+  );
+};
+
+render(<Demo />);
+```
+:::
+
+## 风格
 
 ::: react-live
 ```tsx

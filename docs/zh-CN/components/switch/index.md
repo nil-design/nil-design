@@ -9,7 +9,7 @@ catOrder: 3
 
 用于切换单个选项的状态。
 
-## 基础变体
+## 变体
 
 ::: react-live
 ```tsx
@@ -44,7 +44,7 @@ render(<Demo />);
 ```
 :::
 
-## 开关尺寸
+## 尺寸
 
 ::: react-live
 ```tsx
@@ -62,7 +62,7 @@ render(<Demo />);
 ```
 :::
 
-## 方形开关
+## 方形
 
 ::: react-live
 ```tsx
