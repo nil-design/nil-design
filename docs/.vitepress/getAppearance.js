@@ -7,9 +7,15 @@ const getAppearance = () => {
             /* global document */
             const nextScheme = dark ? 'dark' : 'light';
             if (typeof document !== 'undefined' && document.startViewTransition) {
-                document.startViewTransition(() => {
+                if (document.readyState === 'complete') {
+                    const scheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                    if (scheme === nextScheme) return;
+                    document.startViewTransition(() => {
+                        defaultHandler(nextScheme);
+                    });
+                } else {
                     defaultHandler(nextScheme);
-                });
+                }
             } else {
                 defaultHandler(nextScheme);
             }
