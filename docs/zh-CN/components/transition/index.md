@@ -5,7 +5,7 @@ cat: 其它
 catOrder: 5
 ---
 
-# Transition 过渡
+# {{ $frontmatter.title }}
 
 为内容的显示与隐藏（或创建与销毁）施加过渡效果。
 

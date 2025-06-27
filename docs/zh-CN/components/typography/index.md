@@ -4,7 +4,7 @@ order: 3
 cat: 通用
 ---
 
-# Typography 排版
+# {{ $frontmatter.title }}
 
 展示文本内容。
 
