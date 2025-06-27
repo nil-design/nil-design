@@ -5,7 +5,7 @@ cat: 通用
 catOrder: 1
 ---
 
-# Button 按钮
+# {{ $frontmatter.title }}
 
 用于开始一个即时操作。
 

@@ -4,7 +4,7 @@ order: 2
 cat: 通用
 ---
 
-# Icon 图标
+# {{ $frontmatter.title }}
 
 语义化的矢量图形。
 

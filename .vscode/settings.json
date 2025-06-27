@@ -7,5 +7,17 @@
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "cSpell.words": ["commitlint", "dirents", "Morilence", "Navs", "nild", "pascalize", "snakeize", "vitepress"]
+    "cSpell.words": [
+        "avenir",
+        "blinkmacsystemfont",
+        "commitlint",
+        "dirents",
+        "frontmatter",
+        "Morilence",
+        "Navs",
+        "nild",
+        "pascalize",
+        "snakeize",
+        "vitepress"
+    ]
 }

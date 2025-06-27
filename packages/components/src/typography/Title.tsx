@@ -13,7 +13,7 @@ const Title = forwardRef<HTMLHeadingElement, TitleProps>(({ className, children,
         <Heading
             {...restProps}
             className={cnMerge(
-                ['nd-title', 'font-sans font-semibold text-primary', 'mt-[1em] mb-[0.5em]'],
+                ['nd-title', 'font-nd font-semibold text-primary', 'mt-[1em] mb-[0.5em]'],
                 HEADING_LEVEL_CLS_MAP[level],
                 className,
             )}

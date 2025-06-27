@@ -5,7 +5,7 @@ cat: 输入
 catOrder: 3
 ---
 
-# Switch 开关
+# {{ $frontmatter.title }}
 
 用于切换单个选项的状态。
 

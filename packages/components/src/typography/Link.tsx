@@ -18,7 +18,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
                 className={cnMerge(
                     'nd-link',
                     [
-                        'font-sans',
+                        'font-nd',
                         'text-link',
                         'text-[length:inherit]',
                         'cursor-pointer',

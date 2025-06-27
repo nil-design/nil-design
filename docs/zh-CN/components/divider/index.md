@@ -5,7 +5,7 @@ cat: 布局
 catOrder: 2
 ---
 
-# Divider 分割线
+# {{ $frontmatter.title }}
 
 划分区域，分隔内容。
 
