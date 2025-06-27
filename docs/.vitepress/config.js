@@ -1,6 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 import postcssNested from 'postcss-nested';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
+import getAppearance from './getAppearance.js';
 import getSearch from './getSearch.js';
 import getThemeConfig from './getThemeConfig.js';
 import mermaid from './theme/components/mermaid';
@@ -12,6 +13,7 @@ export default defineConfig({
     base,
     title: 'Nil Design',
     description: 'A Diversified React Development Library',
+    appearance: getAppearance(),
     head: [
         [
             'link',
