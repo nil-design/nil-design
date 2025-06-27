@@ -24,10 +24,9 @@ export default defineComponent({
         let reactRoot = null;
 
         const renderReactComponent = () => {
-            if (reactRoot) {
-                reactRoot.unmount();
+            if (!reactRoot) {
+                reactRoot = createRoot(rootRef.value);
             }
-            reactRoot = createRoot(rootRef.value);
             reactRoot.render(createElement(props.component, props.props));
         };
 
@@ -38,6 +37,7 @@ export default defineComponent({
         onBeforeUnmount(() => {
             if (reactRoot) {
                 reactRoot.unmount();
+                reactRoot = null;
             }
         });
 
