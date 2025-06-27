@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 const useTheme = (dark = false) => {
-    return useMemo(
+    const nextTheme = useMemo(
         () => ({
             plain: {
                 color: dark ? '#E1E4E8' : '#24292E',
@@ -64,6 +64,18 @@ const useTheme = (dark = false) => {
         }),
         [dark],
     );
+    const [theme, setTheme] = useState(nextTheme);
+
+    useEffect(() => {
+        setTheme(nextTheme);
+    }, [nextTheme]);
+
+    /**
+     * why not return nextTheme directly?
+     * Because the doc uses view-transition to switch theme: if return nextTheme directly, the react-live will be re-rendered immediately.
+     * Then it will not keep up with the timing of the view-transition.
+     */
+    return theme;
 };
 
 export default useTheme;
