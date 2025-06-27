@@ -6,7 +6,7 @@ const getAppearance = () => {
         onChanged: (dark, defaultHandler) => {
             /* global document */
             const nextScheme = dark ? 'dark' : 'light';
-            if (document.startViewTransition) {
+            if (typeof document !== 'undefined' && document.startViewTransition) {
                 document.startViewTransition(() => {
                     defaultHandler(nextScheme);
                 });
