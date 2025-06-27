@@ -119,7 +119,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                     'nd-switch',
                     'h-[var(--nd-switch-height)]',
                     'group',
-                    'relative inline-block font-sans overflow-hidden cursor-pointer',
+                    'relative inline-block font-nd overflow-hidden cursor-pointer',
                     DISABLED_CLS,
                     VARIANT_CLS_MAP[variant],
                     SIZE_CLS_MAP[size],

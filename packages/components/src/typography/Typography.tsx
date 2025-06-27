@@ -12,7 +12,7 @@ export type TypographyProps = HTMLAttributes<HTMLElement>;
  */
 const Typography = forwardRef<HTMLElement, TypographyProps>(({ className, children, ...restProps }, ref) => {
     return (
-        <article {...restProps} className={cnMerge('nd-typography', 'font-sans text-md', className)} ref={ref}>
+        <article {...restProps} className={cnMerge('nd-typography', 'font-nd text-md', className)} ref={ref}>
             {children}
         </article>
     );

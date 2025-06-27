@@ -69,7 +69,7 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
                 {...restProps}
                 className={cnMerge(
                     'nd-text',
-                    'font-sans text-[length:inherit]',
+                    'font-nd text-[length:inherit]',
                     DISABLED_CLS,
                     disabled && 'disabled',
                     !secondary ? 'text-primary' : 'text-secondary',

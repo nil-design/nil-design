@@ -59,7 +59,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 disabled={disabled}
                 className={cnMerge(
                     'nd-button',
-                    'font-sans cursor-pointer transition-colors',
+                    'font-nd cursor-pointer transition-colors',
                     DISABLED_CLS,
                     block && 'w-full',
                     plain && 'whitespace-nowrap truncate',

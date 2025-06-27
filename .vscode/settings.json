@@ -8,6 +8,8 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "cSpell.words": [
+        "avenir",
+        "blinkmacsystemfont",
         "commitlint",
         "dirents",
         "frontmatter",
