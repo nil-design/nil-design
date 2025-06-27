@@ -9,7 +9,7 @@ catOrder: 1
 
 用于开始一个即时操作。
 
-## 基础变体
+## 变体
 
 ::: react-live
 ```tsx
@@ -47,7 +47,7 @@ render(<Demo />);
 ```
 :::
 
-## 按钮尺寸
+## 尺寸
 
 ::: react-live
 ```tsx
@@ -65,7 +65,7 @@ render(<Demo />);
 ```
 :::
 
-## 圆形按钮
+## 圆形
 
 ::: react-live
 ```tsx
@@ -84,7 +84,7 @@ render(<Demo />);
 ```
 :::
 
-## 块级按钮
+## 块级
 
 ::: react-live
 ```tsx
@@ -103,7 +103,7 @@ render(<Demo />);
 ```
 :::
 
-## 等宽高按钮
+## 等宽高
 
 ::: react-live
 ```tsx
@@ -128,7 +128,7 @@ render(<Demo />);
 ```
 :::
 
-## 按钮组合
+## 组合
 
 ::: react-live
 ```tsx
