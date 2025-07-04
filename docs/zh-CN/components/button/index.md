@@ -1,6 +1,5 @@
 ---
 title: Button 按钮
-order: 1
 cat: 通用
 catOrder: 1
 ---

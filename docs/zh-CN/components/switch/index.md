@@ -1,6 +1,5 @@
 ---
 title: Switch 开关
-order: 1
 cat: 输入
 catOrder: 3
 ---
