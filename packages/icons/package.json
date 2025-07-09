@@ -9,7 +9,10 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js"
         },
-        "./*": "./dist/icons/*.js",
+        "./*": {
+            "types": "./dist/icons/index.d.ts",
+            "import": "./dist/icons/*.js"
+        },
         "./css": "./dist/index.css"
     },
     "repository": {
