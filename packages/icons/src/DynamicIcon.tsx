@@ -37,7 +37,7 @@ const DynamicIcon: FC<DynamicIconProps> = ({ className, name = '', variant = 'ou
     const commonProps = {
         ...restProps,
         theme: resolvedTheme,
-        className: cnMerge('nd-icon', 'text-primary text-[length:inherit]', className),
+        className: cnMerge('nd-icon', 'text-[color:inherit] text-[length:inherit]', className),
     };
     const [ImportedIcon, setImportedIcon] = useState<ComponentType<unknown> | null>(
         () => iconCaches.get(resolvedName) ?? null,
