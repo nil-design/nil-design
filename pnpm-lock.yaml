@@ -167,6 +167,9 @@ importers:
       '@nild/hooks':
         specifier: workspace:*
         version: link:../hooks
+      '@nild/icons':
+        specifier: workspace:*
+        version: link:../icons
       '@nild/shared':
         specifier: workspace:*
         version: link:../shared
