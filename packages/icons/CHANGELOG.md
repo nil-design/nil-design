@@ -1,5 +1,11 @@
 # @nild/icons
 
+## 0.0.8
+
+### Patch Changes
+
+- 6e49a9b: provide type files for icons' export
+
 ## 0.0.7
 
 ### Patch Changes

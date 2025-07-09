@@ -1,5 +1,14 @@
 # @nild/components
 
+## 0.0.13
+
+### Patch Changes
+
+- 5e0ce01: refactor with Children.toArray
+- a42cfff: Checkbox
+- Updated dependencies [6e49a9b]
+  - @nild/icons@0.0.8
+
 ## 0.0.12
 
 ### Patch Changes
