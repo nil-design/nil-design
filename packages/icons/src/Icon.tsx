@@ -32,7 +32,7 @@ const Icon: FC<IconProps> = ({ component: Component, className, variant = 'outli
     const commonProps = {
         ...restProps,
         theme: resolvedTheme,
-        className: cnMerge('nd-icon', 'text-primary text-[length:inherit]', className),
+        className: cnMerge('nd-icon', 'text-[color:inherit] text-[length:inherit]', className),
     };
 
     if (!Component) {

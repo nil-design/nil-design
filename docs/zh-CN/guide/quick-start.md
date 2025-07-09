@@ -24,11 +24,13 @@ flowchart TD
   i18n --> shared
   i18n --> hooks
   icons --> shared
-  components --> shared
   components --> hooks
+  components --> shared
+  components --> icons
   materials --> shared
   materials --> hooks
   materials --> components
+  materials --> icons
 ```
 
 ## 对等依赖

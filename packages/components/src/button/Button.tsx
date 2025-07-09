@@ -1,4 +1,4 @@
-import { cnJoin, cnMerge, isArray } from '@nild/shared';
+import { cnJoin, cnMerge, isEmpty } from '@nild/shared';
 import {
     ReactElement,
     ButtonHTMLAttributes,
@@ -6,9 +6,12 @@ import {
     RefAttributes,
     ForwardRefExoticComponent,
     forwardRef,
+    ReactNode,
+    isValidElement,
+    Children,
 } from 'react';
 import { DISABLED_CLS } from '../_shared/style';
-import { isEmptyChildren, isPlainChildren } from '../_shared/utils';
+import { isPlainChildren } from '../_shared/utils';
 import {
     ButtonVariant,
     ButtonSize,
@@ -86,20 +89,40 @@ export interface GroupProps extends HTMLAttributes<HTMLDivElement>, Pick<ButtonP
     direction?: GroupDirection;
 }
 
+const isButtonElement = (child: ReactNode): child is ReactElement<ButtonProps> => {
+    return isValidElement(child) && child.type === Button;
+};
+
 const Group = forwardRef<HTMLDivElement, GroupProps>(
     (
-        { children, className, variant = 'solid', size = 'medium', disabled, direction = 'horizontal', ...restProps },
+        {
+            className,
+            children: externalChildren,
+            variant = 'solid',
+            size = 'medium',
+            disabled,
+            direction = 'horizontal',
+            ...restProps
+        },
         ref,
     ) => {
-        if (!children || isEmptyChildren(children)) {
-            return <></>;
+        const children = Children.toArray(externalChildren);
+
+        if (!children || isEmpty(children)) {
+            return null;
         }
 
-        if (!isArray(children)) {
-            return <Button {...children.props} {...{ variant, size, disabled }} />;
+        if (children.length === 1) {
+            const [child] = children;
+            if (isButtonElement(child)) {
+                return <Button {...child.props} {...{ variant, size, disabled }} />;
+            } else {
+                return null;
+            }
         }
 
         const horizontal = direction === 'horizontal';
+        const buttonChildren = children.filter(isButtonElement);
 
         return (
             <div
@@ -107,18 +130,18 @@ const Group = forwardRef<HTMLDivElement, GroupProps>(
                 className={cnMerge('nd-button-group', 'flex', !horizontal && 'flex-col', className)}
                 ref={ref}
             >
-                {children.map((child, index) => (
+                {buttonChildren.map((child, index) => (
                     <Button
                         key={index}
                         {...child.props}
                         className={cnJoin(
                             index === 0
                                 ? GROUP_FIRST_CLS_MAP[direction]
-                                : index === children.length - 1
+                                : index === buttonChildren.length - 1
                                   ? GROUP_LAST_CLS_MAP[direction]
                                   : 'rounded-none',
                             index !== 0 && (horizontal ? 'border-l-0' : 'border-t-0'),
-                            index !== children.length - 1 && GROUP_DIVIDER_CLS_MAP[direction][variant],
+                            index !== buttonChildren.length - 1 && GROUP_DIVIDER_CLS_MAP[direction][variant],
                         )}
                         {...{ variant, size, disabled }}
                     />

@@ -8,7 +8,7 @@ import { getPeerDeps } from '../../scripts/shared';
 import pkg from './package.json';
 
 export default defineConfig(({ mode }) => {
-    const peerDeps = getPeerDeps(pkg.name, '@nild/shared', '@nild/hooks');
+    const peerDeps = getPeerDeps(pkg.name, '@nild/shared', '@nild/hooks', '@nild/icons');
 
     return {
         plugins: [react(), dts({ tsconfigPath: './tsconfig.json' })],
@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
             sourcemap: mode === 'DEV',
             minify: mode === 'PROD',
             rollupOptions: {
-                external: [...peerDeps, 'react/jsx-runtime'],
+                external: [...peerDeps, '@nild/icons/*', 'react/jsx-runtime'],
                 plugins: [minifyES(mode === 'PROD')],
                 output: {
                     format: 'es',

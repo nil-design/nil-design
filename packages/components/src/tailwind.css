@@ -85,3 +85,9 @@
     @slot;
   }
 }
+
+@custom-variant enabled {
+  &:not(.disabled, :disabled) {
+    @slot;
+  }
+}

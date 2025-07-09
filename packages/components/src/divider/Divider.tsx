@@ -1,6 +1,5 @@
-import { cnMerge } from '@nild/shared';
-import { HTMLAttributes, forwardRef } from 'react';
-import { isEmptyChildren } from '../_shared/utils';
+import { cnMerge, isEmpty } from '@nild/shared';
+import { Children, HTMLAttributes, forwardRef } from 'react';
 import {
     DividerVariant,
     DividerDirection,
@@ -20,9 +19,19 @@ export interface DividerProps extends HTMLAttributes<HTMLDivElement> {
  * @category Components
  */
 const Divider = forwardRef<HTMLDivElement, DividerProps>(
-    ({ className, children, variant = 'solid', direction = 'horizontal', align = 'center', ...restProps }, ref) => {
+    (
+        {
+            className,
+            children: externalChildren,
+            variant = 'solid',
+            direction = 'horizontal',
+            align = 'center',
+            ...restProps
+        },
+        ref,
+    ) => {
         const horizontal = direction === 'horizontal';
-        const hasChildren = !isEmptyChildren(children);
+        const children = Children.toArray(externalChildren);
 
         return (
             <div
@@ -31,7 +40,7 @@ const Divider = forwardRef<HTMLDivElement, DividerProps>(
                     'nd-divider',
                     'border-split',
                     'text-primary',
-                    horizontal && hasChildren
+                    horizontal && !isEmpty(children)
                         ? DIRECTION_WITH_CHILDREN_CLS_MAP[direction][variant].concat(ALIGN_CLS_MAP[align])
                         : DIRECTION_WITHOUT_CHILDREN_CLS_MAP[direction][variant],
                     className,

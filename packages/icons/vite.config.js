@@ -1,4 +1,5 @@
-import { resolve, basename } from 'path';
+import { writeFile, copyFile } from 'node:fs/promises';
+import { resolve, basename } from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
@@ -10,7 +11,23 @@ export default defineConfig(({ mode }) => {
     const peerDeps = getPeerDeps(pkg.name, '@nild/shared');
 
     return {
-        plugins: [react(), dts({ tsconfigPath: './tsconfig.json', copyDtsFiles: true })],
+        plugins: [
+            react(),
+            dts({
+                tsconfigPath: './tsconfig.json',
+                copyDtsFiles: true,
+                afterBuild: async () => {
+                    await copyFile(
+                        resolve(__dirname, 'node_modules/@icon-park/react/es/runtime/index.d.ts'),
+                        resolve(__dirname, 'dist/runtime/index.d.ts'),
+                    );
+                    await writeFile(
+                        resolve(__dirname, 'dist/icons/index.d.ts'),
+                        [`declare const _default: import("../runtime").Icon;`, `export default _default;`].join('\n'),
+                    );
+                },
+            }),
+        ],
         build: {
             lib: {
                 entry: [resolve(__dirname, 'src/index.ts')],
