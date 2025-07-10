@@ -78,7 +78,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
                             INDICATOR_VARIANT_CLS_MAP[variant][`${checked}`],
                         )}
                     >
-                        <Icon className="mr-[0.5px]" component={CheckSmall} />
+                        <Icon className="mr-[0.25px]" component={CheckSmall} />
                     </div>
                 </Indicator>
             );
