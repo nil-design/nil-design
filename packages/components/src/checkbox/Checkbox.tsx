@@ -136,7 +136,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
                     'group',
                     'flex items-center',
                     'cursor-pointer',
-                    SIZE_CLS_MAP[size].wrapper,
+                    SIZE_CLS_MAP[size].root,
                     DISABLED_CLS,
                     disabled && 'disabled',
                     className,
