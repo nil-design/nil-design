@@ -13,7 +13,7 @@ export const SIZE_CLS_MAP: Record<CheckboxSize, Record<'wrapper' | 'indicator' |
     },
     large: {
         wrapper: 'gap-2.5',
-        indicator: 'w-4.5 h-4.5 text-lg',
+        indicator: 'w-4.5 h-4.5 text-xl',
         label: 'text-lg',
     },
 } as const;
