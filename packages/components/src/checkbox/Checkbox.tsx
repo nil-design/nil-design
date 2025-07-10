@@ -16,9 +16,10 @@ import {
     cloneElement,
 } from 'react';
 import { DISABLED_CLS } from '../_shared/style';
-import { CheckboxSize, SIZE_CLS_MAP, INDICATOR_CHECKED_CLS_MAP } from './style';
+import { CheckboxVariant, CheckboxSize, SIZE_CLS_MAP, INDICATOR_VARIANT_CLS_MAP } from './style';
 
 export interface CheckboxProps extends Omit<HTMLAttributes<HTMLLabelElement>, 'onChange' | 'defaultValue'> {
+    variant?: CheckboxVariant;
     size?: CheckboxSize;
     checked?: boolean;
     defaultChecked?: boolean;
@@ -37,6 +38,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
         {
             className,
             children: externalChildren,
+            variant = 'solid',
             size = 'medium',
             checked: externalChecked,
             defaultChecked,
@@ -73,10 +75,10 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
                             'flex items-center justify-center',
                             'w-full h-full rounded-sm border-solid border-1 border-primary',
                             'transition-[background-color,color]',
-                            INDICATOR_CHECKED_CLS_MAP[`${checked}`],
+                            INDICATOR_VARIANT_CLS_MAP[variant][`${checked}`],
                         )}
                     >
-                        <Icon component={CheckSmall} />
+                        <Icon className="mr-[0.5px]" component={CheckSmall} />
                     </div>
                 </Indicator>
             );
