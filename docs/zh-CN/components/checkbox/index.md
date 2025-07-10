@@ -7,7 +7,7 @@ cat: 输入
 
 用于从一个集合中选择一个或多个项目。
 
-## 基本用法
+## 变体
 
 ::: react-live
 ```tsx
@@ -15,7 +15,8 @@ import { Checkbox } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
-    <Checkbox>Checkbox</Checkbox>
+    <Checkbox defaultChecked>Solid</Checkbox>
+    <Checkbox variant="outlined" defaultChecked>Outlined</Checkbox>
   </div>;
 }
 
@@ -33,6 +34,7 @@ const Demo = () => {
   return <div className="flex flex-wrap gap-4">
     <Checkbox disabled />
     <Checkbox checked disabled />
+    <Checkbox variant="outlined" checked disabled />
   </div>;
 }
 

@@ -1,3 +1,16 @@
+export type CheckboxVariant = 'solid' | 'outlined';
+
+export const INDICATOR_VARIANT_CLS_MAP: Record<CheckboxVariant, Record<'true' | 'false', string[]>> = {
+    solid: {
+        true: ['bg-primary text-contrast', 'group-enabled:group-hover:bg-primary-hover'],
+        false: ['bg-transparent text-transparent', 'group-enabled:group-hover:bg-tertiary-hover'],
+    },
+    outlined: {
+        true: ['bg-transparent text-primary', 'group-enabled:group-hover:bg-tertiary-hover'],
+        false: ['bg-transparent text-transparent', 'group-enabled:group-hover:bg-tertiary-hover'],
+    },
+} as const;
+
 export type CheckboxSize = 'small' | 'medium' | 'large';
 
 export const SIZE_CLS_MAP: Record<CheckboxSize, Record<'wrapper' | 'indicator' | 'label', string>> = {
@@ -13,12 +26,7 @@ export const SIZE_CLS_MAP: Record<CheckboxSize, Record<'wrapper' | 'indicator' |
     },
     large: {
         wrapper: 'gap-2.5',
-        indicator: 'w-4.5 h-4.5 text-lg',
+        indicator: 'w-4.5 h-4.5 text-xl',
         label: 'text-lg',
     },
-} as const;
-
-export const INDICATOR_CHECKED_CLS_MAP = {
-    true: ['bg-primary text-contrast', 'group-enabled:group-hover:bg-primary-hover'],
-    false: ['bg-transparent text-transparent', 'group-enabled:group-hover:bg-tertiary-hover'],
 } as const;

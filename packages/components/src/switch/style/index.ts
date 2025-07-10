@@ -14,14 +14,14 @@ export const VARIANT_TRACK_CLS_MAP: Record<SwitchVariant, Record<'true' | 'false
         ],
     },
     outlined: {
-        true: ['bg-transparent'],
-        false: ['bg-transparent'],
+        true: ['bg-transparent', 'group-enabled:group-hover:bg-tertiary-hover'],
+        false: ['bg-transparent', 'group-enabled:group-hover:bg-tertiary-hover'],
     },
 } as const;
 
 export const VARIANT_THUMB_CLS_MAP: Record<SwitchVariant, string[]> = {
     solid: ['bg-contrast', 'top-0'],
-    outlined: ['bg-primary', 'group-enabled:group-hover:bg-primary-hover', '-top-[1px]'],
+    outlined: ['bg-primary', 'top-[50%] -translate-y-[50%]', 'group-enabled:group-hover:bg-primary-hover'],
 } as const;
 
 export type SwitchSize = 'small' | 'medium' | 'large';
