@@ -8,17 +8,7 @@ import {
 } from '@floating-ui/dom';
 import { useControllableState, useEffectCallback, useIsomorphicLayoutEffect, usePureCallback } from '@nild/hooks';
 import { getDPR, roundByDPR } from '@nild/shared/utils';
-import {
-    ReactNode,
-    ReactElement,
-    Children,
-    cloneElement,
-    isValidElement,
-    useMemo,
-    useRef,
-    useState,
-    Dispatch,
-} from 'react';
+import { ReactNode, ReactElement, Children, cloneElement, isValidElement, useRef, useState, Dispatch } from 'react';
 import Portal, { PortalProps } from '../../portal';
 import Transition from '../../transition';
 import Trigger, { TriggerProps } from '../../trigger';
@@ -60,14 +50,11 @@ const usePopup = (
     const [portalCoords, setPortalCoords] = useState<Coords>({ x: 0, y: 0 });
     const [arrowCoords, setArrowCoords] = useState<Coords>({ x: 0, y: 0 });
     const [side, setSide] = useState<Side>(placement.split('-')[0] as Side);
-    const arrowRelativePosition = useMemo(() => {
-        const horizontal = side === 'top' || side === 'bottom';
-
-        return {
-            [side === 'left' ? 'right' : 'left']: horizontal ? arrowCoords.x : arrowCoords.x - portalCoords.x,
-            [side === 'top' ? 'bottom' : 'top']: !horizontal ? arrowCoords.y : arrowCoords.y - portalCoords.y,
-        };
-    }, [side, arrowCoords, portalCoords]);
+    const horizontal = side === 'top' || side === 'bottom';
+    const arrowRelativePosition = {
+        [side === 'left' ? 'right' : 'left']: horizontal ? arrowCoords.x : arrowCoords.x - portalCoords.x,
+        [side === 'top' ? 'bottom' : 'top']: !horizontal ? arrowCoords.y : arrowCoords.y - portalCoords.y,
+    };
     const arrowOrientation = {
         top: 'down',
         bottom: 'up',

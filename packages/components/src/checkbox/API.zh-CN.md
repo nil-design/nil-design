@@ -4,7 +4,8 @@
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | :-- | :-- | :-- | :-- |
-| size | - | `CheckboxSize` | - |
+| variant | - | `'solid' \| 'outlined'` | - |
+| size | - | `'small' \| 'medium' \| 'large'` | - |
 | checked | - | `boolean` | - |
 | defaultChecked | - | `boolean` | - |
 | value | - | `boolean` | - |
