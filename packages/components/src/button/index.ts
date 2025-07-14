@@ -1,5 +1,4 @@
-import Button, { ButtonProps, GroupProps } from './Button';
-import { ButtonVariant, ButtonShape, ButtonSize, GroupDirection } from './style';
+import Button from './Button';
 
-export type { ButtonProps, ButtonVariant, ButtonShape, ButtonSize, GroupProps, GroupDirection };
+export type * from './interfaces';
 export default Button;
