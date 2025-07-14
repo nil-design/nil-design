@@ -1,5 +1,15 @@
 # @nild/components
 
+## 0.0.15
+
+### Patch Changes
+
+- 369bbc9: optimize style definitions using cva
+- Updated dependencies [b6e6841]
+  - @nild/shared@0.0.8
+  - @nild/hooks@0.0.10
+  - @nild/icons@0.0.9
+
 ## 0.0.14
 
 ### Patch Changes

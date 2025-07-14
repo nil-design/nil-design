@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.8
+
+### Patch Changes
+
+- b6e6841: add cva
+
 ## 0.0.7
 
 ### Patch Changes
