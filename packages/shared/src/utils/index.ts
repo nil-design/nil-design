@@ -1,6 +1,7 @@
 import camelize from './camelize';
 import cnJoin from './cn-join';
 import cnMerge from './cn-merge';
+import cva from './cva';
 import getDPR from './get-dpr';
 import isBrowser from './is-browser';
 import isNumeric from './is-numeric';
@@ -46,4 +47,17 @@ export {
     isWeakSet,
     merge,
 } from 'lodash-es';
-export { camelize, cnJoin, cnMerge, getDPR, isBrowser, isNumeric, mergeRefs, pascalize, roundByDPR, snakeize, uuid };
+export {
+    camelize,
+    cnJoin,
+    cnMerge,
+    cva,
+    getDPR,
+    isBrowser,
+    isNumeric,
+    mergeRefs,
+    pascalize,
+    roundByDPR,
+    snakeize,
+    uuid,
+};
