@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.17
+
+### Patch Changes
+
+- b2a0893: optimize style definitions using cva 4 Divider
+
 ## 0.0.16
 
 ### Patch Changes
