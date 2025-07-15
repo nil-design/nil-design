@@ -1,5 +1,4 @@
-import Divider, { DividerProps } from './Divider';
-import { DividerVariant, DividerDirection, DividerAlign } from './style';
+import Divider from './Divider';
 
-export type { DividerProps, DividerVariant, DividerDirection, DividerAlign };
+export type * from './interfaces';
 export default Divider;
