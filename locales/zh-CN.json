@@ -8,6 +8,9 @@
     "default.value": "默认值",
     "extends.from": "继承自",
     "equal.with": "等价于",
+    "prev.page": "上一页",
+    "next.page": "下一页",
+    "outline.label": "页面导航",
     "footer.message": "基于 {{ licenseAnchor }} 发布",
     "footer.copyright": "版权所有 © 2025-present {{ copyrightAnchor }}"
 }

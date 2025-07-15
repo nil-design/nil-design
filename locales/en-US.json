@@ -8,6 +8,9 @@
     "default.value": "Default Value",
     "extends.from": "Extends From",
     "equal.with": "Equal With",
+    "prev.page": "Previous Page",
+    "next.page": "Next Page",
+    "outline.label": "On this page",
     "footer.message": "Released under the {{ licenseAnchor }}",
     "footer.copyright": "Copyright © 2025-present {{ copyrightAnchor }}"
 }

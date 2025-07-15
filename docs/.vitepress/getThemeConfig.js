@@ -10,6 +10,17 @@ const docsDir = join(__dirname, '..');
 
 /**
  * @param {string} locale
+ * @returns {import('vitepress').DefaultTheme.Outline}
+ */
+const getOutline = locale => {
+    return {
+        level: 'deep',
+        label: i18n.t('outline.label', { language: locale }),
+    };
+};
+
+/**
+ * @param {string} locale
  * @returns {import('vitepress').DefaultTheme.Footer}
  */
 const getFooter = locale => {
@@ -19,6 +30,17 @@ const getFooter = locale => {
     return {
         message: i18n.t('footer.message', { language: locale, parameters: { licenseAnchor } }),
         copyright: i18n.t('footer.copyright', { language: locale, parameters: { copyrightAnchor } }),
+    };
+};
+
+/**
+ * @param {string} locale
+ * @returns {import('vitepress').DefaultTheme.DocFooter}
+ */
+const getDocFooter = locale => {
+    return {
+        prev: i18n.t('prev.page', { language: locale }),
+        next: i18n.t('next.page', { language: locale }),
     };
 };
 
@@ -125,9 +147,11 @@ const getNavAndSidebar = locale => {
 const getThemeConfig = locale => {
     return {
         ...getNavAndSidebar(locale),
+        outline: getOutline(locale),
         lastUpdated: getLastUpdated(locale),
         editLink: getEditLink(locale),
         footer: getFooter(locale),
+        docFooter: getDocFooter(locale),
     };
 };
 
