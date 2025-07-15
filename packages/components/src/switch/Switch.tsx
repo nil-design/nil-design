@@ -1,8 +1,7 @@
 import { useControllableState } from '@nild/hooks';
-import { CSSPropertiesWithVars, cnJoin, cnMerge } from '@nild/shared';
+import { CSSPropertiesWithVars, cnMerge } from '@nild/shared';
 import {
     ForwardRefExoticComponent,
-    ButtonHTMLAttributes,
     HTMLAttributes,
     RefAttributes,
     forwardRef,
@@ -11,31 +10,8 @@ import {
     ReactElement,
     cloneElement,
 } from 'react';
-import { DISABLED_CLS } from '../_shared/style';
-import {
-    SwitchVariant,
-    SwitchSize,
-    SwitchShape,
-    VARIANT_CLS_MAP,
-    VARIANT_TRACK_CLS_MAP,
-    VARIANT_THUMB_CLS_MAP,
-    SIZE_VAR_MAP,
-    SIZE_CLS_MAP,
-    SHAPE_CLS_MAP,
-} from './style';
-
-export interface SwitchProps
-    extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'value' | 'defaultValue' | 'onChange'> {
-    variant?: SwitchVariant;
-    size?: SwitchSize;
-    shape?: SwitchShape;
-    checked?: boolean;
-    defaultChecked?: boolean;
-    value?: boolean;
-    defaultValue?: boolean;
-    disabled?: boolean;
-    onChange?: (checked: boolean) => void;
-}
+import { SwitchProps, SwitchVariant, SwitchShape } from './interfaces';
+import { switchClassNames, checkedClassNames, uncheckedClassNames, thumbClassNames } from './style';
 
 /**
  * @category Components
@@ -76,28 +52,15 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         });
 
         const style: CSSPropertiesWithVars = {
-            '--nd-switch-height': SIZE_VAR_MAP[size],
+            '--nd-switch-height': {
+                small: 'calc(var(--spacing) * 4)',
+                medium: 'calc(var(--spacing) * 6)',
+                large: 'calc(var(--spacing) * 8)',
+            }[size],
         };
         const [checked, setChecked] = useControllableState(
             externalChecked ?? externalValue,
             defaultChecked ?? defaultValue ?? false,
-        );
-        const checkedClassName = cnJoin(
-            'h-[var(--nd-switch-height)]',
-            'ps-[calc(var(--nd-switch-height)/3)] pe-[calc(var(--nd-switch-height)*1.1)]',
-            VARIANT_TRACK_CLS_MAP[variant][`${checked}`].concat(checked ? 'ms-0 me-0' : '-ms-[100%] me-[100%]'),
-        );
-        const uncheckedClassName = cnJoin(
-            'h-[var(--nd-switch-height)]',
-            '-mt-[var(--nd-switch-height)]',
-            'ps-[calc(var(--nd-switch-height)*1.1)] pe-[calc(var(--nd-switch-height)/3)]',
-            VARIANT_TRACK_CLS_MAP[variant][`${checked}`].concat(checked ? 'ms-[100%] -me-[100%]' : 'ms-0 me-0'),
-        );
-        const thumbClassName = cnJoin(
-            'h-[var(--nd-switch-height)]',
-            VARIANT_THUMB_CLS_MAP[variant],
-            SHAPE_CLS_MAP[shape],
-            checked ? 'left-[calc(100%-var(--nd-switch-height))]' : 'left-0',
         );
 
         const handleClick = () => {
@@ -116,14 +79,11 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                 aria-checked={checked}
                 disabled={disabled}
                 className={cnMerge(
-                    'nd-switch',
-                    'h-[var(--nd-switch-height)]',
-                    'group',
-                    'relative inline-block font-nd overflow-hidden cursor-pointer',
-                    DISABLED_CLS,
-                    VARIANT_CLS_MAP[variant],
-                    SIZE_CLS_MAP[size],
-                    SHAPE_CLS_MAP[shape],
+                    switchClassNames({
+                        variant,
+                        size,
+                        shape,
+                    }),
                     className,
                 )}
                 style={{ ...style, ...externalStyle }}
@@ -131,28 +91,19 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                 onClick={handleClick}
             >
                 {checkedChild ? (
-                    cloneElement(checkedChild, {
-                        ...checkedChild.props,
-                        className: cnJoin(checkedClassName, checkedChild.props.className),
-                    })
+                    cloneElement(checkedChild, { ...checkedChild.props, variant, checked })
                 ) : (
-                    <Checked className={checkedClassName} />
+                    <Checked variant={variant} checked={checked} />
                 )}
                 {uncheckedChild ? (
-                    cloneElement(uncheckedChild, {
-                        ...uncheckedChild.props,
-                        className: cnJoin(uncheckedClassName, uncheckedChild.props.className),
-                    })
+                    cloneElement(uncheckedChild, { ...uncheckedChild.props, variant, checked })
                 ) : (
-                    <Unchecked className={uncheckedClassName} />
+                    <Unchecked variant={variant} checked={checked} />
                 )}
                 {thumbChild ? (
-                    cloneElement(thumbChild, {
-                        ...thumbChild.props,
-                        className: cnJoin(thumbClassName, thumbChild.props.className),
-                    })
+                    cloneElement(thumbChild, { ...thumbChild.props, variant, shape, checked })
                 ) : (
-                    <Thumb className={thumbClassName} />
+                    <Thumb variant={variant} shape={shape} checked={checked} />
                 )}
             </button>
         );
@@ -165,19 +116,15 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
 
 Switch.displayName = 'Switch';
 
-const Checked = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-    ({ className, children, ...restProps }, ref) => {
+interface CheckedProps extends HTMLAttributes<HTMLDivElement> {
+    variant: SwitchVariant;
+    checked: boolean;
+}
+
+const Checked = forwardRef<HTMLDivElement, CheckedProps>(
+    ({ className, children, variant, checked, ...restProps }, ref) => {
         return (
-            <div
-                {...restProps}
-                className={cnMerge(
-                    'flex justify-center items-center',
-                    'text-center text-contrast',
-                    'transition-[margin-inline,background-color]',
-                    className,
-                )}
-                ref={ref}
-            >
+            <div {...restProps} className={cnMerge(checkedClassNames({ variant, checked }), className)} ref={ref}>
                 {children}
             </div>
         );
@@ -186,19 +133,15 @@ const Checked = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 
 Checked.displayName = 'Switch.Checked';
 
-const Unchecked = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-    ({ className, children, ...restProps }, ref) => {
+interface UncheckedProps extends HTMLAttributes<HTMLDivElement> {
+    variant: SwitchVariant;
+    checked: boolean;
+}
+
+const Unchecked = forwardRef<HTMLDivElement, UncheckedProps>(
+    ({ className, children, variant, checked, ...restProps }, ref) => {
         return (
-            <div
-                {...restProps}
-                className={cnMerge(
-                    'flex justify-center items-center',
-                    'text-center text-contrast',
-                    'transition-[margin-inline,background-color]',
-                    className,
-                )}
-                ref={ref}
-            >
+            <div {...restProps} className={cnMerge(uncheckedClassNames({ variant, checked }), className)} ref={ref}>
                 {children}
             </div>
         );
@@ -207,19 +150,16 @@ const Unchecked = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 
 Unchecked.displayName = 'Switch.Unchecked';
 
-const Thumb = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-    ({ className, children, ...restProps }, ref) => {
+interface ThumbProps extends HTMLAttributes<HTMLDivElement> {
+    variant: SwitchVariant;
+    shape: SwitchShape;
+    checked: boolean;
+}
+
+const Thumb = forwardRef<HTMLDivElement, ThumbProps>(
+    ({ className, children, variant, shape, checked, ...restProps }, ref) => {
         return (
-            <div
-                {...restProps}
-                className={cnMerge(
-                    'flex justify-center items-center',
-                    'absolute aspect-square scale-80',
-                    'text-contrast transition-[left,background-color]',
-                    className,
-                )}
-                ref={ref}
-            >
+            <div {...restProps} className={cnMerge(thumbClassNames({ variant, shape, checked }), className)} ref={ref}>
                 {children}
             </div>
         );
