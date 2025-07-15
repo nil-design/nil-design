@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.19
+
+### Patch Changes
+
+- 4f2d746: refactor the outlined variant of Switch with css outline prop
+
 ## 0.0.18
 
 ### Patch Changes
