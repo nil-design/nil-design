@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.9
+
+### Patch Changes
+
+- 12282bf: improve the type definition of cva
+
 ## 0.0.8
 
 ### Patch Changes

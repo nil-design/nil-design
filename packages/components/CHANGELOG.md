@@ -1,5 +1,15 @@
 # @nild/components
 
+## 0.0.16
+
+### Patch Changes
+
+- ff1eb33: optimize style definitions using cva 4 Checkbox
+- Updated dependencies [12282bf]
+  - @nild/shared@0.0.9
+  - @nild/hooks@0.0.11
+  - @nild/icons@0.0.10
+
 ## 0.0.15
 
 ### Patch Changes
