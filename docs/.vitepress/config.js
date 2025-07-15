@@ -29,7 +29,10 @@ export default defineConfig({
         logo: '/logo.svg',
         siteTitle: false,
         i18nRouting: false,
-        socialLinks: [{ icon: 'github', link: 'https://github.com/nil-design/nil-design' }],
+        socialLinks: [
+            { icon: 'npm', link: 'https://www.npmjs.com/org/nild' },
+            { icon: 'github', link: 'https://github.com/nil-design/nil-design' },
+        ],
         search: getSearch(),
     },
     locales: {
