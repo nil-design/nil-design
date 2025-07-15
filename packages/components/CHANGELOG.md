@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.18
+
+### Patch Changes
+
+- c3c1567: optimize style definitions using cva 4 Switch
+
 ## 0.0.17
 
 ### Patch Changes
