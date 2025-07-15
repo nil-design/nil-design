@@ -28,14 +28,14 @@ interface Config<Props extends object> {
 
 const falsyToString = <T>(value: T) => (typeof value === 'boolean' ? `${value}` : value === 0 ? '0' : value);
 
-const cva = <Props extends object>(base: ClassValue, config: Config<Props>) => {
+const cva = <Props extends object>(base: ClassValue, config: Config<Props> = {} as Config<Props>) => {
     const { variants = {} as Variants<Props>, compoundVariants = [], defaultVariants = {} as Partial<Props> } = config;
     const variantNames = Object.keys(variants);
     const compoundPairs: [[string, unknown | unknown[]][], string][] = compoundVariants.map(
         ({ className, ...conditions }) => [Object.entries(conditions), cnJoin(className)],
     );
 
-    return (props: Props) => {
+    return (props: Props = {} as Props) => {
         const variantClassNames = variantNames.map(name => {
             const propValue = props[name as keyof Props];
             const defaultValue = defaultVariants?.[name as keyof Props];
