@@ -1,5 +1,4 @@
-import Checkbox, { CheckboxProps } from './Checkbox';
-import { CheckboxVariant, CheckboxSize } from './style';
+import Checkbox from './Checkbox';
 
-export type { CheckboxProps, CheckboxVariant, CheckboxSize };
+export type * from './interfaces';
 export default Checkbox;
