@@ -1,7 +1,7 @@
 import { useControllableState, useEffectCallback, usePureCallback } from '@nild/hooks';
 import { Icon } from '@nild/icons';
 import CheckSmall from '@nild/icons/CheckSmall';
-import { cnJoin, cnMerge, isString } from '@nild/shared';
+import { cnMerge, isString } from '@nild/shared';
 import {
     HTMLAttributes,
     ForwardRefExoticComponent,
@@ -15,20 +15,15 @@ import {
     isValidElement,
     cloneElement,
 } from 'react';
-import { DISABLED_CLS } from '../_shared/style';
-import { CheckboxVariant, CheckboxSize, SIZE_CLS_MAP, INDICATOR_VARIANT_CLS_MAP } from './style';
-
-export interface CheckboxProps extends Omit<HTMLAttributes<HTMLLabelElement>, 'onChange' | 'defaultValue'> {
-    variant?: CheckboxVariant;
-    size?: CheckboxSize;
-    checked?: boolean;
-    defaultChecked?: boolean;
-    value?: boolean;
-    defaultValue?: boolean;
-    indeterminate?: boolean;
-    disabled?: boolean;
-    onChange?: (checked: boolean) => void;
-}
+import { CheckboxProps, CheckboxSize } from './interfaces';
+import {
+    checkboxClassNames,
+    indicatorWrapperClassNames,
+    indicatorInputClassNames,
+    labelClassNames,
+    defaultIndicatorClassNames,
+    defaultIndicatorIconClassNames,
+} from './style';
 
 /**
  * @category Components
@@ -69,23 +64,16 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
 
         const renderDefaultIndicator = usePureCallback(() => {
             return (
-                <Indicator className={SIZE_CLS_MAP[size].indicator} checked={checked} onChange={handleChange}>
-                    <div
-                        className={cnJoin(
-                            'flex items-center justify-center',
-                            'w-full h-full rounded-sm border-solid border-1 border-primary',
-                            'transition-[background-color,color]',
-                            INDICATOR_VARIANT_CLS_MAP[variant][`${checked}`],
-                        )}
-                    >
-                        <Icon className="mr-[0.25px]" component={CheckSmall} />
+                <Indicator size={size} checked={checked} onChange={handleChange}>
+                    <div className={defaultIndicatorClassNames({ variant, checked })}>
+                        <Icon className={defaultIndicatorIconClassNames()} component={CheckSmall} />
                     </div>
                 </Indicator>
             );
         });
 
         const renderDefaultLabel = usePureCallback((children: ReactNode) => {
-            return <Label className={SIZE_CLS_MAP[size].label}>{children}</Label>;
+            return <Label size={size}>{children}</Label>;
         });
 
         Children.forEach(externalChildren, child => {
@@ -96,7 +84,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
                         Indicator,
                         cloneElement(child as ReactElement<IndicatorProps>, {
                             ...child.props,
-                            className: cnJoin(SIZE_CLS_MAP[size].indicator, child.props.className),
+                            size,
                             checked,
                             onChange: handleChange,
                         }),
@@ -107,7 +95,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
                         Label,
                         cloneElement(child as ReactElement<LabelProps>, {
                             ...child.props,
-                            className: cnJoin(SIZE_CLS_MAP[size].label, child.props.className),
+                            size,
                         }),
                     );
                 }
@@ -129,20 +117,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
         }
 
         return (
-            <label
-                {...restProps}
-                className={cnMerge(
-                    'nd-checkbox',
-                    'group',
-                    'flex items-center',
-                    'cursor-pointer',
-                    SIZE_CLS_MAP[size].root,
-                    DISABLED_CLS,
-                    disabled && 'disabled',
-                    className,
-                )}
-                ref={ref}
-            >
+            <label {...restProps} className={cnMerge(checkboxClassNames({ size, disabled }), className)} ref={ref}>
                 {children}
             </label>
         );
@@ -153,29 +128,17 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>(
 };
 
 interface IndicatorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+    size?: CheckboxSize;
     checked?: boolean;
     onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
 const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(
-    ({ className, children, checked, onChange, ...restProps }, ref) => {
+    ({ className, children, size, checked, onChange, ...restProps }, ref) => {
         return (
-            <div
-                {...restProps}
-                className={cnMerge('relative', 'flex items-center justify-center', className)}
-                ref={ref}
-            >
+            <div {...restProps} className={cnMerge(indicatorWrapperClassNames({ size }), className)} ref={ref}>
                 {children}
-                <input
-                    type="checkbox"
-                    className={cnJoin(
-                        'absolute inset-0 opacity-0',
-                        'group-enabled:cursor-pointer',
-                        'group-disabled:cursor-not-allowed',
-                    )}
-                    checked={checked}
-                    onChange={onChange}
-                />
+                <input type="checkbox" className={indicatorInputClassNames()} checked={checked} onChange={onChange} />
             </div>
         );
     },
@@ -183,11 +146,13 @@ const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(
 
 Indicator.displayName = 'Checkbox.Indicator';
 
-type LabelProps = HTMLAttributes<HTMLSpanElement>;
+interface LabelProps extends HTMLAttributes<HTMLSpanElement> {
+    size?: CheckboxSize;
+}
 
-const Label = forwardRef<HTMLSpanElement, LabelProps>(({ children, ...restProps }, ref) => {
+const Label = forwardRef<HTMLSpanElement, LabelProps>(({ className, children, size, ...restProps }, ref) => {
     return (
-        <span {...restProps} ref={ref}>
+        <span {...restProps} className={cnMerge(labelClassNames({ size }), className)} ref={ref}>
             {children}
         </span>
     );
