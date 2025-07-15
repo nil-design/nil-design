@@ -14,7 +14,7 @@ export const switchClassNames = cva<SwitchProps>(
         variants: {
             variant: {
                 solid: '',
-                outlined: ['border-solid', 'border', 'border-primary'],
+                outlined: ['outline-solid', 'outline', 'outline-primary'],
             },
             size: {
                 small: ['min-w-8', 'text-sm'],
@@ -115,12 +115,7 @@ export const thumbClassNames = cva<Pick<SwitchProps, 'variant' | 'shape' | 'chec
         variants: {
             variant: {
                 solid: ['bg-contrast', 'top-0'],
-                outlined: [
-                    'bg-primary',
-                    'top-[50%]',
-                    '-translate-y-[50%]',
-                    'group-enabled:group-hover:bg-primary-hover',
-                ],
+                outlined: ['bg-primary', 'top-0', 'group-enabled:group-hover:bg-primary-hover'],
             },
             shape: {
                 round: 'rounded-full',
