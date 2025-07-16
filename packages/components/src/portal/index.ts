@@ -1,7 +1,6 @@
-import Arrow, { ArrowProps } from './Arrow';
-import Portal, { PortalProps, ArrowOptions } from './Portal';
-import { PaddingSize } from './style';
+import Arrow from './Arrow';
+import Portal from './Portal';
 
-export type { ArrowProps, PortalProps, PaddingSize, ArrowOptions };
+export type * from './interfaces';
 export { Arrow };
 export default Portal;
