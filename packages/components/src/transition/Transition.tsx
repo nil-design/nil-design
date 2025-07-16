@@ -1,30 +1,8 @@
 import { useEffectCallback } from '@nild/hooks';
 import { cnMerge } from '@nild/shared';
-import {
-    FC,
-    ReactNode,
-    ReactElement,
-    Children,
-    useState,
-    isValidElement,
-    cloneElement,
-    useEffect,
-    useRef,
-} from 'react';
-
-enum Status {
-    UNMOUNTED = 'unmounted',
-    ENTERING = 'entering',
-    ENTERED = 'entered',
-    EXITING = 'exiting',
-    EXITED = 'exited',
-}
-
-export interface TransitionProps {
-    className?: string;
-    children?: ReactNode;
-    visible?: boolean;
-}
+import { FC, ReactElement, Children, useState, isValidElement, cloneElement, useEffect, useRef } from 'react';
+import { Status, TransitionProps } from './interfaces';
+import { transitionClassNames } from './style';
 
 /**
  * @category Components
@@ -139,12 +117,7 @@ const Transition: FC<TransitionProps> = ({ className, children, visible = true }
 
     return cloneElement(resolvedChildRef.current as ReactElement, {
         ...resolvedChildRef.current.props,
-        className: cnMerge(
-            resolvedChildRef.current.props.className,
-            'transition-[opacity,visibility]',
-            status === Status.ENTERED ? 'opacity-100 visible' : 'opacity-0 invisible',
-            className,
-        ),
+        className: cnMerge(resolvedChildRef.current.props.className, transitionClassNames({ status }), className),
         onTransitionEnd: handleTransitionEnd,
     });
 };
