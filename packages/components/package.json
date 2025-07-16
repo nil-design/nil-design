@@ -1,7 +1,7 @@
 {
     "name": "@nild/components",
     "private": false,
-    "version": "0.0.19",
+    "version": "0.0.20",
     "type": "module",
     "module": "./dist/index.js",
     "exports": {
