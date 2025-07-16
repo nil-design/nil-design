@@ -1,18 +1,9 @@
 import { cnJoin, cnMerge } from '@nild/shared';
-import { HTMLAttributes, ReactElement, Ref, forwardRef, isValidElement, cloneElement, Children } from 'react';
+import { ReactElement, forwardRef, isValidElement, cloneElement, Children } from 'react';
 import { createPortal } from 'react-dom';
-import Arrow, { ArrowProps } from './Arrow';
-import { PaddingSize, PADDING_SIZE_CLS_MAP } from './style';
-
-export interface ArrowOptions extends ArrowProps {
-    ref: Ref<HTMLDivElement>;
-}
-
-export interface PortalProps extends HTMLAttributes<HTMLDivElement> {
-    container?: Element | DocumentFragment;
-    paddingSize?: PaddingSize;
-    arrow?: ArrowOptions | false;
-}
+import Arrow from './Arrow';
+import { PortalProps } from './interfaces';
+import { portalClassNames, portalContentClassNames, portalArrowClassNames } from './style';
 
 /**
  * @category Components
@@ -23,16 +14,12 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
         if (!child) return null;
 
         return createPortal(
-            <div {...restProps} className={cnMerge('nd-portal', 'absolute top-0 left-0', className)} ref={ref}>
+            <div {...restProps} className={cnMerge(portalClassNames(), className)} ref={ref}>
                 {cloneElement(child as ReactElement, {
                     ...child.props,
-                    className: cnMerge(
-                        'bg-container rounded-md outline-solid outline-1 outline-edge shadow-lg',
-                        PADDING_SIZE_CLS_MAP[paddingSize],
-                        child?.props?.className,
-                    ),
+                    className: cnMerge(portalContentClassNames({ paddingSize }), child?.props?.className),
                 })}
-                {arrow !== false && <Arrow {...arrow} className={cnJoin('absolute', arrow.className)} />}
+                {arrow !== false && <Arrow {...arrow} className={cnJoin(portalArrowClassNames(), arrow.className)} />}
             </div>,
             container,
         );
