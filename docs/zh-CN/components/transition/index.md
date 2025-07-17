@@ -24,8 +24,8 @@ const Demo = () => {
 
   return <div className="flex flex-col items-start gap-4">
     <Switch checked={checked} onChange={setChecked}>
-      <Switch.Checked>Visible</Switch.Checked>
-      <Switch.Unchecked>Invisible</Switch.Unchecked>
+      <Switch.Track type="checked">Visible</Switch.Track>
+      <Switch.Track type="unchecked">Invisible</Switch.Track>
     </Switch>
     <Transition className="duration-600" visible={checked}>
         <DynamicIcon name="ghost" className="text-2xl" />
@@ -50,8 +50,8 @@ const Demo = () => {
 
   return <div className="flex flex-col items-start gap-4">
     <Switch checked={checked} onChange={setChecked}>
-      <Switch.Checked>Create</Switch.Checked>
-      <Switch.Unchecked>Destroy</Switch.Unchecked>
+      <Switch.Track type="checked">Create</Switch.Track>
+      <Switch.Track type="unchecked">Destroy</Switch.Track>
     </Switch>
     <Transition className="duration-600">
         {checked && <DynamicIcon name="skull" className="text-2xl" />}
