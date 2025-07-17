@@ -2,11 +2,11 @@ import React from 'react';
 
 interface Options<T> {
     displayName?: string;
-    defaultValue?: T;
+    defaultValue: T;
 }
 
-const createContext = <T>({ displayName, defaultValue }: Options<T> = {}) => {
-    const Context = React.createContext<T | undefined>(defaultValue);
+const createContext = <T>({ displayName, defaultValue }: Options<T>) => {
+    const Context = React.createContext<T>(defaultValue);
     const useContext = () => React.useContext(Context);
 
     Context.displayName = displayName;
