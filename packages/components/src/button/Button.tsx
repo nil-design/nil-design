@@ -9,7 +9,7 @@ import {
     Children,
 } from 'react';
 import { isPlainChildren } from '../_shared/utils';
-import { ButtonProps, ButtonGroupProps } from './interfaces';
+import { ButtonProps, GroupProps } from './interfaces';
 import { buttonClassNames, groupClassNames, groupButtonClassNames } from './style';
 
 /**
@@ -65,7 +65,7 @@ const isButtonElement = (child: ReactNode): child is ReactElement<ButtonProps> =
     return isValidElement(child) && child.type === Button;
 };
 
-const Group = forwardRef<HTMLDivElement, ButtonGroupProps>(
+const Group = forwardRef<HTMLDivElement, GroupProps>(
     (
         {
             className,
@@ -80,7 +80,7 @@ const Group = forwardRef<HTMLDivElement, ButtonGroupProps>(
     ) => {
         const children = Children.toArray(externalChildren);
 
-        if (!children || isEmpty(children)) {
+        if (isEmpty(children)) {
             return null;
         }
 
