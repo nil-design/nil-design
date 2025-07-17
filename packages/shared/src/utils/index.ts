@@ -1,6 +1,7 @@
 import camelize from './camelize';
 import cnJoin from './cn-join';
 import cnMerge from './cn-merge';
+import createContext from './create-context';
 import cva from './cva';
 import getDPR from './get-dpr';
 import isBrowser from './is-browser';
@@ -51,6 +52,7 @@ export {
     camelize,
     cnJoin,
     cnMerge,
+    createContext,
     cva,
     getDPR,
     isBrowser,
