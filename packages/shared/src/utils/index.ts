@@ -1,12 +1,10 @@
 import camelize from './camelize';
 import cnJoin from './cn-join';
 import cnMerge from './cn-merge';
-import createContext from './create-context';
 import cva from './cva';
 import getDPR from './get-dpr';
 import isBrowser from './is-browser';
 import isNumeric from './is-numeric';
-import mergeRefs from './merge-refs';
 import pascalize from './pascalize';
 import roundByDPR from './round-by-dpr';
 import snakeize from './snakeize';
@@ -48,18 +46,4 @@ export {
     isWeakSet,
     merge,
 } from 'lodash-es';
-export {
-    camelize,
-    cnJoin,
-    cnMerge,
-    createContext,
-    cva,
-    getDPR,
-    isBrowser,
-    isNumeric,
-    mergeRefs,
-    pascalize,
-    roundByDPR,
-    snakeize,
-    uuid,
-};
+export { camelize, cnJoin, cnMerge, cva, getDPR, isBrowser, isNumeric, pascalize, roundByDPR, snakeize, uuid };
