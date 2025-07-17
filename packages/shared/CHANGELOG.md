@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.10
+
+### Patch Changes
+
+- b02fc88: feat: createContext
+
 ## 0.0.9
 
 ### Patch Changes
