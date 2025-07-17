@@ -19,6 +19,7 @@ export interface GroupProps extends HTMLAttributes<HTMLDivElement> {
     direction?: GroupDirection;
     variant?: ButtonVariant;
     size?: ButtonSize;
+    equal?: boolean;
     disabled?: boolean;
     children?: ReactElement<ButtonProps> | ReactElement<ButtonProps>[];
 }
