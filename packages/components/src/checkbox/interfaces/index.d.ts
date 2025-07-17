@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
 export type CheckboxVariant = 'solid' | 'outlined';
 export type CheckboxSize = 'small' | 'medium' | 'large';
@@ -13,4 +13,12 @@ export interface CheckboxProps extends Omit<HTMLAttributes<HTMLLabelElement>, 'o
     indeterminate?: boolean;
     disabled?: boolean;
     onChange?: (checked: boolean) => void;
+}
+
+export interface IndicatorProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
+    children?: (checked: boolean) => ReactNode;
+}
+
+export interface LabelProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+    children?: ReactNode | ((checked: boolean) => ReactNode);
 }

@@ -20,5 +20,6 @@
 | direction | - | `'horizontal' \| 'vertical'` | - |
 | variant | - | `'solid' \| 'outlined' \| 'filled' \| 'text'` | - |
 | size | - | `'small' \| 'medium' \| 'large'` | - |
+| equal | - | `boolean` | - |
 | disabled | - | `boolean` | - |
 | children | - | `ReactElement<ButtonProps, string \| JSXElementConstructor<any>> \| Array<ReactElement<ButtonProps, string \| JSXElementConstructor<any>>>` | - |

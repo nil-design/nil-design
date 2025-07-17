@@ -1,6 +1,6 @@
 import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
-import { SwitchProps } from '../interfaces';
+import { SwitchProps, TrackProps } from '../interfaces';
 
 export const switchClassNames = cva<SwitchProps>(
     [
@@ -29,60 +29,45 @@ export const switchClassNames = cva<SwitchProps>(
     },
 );
 
-export const checkedClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'>>(
+export const trackClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'> & Pick<TrackProps, 'type'>>(
     [
         'h-[var(--nd-switch-height)]',
         'transition-[margin-inline,background-color]',
         ['flex', 'justify-center', 'items-center'],
         ['text-center', 'text-contrast'],
-        ['ps-[calc(var(--nd-switch-height)/3)]', 'pe-[calc(var(--nd-switch-height)*1.1)]'],
     ],
     {
         variants: {
-            checked: {
-                true: ['ms-0', 'me-0'],
-                false: ['-ms-[100%]', 'me-[100%]'],
-            },
-        },
-        compoundVariants: [
-            {
-                variant: 'solid',
-                checked: true,
-                className: ['bg-primary', 'group-enabled:group-hover:bg-primary-hover'],
-            },
-            {
-                variant: 'solid',
-                checked: false,
-                className: [
-                    'bg-[--alpha(var(--color-primary)/40%)]',
-                    'group-enabled:group-hover:bg-[--alpha(var(--color-primary)/50%)]',
+            type: {
+                checked: ['ps-[calc(var(--nd-switch-height)/3)]', 'pe-[calc(var(--nd-switch-height)*1.1)]'],
+                unchecked: [
+                    'ps-[calc(var(--nd-switch-height)*1.1)]',
+                    'pe-[calc(var(--nd-switch-height)/3)]',
+                    '-mt-[var(--nd-switch-height)]',
                 ],
             },
-            {
-                variant: 'outlined',
-                className: ['bg-transparent', 'group-enabled:group-hover:bg-tertiary-hover'],
-            },
-        ],
-    },
-);
-
-export const uncheckedClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'>>(
-    [
-        'h-[var(--nd-switch-height)]',
-        '-mt-[var(--nd-switch-height)]',
-        'transition-[margin-inline,background-color]',
-        ['flex', 'justify-center', 'items-center'],
-        ['text-center', 'text-contrast'],
-        ['ps-[calc(var(--nd-switch-height)*1.1)]', 'pe-[calc(var(--nd-switch-height)/3)]'],
-    ],
-    {
-        variants: {
-            checked: {
-                true: ['ms-[100%]', '-me-[100%]'],
-                false: ['ms-0', 'me-0'],
-            },
         },
         compoundVariants: [
+            {
+                type: 'checked',
+                checked: true,
+                className: ['ms-0', 'me-0'],
+            },
+            {
+                type: 'checked',
+                checked: false,
+                className: ['-ms-[100%]', 'me-[100%]'],
+            },
+            {
+                type: 'unchecked',
+                checked: true,
+                className: ['ms-[100%]', '-me-[100%]'],
+            },
+            {
+                type: 'unchecked',
+                checked: false,
+                className: ['ms-0', 'me-0'],
+            },
             {
                 variant: 'solid',
                 checked: true,

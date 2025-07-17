@@ -19,7 +19,7 @@ export const checkboxClassNames = cva<Pick<CheckboxProps, 'size' | 'disabled'>>(
     },
 );
 
-export const indicatorWrapperClassNames = cva<Pick<CheckboxProps, 'size'>>(
+export const indicatorClassNames = cva<Pick<CheckboxProps, 'size'>>(
     ['relative', ['flex', 'items-center', 'justify-center']],
     {
         variants: {
@@ -37,7 +37,7 @@ export const indicatorInputClassNames = cva<object>([
     ['group-enabled:cursor-pointer', 'group-disabled:cursor-not-allowed'],
 ]);
 
-export const defaultIndicatorClassNames = cva<Pick<CheckboxProps, 'checked' | 'variant'>>(
+export const defaultIndicatorBlockClassNames = cva<Pick<CheckboxProps, 'checked' | 'variant'>>(
     [
         ['flex', 'items-center', 'justify-center'],
         ['w-full', 'h-full', 'rounded-sm', 'border-solid', 'border-1', 'border-primary'],

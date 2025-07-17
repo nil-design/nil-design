@@ -87,24 +87,24 @@ import { Switch } from '@nild/components';
 import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
-  const [checked, setChecked] = useState(false);
-
   return <div className="flex flex-wrap gap-4">
     <Switch>
-      <Switch.Checked>Open</Switch.Checked>
-      <Switch.Unchecked>Close</Switch.Unchecked>
+      <Switch.Track type="checked">Open</Switch.Track>
+      <Switch.Track type="unchecked">Close</Switch.Track>
     </Switch>
     <Switch shape="square">
-      <Switch.Checked>
+      <Switch.Track type="checked">
         <DynamicIcon name="check" />
-      </Switch.Checked>
-      <Switch.Unchecked>
+      </Switch.Track>
+      <Switch.Track type="unchecked">
         <DynamicIcon name="close" />
-      </Switch.Unchecked>
+      </Switch.Track>
     </Switch>
-    <Switch variant="outlined" checked={checked} onChange={setChecked}>
+    <Switch variant="outlined">
       <Switch.Thumb>
-        <DynamicIcon name={checked ? 'dark-mode' : 'sun-one'} />
+        {checked => (
+          <DynamicIcon name={checked ? 'dark-mode' : 'sun-one'}/>
+        )}
       </Switch.Thumb>
     </Switch>
   </div>;

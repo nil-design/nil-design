@@ -13,12 +13,13 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     block?: boolean;
 }
 
-export type ButtonGroupDirection = 'horizontal' | 'vertical';
+export type GroupDirection = 'horizontal' | 'vertical';
 
-export interface ButtonGroupProps extends HTMLAttributes<HTMLDivElement> {
-    direction?: ButtonGroupDirection;
+export interface GroupProps extends HTMLAttributes<HTMLDivElement> {
+    direction?: GroupDirection;
     variant?: ButtonVariant;
     size?: ButtonSize;
+    equal?: boolean;
     disabled?: boolean;
     children?: ReactElement<ButtonProps> | ReactElement<ButtonProps>[];
 }
