@@ -69,14 +69,24 @@ import { Checkbox } from '@nild/components';
 import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
-  const [liking, setLiking] = useState(false);
-
-  return <div className="flex flex-wrap gap-4">
-    <Checkbox checked={liking} onChange={setLiking}>
+  return <div className="flex flex-col items-start gap-4">
+    <Checkbox>
+      <Checkbox.Label>After the label</Checkbox.Label>
+      <Checkbox.Indicator />
+    </Checkbox>
+    <Checkbox>
       <Checkbox.Indicator>
-        <DynamicIcon name="like" variant={liking ? 'filled' : 'outlined'} />
+        {checked => (
+          <DynamicIcon
+            className="text-xl"
+            name="like"
+            variant={checked ? 'filled' : 'outlined'}
+          />
+        )}
       </Checkbox.Indicator>
-      {liking ? 'Unlike' : 'Like'}
+      <Checkbox.Label>
+        {checked => checked ? 'Unlike' : 'Like'}
+      </Checkbox.Label>
     </Checkbox>
   </div>;
 }
