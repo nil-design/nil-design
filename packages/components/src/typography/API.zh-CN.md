@@ -8,8 +8,8 @@
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | :-- | :-- | :-- | :-- |
-| disabled | - | `boolean` | - |
 | underlined | - | `boolean` | - |
+| disabled | - | `boolean` | - |
 
 ### Typography.Paragraph Props
 
@@ -21,15 +21,9 @@
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | :-- | :-- | :-- | :-- |
-| disabled | - | `boolean` | - |
+| variants | - | `Array<'strong' \| 'del' \| 'u' \| 'i' \| 'mark' \| 'code' \| 'kbd'>` | - |
 | secondary | - | `boolean` | - |
-| strong | - | `boolean` | - |
-| deleted | - | `boolean` | - |
-| underlined | - | `boolean` | - |
-| italic | - | `boolean` | - |
-| marked | - | `boolean` | - |
-| coded | - | `boolean` | - |
-| keyboarded | - | `boolean` | - |
+| disabled | - | `boolean` | - |
 
 ### Typography.Title Props
 

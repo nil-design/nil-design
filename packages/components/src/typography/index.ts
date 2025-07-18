@@ -1,9 +1,18 @@
-import { LinkProps } from './Link';
-import { ParagraphProps } from './Paragraph';
-import { HeadingLevel } from './style';
-import { TextProps } from './Text';
-import { TitleProps } from './Title';
-import Typography, { TypographyProps } from './Typography';
+import Link from './Link';
+import Paragraph from './Paragraph';
+import Text from './Text';
+import Title from './Title';
+import TypographyComponent from './Typography';
 
-export type { TypographyProps, LinkProps, ParagraphProps, TextProps, TitleProps, HeadingLevel };
+/**
+ * @category Components
+ */
+const Typography = Object.assign(TypographyComponent, {
+    Link,
+    Paragraph,
+    Text,
+    Title,
+});
+
+export type * from './interfaces';
 export default Typography;
