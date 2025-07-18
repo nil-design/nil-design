@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.22
+
+### Patch Changes
+
+- 378aa41: refactor(Typography): optimize style definitions using cva
+
 ## 0.0.21
 
 ### Patch Changes
