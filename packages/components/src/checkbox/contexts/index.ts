@@ -1,7 +1,7 @@
-import { createContext } from '@nild/shared';
+import { createContextSuite } from '@nild/shared';
 import { CheckboxProps } from '../interfaces';
 
-const [CheckboxProvider, useCheckboxContext] = createContext<
+const [CheckboxProvider, useCheckboxContext] = createContextSuite<
     Pick<CheckboxProps, 'variant' | 'size' | 'checked'> & { handleChange?: () => void }
 >({
     defaultValue: {},

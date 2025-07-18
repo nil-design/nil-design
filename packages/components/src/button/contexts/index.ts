@@ -1,7 +1,9 @@
-import { createContext } from '@nild/shared';
+import { createContextSuite } from '@nild/shared';
 import { GroupProps } from '../interfaces';
 
-const [GroupProvider, useGroupContext] = createContext<Pick<GroupProps, 'variant' | 'size' | 'equal' | 'disabled'>>({
+const [GroupProvider, useGroupContext] = createContextSuite<
+    Pick<GroupProps, 'variant' | 'size' | 'equal' | 'disabled'>
+>({
     defaultValue: {
         variant: 'solid',
         size: 'medium',
