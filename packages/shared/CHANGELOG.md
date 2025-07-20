@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.11
+
+### Patch Changes
+
+- 1bfaa8d: feat: forwardRefWithGenerics
+
 ## 0.0.10
 
 ### Patch Changes

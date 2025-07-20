@@ -1,5 +1,15 @@
 # @nild/components
 
+## 0.0.23
+
+### Patch Changes
+
+- c8bab37: feat: Checkbox.Group
+- Updated dependencies [1bfaa8d]
+  - @nild/shared@0.0.11
+  - @nild/hooks@0.0.13
+  - @nild/icons@0.0.12
+
 ## 0.0.22
 
 ### Patch Changes
