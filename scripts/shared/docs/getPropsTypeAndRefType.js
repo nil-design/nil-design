@@ -52,6 +52,15 @@ const getPropsTypeAndRefType = componentReflection => {
                 }
             }
         });
+    } else if (componentType.type === 'reflection') {
+        const { declaration } = componentType;
+        const [signatureReflection] = declaration.signatures || [];
+        const [parameterReflection] = signatureReflection.parameters;
+        if (parameterReflection.type.type === 'intersection') {
+            // parameters of forwardRefWithGenerics
+            propsType = parameterReflection.type.types[0];
+            refType = parameterReflection.type.types[1].typeArguments[0];
+        }
     }
 
     return [propsType, refType];
