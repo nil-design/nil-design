@@ -5,7 +5,7 @@ interface Options<T> {
     defaultValue: T;
 }
 
-const createContext = <T>({ displayName, defaultValue }: Options<T>) => {
+const createContextSuite = <T>({ displayName, defaultValue }: Options<T>) => {
     const Context = React.createContext<T>(defaultValue);
     const useContext = () => React.useContext(Context);
 
@@ -14,4 +14,4 @@ const createContext = <T>({ displayName, defaultValue }: Options<T>) => {
     return [Context.Provider, useContext] as const;
 };
 
-export default createContext;
+export default createContextSuite;

@@ -1,7 +1,7 @@
-import { createContext } from '@nild/shared';
+import { createContextSuite } from '@nild/shared';
 import { SwitchProps } from '../interfaces';
 
-const [SwitchProvider, useSwitchContext] = createContext<Pick<SwitchProps, 'variant' | 'shape' | 'checked'>>({
+const [SwitchProvider, useSwitchContext] = createContextSuite<Pick<SwitchProps, 'variant' | 'shape' | 'checked'>>({
     defaultValue: {},
 });
 

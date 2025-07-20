@@ -1,3 +1,5 @@
+import { ReflectionKind } from 'typedoc';
+
 /**
  * @param {import('typedoc').DeclarationReflection} componentReflection
  * @returns {[import('typedoc').SomeType, import('typedoc').SomeType | undefined]}
@@ -18,6 +20,14 @@ const getAffiliatedComponentReflections = componentReflection => {
                         reflection.escapedName = `${escapedName}.${reflection.escapedName}`;
                         affiliatedComponentReflections.push(reflection);
                     } else if (reflection.type.name === 'ForwardRefExoticComponent') {
+                        reflection.escapedName = `${escapedName}.${reflection.escapedName}`;
+                        affiliatedComponentReflections.push(reflection);
+                    }
+                } else if (reflection.type.type === 'reflection') {
+                    const { declaration } = reflection.type;
+                    const [signatureReflection] = declaration.signatures || [];
+                    if (signatureReflection?.kind === ReflectionKind.CallSignature) {
+                        // function signature
                         reflection.escapedName = `${escapedName}.${reflection.escapedName}`;
                         affiliatedComponentReflections.push(reflection);
                     }
