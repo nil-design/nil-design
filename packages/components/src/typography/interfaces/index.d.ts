@@ -7,10 +7,10 @@ export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 export type ParagraphProps = HTMLAttributes<HTMLParagraphElement>;
 
-export type TextVariant = 'strong' | 'del' | 'u' | 'i' | 'mark' | 'code' | 'kbd';
+export type TextTag = 'strong' | 'del' | 'u' | 'i' | 'mark' | 'code' | 'kbd';
 
 export interface TextProps extends HTMLAttributes<HTMLSpanElement> {
-    variants?: TextVariant[];
+    tags?: TextTag[];
     secondary?: boolean;
     disabled?: boolean;
 }

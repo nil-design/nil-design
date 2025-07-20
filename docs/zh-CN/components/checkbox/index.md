@@ -138,8 +138,6 @@ render(<Demo />);
 ```
 :::
 
-##
-
 ## API
 
 <!--@include: ../../../../packages/components/src/checkbox/API.zh-CN.md-->

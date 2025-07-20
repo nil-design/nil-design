@@ -42,10 +42,10 @@ const Demo = () => {
       <Title level={2}>荷塘月色</Title>
       <Text>朱自清</Text>
       <Title level={4}>荷塘</Title>
-      <Paragraph>曲曲折折的荷塘上面，弥望的是田田的叶子。叶子出水很高，<Text variants={['mark']}>像亭亭的舞女的裙</Text>。层层的叶子中间，零星地点缀着些白花，有袅娜地开着的，有羞涩地打着朵儿的；正如一粒粒的明珠，又如碧天里的星星，又如刚出浴的美人。</Paragraph>
-      <Paragraph>微风过处，送来缕缕清香，<Text variants={['mark']}>仿佛远处高楼上渺茫的歌声似的</Text>。这时候叶子与花也有一丝的颤动，像闪电般，霎时传过荷塘的那边去了。叶子本是肩并肩密密地挨着，这便宛然有了一道凝碧的波痕。</Paragraph>
+      <Paragraph>曲曲折折的荷塘上面，弥望的是田田的叶子。叶子出水很高，<Text tags={['mark']}>像亭亭的舞女的裙</Text>。层层的叶子中间，零星地点缀着些白花，有袅娜地开着的，有羞涩地打着朵儿的；正如一粒粒的明珠，又如碧天里的星星，又如刚出浴的美人。</Paragraph>
+      <Paragraph>微风过处，送来缕缕清香，<Text tags={['mark']}>仿佛远处高楼上渺茫的歌声似的</Text>。这时候叶子与花也有一丝的颤动，像闪电般，霎时传过荷塘的那边去了。叶子本是肩并肩密密地挨着，这便宛然有了一道凝碧的波痕。</Paragraph>
       <Title level={4}>月色</Title>
-      <Paragraph>月光如流水一般，静静地泻在这一片叶子和花上。薄薄的青雾浮起在荷塘里。叶子和花<Text variants={['mark']}>仿佛在牛乳中洗过一样；又像笼着轻纱的梦</Text>。虽然是满月，天上却有一层淡淡的云，所以不能朗照；但我以为这恰是到了好处——酣眠固不可少，小睡也别有风味的。</Paragraph>
+      <Paragraph>月光如流水一般，静静地泻在这一片叶子和花上。薄薄的青雾浮起在荷塘里。叶子和花<Text tags={['mark']}>仿佛在牛乳中洗过一样；又像笼着轻纱的梦</Text>。虽然是满月，天上却有一层淡淡的云，所以不能朗照；但我以为这恰是到了好处——酣眠固不可少，小睡也别有风味的。</Paragraph>
       <Paragraph>月光是隔了树照过来的，高处丛生的灌木，落下参差的斑驳的黑影，峭楞楞如鬼一般；弯弯的杨柳的稀疏的倩影，却又像是画在荷叶上。塘中的月色并不均匀；但光与影有着和谐的旋律，如梵婀玲上奏着的名曲。</Paragraph>
     </Typography>
   );
@@ -67,13 +67,13 @@ const Demo = () => {
     <Text>Nil Design</Text>
     <Text secondary>Nil Design</Text>
     <Text disabled>Nil Design</Text>
-    <Text variants={['strong']}>Nil Design</Text>
-    <Text variants={['del']}>Nil Design</Text>
-    <Text variants={['u']}>Nil Design</Text>
-    <Text variants={['i']}>Nil Design</Text>
-    <Text variants={['mark']}>Nil Design</Text>
-    <Text variants={['code']}>Nil Design</Text>
-    <Text variants={['kbd']}>Nil Design</Text>
+    <Text tags={['strong']}>Nil Design</Text>
+    <Text tags={['del']}>Nil Design</Text>
+    <Text tags={['u']}>Nil Design</Text>
+    <Text tags={['i']}>Nil Design</Text>
+    <Text tags={['mark']}>Nil Design</Text>
+    <Text tags={['code']}>Nil Design</Text>
+    <Text tags={['kbd']}>Nil Design</Text>
   </div>;
 }
 

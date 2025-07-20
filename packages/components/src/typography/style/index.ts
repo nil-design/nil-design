@@ -1,6 +1,6 @@
 import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
-import { LinkProps, ParagraphProps, TextProps, TextVariant, TitleProps, TypographyProps } from '../interfaces';
+import { LinkProps, ParagraphProps, TextProps, TextTag, TitleProps, TypographyProps } from '../interfaces';
 
 export const linkClassNames = cva<LinkProps>(
     [
@@ -48,9 +48,9 @@ export const textClassNames = cva<TextProps>(['nd-text', ['font-nd', 'text-[leng
     },
 });
 
-export const textTagClassNames = cva<{ variant: TextVariant }>('', {
+export const textTagClassNames = cva<{ tag: TextTag }>('', {
     variants: {
-        variant: {
+        tag: {
             strong: '',
             del: '',
             u: ['underline'],
