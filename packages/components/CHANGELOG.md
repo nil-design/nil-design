@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.24
+
+### Patch Changes
+
+- 4425900: refactor(Text): rename variants 2 tags
+
 ## 0.0.23
 
 ### Patch Changes
