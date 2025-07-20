@@ -1,6 +1,6 @@
 import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
-import { CheckboxProps } from '../interfaces';
+import { CheckboxProps, GroupProps } from '../interfaces';
 
 export const checkboxClassNames = cva<Pick<CheckboxProps, 'size' | 'disabled'>>(
     ['nd-checkbox', 'group', ['flex', 'items-center'], 'cursor-pointer', DISABLED_CLS],
@@ -26,7 +26,7 @@ export const indicatorClassNames = cva<Pick<CheckboxProps, 'size'>>(
             size: {
                 small: 'w-3.5 h-3.5 text-sm',
                 medium: 'w-4 h-4 text-md',
-                large: 'w-4.5 h-4.5 text-xl',
+                large: 'w-4.5 h-4.5 text-lg',
             },
         },
     },
@@ -63,7 +63,7 @@ export const defaultIndicatorBlockClassNames = cva<Pick<CheckboxProps, 'checked'
     },
 );
 
-export const defaultIndicatorIconClassNames = cva<object>(['mr-[0.25px]']);
+export const defaultIndicatorIconClassNames = cva<object>(['w-full']);
 
 export const labelClassNames = cva<Pick<CheckboxProps, 'size'>>(['text-sm'], {
     variants: {
@@ -74,3 +74,15 @@ export const labelClassNames = cva<Pick<CheckboxProps, 'size'>>(['text-sm'], {
         },
     },
 });
+
+export const groupClassNames = cva<Pick<GroupProps, 'direction'>>(
+    ['nd-checkbox-group', ['flex', 'gap-x-4', 'gap-y-2']],
+    {
+        variants: {
+            direction: {
+                horizontal: 'flex-row flex-wrap',
+                vertical: 'flex-col',
+            },
+        },
+    },
+);

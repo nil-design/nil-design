@@ -1,4 +1,5 @@
 import CheckboxComponent from './Checkbox';
+import Group from './Group';
 import Indicator from './Indicator';
 import Label from './Label';
 
@@ -8,6 +9,7 @@ import Label from './Label';
 const Checkbox = Object.assign(CheckboxComponent, {
     Indicator,
     Label,
+    Group,
 });
 
 export type * from './interfaces';

@@ -78,7 +78,6 @@ const Demo = () => {
       <Checkbox.Indicator>
         {checked => (
           <DynamicIcon
-            className="text-xl"
             name="like"
             variant={checked ? 'filled' : 'outlined'}
           />
@@ -94,6 +93,52 @@ const Demo = () => {
 render(<Demo />);
 ```
 :::
+
+## 复选框组
+
+::: react-live
+```tsx
+import { Checkbox } from '@nild/components';
+
+const options = [
+  {
+    label: 'Option 1',
+    value: 1,
+  },
+  {
+    label: 'Option 2',
+    value: 2,
+  },
+  {
+    label: 'Option 3',
+    value: 3,
+  },
+];
+
+const Demo = () => {
+  return <div className="flex flex-col items-start gap-4">
+    <Checkbox.Group defaultValue={[2]}>
+      {options.map(option => (
+        <Checkbox key={option.value} value={option.value}>
+          {option.label}
+        </Checkbox>
+      ))}
+    </Checkbox.Group>
+    <Checkbox.Group direction="vertical" variant="outlined" defaultValue={[1, 3]}>
+      {options.map(option => (
+        <Checkbox key={option.value} value={option.value}>
+          {option.label}
+        </Checkbox>
+      ))}
+    </Checkbox.Group>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
+##
 
 ## API
 
