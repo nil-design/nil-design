@@ -94,7 +94,7 @@ render(<Demo />);
 ```
 :::
 
-## 复选框组
+## 组合
 
 ::: react-live
 ```tsx
@@ -118,16 +118,16 @@ const options = [
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
     <Checkbox.Group defaultValue={[2]}>
-      {options.map(option => (
-        <Checkbox key={option.value} value={option.value}>
-          {option.label}
+      {options.map(({ label, value }) => (
+        <Checkbox key={value} value={value}>
+          {label}
         </Checkbox>
       ))}
     </Checkbox.Group>
     <Checkbox.Group direction="vertical" variant="outlined" defaultValue={[1, 3]}>
-      {options.map(option => (
-        <Checkbox key={option.value} value={option.value}>
-          {option.label}
+      {options.map(({ label, value }) => (
+        <Checkbox key={value} value={value}>
+          {label}
         </Checkbox>
       ))}
     </Checkbox.Group>
