@@ -21,7 +21,7 @@
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | :-- | :-- | :-- | :-- |
-| variants | - | `Array<'strong' \| 'del' \| 'u' \| 'i' \| 'mark' \| 'code' \| 'kbd'>` | - |
+| tags | - | `Array<'strong' \| 'del' \| 'u' \| 'i' \| 'mark' \| 'code' \| 'kbd'>` | - |
 | secondary | - | `boolean` | - |
 | disabled | - | `boolean` | - |
 
