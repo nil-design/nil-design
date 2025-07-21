@@ -1,5 +1,5 @@
 <template>
-    <div class="mermaid" ref="containerRef" v-html="innerHTMLRef"></div>
+    <div class="mermaid vp-raw" ref="containerRef" v-html="innerHTMLRef"></div>
 </template>
 
 <script>
