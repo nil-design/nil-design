@@ -30,6 +30,6 @@
     },
     "peerDependencies": {
         "@nild/shared": "workspace:*",
-        "react": ">=18.2.0"
+        "react": "^18.2.0"
     }
 }

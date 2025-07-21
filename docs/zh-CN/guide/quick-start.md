@@ -33,28 +33,26 @@ flowchart TD
   materials --> icons
 ```
 
-## 依赖全览
+## 第三方依赖
 
 ### Dependencies
 
-| 名称 | 版本 |
-| - | - |
-| [tailwind-merge](https://www.npmjs.com/package/tailwind-merge/v/3.3.0) | 3.3.0 |
-| [@icon-park/react](https://www.npmjs.com/package/@icon-park/react/v/1.4.2) | 1.4.2 |
-| [@floating-ui/dom](https://www.npmjs.com/package/@floating-ui/dom/v/1.7.1) | 1.7.1 |
+| 名称 | 版本 | Used By |
+| - | - | - |
+| [@floating-ui/dom](https://www.npmjs.com/package/@floating-ui/dom/v/1.7.1) | 1.7.1 | @nild/components |
+| [@icon-park/react](https://www.npmjs.com/package/@icon-park/react/v/1.4.2) | 1.4.2 | @nild/icons |
+| [tailwind-merge](https://www.npmjs.com/package/tailwind-merge/v/3.3.0) | 3.3.0 | @nild/shared |
 
 ### Peer Dependencies
 
-| 名称 | 版本 |
-| - | - |
-| [lodash-es](https://www.npmjs.com/package/lodash-es) | ^4.17.21 |
-| [react](https://www.npmjs.com/package/react) | ^18.2.0 |
-| [react-dom](https://www.npmjs.com/package/react-dom) | ^18.2.0 |
-| [tailwindcss](https://www.npmjs.com/package/tailwindcss) | ^4.1.7 |
+| 名称 | 版本 | Needed By |
+| - | - | - |
+| [lodash-es](https://www.npmjs.com/package/lodash-es) | ^4.17.21 | @nild/shared |
+| [react](https://www.npmjs.com/package/react) | ^18.2.0 | @nild/shared<br>@nild/i18n<br>@nild/hooks<br>@nild/icons<br>@nild/components<br>@nild/materials |
+| [react-dom](https://www.npmjs.com/package/react-dom) | ^18.2.0 | @nild/components<br>@nild/materials |
+| [tailwindcss](https://www.npmjs.com/package/tailwindcss) | ^4.1.7 | @nild/shared |
 
-## 如何使用
-
-### 安装
+## 安装
 
 > [!NOTE]
 > PNPM 安装前建议设置 `auto-install-peers=true`
@@ -77,18 +75,3 @@ pnpm add @nild/components
 pnpm add @nild/materials
 ```
 :::
-
-### @nild/components
-
-开箱即用的组件包。
-
-##### 引入样式
-
-组件包并没有选择导出最终样式，而是导出了一份 tailwind 主题以供再定制；可通过 `@source` 指令来显式指定 tailwind 检测包内组件代码，与您的业务代码一起进行样式构建：
-
-```css{2,4}
-@import 'tailwindcss';
-@import '@nild/components/tailwindcss';
-/* other imports ... */
-@source '../../../node_modules/@nild/components/dist';
-```
