@@ -174,10 +174,10 @@ importers:
         specifier: workspace:*
         version: link:../shared
       react:
-        specifier: '>=18.2.0'
+        specifier: ^18.2.0
         version: 18.2.0
       react-dom:
-        specifier: '>=18.2.0'
+        specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
 
   packages/hooks:
@@ -186,7 +186,7 @@ importers:
         specifier: workspace:*
         version: link:../shared
       react:
-        specifier: '>=18.2.0'
+        specifier: ^18.2.0
         version: 18.2.0
 
   packages/i18n:
@@ -207,7 +207,7 @@ importers:
         specifier: workspace:*
         version: link:../shared
       react:
-        specifier: '>=18.2.0'
+        specifier: ^18.2.0
         version: 18.2.0
 
   packages/materials:
@@ -222,16 +222,16 @@ importers:
   packages/shared:
     dependencies:
       lodash-es:
-        specifier: '>=4.17.21'
+        specifier: ^4.17.21
         version: 4.17.21
       react:
-        specifier: '>=18.2.0'
+        specifier: ^18.2.0
         version: 18.2.0
       tailwind-merge:
         specifier: 3.3.0
         version: 3.3.0
       tailwindcss:
-        specifier: '>=4.0.0'
+        specifier: ^4.1.7
         version: 4.1.7
 
 packages:
