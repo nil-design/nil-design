@@ -7,6 +7,7 @@ const useTheme = isDark => {
 
         return {
             darkMode: dark,
+            fontSize: '14px',
             fontFamily: 'var(--vp-font-family-base)',
             mainBkg: dark ? '#161618' : '#F6F6F7',
             primaryColor: dark ? '#A8B1FF' : '#3451B2',
