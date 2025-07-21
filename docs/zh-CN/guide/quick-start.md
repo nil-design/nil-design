@@ -13,12 +13,12 @@ Nil Design 为提供一站式的开发体验，共实现了六个包，它们的
 
 ```mermaid
 flowchart TD
-  components["@nild/components"]
-  hooks["@nild/hooks"]
-  i18n["@nild/i18n"]
-  icons["@nild/icons"]
-  materials["@nild/materials"]
-  shared["@nild/shared"]
+  components("@nild/components")
+  hooks("@nild/hooks")
+  i18n("@nild/i18n")
+  icons("@nild/icons")
+  materials("@nild/materials")
+  shared("@nild/shared")
 
   hooks --> shared
   i18n --> shared
