@@ -1,13 +1,13 @@
 import { useControllableState, useEffectCallback } from '@nild/hooks';
 import { cnMerge, isString } from '@nild/shared';
 import { ReactElement, ComponentType, Children, isValidElement, forwardRef, cloneElement } from 'react';
-import { CheckboxProvider, useGroupContext } from './contexts';
+import { RadioProvider, useGroupContext } from './contexts';
 import Indicator from './Indicator';
-import { CheckboxProps } from './interfaces';
+import { RadioProps } from './interfaces';
 import Label from './Label';
-import { checkboxClassNames } from './style';
+import { radioClassNames } from './style';
 
-const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
+const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
     const children: ReactElement[] = [];
     const childrenMap = new Map<ComponentType, ReactElement>();
     const groupContext = useGroupContext();
@@ -24,19 +24,19 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
         ...restProps
     } = props;
     const [checked, setChecked] = useControllableState(
-        !groupContext ? externalChecked : groupContext.value.includes(value),
+        !groupContext ? externalChecked : groupContext.value === value,
         defaultChecked ?? false,
     );
 
     const updateChecked = useEffectCallback(() => {
         if (disabled) return;
         setChecked(checked => {
+            if (checked) return checked;
+
             if (!groupContext) {
                 onChange?.(!checked);
             } else {
-                groupContext.setValue(
-                    !checked ? groupContext.value.concat(value) : groupContext.value.filter(v => v !== value),
-                );
+                groupContext.setValue(value);
             }
 
             return !checked;
@@ -70,8 +70,8 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
     }
 
     return (
-        <CheckboxProvider value={{ variant, size, checked, setChecked: updateChecked }}>
-            <label {...restProps} className={cnMerge(checkboxClassNames({ size, disabled }), className)} ref={ref}>
+        <RadioProvider value={{ variant, size, checked, setChecked: updateChecked }}>
+            <label {...restProps} className={cnMerge(radioClassNames({ size, disabled }), className)} ref={ref}>
                 {children.map(child =>
                     cloneElement(child, {
                         key: (child.type as typeof Indicator | typeof Label).displayName,
@@ -79,10 +79,10 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
                     }),
                 )}
             </label>
-        </CheckboxProvider>
+        </RadioProvider>
     );
 });
 
-Checkbox.displayName = 'Checkbox';
+Radio.displayName = 'Radio';
 
-export default Checkbox;
+export default Radio;
