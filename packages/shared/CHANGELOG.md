@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.12
+
+### Patch Changes
+
+- cf8f5f5: make peer dependencies stricter
+
 ## 0.0.11
 
 ### Patch Changes

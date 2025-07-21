@@ -1,5 +1,15 @@
 # @nild/components
 
+## 0.0.27
+
+### Patch Changes
+
+- cf8f5f5: make peer dependencies stricter
+- Updated dependencies [cf8f5f5]
+  - @nild/shared@0.0.12
+  - @nild/hooks@0.0.14
+  - @nild/icons@0.0.13
+
 ## 0.0.26
 
 ### Patch Changes
