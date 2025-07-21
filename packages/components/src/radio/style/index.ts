@@ -97,14 +97,11 @@ export const labelClassNames = cva<Pick<RadioProps, 'size'>>(['text-sm'], {
     },
 });
 
-export const groupClassNames = cva<Pick<GroupProps, 'direction'>>(
-    ['nd-checkbox-group', ['flex', 'gap-x-4', 'gap-y-2']],
-    {
-        variants: {
-            direction: {
-                horizontal: 'flex-row flex-wrap',
-                vertical: 'flex-col',
-            },
+export const groupClassNames = cva<Pick<GroupProps, 'direction'>>(['nd-radio-group', ['flex', 'gap-x-4', 'gap-y-2']], {
+    variants: {
+        direction: {
+            horizontal: 'flex-row flex-wrap',
+            vertical: 'flex-col',
         },
     },
-);
+});
