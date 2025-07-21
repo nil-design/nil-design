@@ -38,7 +38,7 @@ export const indicatorInputClassNames = cva<object>([
 ]);
 
 export const defaultIndicatorOuterCircleClassNames = cva<Pick<RadioProps, 'variant' | 'checked'>>(
-    ['stroke-primary', 'stroke-1', 'transition-[stroke,fill]'],
+    ['stroke-primary', 'stroke-1', 'r-9', 'transition-[stroke,fill]'],
     {
         compoundVariants: [
             {
