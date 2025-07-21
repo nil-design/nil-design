@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.26
+
+### Patch Changes
+
+- fed6470: fix(Radio): correct the radius of the indicator
+
 ## 0.0.25
 
 ### Patch Changes
