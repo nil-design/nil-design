@@ -24,9 +24,9 @@ export const indicatorClassNames = cva<Pick<CheckboxProps, 'size'>>(
     {
         variants: {
             size: {
-                small: 'w-3.5 h-3.5 text-sm',
-                medium: 'w-4 h-4 text-md',
-                large: 'w-4.5 h-4.5 text-lg',
+                small: 'size-3.5 text-sm',
+                medium: 'size-4 text-md',
+                large: 'size-4.5 text-lg',
             },
         },
     },
@@ -40,7 +40,7 @@ export const indicatorInputClassNames = cva<object>([
 export const defaultIndicatorBlockClassNames = cva<Pick<CheckboxProps, 'checked' | 'variant'>>(
     [
         ['flex', 'items-center', 'justify-center'],
-        ['w-full', 'h-full', 'rounded-sm', 'border-solid', 'border-1', 'border-primary'],
+        ['size-full', 'rounded-sm', 'border-solid', 'border-1', 'border-primary'],
         'transition-[background-color,color]',
     ],
     {

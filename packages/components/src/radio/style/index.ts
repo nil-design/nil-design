@@ -24,9 +24,9 @@ export const indicatorClassNames = cva<Pick<RadioProps, 'size'>>(
     {
         variants: {
             size: {
-                small: 'size-3.5',
-                medium: 'size-4',
-                large: 'size-4.5',
+                small: 'size-3.5 text-sm',
+                medium: 'size-4 text-md',
+                large: 'size-4.5 text-lg',
             },
         },
     },
@@ -97,14 +97,11 @@ export const labelClassNames = cva<Pick<RadioProps, 'size'>>(['text-sm'], {
     },
 });
 
-export const groupClassNames = cva<Pick<GroupProps, 'direction'>>(
-    ['nd-checkbox-group', ['flex', 'gap-x-4', 'gap-y-2']],
-    {
-        variants: {
-            direction: {
-                horizontal: 'flex-row flex-wrap',
-                vertical: 'flex-col',
-            },
+export const groupClassNames = cva<Pick<GroupProps, 'direction'>>(['nd-radio-group', ['flex', 'gap-x-4', 'gap-y-2']], {
+    variants: {
+        direction: {
+            horizontal: 'flex-row flex-wrap',
+            vertical: 'flex-col',
         },
     },
-);
+});
