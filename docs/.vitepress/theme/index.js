@@ -6,7 +6,7 @@ import ReactLive from './components/react-live/ReactLive.vue';
 import './index.css';
 
 export default {
-    ...DefaultTheme,
+    extends: DefaultTheme,
     async enhanceApp({ app }) {
         app.component('Mermaid', Mermaid);
         app.component('ReactBridge', ReactBridge);
