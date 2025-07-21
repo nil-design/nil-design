@@ -24,9 +24,9 @@ export const indicatorClassNames = cva<Pick<RadioProps, 'size'>>(
     {
         variants: {
             size: {
-                small: 'size-3.5',
-                medium: 'size-4',
-                large: 'size-4.5',
+                small: 'size-3.5 text-sm',
+                medium: 'size-4 text-md',
+                large: 'size-4.5 text-lg',
             },
         },
     },
