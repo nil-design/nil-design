@@ -2,7 +2,7 @@ import { createContextSuite } from '@nild/shared';
 import { CheckboxProps, GroupProps } from '../interfaces';
 
 const [CheckboxProvider, useCheckboxContext] = createContextSuite<
-    Pick<CheckboxProps, 'variant' | 'size' | 'checked'> & { handleChange?: () => void }
+    Pick<CheckboxProps, 'variant' | 'size' | 'checked'> & { setChecked?: () => void }
 >({
     defaultValue: {},
 });

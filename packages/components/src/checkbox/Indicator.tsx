@@ -12,7 +12,7 @@ import {
 } from './style';
 
 const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(({ className, children, ...restProps }, ref) => {
-    const { variant, size, checked, handleChange } = useCheckboxContext();
+    const { variant, size, checked, setChecked } = useCheckboxContext();
     const renderBlock =
         children ??
         (checked => (
@@ -24,7 +24,7 @@ const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(({ className, child
     return (
         <div {...restProps} className={cnMerge(indicatorClassNames({ size }), className)} ref={ref}>
             {renderBlock(!!checked)}
-            <input type="checkbox" className={indicatorInputClassNames()} checked={checked} onChange={handleChange} />
+            <input type="checkbox" className={indicatorInputClassNames()} checked={checked} onChange={setChecked} />
         </div>
     );
 });

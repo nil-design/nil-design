@@ -1,6 +1,6 @@
 import { useControllableState, useEffectCallback } from '@nild/hooks';
 import { cnMerge, isString } from '@nild/shared';
-import { ReactElement, ComponentType, Children, isValidElement, forwardRef } from 'react';
+import { ReactElement, ComponentType, Children, isValidElement, forwardRef, cloneElement } from 'react';
 import { CheckboxProvider, useGroupContext } from './contexts';
 import Indicator from './Indicator';
 import { CheckboxProps } from './interfaces';
@@ -28,7 +28,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
         defaultChecked ?? false,
     );
 
-    const handleChange = useEffectCallback(() => {
+    const updateChecked = useEffectCallback(() => {
         if (disabled) return;
         setChecked(checked => {
             if (!groupContext) {
@@ -70,9 +70,14 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
     }
 
     return (
-        <CheckboxProvider value={{ variant, size, checked, handleChange }}>
+        <CheckboxProvider value={{ variant, size, checked, setChecked: updateChecked }}>
             <label {...restProps} className={cnMerge(checkboxClassNames({ size, disabled }), className)} ref={ref}>
-                {children}
+                {children.map(child =>
+                    cloneElement(child, {
+                        key: (child.type as typeof Indicator | typeof Label).displayName,
+                        ...child.props,
+                    }),
+                )}
             </label>
         </CheckboxProvider>
     );
