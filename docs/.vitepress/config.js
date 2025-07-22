@@ -7,7 +7,8 @@ import getThemeConfig from './getThemeConfig.js';
 import mermaid from './theme/components/mermaid';
 import reactLive from './theme/components/react-live';
 
-const base = process.env.NODE_ENV === 'production' ? '/nil-design/' : '/';
+const inProd = process.env.NODE_ENV === 'production';
+const base = inProd ? '/nil-design/' : '/';
 
 export default defineConfig({
     base,
@@ -23,6 +24,22 @@ export default defineConfig({
                 type: 'image/svg+xml',
             },
         ],
+        // Google Analytics
+        ...(inProd
+            ? [
+                  ['script', { async: true, src: 'https://www.googletagmanager.com/gtag/js?id=G-QY7QYF0FC8' }],
+                  [
+                      'script',
+                      {},
+                      [
+                          'window.dataLayer = window.dataLayer || [];',
+                          'function gtag(){dataLayer.push(arguments);}',
+                          'gtag("js", new Date());',
+                          'gtag("config", "G-QY7QYF0FC8");',
+                      ].join(''),
+                  ],
+              ]
+            : []),
     ],
     sitemap: {
         hostname: 'https://nil-design.github.io/nil-design/',
