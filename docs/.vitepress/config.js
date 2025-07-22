@@ -24,6 +24,9 @@ export default defineConfig({
             },
         ],
     ],
+    sitemap: {
+        hostname: 'https://nil-design.github.io/nil-design/',
+    },
     lastUpdated: true,
     themeConfig: {
         logo: '/logo.svg',
