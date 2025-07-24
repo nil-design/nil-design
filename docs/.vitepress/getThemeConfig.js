@@ -1,7 +1,7 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { isUndefined } from 'lodash-es';
+import { isUndefined, last } from 'lodash-es';
 import i18n from '../../locales/index.js';
 import { getDocsWithMatter } from '../../scripts/shared/index.js';
 
@@ -83,19 +83,22 @@ const getNavAndSidebar = locale => {
 
     readdirSync(localeDir, { withFileTypes: true }).forEach(dirent => {
         if (dirent.isDirectory()) {
+            let navValid = false;
             const navName = dirent.name;
             const navDir = join(localeDir, dirent.name);
             const categories = [];
 
             getDocsWithMatter(navDir).forEach(({ path: docPath, data }) => {
                 if (docPath === join(navDir, 'index.md')) {
-                    const { title, navOrder = 0, rewrite = '' } = data;
+                    const { title, navOrder = 0, rewrite = '', dropdown } = data;
                     nav.push({
                         text: title,
                         link: `/${locale}/${navName}${rewrite.startsWith('/') ? rewrite : `/${rewrite}`}`,
                         activeMatch: `/${locale}/${navName}/`,
                         navOrder,
+                        dropdown,
                     });
+                    navValid = true;
                 } else {
                     const { title, order = 0, cat, catOrder } = data;
                     const link = relative(navDir, docPath).replace(/\\/, '/');
@@ -132,6 +135,23 @@ const getNavAndSidebar = locale => {
                 base: `/${locale}/${navName}/`,
                 items: categories,
             };
+
+            if (navValid) {
+                const curNav = last(nav);
+                if (curNav.dropdown) {
+                    curNav.link = undefined;
+                    curNav.items = categories.reduce(
+                        (items, category) =>
+                            items.concat(
+                                category.items.map(item => ({
+                                    ...item,
+                                    link: `/${locale}/${navName}/${item.link}`,
+                                })),
+                            ),
+                        [],
+                    );
+                }
+            }
         }
     }, {});
 
