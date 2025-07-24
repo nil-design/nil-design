@@ -18,10 +18,10 @@ import { Typography } from '@nild/components';
 
 const { Text } = Typography;
 const Demo = () => {
-  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
+  const [pos, setPos] = useState(null);
 
-  useEventListener(window, 'mousemove', (e: MouseEvent) => {
-    setPos({ x: e.clientX, y: e.clientY });
+  useEventListener(window, 'mousemove', evt => {
+    setPos({ x: evt.clientX, y: evt.clientY });
   });
 
   return (
