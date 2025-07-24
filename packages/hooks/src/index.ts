@@ -1,5 +1,7 @@
 import useControllableState from './use-controllable-state';
+import useCustomCompareEffect from './use-custom-compare-effect';
 import useEffectCallback from './use-effect-callback';
+import useEventListener from './use-event-listener';
 import useForceUpdate from './use-force-update';
 import useIsomorphicLayoutEffect from './use-isomorphic-layout-effect';
 import useLatestRef from './use-latest-ref';
@@ -11,7 +13,9 @@ import useUnmount from './use-unmount';
 
 export {
     useControllableState,
+    useCustomCompareEffect,
     useEffectCallback,
+    useEventListener,
     useForceUpdate,
     useIsomorphicLayoutEffect,
     useLatestRef,
