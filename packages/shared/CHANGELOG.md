@@ -1,5 +1,12 @@
 # @nild/shared
 
+## 0.0.13
+
+### Patch Changes
+
+- 93e4237: feat: makeArray
+- 34b3da6: feat(hooks): useEventListener
+
 ## 0.0.12
 
 ### Patch Changes
