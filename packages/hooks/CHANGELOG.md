@@ -1,5 +1,15 @@
 # @nild/hooks
 
+## 0.0.15
+
+### Patch Changes
+
+- edb6d43: feat: useCustomCompareEffect
+- 34b3da6: feat(hooks): useEventListener
+- Updated dependencies [93e4237]
+- Updated dependencies [34b3da6]
+  - @nild/shared@0.0.13
+
 ## 0.0.14
 
 ### Patch Changes
