@@ -1,4 +1,13 @@
-import Popover, { PopoverProps } from './Popover';
+import Popup from '../popup';
+import PopoverComponent from './Popover';
 
-export type { PopoverProps };
+/**
+ * @category Components
+ */
+const Popover = Object.assign(PopoverComponent, {
+    Trigger: Popup.Trigger,
+    Portal: Popup.Portal,
+});
+
+export type * from './interfaces';
 export default Popover;
