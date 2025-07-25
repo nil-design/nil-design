@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.29
+
+### Patch Changes
+
+- c401ca3: refactor(Popover): replace usePopup with Popup component
+
 ## 0.0.28
 
 ### Patch Changes
