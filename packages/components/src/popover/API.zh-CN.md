@@ -6,6 +6,10 @@
 | placement | - | `Placement` | - |
 | offset | - | `OffsetOptions` | - |
 | action | - | `TriggerAction \| Array<TriggerAction>` | - |
+| arrowed | - | `boolean` | - |
+| size | - | `PopupSize` | - |
 | open | - | `boolean` | - |
 | defaultOpen | - | `boolean` | - |
-| onChange | - | `(open: boolean) => void` | - |
+| disabled | - | `boolean` | - |
+| onOpen | - | `() => void` | - |
+| onClose | - | `() => void` | - |
