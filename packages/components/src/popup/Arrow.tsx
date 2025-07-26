@@ -6,7 +6,7 @@ const Arrow: FC = () => {
     const { arrowed, size, refs } = usePopupContext();
     const { style, orientation } = useArrowContext();
 
-    return arrowed ? <div className={arrowClassNames({ orientation, size })} style={style} ref={refs.arrow} /> : null;
+    return <div className={arrowClassNames({ arrowed, size, orientation })} style={style} ref={refs.arrow} />;
 };
 
 Arrow.displayName = 'Popup.Arrow';

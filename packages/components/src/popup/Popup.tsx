@@ -88,15 +88,11 @@ const Popup: FC<PopupProps> = ({
         if (open && !mounted) {
             setMounted(true);
         } else if (open && mounted) {
-            update();
+            if (triggerRef.current && portalRef.current) {
+                return autoUpdate(triggerRef.current, portalRef.current, update);
+            }
         }
     }, [open, mounted]);
-
-    useIsomorphicLayoutEffect(() => {
-        if (!triggerRef.current || !portalRef.current || !open) return;
-
-        return autoUpdate(triggerRef.current, portalRef.current, update);
-    }, [placement, offset, open]);
 
     return (
         <PopupProvider

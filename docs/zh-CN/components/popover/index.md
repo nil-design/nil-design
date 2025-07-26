@@ -95,6 +95,32 @@ render(<Demo />);
 ```
 :::
 
+## 箭头
+
+::: react-live
+```tsx
+import { useState } from 'react';
+import { Checkbox, Popover } from '@nild/components'
+
+const Demo = () => {
+  const [arrowed, setArrowed] = useState(true);
+
+  return <div className="flex flex-col items-start gap-4">
+    <Popover placement="right" arrowed={arrowed} open={true}>
+      <Checkbox checked={arrowed} onChange={setArrowed}>arrowed</Checkbox>
+      <Popover.Portal>
+        <div className="text-md">
+          Prompt Text
+        </div>
+      </Popover.Portal>
+    </Popover>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
 ## 延迟
 
 > [!NOTE]
