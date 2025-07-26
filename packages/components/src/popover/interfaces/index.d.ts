@@ -9,6 +9,7 @@ export interface PopoverProps {
     action?: TriggerAction | TriggerAction[];
     arrowed?: boolean;
     size?: PopupSize;
+    delay?: number | [number] | [number, number];
     open?: boolean;
     defaultOpen?: boolean;
     disabled?: boolean;

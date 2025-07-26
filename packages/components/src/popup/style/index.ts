@@ -21,19 +21,23 @@ export const portalContentClassNames = cva<Pick<PopupProps, 'size'>>(
 export const arrowClassNames = cva<
     {
         orientation: ArrowOrientation;
-    } & Pick<PopupProps, 'size'>
+    } & Pick<PopupProps, 'arrowed' | 'size'>
 >(['nd-popup-arrow', 'absolute', 'bg-container', ['border-solid', 'border-edge']], {
     variants: {
-        orientation: {
-            up: ['transform-[translateY(-50%)_rotate(45deg)]', ['rounded-tl-sm', 'border-l-1', 'border-t-1']],
-            down: ['transform-[translateY(50%)_rotate(45deg)]', ['rounded-br-sm', 'border-r-1', 'border-b-1']],
-            left: ['transform-[translateX(-50%)_rotate(45deg)]', ['rounded-bl-sm', 'border-l-1', 'border-b-1']],
-            right: ['transform-[translateX(50%)_rotate(45deg)]', ['rounded-tr-sm', 'border-r-1', 'border-t-1']],
+        arrowed: {
+            true: '',
+            false: ['opacity-0', 'invisible'],
         },
         size: {
             small: ['w-1.5', 'h-1.5'],
             medium: ['w-3', 'h-3'],
             large: ['w-4.5', 'h-4.5'],
+        },
+        orientation: {
+            up: ['transform-[translateY(-50%)_rotate(45deg)]', ['rounded-tl-sm', 'border-l-1', 'border-t-1']],
+            down: ['transform-[translateY(50%)_rotate(45deg)]', ['rounded-br-sm', 'border-r-1', 'border-b-1']],
+            left: ['transform-[translateX(-50%)_rotate(45deg)]', ['rounded-bl-sm', 'border-l-1', 'border-b-1']],
+            right: ['transform-[translateX(50%)_rotate(45deg)]', ['rounded-tr-sm', 'border-r-1', 'border-t-1']],
         },
     },
 });

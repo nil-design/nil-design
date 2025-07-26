@@ -95,6 +95,59 @@ render(<Demo />);
 ```
 :::
 
+## 箭头
+
+::: react-live
+```tsx
+import { useState } from 'react';
+import { Checkbox, Popover } from '@nild/components'
+
+const Demo = () => {
+  const [arrowed, setArrowed] = useState(true);
+
+  return <div className="flex flex-col items-start gap-4">
+    <Popover placement="right" arrowed={arrowed} open={true}>
+      <Checkbox checked={arrowed} onChange={setArrowed}>arrowed</Checkbox>
+      <Popover.Portal>
+        <div className="text-md">
+          Prompt Text
+        </div>
+      </Popover.Portal>
+    </Popover>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
+## 延迟
+
+> [!NOTE]
+> 仅针对 `hover` 触发方式生效
+
+::: react-live
+```tsx
+import { Typography, Popover } from '@nild/components'
+
+const { Text } = Typography;
+const Demo = () => {
+  return <div className="flex flex-col items-start gap-4">
+    <Popover placement="right" action="hover" delay={[1000]}>
+      <Text>Hover for 1s</Text>
+      <Popover.Portal>
+        <div className="text-md">
+          Prompt Text
+        </div>
+      </Popover.Portal>
+    </Popover>
+  </div>;
+}
+
+render(<Demo />);
+```
+:::
+
 ## 偏移
 
 ::: react-live

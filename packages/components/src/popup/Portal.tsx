@@ -1,5 +1,6 @@
+import { useEffectCallback } from '@nild/hooks';
 import { cnMerge, getDPR, mergeRefs } from '@nild/shared';
-import { ReactElement, forwardRef, isValidElement, cloneElement, Children } from 'react';
+import { ReactElement, MouseEvent, forwardRef, isValidElement, cloneElement, Children } from 'react';
 import { createPortal } from 'react-dom';
 import Arrow from './Arrow';
 import { usePopupContext, usePortalContext } from './contexts';
@@ -12,6 +13,16 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
         const { coords } = usePortalContext();
         const child = Children.toArray(children).find(child => isValidElement(child));
 
+        const handleMouseEnter = useEffectCallback((evt: MouseEvent<HTMLDivElement>) => {
+            restProps?.onMouseEnter?.(evt);
+            enter();
+        });
+
+        const handleMouseLeave = useEffectCallback((evt: MouseEvent<HTMLDivElement>) => {
+            restProps?.onMouseLeave?.(evt);
+            leave();
+        });
+
         if (!child) return null;
 
         return createPortal(
@@ -23,8 +34,8 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
                     ...(getDPR() >= 1.5 && { willChange: 'transform' }),
                     ...style,
                 }}
-                onMouseEnter={enter}
-                onMouseLeave={leave}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 ref={mergeRefs(refs.portal, ref)}
             >
                 {cloneElement(child as ReactElement, {

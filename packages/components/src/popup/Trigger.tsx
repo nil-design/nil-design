@@ -14,16 +14,19 @@ const Trigger: FC<TriggerProps> = ({ children }) => {
         child?.props?.onMouseEnter?.(evt);
         enter();
     });
+
     const handleMouseLeave = useEffectCallback((evt: MouseEvent) => {
         child?.props?.onMouseLeave?.(evt);
         leave();
     });
+
     const handleFocus = useEffectCallback((evt: FocusEvent) => {
         child?.props?.onFocus?.(evt);
         if (actions.has('focus')) {
             setOpen(true);
         }
     });
+
     const handleBlur = useEffectCallback((evt: FocusEvent) => {
         child?.props?.onBlur?.(evt);
         if (actions.has('focus')) {
