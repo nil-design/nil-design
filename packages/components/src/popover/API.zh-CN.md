@@ -8,6 +8,7 @@
 | action | - | `TriggerAction \| Array<TriggerAction>` | - |
 | arrowed | - | `boolean` | - |
 | size | - | `PopupSize` | - |
+| delay | - | `number \| [number] \| [number, number]` | - |
 | open | - | `boolean` | - |
 | defaultOpen | - | `boolean` | - |
 | disabled | - | `boolean` | - |
