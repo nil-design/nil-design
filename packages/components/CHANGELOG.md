@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.30
+
+### Patch Changes
+
+- 2000f44: fix(Popover): the resize listening update failed
+
 ## 0.0.29
 
 ### Patch Changes
