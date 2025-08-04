@@ -1,5 +1,13 @@
 # @nild/i18n
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [f37d5fd]
+- Updated dependencies [4705a34]
+  - @nild/shared@0.0.14
+
 ## 0.0.9
 
 ### Patch Changes
