@@ -1,5 +1,12 @@
 # @nild/shared
 
+## 0.0.14
+
+### Patch Changes
+
+- f37d5fd: feat: first & last
+- 4705a34: fix: correct the type inference
+
 ## 0.0.13
 
 ### Patch Changes
