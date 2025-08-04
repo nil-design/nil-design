@@ -65,10 +65,6 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
         children.unshift(<Indicator />);
     }
 
-    if (!childrenMap.has(Label) && isString(externalChildren)) {
-        children.push(<Label>{externalChildren}</Label>);
-    }
-
     return (
         <RadioProvider value={{ variant, size, checked, setChecked: updateChecked }}>
             <label {...restProps} className={cnMerge(radioClassNames({ size, disabled }), className)} ref={ref}>

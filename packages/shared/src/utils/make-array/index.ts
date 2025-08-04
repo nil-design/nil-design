@@ -1,3 +1,3 @@
-const makeArray = <T>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value]);
+const makeArray = <T>(value: T) => (Array.isArray(value) ? value : [value]) as T extends readonly unknown[] ? T : [T];
 
 export default makeArray;

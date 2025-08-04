@@ -13,6 +13,7 @@ import uuid from './uuid';
 
 export {
     escapeRegExp,
+    first,
     isArray,
     isArrayBuffer,
     isArrayLike,
@@ -45,6 +46,7 @@ export {
     isUndefined,
     isWeakMap,
     isWeakSet,
+    last,
     merge,
 } from 'lodash-es';
 export {

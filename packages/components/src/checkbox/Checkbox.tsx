@@ -65,10 +65,6 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
         children.unshift(<Indicator />);
     }
 
-    if (!childrenMap.has(Label) && isString(externalChildren)) {
-        children.push(<Label>{externalChildren}</Label>);
-    }
-
     return (
         <CheckboxProvider value={{ variant, size, checked, setChecked: updateChecked }}>
             <label {...restProps} className={cnMerge(checkboxClassNames({ size, disabled }), className)} ref={ref}>
