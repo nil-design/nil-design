@@ -20,8 +20,9 @@ export interface PopupProps {
     placement?: Placement;
     offset?: OffsetOptions;
     action?: TriggerAction | TriggerAction[];
-    arrowed?: boolean;
     size?: PopupSize;
+    arrowed?: boolean;
+    borderless?: boolean;
     delay?: number | [number] | [number, number];
     open?: boolean;
     defaultOpen?: boolean;
