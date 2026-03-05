@@ -6,7 +6,7 @@ export const triggerClassNames = cva(['nd-popup-trigger']);
 export const portalClassNames = cva<PortalProps>(['nd-popup-portal', ['absolute', 'top-0', 'left-0']]);
 
 export const portalContentClassNames = cva<Pick<PopupProps, 'size' | 'borderless'>>(
-    ['bg-container', 'text-primary', 'rounded-md', 'shadow-lg'],
+    ['bg-container', 'text-body', 'rounded-md', 'shadow-lg'],
     {
         variants: {
             size: {

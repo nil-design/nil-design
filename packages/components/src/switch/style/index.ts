@@ -14,7 +14,7 @@ export const switchClassNames = cva<SwitchProps>(
         variants: {
             variant: {
                 solid: '',
-                outlined: ['outline-solid', 'outline', 'outline-primary'],
+                outlined: ['outline-solid', 'outline', 'outline-brand'],
             },
             size: {
                 small: ['min-w-8', 'text-sm'],
@@ -34,7 +34,7 @@ export const trackClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'> & Pi
         'h-[var(--nd-switch-height)]',
         'transition-[margin-inline,background-color]',
         ['flex', 'justify-center', 'items-center'],
-        ['text-center', 'text-contrast'],
+        ['text-center', 'text-on-brand'],
     ],
     {
         variants: {
@@ -71,19 +71,16 @@ export const trackClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'> & Pi
             {
                 variant: 'solid',
                 checked: true,
-                className: ['bg-primary', 'group-enabled:group-hover:bg-primary-hover'],
+                className: ['bg-brand', 'group-enabled:group-hover:bg-brand-hover'],
             },
             {
                 variant: 'solid',
                 checked: false,
-                className: [
-                    'bg-[--alpha(var(--color-primary)/40%)]',
-                    'group-enabled:group-hover:bg-[--alpha(var(--color-primary)/50%)]',
-                ],
+                className: ['bg-fill', 'group-enabled:group-hover:bg-fill-hover'],
             },
             {
                 variant: 'outlined',
-                className: ['bg-transparent', 'group-enabled:group-hover:bg-tertiary-hover'],
+                className: ['bg-transparent', 'group-enabled:group-hover:bg-surface-hover'],
             },
         ],
     },
@@ -94,13 +91,13 @@ export const thumbClassNames = cva<Pick<SwitchProps, 'variant' | 'shape' | 'chec
         'h-[var(--nd-switch-height)]',
         ['flex', 'justify-center', 'items-center'],
         ['absolute', 'aspect-square', 'scale-80'],
-        ['text-contrast', 'transition-[left,background-color]'],
+        ['text-on-brand', 'transition-[left,background-color]'],
     ],
     {
         variants: {
             variant: {
-                solid: ['bg-contrast', 'top-0'],
-                outlined: ['bg-primary', 'top-0', 'group-enabled:group-hover:bg-primary-hover'],
+                solid: ['bg-on-brand', 'top-0'],
+                outlined: ['bg-brand', 'top-0', 'group-enabled:group-hover:bg-brand-hover'],
             },
             shape: {
                 round: 'rounded-full',

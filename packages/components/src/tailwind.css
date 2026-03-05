@@ -1,51 +1,206 @@
 /**
  * Nil Design Tokens
- * @link https://colorbox.io/?c0=%26p%24s%24%3D11%26p%24h%24st%24%3D0%26p%24h%24e%24%3D0%26p%24h%24c%24%3Deqi%26p%24sa%24st%24%3D0%26p%24sa%24e%24%3D0%26p%24sa%24r%24%3D1%26p%24sa%24c%24%3Deqo%26p%24b%24st%24%3D0.98%26p%24b%24e%24%3D0.09%26p%24b%24c%24%3Desio%26o%24n%24%3DBlue+%F0%9F%8C%9E%26o%24ms%24%3D0%2C1%26o%24ro%24%3Dcw%26o%24pi%24%3Dt
  */
 @theme static {
-  --nd-color-primary-0: light-dark(#fafafa, #171717);
-  --nd-color-primary-5: light-dark(#f7f7f7, #1e1e1e);
-  --nd-color-primary-10: light-dark(#f4f4f4, #242424);
-  --nd-color-primary-15: light-dark(#ededed, #2c2c2c);
-  --nd-color-primary-20: light-dark(#e5e5e5, #333333);
-  --nd-color-primary-30: light-dark(#cecece, #434343);
-  --nd-color-primary-40: light-dark(#aeaeae, #575757);
-  --nd-color-primary-50: light-dark(#888888, #888888);
-  --nd-color-primary-60: light-dark(#626262, #b9b9b9);
-  --nd-color-primary-70: light-dark(#424242, #cdcdcd);
-  --nd-color-primary-80: light-dark(#2b2b2b, #dedede);
-  --nd-color-primary-90: light-dark(#1d1d1d, #ececec);
-  --nd-color-primary-100: light-dark(#171717, #fafafa);
+  /*
+   * Seed colors
+   */
+  --nd-brand-h: 158;
+  --nd-brand-c: 0.14;
+  --nd-neutral-c: 0.003;
+
+  /*
+   * Brand color scale — high chroma (c=0.11), used for interactive elements
+   */
+  --nd-color-brand-0: light-dark(
+    oklch(99% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(14% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-5: light-dark(
+    oklch(97% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(17% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-10: light-dark(
+    oklch(94% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(21% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-15: light-dark(
+    oklch(90% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(26% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-20: light-dark(
+    oklch(85% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(32% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-30: light-dark(
+    oklch(76% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(42% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-40: light-dark(
+    oklch(67% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(50% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-50: light-dark(
+    oklch(58% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(58% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-60: light-dark(
+    oklch(50% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(67% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-70: light-dark(
+    oklch(42% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(76% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-80: light-dark(
+    oklch(35% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(85% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-90: light-dark(
+    oklch(25% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(93% var(--nd-brand-c) var(--nd-brand-h))
+  );
+  --nd-color-brand-100: light-dark(
+    oklch(15% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(98% var(--nd-brand-c) var(--nd-brand-h))
+  );
+
+  /*
+   * Neutral color scale — low chroma (c=0.006), used for text, borders, and backgrounds
+   */
+  --nd-color-neutral-0: light-dark(
+    oklch(99% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(14% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-5: light-dark(
+    oklch(97% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(17% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-10: light-dark(
+    oklch(94% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(21% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-15: light-dark(
+    oklch(90% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(26% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-20: light-dark(
+    oklch(85% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(32% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-30: light-dark(
+    oklch(76% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(42% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-40: light-dark(
+    oklch(67% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(50% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-50: light-dark(
+    oklch(58% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(58% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-60: light-dark(
+    oklch(50% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(67% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-70: light-dark(
+    oklch(42% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(76% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-80: light-dark(
+    oklch(35% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(85% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-90: light-dark(
+    oklch(25% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(93% var(--nd-neutral-c) var(--nd-brand-h))
+  );
+  --nd-color-neutral-100: light-dark(
+    oklch(15% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(98% var(--nd-neutral-c) var(--nd-brand-h))
+  );
 }
 
 /**
  * Tailwind Overrides
+ *
+ * Naming conventions:
+ *   --color-brand-*         solid brand color → bg-brand / text-brand / border-brand / fill-brand …
+ *   --color-brand-subtle-*  tinted brand color → bg-brand-subtle / border-brand-subtle …
+ *   --color-surface-*       neutral surface for ghost/hover states → bg-surface-hover …
+ *   --color-on-brand        text/icon on top of brand backgrounds → text-on-brand / fill-on-brand
+ *   --background-color-fill     inactive control fill (switch, skeleton) → bg-fill
+ *   --background-color-fill-*   inactive control fill hover/active → bg-fill-hover
+ *   --background-color-*        page / container backgrounds → bg-page / bg-container
+ *   --border-color-edge         standard border (inputs, cards) → border-edge
+ *   --border-color-split        subtle divider line → border-split
+ *   --outline-color-edge        standard outline (popover) → outline-edge
+ *   --text-color-body       primary text → text-body
+ *   --text-color-muted      secondary text → text-muted
+ *   --text-color-subtle     tertiary text (placeholder, hint) → text-subtle
+ *   --text-color-link-*     link text → text-link / text-link-hover / text-link-active
  */
 @theme {
-  --color-primary: var(--nd-color-primary-80);
-  --color-primary-hover: var(--nd-color-primary-70);
-  --color-primary-active: var(--nd-color-primary-90);
+  /*
+   * Brand — solid, used for button backgrounds, selected states, icons
+   */
+  --color-brand: var(--nd-color-brand-60);
+  --color-brand-hover: var(--nd-color-brand-70);
+  --color-brand-active: var(--nd-color-brand-80);
 
-  --color-secondary: var(--nd-color-primary-20);
-  --color-secondary-hover: var(--nd-color-primary-30);
-  --color-secondary-active: var(--nd-color-primary-40);
+  /*
+   * Brand subtle — tinted, used for secondary buttons, tags, code backgrounds
+   */
+  --color-brand-subtle: var(--nd-color-brand-10);
+  --color-brand-subtle-hover: var(--nd-color-brand-15);
+  --color-brand-subtle-active: var(--nd-color-brand-20);
 
-  --color-tertiary: var(--nd-color-primary-15);
-  --color-tertiary-hover: var(--nd-color-primary-20);
-  --color-tertiary-active: var(--nd-color-primary-30);
+  /*
+   * Surface — neutral, used for ghost/text button hover and list item hover
+   */
+  --color-surface: var(--nd-color-neutral-5);
+  --color-surface-hover: var(--nd-color-neutral-10);
+  --color-surface-active: var(--nd-color-neutral-15);
 
-  --color-contrast: var(--nd-color-primary-0);
-  --color-split: var(--nd-color-primary-20);
-  --color-edge: var(--nd-color-primary-30);
+  /*
+   * Structural
+   */
+  --color-on-brand: var(--nd-color-neutral-0); /* text/icon color on top of brand backgrounds */
 
-  --background-color-container: light-dark(var(--nd-color-primary-0), var(--nd-color-primary-5));
+  /*
+   * Backgrounds — generates bg-* utilities only
+   */
+  --background-color-page: var(--nd-color-neutral-0); /* page background */
+  --background-color-container: var(--nd-color-neutral-5); /* card, popover background */
+  --background-color-fill: var(--nd-color-neutral-20); /* inactive control fill */
+  --background-color-fill-hover: var(--nd-color-neutral-30); /* hovered inactive fill */
 
-  --text-color-primary: var(--nd-color-primary-100);
-  --text-color-secondary: var(--nd-color-primary-60);
-  --text-color-link: var(--color-primary);
-  --text-color-link-hover: var(--color-primary-hover);
-  --text-color-link-active: var(--color-primary-active);
+  /*
+   * Borders — generates border-* utilities only
+   */
+  --border-color-edge: var(--nd-color-neutral-30); /* standard border (inputs, cards) */
+  --border-color-split: var(--nd-color-neutral-20); /* subtle divider */
 
+  /*
+   * Outlines — generates outline-* utilities only
+   */
+  --outline-color-edge: var(--nd-color-neutral-30); /* standard outline (popover) */
+
+  /*
+   * Text — generates text-* utilities only, no conflict with brand colors
+   */
+  --text-color-body: var(--nd-color-neutral-100); /* primary text */
+  --text-color-muted: var(--nd-color-neutral-70); /* descriptions, secondary labels */
+  --text-color-subtle: var(--nd-color-neutral-50); /* placeholders, hints, timestamps */
+
+  --text-color-link: var(--color-brand);
+  --text-color-link-hover: var(--color-brand-hover);
+  --text-color-link-active: var(--color-brand-active);
+
+  /*
+   * Typography scale
+   */
   --text-sm: 0.75rem; /* 12px */
   --text-sm--line-height: 1.25rem;
   --text-md: 0.875rem; /* 14px */
