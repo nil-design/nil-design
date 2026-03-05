@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import '@nild/components/tailwindcss';
 
-@source '../../../node_modules/@nild/components/dist';
+@source '../../../node_modules/@nild/components/dist/**/*.js';
 
 @theme {
   --text-color-vp-brand-1: var(--vp-c-brand-1);
@@ -79,6 +79,36 @@
 
 .VPImage.logo {
   --vp-nav-logo-height: 32px;
+}
+
+.VPNavBar {
+  .content-body {
+    .extra + .theme-picker {
+      &::before {
+        /* copied from <.appearance + .social-links::before> */
+        content: '';
+        margin-right: 8px;
+        margin-left: 16px;
+        width: 1px;
+        height: 24px;
+        background-color: var(--vp-c-divider);
+      }
+
+      @media (width >= 768px) and (width < 1280px) {
+        padding: 0 12px;
+
+        &::before {
+          display: none;
+        }
+      }
+
+      @media (width < 768px) {
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
 }
 
 .dark {
