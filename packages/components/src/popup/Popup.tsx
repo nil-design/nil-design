@@ -13,8 +13,9 @@ const Popup: FC<PopupProps> = ({
     placement,
     offset,
     action = 'click',
-    arrowed = true,
     size = 'medium',
+    arrowed = true,
+    borderless = false,
     delay = 100,
     open: externalOpen,
     defaultOpen = false,
@@ -84,6 +85,25 @@ const Popup: FC<PopupProps> = ({
         }
     });
 
+    const context = useMemo(
+        () => ({
+            actions,
+            size,
+            arrowed,
+            borderless,
+            refs: {
+                trigger: triggerRef,
+                portal: portalRef,
+                arrow: arrowRef,
+            },
+            setOpen: updateOpen,
+            enter: handleMouseEnter,
+            leave: handleMouseLeave,
+        }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [actions, size, arrowed, borderless],
+    );
+
     useIsomorphicLayoutEffect(() => {
         if (open && !mounted) {
             setMounted(true);
@@ -95,21 +115,7 @@ const Popup: FC<PopupProps> = ({
     }, [open, mounted]);
 
     return (
-        <PopupProvider
-            value={{
-                actions,
-                arrowed,
-                size,
-                refs: {
-                    trigger: triggerRef,
-                    portal: portalRef,
-                    arrow: arrowRef,
-                },
-                setOpen: updateOpen,
-                enter: handleMouseEnter,
-                leave: handleMouseLeave,
-            }}
-        >
+        <PopupProvider value={context}>
             {triggerChild ? triggerChild : firstBareChild && <Trigger>{firstBareChild}</Trigger>}
             <PortalProvider value={portalContext}>
                 <ArrowProvider value={arrowContext}>

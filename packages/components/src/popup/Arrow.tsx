@@ -3,10 +3,12 @@ import { useArrowContext, usePopupContext } from './contexts';
 import { arrowClassNames } from './style';
 
 const Arrow: FC = () => {
-    const { arrowed, size, refs } = usePopupContext();
+    const { size, arrowed, borderless, refs } = usePopupContext();
     const { style, orientation } = useArrowContext();
 
-    return <div className={arrowClassNames({ arrowed, size, orientation })} style={style} ref={refs.arrow} />;
+    return (
+        <div className={arrowClassNames({ size, arrowed, borderless, orientation })} style={style} ref={refs.arrow} />
+    );
 };
 
 Arrow.displayName = 'Popup.Arrow';

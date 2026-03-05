@@ -31,15 +31,15 @@ export const linkClassNames = cva<LinkProps>(
 
 export const paragraphClassNames = cva<ParagraphProps>([
     'nd-paragraph',
-    ['font-nd', 'text-primary', 'text-[length:inherit]'],
+    ['font-nd', 'text-body', 'text-[length:inherit]'],
     ['mt-0', 'mb-[1em]'],
 ]);
 
 export const textClassNames = cva<TextProps>(['nd-text', ['font-nd', 'text-[length:inherit]'], DISABLED_CLS], {
     variants: {
         secondary: {
-            true: 'text-secondary',
-            false: 'text-primary',
+            true: 'text-muted',
+            false: 'text-body',
         },
         disabled: {
             true: 'disabled',
@@ -55,23 +55,23 @@ export const textTagClassNames = cva<{ tag: TextTag }>('', {
             del: '',
             u: ['underline'],
             i: '',
-            mark: ['bg-primary', 'text-contrast'],
+            mark: ['bg-brand', 'text-on-brand'],
             code: [
                 ['ps-1.5', 'pe-1.5'],
-                ['bg-secondary', 'text-sm', 'rounded-sm'],
-                ['border', 'border-solid', 'border-secondary'],
+                ['bg-brand-subtle', 'text-sm', 'rounded-sm'],
+                ['border', 'border-solid', 'border-brand-subtle'],
             ],
             kbd: [
                 ['ps-1.5', 'pe-1.5'],
                 ['text-sm', 'rounded-sm'],
-                ['border', 'border-b-2', 'border-solid', 'border-secondary'],
+                ['border', 'border-b-2', 'border-solid', 'border-brand-subtle'],
             ],
         },
     },
 });
 
 export const titleClassNames = cva<TitleProps>(
-    ['nd-title', ['font-nd', 'font-semibold', 'text-primary'], ['mt-[1em]', 'mb-[0.5em]']],
+    ['nd-title', ['font-nd', 'font-semibold', 'text-body'], ['mt-[1em]', 'mb-[0.5em]']],
     {
         variants: {
             level: {
