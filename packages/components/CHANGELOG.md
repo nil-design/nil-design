@@ -1,5 +1,12 @@
 # @nild/components
 
+## 0.0.32
+
+### Patch Changes
+
+- c91b049: feat(popup): support borderless
+- 69d843a: refactor: redesign semantic design token system
+
 ## 0.0.31
 
 ### Patch Changes
