@@ -6,8 +6,9 @@
 | placement | - | `Placement` | - |
 | offset | - | `OffsetOptions` | - |
 | action | - | `'click' \| 'hover' \| 'focus' \| 'contextMenu' \| Array<'click' \| 'hover' \| 'focus' \| 'contextMenu'>` | - |
-| arrowed | - | `boolean` | - |
 | size | - | `'small' \| 'medium' \| 'large'` | - |
+| arrowed | - | `boolean` | - |
+| borderless | - | `boolean` | - |
 | delay | - | `number \| [number] \| [number, number]` | - |
 | open | - | `boolean` | - |
 | defaultOpen | - | `boolean` | - |
