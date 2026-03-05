@@ -101,6 +101,14 @@ export default tslint.config(
             '@typescript-eslint/no-unused-expressions': 'off',
         },
     },
+    {
+        files: ['docs/.vitepress/theme/components/**/*.js'],
+        languageOptions: {
+            globals: {
+                ...globals.browser,
+            },
+        },
+    },
     eslintConfigPrettier,
     eslintPrettierRecommended,
     {
