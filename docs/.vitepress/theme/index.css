@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import '@nild/components/tailwindcss';
 
-@source '../../../node_modules/@nild/components/dist/**/*.js';
+@source '../../../node_modules/@nild/components/dist';
 
 @theme {
   --text-color-vp-brand-1: var(--vp-c-brand-1);
@@ -15,8 +15,6 @@
 
   --border-color-vp-divider: var(--vp-c-divider);
 }
-
-/* 将 VitePress 内置变量对接到 ND token 体系 */
 
 @layer components {
   .live-editor {
