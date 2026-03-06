@@ -1,4 +1,4 @@
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from '@tailwindcss/postcss';
 import postcssNested from 'postcss-nested';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
 import getAppearance from './getAppearance.js';
@@ -70,10 +70,14 @@ export default defineConfig({
         },
     },
     vite: {
-        plugins: [tailwindcss()],
         css: {
             postcss: {
                 plugins: [
+                    /**
+                     * Why not use @tailwindcss/vite?
+                     * See: https://github.com/tailwindlabs/tailwindcss/issues/17408
+                     */
+                    tailwindcss(),
                     postcssNested,
                     postcssIsolateStyles({
                         includeFiles: [/vp-doc\.css/, /base\.css/],

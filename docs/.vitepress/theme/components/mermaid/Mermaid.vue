@@ -4,7 +4,6 @@
 
 <script>
 import { defineComponent, ref, onMounted, watch } from 'vue';
-import { useData } from 'vitepress';
 import mermaid from 'mermaid';
 import useTheme from './useTheme';
 
@@ -17,12 +16,11 @@ export default defineComponent({
         },
     },
     setup(props) {
-        const { isDark } = useData();
         const containerRef = ref(null);
         const decodedCode = decodeURIComponent(props.code);
         const timestamp = Date.now();
         const innerHTMLRef = ref(`<pre>${decodedCode}</pre>`);
-        const { theme, themeVariables } = useTheme(isDark);
+        const { theme, themeVariables, themeVersion } = useTheme();
 
         async function renderMermaid() {
             if (containerRef.value) {
@@ -33,7 +31,7 @@ export default defineComponent({
                         themeVariables: themeVariables.value,
                     });
 
-                    const id = `${isDark.value}-${timestamp}`;
+                    const id = `mermaid-${themeVersion.value}-${timestamp}`;
                     const { svg } = await mermaid.render(id, decodedCode);
 
                     innerHTMLRef.value = svg;
@@ -44,7 +42,7 @@ export default defineComponent({
         }
 
         onMounted(renderMermaid);
-        watch([() => props.code, isDark], renderMermaid);
+        watch([() => props.code, themeVersion], renderMermaid);
 
         return {
             containerRef,
