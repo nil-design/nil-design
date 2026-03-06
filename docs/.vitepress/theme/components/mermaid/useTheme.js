@@ -1,9 +1,11 @@
 import { ref, shallowRef, computed, unref, onMounted, onUnmounted } from 'vue';
 
-const useTheme = isDark => {
+const useTheme = () => {
     const theme = ref('base');
     const probe = shallowRef(null);
     const canvasCtx = shallowRef(null);
+    const observer = shallowRef(null);
+    const themeVersion = ref(0);
 
     onMounted(() => {
         probe.value = document.createElement('div');
@@ -13,12 +15,27 @@ const useTheme = isDark => {
         const canvas = document.createElement('canvas');
         canvas.width = canvas.height = 1;
         canvasCtx.value = canvas.getContext('2d', { willReadFrequently: true });
+
+        observer.value = new MutationObserver(mutations => {
+            let changed = false;
+            mutations.forEach(mutation => {
+                if (mutation.attributeName === 'class' || mutation.attributeName === 'style') {
+                    changed = true;
+                }
+            });
+            if (changed) {
+                themeVersion.value++;
+            }
+        });
+        observer.value.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style'] });
     });
 
     onUnmounted(() => {
         probe.value?.remove();
         probe.value = null;
         canvasCtx.value = null;
+        observer.value?.disconnect();
+        observer.value = null;
     });
 
     /**
@@ -34,15 +51,18 @@ const useTheme = isDark => {
         ctx.fillStyle = color;
         ctx.fillRect(0, 0, 1, 1);
         const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+        const formatC = c => c.toString(16).padStart(2, '0');
 
-        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+        return `#${formatC(r)}${formatC(g)}${formatC(b)}`;
     };
 
     const themeVariables = computed(() => {
-        const dark = unref(isDark); // track dark/light switch
+        unref(themeVersion); // track style/hue switch and dark/light switch
+        const darkScheme =
+            typeof document !== 'undefined' ? document.documentElement.classList.contains('dark') : false;
 
         return {
-            darkMode: dark,
+            darkMode: darkScheme,
             fontSize: '14px',
             fontFamily: 'var(--vp-font-family-base)',
             mainBkg: resolveCssColor('--nd-color-neutral-5'),
@@ -53,7 +73,7 @@ const useTheme = isDark => {
         };
     });
 
-    return { theme, themeVariables };
+    return { theme, themeVariables, themeVersion };
 };
 
 export default useTheme;
