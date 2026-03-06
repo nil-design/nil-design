@@ -2,8 +2,8 @@ import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
 import { ButtonProps, GroupProps } from '../interfaces';
 
-export const buttonClassNames = cva<ButtonProps & { plain?: boolean }>(
-    ['nd-button', ['font-nd', 'cursor-pointer', 'transition-colors'], DISABLED_CLS],
+export const buttonClassNames = cva<ButtonProps>(
+    ['nd-button', ['font-nd', 'cursor-pointer', 'transition-colors'], ['whitespace-nowrap', 'truncate'], DISABLED_CLS],
     {
         variants: {
             variant: {
@@ -41,13 +41,9 @@ export const buttonClassNames = cva<ButtonProps & { plain?: boolean }>(
                 square: ['rounded-md'],
             },
             size: {
-                small: ['px-2', 'text-sm'],
-                medium: ['px-4', 'text-md'],
-                large: ['px-6', 'text-lg'],
-            },
-            plain: {
-                true: ['whitespace-nowrap', 'truncate'],
-                false: '',
+                small: ['px-2', 'h-6', 'text-sm'],
+                medium: ['px-4', 'h-8', 'text-md'],
+                large: ['px-6', 'h-10', 'text-lg'],
             },
             block: {
                 true: 'w-full',
@@ -65,43 +61,13 @@ export const buttonClassNames = cva<ButtonProps & { plain?: boolean }>(
         compoundVariants: [
             {
                 size: 'small',
-                plain: false,
-                className: ['py-1'],
-            },
-            {
-                size: 'small',
-                plain: true,
-                className: ['h-6'],
-            },
-            {
-                size: 'small',
                 equal: true,
                 className: ['w-6 h-6', 'p-1'],
             },
             {
                 size: 'medium',
-                plain: false,
-                className: ['py-1.5'],
-            },
-            {
-                size: 'medium',
-                plain: true,
-                className: ['h-8'],
-            },
-            {
-                size: 'medium',
                 equal: true,
                 className: ['w-8 h-8', 'p-1.5'],
-            },
-            {
-                size: 'large',
-                plain: false,
-                className: ['py-2'],
-            },
-            {
-                size: 'large',
-                plain: true,
-                className: ['h-10'],
             },
             {
                 size: 'large',

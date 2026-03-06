@@ -1,6 +1,5 @@
 import { cnMerge } from '@nild/shared';
 import { ReactNode, ReactElement, forwardRef, isValidElement } from 'react';
-import { isPlainChildren } from '../_shared/utils';
 import { useGroupContext } from './contexts';
 import { ButtonProps } from './interfaces';
 import { buttonClassNames } from './style';
@@ -22,7 +21,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
         block,
         ...restProps
     } = props;
-    const plain = isPlainChildren(children);
 
     return (
         <button
@@ -35,7 +33,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
                     size,
                     shape,
                     equal,
-                    plain,
                     block,
                     disabled,
                 }),
