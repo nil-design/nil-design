@@ -58,7 +58,7 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
 
     return (
         <LiveProvider noInline theme={theme} code={resolvedCode} scope={scope}>
-            <div className="live-demo vp-raw flex flex-col rounded-lg bg-transparent border border-vp-divider">
+            <div className="live-demo flex flex-col rounded-lg bg-transparent border border-vp-divider">
                 {<LivePreview className={cnJoin('live-preview px-6 py-8', hasError && 'hidden')} />}
                 <div
                     className={cnJoin('live-error rounded-t-lg', hasError ? 'px-6 py-8 bg-vp-danger' : 'hidden')}
