@@ -73,15 +73,15 @@ export default defineConfig({
         css: {
             postcss: {
                 plugins: [
+                    postcssIsolateStyles({
+                        includeFiles: [/vp-doc\.css/, /base\.css/],
+                    }),
                     /**
-                     * Why not use @tailwindcss/vite?
+                     * 1. Why not use @tailwindcss/vite?
                      * See: https://github.com/tailwindlabs/tailwindcss/issues/17408
                      */
                     tailwindcss(),
                     postcssNested,
-                    postcssIsolateStyles({
-                        includeFiles: [/vp-doc\.css/, /base\.css/],
-                    }),
                 ],
             },
         },

@@ -1,5 +1,5 @@
 <template>
-    <ReactBridge :component="ReactLive" :props="{ code, dark }" />
+    <ReactBridge class="react-live vp-raw my-4" :component="ReactLive" :props="{ code, dark }" />
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default defineComponent({
     },
     setup() {
         const { isDark } = useData();
-        
+
         return {
             ReactLive,
             dark: isDark,

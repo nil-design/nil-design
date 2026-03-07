@@ -1,17 +1,8 @@
-import { Theme as ParkIconTheme, IconWrapper, StrokeLinecap, StrokeLinejoin } from '@icon-park/react/es/runtime';
+import { Theme as ParkIconTheme, IconWrapper } from '@icon-park/react/es/runtime';
 import { cnMerge, isFunction, pascalize } from '@nild/shared';
-import { HTMLAttributes, ComponentType, FC, useState, useEffect } from 'react';
-import type { IconVariant } from './_shared/interfaces';
-
-export interface DynamicIconProps extends HTMLAttributes<HTMLSpanElement> {
-    name?: string;
-    variant?: IconVariant;
-    strokeWidth?: number;
-    strokeLinecap?: StrokeLinecap;
-    strokeLinejoin?: StrokeLinejoin;
-    fill?: string | string[];
-    spin?: boolean;
-}
+import { ComponentType, FC, useState, useEffect } from 'react';
+import { iconClassNames } from './style';
+import type { DynamicIconProps, IconVariant } from './interfaces';
 
 const iconImporters = import.meta.glob<false, string, ComponentType<unknown>>(
     '/node_modules/@icon-park/react/es/icons/*.js',
@@ -37,7 +28,7 @@ const DynamicIcon: FC<DynamicIconProps> = ({ className, name = '', variant = 'ou
     const commonProps = {
         ...restProps,
         theme: resolvedTheme,
-        className: cnMerge('nd-icon', 'text-[color:inherit] text-[length:inherit]', className),
+        className: cnMerge(iconClassNames(), className),
     };
     const [ImportedIcon, setImportedIcon] = useState<ComponentType<unknown> | null>(
         () => iconCaches.get(resolvedName) ?? null,

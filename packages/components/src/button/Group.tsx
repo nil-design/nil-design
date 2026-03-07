@@ -3,7 +3,7 @@ import { Children, cloneElement, forwardRef } from 'react';
 import { isButtonElement } from './Button';
 import { GroupProvider } from './contexts';
 import { GroupProps } from './interfaces';
-import { groupButtonClassNames, groupClassNames } from './style';
+import { groupedButtonClassNames, groupClassNames } from './style';
 
 const Group = forwardRef<HTMLDivElement, GroupProps>(
     (
@@ -35,7 +35,7 @@ const Group = forwardRef<HTMLDivElement, GroupProps>(
                         {buttonChildren.map((child, index) =>
                             cloneElement(child, {
                                 ...child.props,
-                                className: groupButtonClassNames({
+                                className: groupedButtonClassNames({
                                     first: index === 0,
                                     last: index === buttonChildren.length - 1,
                                     direction,

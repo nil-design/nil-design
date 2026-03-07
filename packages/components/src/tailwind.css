@@ -163,6 +163,12 @@
   --color-surface-hover: var(--nd-color-neutral-10);
   --color-surface-active: var(--nd-color-neutral-15);
 
+  /**
+   * Border、Outline & Stroke colors
+   */
+  --color-edge: var(--nd-color-neutral-30); /* standard border */
+  --color-split: var(--nd-color-neutral-20); /* subtle divider */
+
   /*
    * Structural
    */
@@ -175,17 +181,6 @@
   --background-color-container: var(--nd-color-neutral-5); /* card, popover background */
   --background-color-fill: var(--nd-color-neutral-20); /* inactive control fill */
   --background-color-fill-hover: var(--nd-color-neutral-30); /* hovered inactive fill */
-
-  /*
-   * Borders — generates border-* utilities only
-   */
-  --border-color-edge: var(--nd-color-neutral-30); /* standard border (inputs, cards) */
-  --border-color-split: var(--nd-color-neutral-20); /* subtle divider */
-
-  /*
-   * Outlines — generates outline-* utilities only
-   */
-  --outline-color-edge: var(--nd-color-neutral-30); /* standard outline (popover) */
 
   /*
    * Text — generates text-* utilities only, no conflict with brand colors

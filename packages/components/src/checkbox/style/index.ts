@@ -40,24 +40,27 @@ export const indicatorInputClassNames = cva<object>([
 export const defaultIndicatorBlockClassNames = cva<Pick<CheckboxProps, 'checked' | 'variant'>>(
     [
         ['flex', 'items-center', 'justify-center'],
-        ['size-full', 'rounded-sm', 'border-solid', 'border-1', 'border-brand'],
-        'transition-[background-color,color]',
+        ['size-full', 'rounded-sm', 'border-solid', 'border-1'],
+        'transition-[background-color,color,border-color]',
     ],
     {
         compoundVariants: [
             {
                 checked: true,
                 variant: 'solid',
-                className: ['bg-brand text-on-brand', 'group-enabled:group-hover:bg-brand-hover'],
+                className: ['bg-brand border-brand text-on-brand', 'group-enabled:group-hover:bg-brand-hover'],
             },
             {
                 checked: true,
                 variant: 'outlined',
-                className: ['bg-transparent text-brand', 'group-enabled:group-hover:bg-surface-hover'],
+                className: ['bg-transparent border-brand text-brand', 'group-enabled:group-hover:border-brand-hover'],
             },
             {
                 checked: false,
-                className: ['bg-transparent text-transparent', 'group-enabled:group-hover:bg-surface-hover'],
+                className: [
+                    'bg-transparent border-edge text-transparent',
+                    'group-enabled:group-hover:border-brand-hover',
+                ],
             },
         ],
     },

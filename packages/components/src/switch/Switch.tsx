@@ -78,6 +78,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                             variant,
                             size,
                             shape,
+                            checked,
                         }),
                         className,
                     )}
