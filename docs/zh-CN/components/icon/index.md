@@ -71,7 +71,7 @@ import { DynamicIcon } from '@nild/icons';
 
 const { Text } = Typography;
 const Demo = () => {
-  const btnClassName = 'flex flex-col items-center gap-1 h-auto py-1.5';
+  const btnClassName = 'flex flex-col items-center gap-1 h-auto py-2';
 
   return (
     <div className="grid grid-cols-4 gap-4">
@@ -110,7 +110,7 @@ import { DynamicIcon } from '@nild/icons';
 
 const { Text } = Typography;
 const Demo = () => {
-  const btnClassName = 'flex flex-col items-center gap-1 h-auto py-1.5';
+  const btnClassName = 'flex flex-col items-center gap-1 h-auto py-2';
 
   return (
     <div className="grid grid-cols-4 gap-4">
@@ -149,7 +149,7 @@ import { DynamicIcon } from '@nild/icons';
 
 const { Text } = Typography;
 const Demo = () => {
-    const btnClassName = 'flex flex-col items-center gap-1 h-auto py-1.5';
+    const btnClassName = 'flex flex-col items-center gap-1 h-auto py-2';
 
   return (
     <div className="grid grid-cols-4 gap-4">
