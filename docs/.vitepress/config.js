@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import tailwindcss from '@tailwindcss/postcss';
 import postcssNested from 'postcss-nested';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
