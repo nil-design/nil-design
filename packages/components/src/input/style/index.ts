@@ -11,31 +11,45 @@ export const compositeClassNames = cva<{ block?: boolean }>(['nd-input-composite
     },
 });
 
-export const compositedInputWrapperClassNames = cva<{ prepended?: boolean; appended?: boolean }>(['flex-auto'], {
+export const compositedInputWrapperClassNames = cva<
+    Pick<InputProps, 'variant'> & { prepended?: boolean; appended?: boolean }
+>(['flex-auto'], {
     variants: {
         prepended: {
             true: ['rounded-l-none'],
             false: '',
         },
         appended: {
-            true: ['rounded-r-none', 'enabled:hover:z-1'],
+            true: ['rounded-r-none'],
             false: '',
         },
     },
+    compoundVariants: [
+        {
+            variant: 'outlined',
+            appended: true,
+            className: ['mr-[-1px]', 'hover:z-1', 'focus-within:z-1'],
+        },
+    ],
 });
 
 export const inputWrapperClassNames = cva<InputProps>(
     [
         'nd-input-wrapper',
         ['inline-flex', 'items-center', 'box-border', 'font-nd', 'transition-colors', 'overflow-hidden'],
-        ['border-solid', 'border', 'focus-within:border-brand'],
+        ['border-solid', 'border', 'enabled:focus-within:border-brand'],
         DISABLED_CLS,
     ],
     {
         variants: {
             variant: {
                 outlined: ['bg-transparent', 'border-edge', 'enabled:hover:border-brand-hover'],
-                filled: ['bg-surface', 'border-transparent', 'enabled:hover:bg-surface-hover'],
+                filled: [
+                    'bg-surface',
+                    'border-surface',
+                    'enabled:[&:hover:not(:focus-within)]:bg-surface-hover',
+                    'enabled:[&:hover:not(:focus-within)]:border-surface-hover',
+                ],
             },
             size: {
                 small: ['h-6', 'text-sm', 'rounded-sm'],
@@ -114,9 +128,13 @@ export const suffixClassNames = cva<InputProps>(
 );
 
 export const prependClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { type: 'string' | 'element' }>(
-    ['shrink-0', 'mr-[-1px]'],
+    ['shrink-0'],
     {
         variants: {
+            variant: {
+                outlined: ['mr-[-1px]', 'hover:z-1', 'focus:z-1', 'focus-within:z-1'],
+                filled: [],
+            },
             type: {
                 string: ['inline-flex', 'items-center', 'border-solid', 'border'],
                 element: ['rounded-r-none'],
@@ -158,7 +176,7 @@ export const prependClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { ty
 );
 
 export const appendClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { type: 'string' | 'element' }>(
-    ['shrink-0', 'ml-[-1px]'],
+    ['shrink-0'],
     {
         variants: {
             type: {

@@ -53,6 +53,7 @@ const Composite = forwardRef<HTMLDivElement, CompositeProps>(
                     {cloneElement(inputChild, {
                         ...inputChild?.props,
                         className: compositedInputWrapperClassNames({
+                            variant,
                             prepended: !!prependChild,
                             appended: !!appendChild,
                         }),
