@@ -36,6 +36,7 @@ export const compositedInputWrapperClassNames = cva<
 export const inputWrapperClassNames = cva<InputProps>(
     [
         'nd-input-wrapper',
+        'group',
         ['inline-flex', 'items-center', 'box-border', 'font-nd', 'transition-colors', 'overflow-hidden'],
         ['border-solid', 'border', 'enabled:focus-within:border-brand'],
         DISABLED_CLS,
@@ -218,3 +219,9 @@ export const appendClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { typ
         ],
     },
 );
+
+/**
+ * Preset component styles
+ */
+
+export const searchIconClassNames = cva<InputProps>(['group-focus-within:text-brand']);
