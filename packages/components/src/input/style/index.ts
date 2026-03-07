@@ -1,6 +1,6 @@
 import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
-import { InputProps } from '../interfaces';
+import { InputProps, OTPProps } from '../interfaces';
 
 export const compositeClassNames = cva<{ block?: boolean }>(['nd-input-composite', 'inline-flex', 'items-stretch'], {
     variants: {
@@ -225,3 +225,35 @@ export const appendClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { typ
  */
 
 export const searchIconClassNames = cva<InputProps>(['group-focus-within:text-brand']);
+
+export const otpWrapperClassNames = cva<Pick<OTPProps, 'block'>>(['gap-2', 'items-center'], {
+    variants: {
+        block: {
+            true: ['flex', 'w-full'],
+            false: ['inline-flex'],
+        },
+    },
+});
+
+export const otpInputWrapperClassNames = cva<Pick<InputProps, 'block' | 'size'>>(
+    ['flex-auto', 'min-w-0', 'text-center'],
+    {
+        compoundVariants: [
+            {
+                size: 'small',
+                block: false,
+                className: ['w-6'],
+            },
+            {
+                size: 'medium',
+                block: false,
+                className: ['w-8'],
+            },
+            {
+                size: 'large',
+                block: false,
+                className: ['w-10'],
+            },
+        ],
+    },
+);

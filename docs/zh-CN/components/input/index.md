@@ -137,7 +137,7 @@ import { Input } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input.Search placeholder="Enter to search..." onSearch={(val) => alert('Search: ' + val)} />
+    <Input.Search placeholder="Enter to search..." />
   </div>;
 }
 
@@ -185,7 +185,7 @@ import { Input } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input.OTP length={6} onComplete={(val) => alert('OTP: ' + val)} />
+    <Input.OTP length={6} />
   </div>;
 }
 

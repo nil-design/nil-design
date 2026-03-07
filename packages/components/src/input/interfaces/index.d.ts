@@ -1,4 +1,12 @@
-import type { InputHTMLAttributes, HTMLAttributes, ChangeEvent, ReactElement } from 'react';
+import type {
+    InputHTMLAttributes,
+    HTMLAttributes,
+    FocusEvent,
+    ChangeEvent,
+    ReactElement,
+    ReactNode,
+    SyntheticEvent,
+} from 'react';
 
 export type InputVariant = 'outlined' | 'filled';
 export type InputSize = 'small' | 'medium' | 'large';
@@ -48,19 +56,30 @@ export interface PasswordProps extends Omit<InputProps, 'value' | 'defaultValue'
     onVisibleChange?: (visible: boolean) => void;
 }
 
-export interface OTPProps extends Omit<InputProps, 'value' | 'defaultValue' | 'onChange'> {
+export interface OTPRef {
+    focus: (index?: number) => void;
+    blur: () => void;
+}
+
+export interface OTPProps
+    extends Omit<HTMLAttributes<HTMLSpanElement>, 'placeholder' | 'onFocus' | 'onChange'>,
+        Pick<InputProps, 'variant' | 'type' | 'block' | 'size' | 'disabled'> {
+    placeholder?: string[];
     length?: number;
-    value?: string;
-    defaultValue?: string;
-    onChange?: (value: string, evt: ChangeEvent<HTMLInputElement>) => void;
-    onComplete?: (value: string) => void;
+    separator?: ReactNode | ((index: number) => ReactNode);
+    value?: string[];
+    defaultValue?: string[];
+    onFocus?: (index: number, evt: FocusEvent<HTMLInputElement>) => void;
+    onBlur?: (evt: FocusEvent<HTMLSpanElement>) => void;
+    onChange?: (value: string[], evt: SyntheticEvent) => void;
+    onComplete?: (value: string[], evt: SyntheticEvent) => void;
 }
 
 export interface NumberProps extends Omit<InputProps, 'value' | 'defaultValue' | 'onChange'> {
-    value?: number;
-    defaultValue?: number;
-    onChange?: (value: number | undefined, evt?: ChangeEvent<HTMLInputElement>) => void;
     min?: number;
     max?: number;
     step?: number;
+    value?: number;
+    defaultValue?: number;
+    onChange?: (value: number | undefined, evt?: ChangeEvent<HTMLInputElement>) => void;
 }
