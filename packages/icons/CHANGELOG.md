@@ -1,5 +1,11 @@
 # @nild/icons
 
+## 0.0.16
+
+### Patch Changes
+
+- 4a0e991: - perf(icons): support transition 4 colors
+
 ## 0.0.15
 
 ### Patch Changes
