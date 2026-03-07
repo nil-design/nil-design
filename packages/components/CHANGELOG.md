@@ -1,5 +1,18 @@
 # @nild/components
 
+## 0.0.33
+
+### Patch Changes
+
+- 4a0e991: - feat(components): One-Time Password
+  - perf(Search): icon style
+  - perf(Input): Composite style strategy
+  - refactor(components): outlined style
+  - feat(components): 1st edition of Input
+  - refactor(button): remove the judgment of whether children is plain
+- Updated dependencies [4a0e991]
+  - @nild/icons@0.0.16
+
 ## 0.0.32
 
 ### Patch Changes
