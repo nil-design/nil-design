@@ -18,7 +18,7 @@ export const compositedInputWrapperClassNames = cva<{ prepended?: boolean; appen
             false: '',
         },
         appended: {
-            true: ['rounded-r-none', 'z-1'],
+            true: ['rounded-r-none', 'enabled:hover:z-1'],
             false: '',
         },
     },
@@ -118,7 +118,7 @@ export const prependClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { ty
     {
         variants: {
             type: {
-                string: ['inline-flex', 'items-center', 'border-solid', 'border-y', 'border-l'],
+                string: ['inline-flex', 'items-center', 'border-solid', 'border'],
                 element: ['rounded-r-none'],
             },
             size: {
@@ -162,7 +162,7 @@ export const appendClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { typ
     {
         variants: {
             type: {
-                string: ['inline-flex', 'items-center', 'border-solid', 'border-y', 'border-r'],
+                string: ['inline-flex', 'items-center', 'border-solid', 'border'],
                 element: ['rounded-l-none', 'h-auto'],
             },
             size: {

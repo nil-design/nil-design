@@ -2,11 +2,12 @@ import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
 import { SwitchProps, TrackProps } from '../interfaces';
 
-export const switchClassNames = cva<SwitchProps>(
+export const switchClassNames = cva<SwitchProps & { checked: boolean }>(
     [
         'nd-switch',
         'group',
         'h-[var(--nd-switch-height)]',
+        'transition-[outline-color]',
         ['relative', 'inline-block', 'font-nd', 'overflow-hidden', 'cursor-pointer'],
         DISABLED_CLS,
     ],
@@ -14,7 +15,7 @@ export const switchClassNames = cva<SwitchProps>(
         variants: {
             variant: {
                 solid: '',
-                outlined: ['outline-solid', 'outline', 'outline-brand'],
+                outlined: ['outline-solid', 'outline'],
             },
             size: {
                 small: ['min-w-8', 'text-sm'],
@@ -26,6 +27,18 @@ export const switchClassNames = cva<SwitchProps>(
                 square: 'rounded-md',
             },
         },
+        compoundVariants: [
+            {
+                checked: true,
+                variant: 'outlined',
+                className: ['outline-brand'],
+            },
+            {
+                checked: false,
+                variant: 'outlined',
+                className: ['outline-edge', 'enabled:hover:outline-brand-hover'],
+            },
+        ],
     },
 );
 
@@ -80,7 +93,7 @@ export const trackClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'> & Pi
             },
             {
                 variant: 'outlined',
-                className: ['bg-transparent', 'group-enabled:group-hover:bg-surface-hover'],
+                className: ['bg-transparent'],
             },
         ],
     },

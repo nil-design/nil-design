@@ -12,12 +12,12 @@ export const buttonClassNames = cva<ButtonProps>(
                     'bg-transparent',
                     'border-solid',
                     'border',
-                    'border-brand',
-                    'text-brand',
+                    'border-edge',
+                    'text-body',
+                    'enabled:hover:border-brand-hover',
                     'enabled:hover:text-brand-hover',
+                    'enabled:active:border-brand-active',
                     'enabled:active:text-brand-active',
-                    'enabled:hover:bg-surface-hover',
-                    'enabled:active:bg-surface-active',
                 ],
                 filled: [
                     'bg-surface',
@@ -87,7 +87,7 @@ export const groupClassNames = cva<GroupProps>(['nd-button-group', ['flex']], {
     },
 });
 
-export const groupButtonClassNames = cva<GroupProps & { first?: boolean; last?: boolean }>('', {
+export const groupedButtonClassNames = cva<GroupProps & { first?: boolean; last?: boolean }>('', {
     compoundVariants: [
         {
             first: true,
@@ -115,14 +115,16 @@ export const groupButtonClassNames = cva<GroupProps & { first?: boolean; last?: 
             className: 'rounded-none',
         },
         {
-            first: false,
+            last: false,
             direction: 'horizontal',
-            className: 'border-l-0',
+            variant: 'outlined',
+            className: ['mr-[-1px]', 'hover:z-1'],
         },
         {
-            first: false,
+            last: false,
             direction: 'vertical',
-            className: 'border-t-0',
+            variant: 'outlined',
+            className: ['mb-[-1px]', 'hover:z-1'],
         },
         {
             last: false,
