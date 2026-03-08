@@ -178,9 +178,11 @@
    * Backgrounds — generates bg-* utilities only
    */
   --background-color-page: var(--nd-color-neutral-0); /* page background */
-  --background-color-container: var(--nd-color-neutral-5); /* card, popover background */
+  --background-color-panel: var(--nd-color-neutral-0); /* popover, dropdown background */
+  --background-color-container: var(--nd-color-neutral-5); /* card background */
   --background-color-fill: var(--nd-color-neutral-20); /* inactive control fill */
   --background-color-fill-hover: var(--nd-color-neutral-30); /* hovered inactive fill */
+  --background-color-inverse: var(--nd-color-neutral-80); /* tooltip background */
 
   /*
    * Text — generates text-* utilities only, no conflict with brand colors
@@ -188,6 +190,7 @@
   --text-color-body: var(--nd-color-neutral-100); /* primary text */
   --text-color-muted: var(--nd-color-neutral-70); /* descriptions, secondary labels */
   --text-color-subtle: var(--nd-color-neutral-50); /* placeholders, hints, timestamps */
+  --text-color-inverse: var(--nd-color-neutral-0); /* text color on inverse background */
 
   --text-color-link: var(--color-brand);
   --text-color-link-hover: var(--color-brand-hover);

@@ -15,6 +15,7 @@ const Popup: FC<PopupProps> = ({
     action = 'click',
     size = 'medium',
     arrowed = true,
+    inverse = false,
     borderless = false,
     delay = 100,
     open: externalOpen,
@@ -90,6 +91,7 @@ const Popup: FC<PopupProps> = ({
             actions,
             size,
             arrowed,
+            inverse,
             borderless,
             refs: {
                 trigger: triggerRef,

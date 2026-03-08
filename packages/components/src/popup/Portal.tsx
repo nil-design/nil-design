@@ -9,7 +9,7 @@ import { portalClassNames, portalContentClassNames } from './style';
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(
     ({ className, style, children, container = document.body, ...restProps }, ref) => {
-        const { size, borderless, refs, enter, leave } = usePopupContext();
+        const { size, inverse, borderless, refs, enter, leave } = usePopupContext();
         const { coords } = usePortalContext();
         const child = Children.toArray(children).find(child => isValidElement(child));
 
@@ -40,7 +40,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             >
                 {cloneElement(child as ReactElement, {
                     ...child.props,
-                    className: cnMerge(portalContentClassNames({ size, borderless }), child?.props?.className),
+                    className: cnMerge(portalContentClassNames({ size, inverse, borderless }), child?.props?.className),
                 })}
                 <Arrow />
             </div>,

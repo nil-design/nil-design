@@ -22,6 +22,7 @@ export interface PopupProps {
     action?: TriggerAction | TriggerAction[];
     size?: PopupSize;
     arrowed?: boolean;
+    inverse?: boolean;
     borderless?: boolean;
     delay?: number | [number] | [number, number];
     open?: boolean;
