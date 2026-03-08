@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.34
+
+### Patch Changes
+
+- 107818b: perf(components): optimize the style of popup components
+
 ## 0.0.33
 
 ### Patch Changes

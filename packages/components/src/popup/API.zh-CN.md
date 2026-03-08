@@ -8,6 +8,7 @@
 | action | - | `'click' \| 'hover' \| 'focus' \| 'contextMenu' \| Array<'click' \| 'hover' \| 'focus' \| 'contextMenu'>` | - |
 | size | - | `'small' \| 'medium' \| 'large'` | - |
 | arrowed | - | `boolean` | - |
+| inverse | - | `boolean` | - |
 | borderless | - | `boolean` | - |
 | delay | - | `number \| [number] \| [number, number]` | - |
 | open | - | `boolean` | - |
