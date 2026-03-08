@@ -5,14 +5,18 @@ export const triggerClassNames = cva(['nd-popup-trigger']);
 
 export const portalClassNames = cva<PortalProps>(['nd-popup-portal', ['absolute', 'top-0', 'left-0']]);
 
-export const portalContentClassNames = cva<Pick<PopupProps, 'size' | 'borderless'>>(
-    ['bg-container', 'text-body', 'rounded-md', 'shadow-lg'],
+export const portalContentClassNames = cva<Pick<PopupProps, 'size' | 'inverse' | 'borderless'>>(
+    ['rounded-md', 'shadow-lg'],
     {
         variants: {
             size: {
                 small: ['px-2', 'py-1'],
                 medium: ['px-4', 'py-3'],
                 large: ['px-6', 'py-5'],
+            },
+            inverse: {
+                true: ['bg-inverse', 'text-inverse'],
+                false: ['bg-panel', 'text-body'],
             },
             borderless: {
                 true: '',
@@ -23,10 +27,10 @@ export const portalContentClassNames = cva<Pick<PopupProps, 'size' | 'borderless
 );
 
 export const arrowClassNames = cva<
-    Pick<PopupProps, 'size' | 'arrowed' | 'borderless'> & {
+    Pick<PopupProps, 'size' | 'arrowed' | 'inverse' | 'borderless'> & {
         orientation: ArrowOrientation;
     }
->(['nd-popup-arrow', 'absolute', 'bg-container'], {
+>(['nd-popup-arrow', 'absolute'], {
     variants: {
         size: {
             small: ['w-1.5', 'h-1.5'],
@@ -36,6 +40,10 @@ export const arrowClassNames = cva<
         arrowed: {
             true: '',
             false: ['opacity-0', 'invisible'],
+        },
+        inverse: {
+            true: ['bg-inverse'],
+            false: ['bg-panel'],
         },
         borderless: {
             true: '',

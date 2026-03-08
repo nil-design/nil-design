@@ -16,13 +16,13 @@ import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
-    <Tooltip action="hover">
+    <Tooltip action="hover" placement="right">
       <span>
-        <DynamicIcon name="help" />
+        Hover me
       </span>
       <Tooltip.Portal>
         <div className="text-md">
-          Help
+          Prompt Text
         </div>
       </Tooltip.Portal>
     </Tooltip>

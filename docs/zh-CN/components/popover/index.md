@@ -20,7 +20,7 @@ const Demo = () => {
       <Button>Hover me</Button>
       <Popover.Portal>
         <div className="text-md">
-          content
+          Prompt Text
         </div>
       </Popover.Portal>
     </Popover>
@@ -28,7 +28,7 @@ const Demo = () => {
       <Button variant="outlined">Focus me</Button>
       <Popover.Portal>
         <div className="text-md">
-          content
+          Prompt Text
         </div>
       </Popover.Portal>
     </Popover>
@@ -36,7 +36,7 @@ const Demo = () => {
       <Button variant="filled">Click me</Button>
       <Popover.Portal>
         <div className="text-md">
-          content
+          Prompt Text
         </div>
       </Popover.Portal>
     </Popover>
@@ -44,7 +44,7 @@ const Demo = () => {
       <Button variant="text">Right-click me</Button>
       <Popover.Portal>
         <div className="text-md">
-          content
+          Prompt Text
         </div>
       </Popover.Portal>
     </Popover>
@@ -83,7 +83,7 @@ const Demo = () => {
         </Button>
         <Popover.Portal>
           <div className="text-md">
-            content
+            Prompt Text
           </div>
         </Popover.Portal>
       </Popover>
@@ -167,7 +167,7 @@ const Demo = () => {
           </Button>
           <Popover.Portal>
             <div className="text-md">
-              content
+              Prompt Text
             </div>
           </Popover.Portal>
         </Popover>
