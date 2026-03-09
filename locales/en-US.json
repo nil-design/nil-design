@@ -12,5 +12,17 @@
     "next.page": "Next Page",
     "outline.label": "On this page",
     "footer.message": "Released under the {{ licenseAnchor }}",
-    "footer.copyright": "Copyright © 2025-present {{ copyrightAnchor }}"
+    "footer.copyright": "Copyright © 2025-present {{ copyrightAnchor }}",
+
+    "assistant.title": "LLM Assistant",
+    "assistant.loading.init": "Initializing…",
+    "assistant.loading.hint": "Loading model into your browser. This only happens once.",
+    "assistant.error.title": "Failed to load model",
+    "assistant.error.retry": "Retry",
+    "assistant.error.msg": "⚠ Something went wrong. Please try again.",
+    "assistant.empty": "How can I help you today?",
+    "assistant.input": "Message…",
+    "assistant.input.loading": "Loading model…",
+    "assistant.input.generating": "Generating…",
+    "assistant.input.error": "Model failed to load"
 }

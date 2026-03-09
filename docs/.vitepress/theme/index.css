@@ -3,27 +3,6 @@
 
 @source '../../../node_modules/@nild/components/dist';
 
-@theme {
-  --text-color-vp-brand-1: var(--vp-c-brand-1);
-  --text-color-vp-text-1: var(--vp-c-text-1);
-  --text-color-vp-info: var(--vp-custom-block-info-text);
-  --text-color-vp-tip: var(--vp-custom-block-tip-text);
-
-  --background-color-vp-info: var(--vp-custom-block-info-bg);
-  --background-color-vp-tip: var(--vp-custom-block-tip-bg);
-  --background-color-vp-danger: var(--vp-custom-block-danger-bg);
-
-  --border-color-vp-divider: var(--vp-c-divider);
-}
-
-@layer components {
-  .live-editor {
-    .prism-code {
-      @apply px-6! py-5! rounded-b-lg! whitespace-nowrap! overflow-auto!;
-    }
-  }
-}
-
 @keyframes clip-ltr {
   0% {
     clip-path: ellipse(200% 150% at -200% 50%);
@@ -41,6 +20,55 @@
 
   100% {
     clip-path: ellipse(200% 150% at 0% 50%);
+  }
+}
+
+@keyframes sparkle {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.15);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@theme {
+  --animate-sparkle: sparkle 2s ease-in-out infinite;
+  --animate-blink: blink 0.9s ease-in-out infinite;
+
+  --text-color-vp-brand-1: var(--vp-c-brand-1);
+  --text-color-vp-text-1: var(--vp-c-text-1);
+  --text-color-vp-info: var(--vp-custom-block-info-text);
+  --text-color-vp-tip: var(--vp-custom-block-tip-text);
+
+  --background-color-vp-info: var(--vp-custom-block-info-bg);
+  --background-color-vp-tip: var(--vp-custom-block-tip-bg);
+  --background-color-vp-danger: var(--vp-custom-block-danger-bg);
+
+  --border-color-vp-divider: var(--vp-c-divider);
+}
+
+@layer components {
+  .live-editor {
+    .prism-code {
+      @apply px-6! py-5! rounded-b-lg! whitespace-nowrap! overflow-auto!;
+    }
   }
 }
 
