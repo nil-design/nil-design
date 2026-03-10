@@ -1,10 +1,12 @@
 import eslint from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
+import jsoncPlugin from 'eslint-plugin-jsonc';
 import eslintPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
+import jsoncParser from 'jsonc-eslint-parser';
 import * as tslint from 'typescript-eslint';
 
 export default tslint.config(
@@ -107,6 +109,16 @@ export default tslint.config(
             globals: {
                 ...globals.browser,
             },
+        },
+    },
+    {
+        /** used to sort the keys */
+        files: ['locales/**/*.json'],
+        plugins: { jsonc: jsoncPlugin },
+        languageOptions: { parser: jsoncParser },
+        rules: {
+            'jsonc/sort-keys': 'warn',
+            'prettier/prettier': 'off',
         },
     },
     eslintConfigPrettier,
