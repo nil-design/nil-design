@@ -4,7 +4,7 @@
             :class="[
                 'max-w-[85%] px-3 py-2 rounded-xl text-md',
                 'leading-relaxed whitespace-pre-wrap break-words',
-                role === 'user' ? 'bg-brand text-on-brand' : 'bg-container text-body',
+                role === 'user' ? 'bg-brand text-brand-contrast' : 'bg-subtle text-main',
             ]"
         >
             {{ content }}<span v-if="streaming" class="inline-block ml-px animate-blink">▋</span>

@@ -3,14 +3,16 @@
  */
 @theme static {
   /*
-   * Seed colors
+   * seed colors
    */
   --nd-brand-h: 158;
   --nd-brand-c: 0.14;
-  --nd-neutral-c: 0.003;
+  --nd-neutral-c: 0.001;
+  --nd-shadow-l: 15%;
+  --nd-shadow-c: 0.008;
 
   /*
-   * Brand color scale — high chroma (c=0.11), used for interactive elements
+   * brand color scale
    */
   --nd-color-brand-0: light-dark(
     oklch(99% var(--nd-brand-c) var(--nd-brand-h)),
@@ -66,38 +68,38 @@
   );
 
   /*
-   * Neutral color scale — low chroma (c=0.006), used for text, borders, and backgrounds
+   * neutral color scale
    */
   --nd-color-neutral-0: light-dark(
-    oklch(99% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(99.5% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(14% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-5: light-dark(
-    oklch(97% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(98% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(17% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-10: light-dark(
-    oklch(94% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(96.5% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(21% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-15: light-dark(
-    oklch(90% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(94% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(26% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-20: light-dark(
-    oklch(85% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(91% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(32% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-30: light-dark(
-    oklch(76% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(84% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(42% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-40: light-dark(
-    oklch(67% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(73% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(50% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-50: light-dark(
-    oklch(58% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(60% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(58% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-60: light-dark(
@@ -105,99 +107,101 @@
     oklch(67% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-70: light-dark(
-    oklch(42% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(40% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(76% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-80: light-dark(
-    oklch(35% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(30% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(85% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-90: light-dark(
-    oklch(25% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(20% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(93% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-100: light-dark(
     oklch(15% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(98% var(--nd-neutral-c) var(--nd-brand-h))
   );
+
+  /*
+   * shadow colors
+   */
+  --nd-color-shadow-key: light-dark(
+    oklch(var(--nd-shadow-l) var(--nd-shadow-c) var(--nd-brand-h) / 16%),
+    oklch(0% 0 0deg / 65%)
+  );
+  --nd-color-shadow-ambient: light-dark(
+    oklch(var(--nd-shadow-l) var(--nd-shadow-c) var(--nd-brand-h) / 4%),
+    oklch(0% 0 0deg / 30%)
+  );
+
+  --nd-font-family:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 /**
  * Tailwind Overrides
- *
- * Naming conventions:
- *   --color-brand-*         solid brand color → bg-brand / text-brand / border-brand / fill-brand …
- *   --color-brand-subtle-*  tinted brand color → bg-brand-subtle / border-brand-subtle …
- *   --color-surface-*       neutral surface for ghost/hover states → bg-surface-hover …
- *   --color-on-brand        text/icon on top of brand backgrounds → text-on-brand / fill-on-brand
- *   --background-color-fill     inactive control fill (switch, skeleton) → bg-fill
- *   --background-color-fill-*   inactive control fill hover/active → bg-fill-hover
- *   --background-color-*        page / container backgrounds → bg-page / bg-container
- *   --border-color-edge         standard border (inputs, cards) → border-edge
- *   --border-color-split        subtle divider line → border-split
- *   --outline-color-edge        standard outline (popover) → outline-edge
- *   --text-color-body       primary text → text-body
- *   --text-color-muted      secondary text → text-muted
- *   --text-color-subtle     tertiary text (placeholder, hint) → text-subtle
- *   --text-color-link-*     link text → text-link / text-link-hover / text-link-active
  */
 @theme {
   /*
-   * Brand — solid, used for button backgrounds, selected states, icons
+   * brand colors
    */
   --color-brand: var(--nd-color-brand-60);
-  --color-brand-hover: var(--nd-color-brand-70);
-  --color-brand-active: var(--nd-color-brand-80);
+  --color-brand-hover: var(--nd-color-brand-50);
+  --color-brand-active: var(--nd-color-brand-60);
 
   /*
-   * Brand subtle — tinted, used for secondary buttons, tags, code backgrounds
+   * brand subtle
    */
-  --color-brand-subtle: var(--nd-color-brand-10);
-  --color-brand-subtle-hover: var(--nd-color-brand-15);
-  --color-brand-subtle-active: var(--nd-color-brand-20);
+  --color-brand-subtle: var(--nd-color-brand-15);
+  --color-brand-subtle-hover: var(--nd-color-brand-20);
+  --color-brand-subtle-active: var(--nd-color-brand-30);
 
   /*
-   * Surface — neutral, used for ghost/text button hover and list item hover
+   * structural colors
    */
-  --color-surface: var(--nd-color-neutral-5);
-  --color-surface-hover: var(--nd-color-neutral-10);
-  --color-surface-active: var(--nd-color-neutral-15);
+  --color-brand-contrast: light-dark(var(--nd-color-neutral-0), var(--nd-color-neutral-100));
 
   /**
-   * Border、Outline & Stroke colors
+   * border, outline & stroke colors
    */
-  --color-edge: var(--nd-color-neutral-30); /* standard border */
-  --color-split: var(--nd-color-neutral-20); /* subtle divider */
+  --border-color-main: var(--nd-color-neutral-20);
+  --border-color-muted: var(--nd-color-neutral-15);
+  --border-color-subtle: var(--nd-color-neutral-10);
+
+  --outline-color-main: var(--border-color-main);
+  --outline-color-muted: var(--border-color-muted);
+  --outline-color-subtle: var(--border-color-subtle);
 
   /*
-   * Structural
+   * background colors
    */
-  --color-on-brand: var(--nd-color-neutral-0); /* text/icon color on top of brand backgrounds */
+  --background-color-page: var(--nd-color-neutral-0);
+  --background-color-page-inverse: var(--nd-color-neutral-100);
+  --background-color-subtle: var(--nd-color-neutral-5);
+  --background-color-subtle-hover: var(--nd-color-neutral-10);
+  --background-color-muted: var(--nd-color-neutral-10);
+  --background-color-muted-hover: var(--nd-color-neutral-15);
+  --background-color-muted-active: var(--nd-color-neutral-20);
+  --background-color-emphasized: var(--nd-color-neutral-20);
+  --background-color-emphasized-hover: var(--nd-color-neutral-30);
+
+  --background-color-panel: light-dark(
+    var(--background-color-page),
+    var(--background-color-muted)
+  ); /* popover, dropdown background */
 
   /*
-   * Backgrounds — generates bg-* utilities only
+   * text colors  
    */
-  --background-color-page: var(--nd-color-neutral-0); /* page background */
-  --background-color-panel: var(--nd-color-neutral-0); /* popover, dropdown background */
-  --background-color-container: var(--nd-color-neutral-5); /* card background */
-  --background-color-fill: var(--nd-color-neutral-20); /* inactive control fill */
-  --background-color-fill-hover: var(--nd-color-neutral-30); /* hovered inactive fill */
-  --background-color-inverse: var(--nd-color-neutral-80); /* tooltip background */
-
-  /*
-   * Text — generates text-* utilities only, no conflict with brand colors
-   */
-  --text-color-body: var(--nd-color-neutral-100); /* primary text */
+  --text-color-main: var(--nd-color-neutral-100); /* primary text */
+  --text-color-main-inverse: var(--nd-color-neutral-0); /* text color on page-inverse */
   --text-color-muted: var(--nd-color-neutral-70); /* descriptions, secondary labels */
   --text-color-subtle: var(--nd-color-neutral-50); /* placeholders, hints, timestamps */
-  --text-color-inverse: var(--nd-color-neutral-0); /* text color on inverse background */
-
-  --text-color-link: var(--color-brand);
-  --text-color-link-hover: var(--color-brand-hover);
-  --text-color-link-active: var(--color-brand-active);
 
   /*
-   * Typography scale
+   * typography scale
    */
   --text-sm: 0.75rem; /* 12px */
   --text-sm--line-height: 1.25rem;
@@ -222,11 +226,35 @@
   --radius-md: 0.25rem;
   --radius-lg: 0.375rem;
 
-  --font-nd:
-    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --shadow-sm: 0 0 0 1px var(--border-color-subtle), 0 1px 2px 0 var(--nd-color-shadow-key);
+  --shadow-md:
+    0 0 0 1px var(--border-color-subtle), 0 3px 6px -1px var(--nd-color-shadow-key),
+    0 1px 3px -1px var(--nd-color-shadow-ambient);
+  --shadow-lg:
+    0 0 0 1px var(--border-color-subtle), 0 8px 16px -2px var(--nd-color-shadow-key),
+    0 3px 6px -2px var(--nd-color-shadow-ambient);
+  --shadow-xl:
+    0 0 0 1px var(--border-color-subtle), 0 16px 24px -4px var(--nd-color-shadow-key),
+    0 6px 12px -4px var(--nd-color-shadow-ambient);
+  --shadow-2xl:
+    0 0 0 1px var(--border-color-subtle), 0 24px 36px -6px var(--nd-color-shadow-key),
+    0 10px 16px -6px var(--nd-color-shadow-ambient);
+
+  --font-nd: var(--nd-font-family);
 
   --default-transition-duration: 200ms;
+}
+
+@utility stroke-main {
+  stroke: var(--border-color-main);
+}
+
+@utility stroke-muted {
+  stroke: var(--border-color-muted);
+}
+
+@utility stroke-subtle {
+  stroke: var(--border-color-subtle);
 }
 
 @utility underline {

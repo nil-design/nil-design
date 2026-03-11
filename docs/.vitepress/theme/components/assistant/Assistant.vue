@@ -3,7 +3,7 @@
         <div
             ref="containerRef"
             :class="[
-                'vp-raw fixed z-[9999] overflow-hidden text-on-brand font-nd shadow-2xl',
+                'vp-raw fixed z-[9999] overflow-hidden text-brand-contrast font-nd shadow-2xl',
                 dragging ? 'transition-none' : 'transition-[width,height,top,left,border-radius]',
             ]"
             :style="{
@@ -26,7 +26,7 @@
             >
                 <div
                     v-if="opened"
-                    class="absolute inset-x-0 top-0 bg-panel text-body flex flex-col"
+                    class="absolute inset-x-0 top-0 bg-subtle text-main flex flex-col"
                     :style="{ bottom: `${triggerSize.h}px` }"
                 >
                     <Dialog :llm="llm" @header-mousedown="onDragStart" @close="toggleOpen" @retry="llm.retry">

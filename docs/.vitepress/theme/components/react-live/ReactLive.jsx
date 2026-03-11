@@ -58,7 +58,7 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
 
     return (
         <LiveProvider noInline theme={theme} code={resolvedCode} scope={scope}>
-            <div className="live-demo flex flex-col rounded-lg bg-transparent border border-vp-divider">
+            <div className="live-demo flex flex-col rounded-lg bg-transparent border border-muted">
                 {<LivePreview className={cnJoin('live-preview px-6 py-8', hasError && 'hidden')} />}
                 <div
                     className={cnJoin('live-error rounded-t-lg', hasError ? 'px-6 py-8 bg-vp-danger' : 'hidden')}
@@ -68,7 +68,7 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
                 </div>
                 <div
                     className={cnJoin(
-                        'live-actions flex justify-end gap-4 px-4 py-2 text-vp-text-1 bg-vp-info',
+                        'live-actions flex justify-end gap-4 px-4 py-2 text-main bg-subtle',
                         !editorVisible && 'rounded-b-lg',
                     )}
                 >

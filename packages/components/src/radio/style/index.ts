@@ -38,7 +38,7 @@ export const indicatorInputClassNames = cva<object>([
 ]);
 
 export const defaultIndicatorOuterCircleClassNames = cva<Pick<RadioProps, 'variant' | 'checked'>>(
-    ['stroke-1', 'r-9', 'transition-[stroke,fill]'],
+    ['stroke-1', 'r-9', 'transition-[stroke,fill]', 'group-enabled:group-hover:stroke-brand-hover'],
     {
         compoundVariants: [
             {
@@ -53,7 +53,7 @@ export const defaultIndicatorOuterCircleClassNames = cva<Pick<RadioProps, 'varia
             },
             {
                 checked: false,
-                className: ['fill-transparent stroke-edge', 'group-enabled:group-hover:stroke-brand-hover'],
+                className: ['fill-transparent stroke-main'],
             },
         ],
     },
@@ -72,12 +72,12 @@ export const defaultIndicatorInnerCircleClassNames = cva<Pick<RadioProps, 'varia
             {
                 checked: true,
                 variant: 'solid',
-                className: ['fill-on-brand'],
+                className: ['fill-brand-contrast'],
             },
             {
                 checked: true,
                 variant: 'outlined',
-                className: ['fill-brand'],
+                className: ['fill-brand', 'group-enabled:group-hover:fill-brand-hover'],
             },
             {
                 checked: false,

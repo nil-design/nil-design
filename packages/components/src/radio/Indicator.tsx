@@ -16,7 +16,11 @@ const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(({ className, child
         children ??
         ((checked: boolean) => (
             <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="10" cy="10" className={defaultIndicatorOuterCircleClassNames({ variant, checked })} />
+                <circle
+                    cx="10"
+                    cy="10"
+                    className={cnMerge(defaultIndicatorOuterCircleClassNames({ variant, checked }))}
+                />
                 <circle cx="10" cy="10" className={defaultIndicatorInnerCircleClassNames({ variant, checked })} />
             </svg>
         ));

@@ -3,7 +3,7 @@
         <div
             :class="[
                 'flex-shrink-0',
-                'px-4 h-12 border-b border-split',
+                'px-4 h-12 border-b border-muted',
                 'flex items-center justify-between gap-3',
                 'cursor-move select-none',
             ]"
@@ -13,8 +13,8 @@
                 <span
                     :class="['w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-300', statusDotClass]"
                 ></span>
-                <span class="text-md font-semibold text-body truncate">{{ t('assistant.title') }}</span>
-                <span class="flex-shrink-0 px-2 py-1 rounded text-xs bg-container text-subtle leading-none">{{
+                <span class="text-md font-semibold text-main truncate">{{ t('assistant.title') }}</span>
+                <span class="flex-shrink-0 px-2 py-1 rounded text-xs bg-muted text-muted leading-none">{{
                     llm.model.name
                 }}</span>
             </div>
@@ -22,9 +22,9 @@
                 :class="[
                     'w-6 h-6',
                     'flex-shrink-0 flex items-center justify-center',
-                    'rounded-md text-subtle',
+                    'rounded-md text-main',
                     'transition-colors cursor-pointer',
-                    'hover:text-body hover:bg-surface-hover',
+                    'hover:bg-muted-hover',
                 ]"
                 @mousedown.stop
                 @click.stop="$emit('close')"
@@ -32,14 +32,14 @@
                 <XIcon class="size-4" />
             </button>
         </div>
-        <div ref="messageListRef" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0">
+        <div ref="messageListRef" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0 bg-page">
             <div
                 v-if="llm.status === LLMStatus.LOADING"
                 class="h-full flex flex-col items-center justify-center gap-4 px-4"
             >
-                <SparklesIcon class="text-brand animate-sparkle size-7 opacity-70" />
+                <SparklesIcon class="text-brand animate-sparkle size-7" />
                 <div class="w-full flex flex-col gap-1.5">
-                    <div class="w-full h-1 bg-fill rounded-full overflow-hidden">
+                    <div class="w-full h-1 bg-muted rounded-full overflow-hidden">
                         <div
                             class="h-full bg-brand rounded-full transition-all duration-300 ease-out"
                             :style="{ width: `${llm.loading.progress}%` }"
@@ -59,14 +59,14 @@
                 class="h-full flex flex-col items-center justify-center gap-3 px-4"
             >
                 <ExclamationCircleIcon class="text-subtle size-7 opacity-50" />
-                <p class="text-md text-muted font-medium">{{ t('assistant.error.title') }}</p>
+                <p class="text-md text-subtle font-medium">{{ t('assistant.error.title') }}</p>
                 <p v-if="llm.error.message" class="text-sm text-subtle text-center leading-relaxed">
                     {{ llm.error.message }}
                 </p>
                 <button
                     :class="[
                         'mt-1 px-4 h-8',
-                        'rounded-lg bg-brand text-on-brand text-sm',
+                        'rounded-lg bg-brand text-brand-contrast text-sm',
                         'cursor-pointer transition-opacity',
                         'hover:bg-brand-hover',
                     ]"
@@ -76,7 +76,7 @@
                 </button>
             </div>
             <div v-else-if="llm.messages.length === 0" class="h-full flex flex-col items-center justify-center gap-3">
-                <ChatBubbleIcon class="text-brand size-9 opacity-25" />
+                <ChatBubbleIcon class="text-brand size-9" />
                 <p class="text-md text-subtle text-center">{{ t('assistant.empty') }}</p>
             </div>
             <template v-else>
@@ -120,9 +120,9 @@ const statusDotClass = computed(() => {
         case LLMStatus.GENERATING:
             return 'bg-brand animate-pulse';
         case LLMStatus.LOADING:
-            return 'bg-fill-hover animate-pulse';
+            return 'bg-muted-hover animate-pulse';
         default:
-            return 'bg-fill';
+            return 'bg-muted';
     }
 });
 

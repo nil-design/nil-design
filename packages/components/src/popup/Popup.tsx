@@ -16,7 +16,6 @@ const Popup: FC<PopupProps> = ({
     size = 'medium',
     arrowed = true,
     inverse = false,
-    borderless = false,
     delay = 100,
     open: externalOpen,
     defaultOpen = false,
@@ -92,7 +91,6 @@ const Popup: FC<PopupProps> = ({
             size,
             arrowed,
             inverse,
-            borderless,
             refs: {
                 trigger: triggerRef,
                 portal: portalRef,
@@ -103,7 +101,7 @@ const Popup: FC<PopupProps> = ({
             leave: handleMouseLeave,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [actions, size, arrowed, borderless],
+        [actions, size, arrowed, inverse],
     );
 
     useIsomorphicLayoutEffect(() => {

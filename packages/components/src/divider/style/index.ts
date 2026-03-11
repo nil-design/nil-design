@@ -2,7 +2,7 @@ import { cva } from '@nild/shared';
 import { DividerProps } from '../interfaces';
 
 export const dividerClassNames = cva<DividerProps & { emptyChildren: boolean }>(
-    ['nd-divider', 'border-split', 'text-body'],
+    ['nd-divider', 'border-muted', 'text-main'],
     {
         compoundVariants: [
             {
@@ -18,7 +18,7 @@ export const dividerClassNames = cva<DividerProps & { emptyChildren: boolean }>(
             {
                 emptyChildren: true,
                 variant: 'solid',
-                className: ['border-solid'],
+                className: [],
             },
             {
                 emptyChildren: true,

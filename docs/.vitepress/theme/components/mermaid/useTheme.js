@@ -64,7 +64,7 @@ const useTheme = () => {
         return {
             darkMode: darkScheme,
             fontSize: '14px',
-            fontFamily: 'var(--vp-font-family-base)',
+            fontFamily: 'var(--nd-font-family)',
             mainBkg: resolveCssColor('--nd-color-neutral-5'),
             primaryColor: resolveCssColor('--nd-color-brand-60'),
             primaryTextColor: resolveCssColor('--nd-color-neutral-100'),

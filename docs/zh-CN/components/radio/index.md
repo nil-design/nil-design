@@ -75,7 +75,7 @@ const Demo = () => {
       <Radio.Indicator />
     </Radio>
     <Radio>
-      <Radio.Indicator>
+      <Radio.Indicator className="text-brand">
         {checked => (
           <DynamicIcon
             name="alarm"
