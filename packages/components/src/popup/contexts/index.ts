@@ -3,7 +3,7 @@ import { CSSProperties, Dispatch, RefObject, SetStateAction } from 'react';
 import { ArrowOrientation, PopupProps, TriggerAction } from '../interfaces';
 import type { Coords } from '@floating-ui/dom';
 
-export interface PopupContextValue extends Pick<PopupProps, 'size' | 'arrowed' | 'inverse' | 'borderless'> {
+export interface PopupContextValue extends Pick<PopupProps, 'size' | 'arrowed' | 'inverse'> {
     actions: Set<TriggerAction>;
     refs: {
         trigger: RefObject<Element>;

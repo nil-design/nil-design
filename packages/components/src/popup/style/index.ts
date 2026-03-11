@@ -5,29 +5,22 @@ export const triggerClassNames = cva(['nd-popup-trigger']);
 
 export const portalClassNames = cva<PortalProps>(['nd-popup-portal', ['absolute', 'top-0', 'left-0']]);
 
-export const portalContentClassNames = cva<Pick<PopupProps, 'size' | 'inverse' | 'borderless'>>(
-    ['rounded-md', 'shadow-lg'],
-    {
-        variants: {
-            size: {
-                small: ['px-2', 'py-1'],
-                medium: ['px-4', 'py-3'],
-                large: ['px-6', 'py-5'],
-            },
-            inverse: {
-                true: ['bg-inverse', 'text-inverse'],
-                false: ['bg-panel', 'text-body'],
-            },
-            borderless: {
-                true: '',
-                false: ['outline-solid', 'outline-1', 'outline-edge'],
-            },
+export const portalContentClassNames = cva<Pick<PopupProps, 'size' | 'inverse'>>(['rounded-md', 'shadow-lg'], {
+    variants: {
+        size: {
+            small: ['px-2', 'py-1'],
+            medium: ['px-4', 'py-3'],
+            large: ['px-6', 'py-5'],
+        },
+        inverse: {
+            true: ['bg-inverse', 'text-inverse'],
+            false: ['bg-panel', 'text-body'],
         },
     },
-);
+});
 
 export const arrowClassNames = cva<
-    Pick<PopupProps, 'size' | 'arrowed' | 'inverse' | 'borderless'> & {
+    Pick<PopupProps, 'size' | 'arrowed' | 'inverse'> & {
         orientation: ArrowOrientation;
     }
 >(['nd-popup-arrow', 'absolute'], {
@@ -45,10 +38,6 @@ export const arrowClassNames = cva<
             true: ['bg-inverse'],
             false: ['bg-panel'],
         },
-        borderless: {
-            true: '',
-            false: ['border-solid', 'border-edge'],
-        },
         orientation: {
             up: ['transform-[translateY(-50%)_rotate(45deg)]', 'rounded-tl-sm'],
             down: ['transform-[translateY(50%)_rotate(45deg)]', 'rounded-br-sm'],
@@ -58,26 +47,20 @@ export const arrowClassNames = cva<
     },
     compoundVariants: [
         {
-            borderless: false,
             orientation: 'up',
-            className: ['border-l-1', 'border-t-1'],
+            className: ['shadow-[-1px_-1px_0_0_var(--color-overlay)]'],
         },
         {
-            borderless: false,
             orientation: 'down',
-            className: ['border-r-1', 'border-b-1'],
+            className: ['shadow-[1px_1px_0_0_var(--color-overlay)]'],
         },
-
         {
-            borderless: false,
             orientation: 'left',
-            className: ['border-l-1', 'border-b-1'],
+            className: ['shadow-[-1px_1px_0_0_var(--color-overlay)]'],
         },
-
         {
-            borderless: false,
             orientation: 'right',
-            className: ['border-r-1', 'border-t-1'],
+            className: ['shadow-[1px_-1px_0_0_var(--color-overlay)]'],
         },
     ],
 });
