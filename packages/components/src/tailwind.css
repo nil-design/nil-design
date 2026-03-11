@@ -12,7 +12,7 @@
   --nd-shadow-c: 0.008;
 
   /*
-   * brand color scale — high chroma (c=0.11), used for interactive elements
+   * brand color scale
    */
   --nd-color-brand-0: light-dark(
     oklch(99% var(--nd-brand-c) var(--nd-brand-h)),
@@ -68,39 +68,39 @@
   );
 
   /*
-   * neutral color scale — low chroma (c=0.006), used for text, borders, and backgrounds
+   * neutral color scale
    */
   --nd-color-neutral-0: light-dark(
     oklch(99.5% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 99 -> 99.5 极致干净的底色 */ oklch(14% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(14% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-5: light-dark(
     oklch(98% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 97 -> 98 */ oklch(17% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(17% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-10: light-dark(
     oklch(96.5% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 94 -> 96.5 */ oklch(21% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(21% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-15: light-dark(
     oklch(94% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 90 -> 94 border/muted-hover 不再脏 */ oklch(26% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(26% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-20: light-dark(
     oklch(91% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 85 -> 91 emphasized 背景依然保持通透 */ oklch(32% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(32% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-30: light-dark(
     oklch(84% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 76 -> 84 */ oklch(42% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(42% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-40: light-dark(
     oklch(73% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 67 -> 73 */ oklch(50% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(50% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-50: light-dark(
     oklch(60% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 58 -> 60 subtle text 保证可读性 */ oklch(58% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(58% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-60: light-dark(
     oklch(50% var(--nd-neutral-c) var(--nd-brand-h)),
@@ -108,19 +108,19 @@
   );
   --nd-color-neutral-70: light-dark(
     oklch(40% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 42 -> 40 muted text 加深，提升对比度 */ oklch(76% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(76% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-80: light-dark(
     oklch(30% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 35 -> 30 */ oklch(85% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(85% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-90: light-dark(
     oklch(20% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* 25 -> 20 */ oklch(93% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(93% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-100: light-dark(
     oklch(15% var(--nd-neutral-c) var(--nd-brand-h)),
-    /* main text 保持 15%，不过于死黑 */ oklch(98% var(--nd-neutral-c) var(--nd-brand-h))
+    oklch(98% var(--nd-neutral-c) var(--nd-brand-h))
   );
 
   /*
