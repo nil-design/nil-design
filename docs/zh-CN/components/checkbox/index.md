@@ -75,7 +75,7 @@ const Demo = () => {
       <Checkbox.Indicator />
     </Checkbox>
     <Checkbox>
-      <Checkbox.Indicator>
+      <Checkbox.Indicator className="text-brand">
         {checked => (
           <DynamicIcon
             name="like"
