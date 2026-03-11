@@ -4,8 +4,8 @@ const useTheme = (dark = false) => {
     const nextTheme = useMemo(
         () => ({
             plain: {
-                color: dark ? '#E1E4E8' : '#24292E',
-                backgroundColor: 'var(--vp-code-block-bg)',
+                color: 'var(--text-color-main)',
+                backgroundColor: 'var(--background-color-subtle)',
                 fontFamily: 'var(--vp-font-family-mono)',
                 fontSize: '14px',
                 lineHeight: 'var(--vp-code-line-height)',

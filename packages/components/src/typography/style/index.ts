@@ -7,11 +7,11 @@ export const linkClassNames = cva<LinkProps>(
         'nd-link',
         [
             'font-nd',
-            'text-link',
+            'text-brand',
             'text-[length:inherit]',
             'cursor-pointer',
-            'enabled:hover:text-link-hover',
-            'enabled:active:text-link-active',
+            'enabled:hover:text-brand-hover',
+            'enabled:active:text-brand-active',
         ],
         DISABLED_CLS,
     ],
@@ -31,7 +31,7 @@ export const linkClassNames = cva<LinkProps>(
 
 export const paragraphClassNames = cva<ParagraphProps>([
     'nd-paragraph',
-    ['font-nd', 'text-body', 'text-[length:inherit]'],
+    ['font-nd', 'text-main', 'text-[length:inherit]'],
     ['mt-0', 'mb-[1em]'],
 ]);
 
@@ -39,7 +39,7 @@ export const textClassNames = cva<TextProps>(['nd-text', ['font-nd', 'text-[leng
     variants: {
         secondary: {
             true: 'text-muted',
-            false: 'text-body',
+            false: 'text-main',
         },
         disabled: {
             true: 'disabled',
@@ -55,23 +55,23 @@ export const textTagClassNames = cva<{ tag: TextTag }>('', {
             del: '',
             u: ['underline'],
             i: '',
-            mark: ['bg-brand', 'text-on-brand'],
+            mark: ['bg-brand', 'text-brand-contrast'],
             code: [
                 ['ps-1.5', 'pe-1.5'],
                 ['bg-brand-subtle', 'text-sm', 'rounded-sm'],
-                ['border', 'border-solid', 'border-brand-subtle'],
+                ['border', 'border-brand-subtle'],
             ],
             kbd: [
                 ['ps-1.5', 'pe-1.5'],
                 ['text-sm', 'rounded-sm'],
-                ['border', 'border-b-2', 'border-solid', 'border-brand-subtle'],
+                ['border', 'border-b-2', 'border-brand-subtle'],
             ],
         },
     },
 });
 
 export const titleClassNames = cva<TitleProps>(
-    ['nd-title', ['font-nd', 'font-semibold', 'text-body'], ['mt-[1em]', 'mb-[0.5em]']],
+    ['nd-title', ['font-nd', 'font-semibold', 'text-main'], ['mt-[1em]', 'mb-[0.5em]']],
     {
         variants: {
             level: {

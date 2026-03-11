@@ -13,8 +13,8 @@ export const portalContentClassNames = cva<Pick<PopupProps, 'size' | 'inverse'>>
             large: ['px-6', 'py-5'],
         },
         inverse: {
-            true: ['bg-inverse', 'text-inverse'],
-            false: ['bg-panel', 'text-body'],
+            true: ['bg-page-inverse', 'text-main-inverse'],
+            false: ['bg-panel', 'text-main'],
         },
     },
 });
@@ -35,7 +35,7 @@ export const arrowClassNames = cva<
             false: ['opacity-0', 'invisible'],
         },
         inverse: {
-            true: ['bg-inverse'],
+            true: ['bg-page-inverse'],
             false: ['bg-panel'],
         },
         orientation: {
@@ -48,19 +48,19 @@ export const arrowClassNames = cva<
     compoundVariants: [
         {
             orientation: 'up',
-            className: ['shadow-[-1px_-1px_0_0_var(--color-overlay)]'],
+            className: ['shadow-[-1px_-1px_0_0_var(--border-color-subtle)]'],
         },
         {
             orientation: 'down',
-            className: ['shadow-[1px_1px_0_0_var(--color-overlay)]'],
+            className: ['shadow-[1px_1px_0_0_var(--border-color-subtle)]'],
         },
         {
             orientation: 'left',
-            className: ['shadow-[-1px_1px_0_0_var(--color-overlay)]'],
+            className: ['shadow-[-1px_1px_0_0_var(--border-color-subtle)]'],
         },
         {
             orientation: 'right',
-            className: ['shadow-[1px_-1px_0_0_var(--color-overlay)]'],
+            className: ['shadow-[1px_-1px_0_0_var(--border-color-subtle)]'],
         },
     ],
 });

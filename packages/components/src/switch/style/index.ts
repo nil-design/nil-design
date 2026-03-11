@@ -36,7 +36,7 @@ export const switchClassNames = cva<SwitchProps & { checked: boolean }>(
             {
                 checked: false,
                 variant: 'outlined',
-                className: ['outline-edge', 'enabled:hover:outline-brand-hover'],
+                className: ['outline-main', 'enabled:hover:outline-brand-hover'],
             },
         ],
     },
@@ -47,7 +47,7 @@ export const trackClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'> & Pi
         'h-[var(--nd-switch-height)]',
         'transition-[margin-inline,background-color]',
         ['flex', 'justify-center', 'items-center'],
-        ['text-center', 'text-on-brand'],
+        ['text-center', 'text-brand-contrast'],
     ],
     {
         variants: {
@@ -89,7 +89,7 @@ export const trackClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'> & Pi
             {
                 variant: 'solid',
                 checked: false,
-                className: ['bg-fill', 'group-enabled:group-hover:bg-fill-hover'],
+                className: ['bg-emphasized', 'group-enabled:group-hover:bg-emphasized-hover'],
             },
             {
                 variant: 'outlined',
@@ -104,12 +104,12 @@ export const thumbClassNames = cva<Pick<SwitchProps, 'variant' | 'shape' | 'chec
         'h-[var(--nd-switch-height)]',
         ['flex', 'justify-center', 'items-center'],
         ['absolute', 'aspect-square', 'scale-80'],
-        ['text-on-brand', 'transition-[left,background-color]'],
+        ['text-brand-contrast', 'transition-[left,background-color]'],
     ],
     {
         variants: {
             variant: {
-                solid: ['bg-on-brand', 'top-0'],
+                solid: ['bg-brand-contrast', 'top-0'],
                 outlined: ['bg-brand', 'top-0', 'group-enabled:group-hover:bg-brand-hover'],
             },
             shape: {

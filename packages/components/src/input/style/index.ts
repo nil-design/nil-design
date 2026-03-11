@@ -38,18 +38,18 @@ export const inputWrapperClassNames = cva<InputProps>(
         'nd-input-wrapper',
         'group',
         ['inline-flex', 'items-center', 'box-border', 'font-nd', 'transition-colors', 'overflow-hidden'],
-        ['border-solid', 'border', 'enabled:focus-within:border-brand'],
+        ['border', 'enabled:focus-within:border-brand'],
         DISABLED_CLS,
     ],
     {
         variants: {
             variant: {
-                outlined: ['bg-transparent', 'border-edge', 'enabled:hover:border-brand-hover'],
+                outlined: ['bg-transparent', 'border-main', 'enabled:hover:border-brand-hover'],
                 filled: [
-                    'bg-surface',
-                    'border-surface',
-                    'enabled:[&:hover:not(:focus-within)]:bg-surface-hover',
-                    'enabled:[&:hover:not(:focus-within)]:border-surface-hover',
+                    'bg-muted',
+                    'border-subtle',
+                    'enabled:[&:hover:not(:focus-within)]:bg-muted-hover',
+                    'enabled:[&:hover:not(:focus-within)]:border-muted',
                 ],
             },
             size: {
@@ -79,7 +79,7 @@ export const inputClassNames = cva<InputProps>(
         'outline-none',
         'p-0',
         'm-0',
-        'text-body',
+        'text-main',
         'placeholder:text-subtle',
         'disabled:cursor-not-allowed',
         /* Hide the default number input styles */
@@ -137,7 +137,7 @@ export const prependClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { ty
                 filled: [],
             },
             type: {
-                string: ['inline-flex', 'items-center', 'border-solid', 'border'],
+                string: ['inline-flex', 'items-center', 'border'],
                 element: ['rounded-r-none'],
             },
             size: {
@@ -150,12 +150,12 @@ export const prependClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { ty
             {
                 type: 'string',
                 variant: 'outlined',
-                className: ['bg-surface', 'border-edge', 'text-muted'],
+                className: ['bg-muted', 'border-main', 'text-muted'],
             },
             {
                 type: 'string',
                 variant: 'filled',
-                className: ['bg-brand', 'border-transparent', 'text-on-brand'],
+                className: ['bg-brand', 'border-transparent', 'text-brand-contrast'],
             },
             {
                 type: 'string',
@@ -181,7 +181,7 @@ export const appendClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { typ
     {
         variants: {
             type: {
-                string: ['inline-flex', 'items-center', 'border-solid', 'border'],
+                string: ['inline-flex', 'items-center', 'border'],
                 element: ['rounded-l-none', 'h-auto'],
             },
             size: {
@@ -194,12 +194,12 @@ export const appendClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { typ
             {
                 type: 'string',
                 variant: 'outlined',
-                className: ['bg-surface', 'border-edge', 'text-muted'],
+                className: ['bg-muted', 'border-main', 'text-muted'],
             },
             {
                 type: 'string',
                 variant: 'filled',
-                className: ['bg-brand', 'border-transparent', 'text-on-brand'],
+                className: ['bg-brand', 'border-transparent', 'text-brand-contrast'],
             },
             {
                 type: 'string',

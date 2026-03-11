@@ -1,12 +1,12 @@
 <template>
-    <div class="flex-shrink-0 border-t border-split flex gap-2 px-3 py-2.5">
+    <div class="flex-shrink-0 bg-page border-t border-muted flex gap-2 px-3 py-2.5">
         <textarea
             ref="textareaRef"
             :value="modelValue"
             rows="1"
             :class="[
                 'flex-1 resize-none bg-transparent outline-none border-0 leading-[1.375rem]',
-                'placeholder:text-subtle text-body text-md',
+                'placeholder:text-subtle text-main text-md',
                 'max-h-28 overflow-y-auto',
                 disabled ? 'cursor-not-allowed opacity-60' : '',
             ]"
@@ -18,10 +18,10 @@
         <button
             :class="[
                 'self-end flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center',
-                'bg-brand text-on-brand transition-[opacity,background-color]',
+                'bg-brand text-brand-contrast transition-[opacity,background-color]',
                 'enabled:hover:bg-brand-hover',
                 'enabled:active:bg-brand-active',
-                sendable ? 'cursor-pointer' : 'opacity-40 cursor-not-allowed',
+                sendable ? 'cursor-pointer' : 'opacity-50 cursor-not-allowed',
             ]"
             :disabled="!sendable"
             @click="handleSend"
