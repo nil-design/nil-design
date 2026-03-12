@@ -26,10 +26,12 @@
     ],
     "scripts": {
         "build": "vite build --mode PROD",
-        "dev": "vite build --mode DEV --watch"
+        "dev": "vite build --mode DEV --watch",
+        "test": "vitest run --globals",
+        "test:coverage": "vitest run --globals --coverage",
+        "typecheck": "tsc --noEmit -p tsconfig.json"
     },
     "peerDependencies": {
-        "@nild/shared": "workspace:*",
-        "react": "^18.2.0"
+        "@nild/shared": "workspace:*"
     }
 }

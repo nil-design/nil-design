@@ -2,7 +2,7 @@
  * Standard language identifier type
  * Contains ISO 639-1 language codes and common regional identifiers
  */
-export type Language =
+export type KnownLanguage =
     // English variants
     | 'en'
     | 'en-US'
@@ -134,6 +134,11 @@ export type Language =
     // Ukrainian
     | 'uk'
     | 'uk-UA';
+
+/**
+ * Language accepts known presets while allowing custom identifiers.
+ */
+export type Language = KnownLanguage | (string & {});
 
 export interface Locale {
     [key: string]: string | Locale;
