@@ -1,12 +1,12 @@
 import { escapeRegExp } from '@nild/shared';
-import type { PluginCreator } from '../PluginManager';
+import type { PluginFactory } from '../I18n';
 
 interface InterpolatorOptions {
     openToken?: string;
     closeToken?: string;
 }
 
-const interpolator: PluginCreator<
+const interpolator: PluginFactory<
     InterpolatorOptions,
     {
         parameters?: Record<string, unknown>;
@@ -46,7 +46,7 @@ const interpolator: PluginCreator<
 
     return {
         name: 'interpolator',
-        apply(text: string, context): string {
+        transform(text: string, context): string {
             const { parameters = {} } = context;
 
             return interpolate(text, parameters);
