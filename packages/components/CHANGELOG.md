@@ -1,5 +1,15 @@
 # @nild/components
 
+## 0.0.36
+
+### Patch Changes
+
+- f440e7c: refactor: style performance optimization
+- Updated dependencies [c8de8ae]
+  - @nild/shared@0.0.15
+  - @nild/hooks@0.0.17
+  - @nild/icons@0.0.17
+
 ## 0.0.35
 
 ### Patch Changes
