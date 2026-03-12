@@ -1,7 +1,7 @@
 import { cnMerge } from '@nild/shared';
 import { forwardRef } from 'react';
 import { LinkProps } from './interfaces';
-import { linkClassNames } from './style';
+import variants from './style';
 
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     ({ className, children, underlined = false, disabled = false, href = '#', ...restProps }, ref) => {
@@ -11,7 +11,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
             <a
                 {...restProps}
                 href={resolvedHref}
-                className={cnMerge(linkClassNames({ underlined, disabled }), className)}
+                className={cnMerge(variants.link({ underlined, disabled }), className)}
                 ref={ref}
             >
                 {children}

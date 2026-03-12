@@ -2,7 +2,7 @@ import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
 import { RadioProps, GroupProps } from '../interfaces';
 
-export const radioClassNames = cva<Pick<RadioProps, 'size' | 'disabled'>>(
+const radio = cva<Pick<RadioProps, 'size' | 'disabled'>>(
     ['nd-radio', 'group', ['flex', 'items-center'], 'cursor-pointer', DISABLED_CLS],
     {
         variants: {
@@ -19,25 +19,22 @@ export const radioClassNames = cva<Pick<RadioProps, 'size' | 'disabled'>>(
     },
 );
 
-export const indicatorClassNames = cva<Pick<RadioProps, 'size'>>(
-    ['relative', ['flex', 'items-center', 'justify-center']],
-    {
-        variants: {
-            size: {
-                small: 'size-3.5 text-sm',
-                medium: 'size-4 text-md',
-                large: 'size-4.5 text-lg',
-            },
+const indicator = cva<Pick<RadioProps, 'size'>>(['relative', ['flex', 'items-center', 'justify-center']], {
+    variants: {
+        size: {
+            small: 'size-3.5 text-sm',
+            medium: 'size-4 text-md',
+            large: 'size-4.5 text-lg',
         },
     },
-);
+});
 
-export const indicatorInputClassNames = cva<object>([
+const indicatorInput = cva<object>([
     ['absolute', 'inset-0', 'opacity-0'],
     ['group-enabled:cursor-pointer', 'group-disabled:cursor-not-allowed'],
 ]);
 
-export const defaultIndicatorOuterCircleClassNames = cva<Pick<RadioProps, 'variant' | 'checked'>>(
+const defaultIndicatorOuterCircle = cva<Pick<RadioProps, 'variant' | 'checked'>>(
     ['stroke-1', 'r-9', 'transition-[stroke,fill]', 'group-enabled:group-hover:stroke-brand-hover'],
     {
         compoundVariants: [
@@ -59,35 +56,32 @@ export const defaultIndicatorOuterCircleClassNames = cva<Pick<RadioProps, 'varia
     },
 );
 
-export const defaultIndicatorInnerCircleClassNames = cva<Pick<RadioProps, 'variant' | 'checked'>>(
-    ['transition-[fill]'],
-    {
-        variants: {
-            variant: {
-                solid: 'r-4.5',
-                outlined: 'r-5.5',
-            },
+const defaultIndicatorInnerCircle = cva<Pick<RadioProps, 'variant' | 'checked'>>(['transition-[fill]'], {
+    variants: {
+        variant: {
+            solid: 'r-4.5',
+            outlined: 'r-5.5',
         },
-        compoundVariants: [
-            {
-                checked: true,
-                variant: 'solid',
-                className: ['fill-brand-contrast'],
-            },
-            {
-                checked: true,
-                variant: 'outlined',
-                className: ['fill-brand', 'group-enabled:group-hover:fill-brand-hover'],
-            },
-            {
-                checked: false,
-                className: ['fill-transparent'],
-            },
-        ],
     },
-);
+    compoundVariants: [
+        {
+            checked: true,
+            variant: 'solid',
+            className: ['fill-brand-contrast'],
+        },
+        {
+            checked: true,
+            variant: 'outlined',
+            className: ['fill-brand', 'group-enabled:group-hover:fill-brand-hover'],
+        },
+        {
+            checked: false,
+            className: ['fill-transparent'],
+        },
+    ],
+});
 
-export const labelClassNames = cva<Pick<RadioProps, 'size'>>(['text-sm'], {
+const label = cva<Pick<RadioProps, 'size'>>(['text-sm'], {
     variants: {
         size: {
             small: 'text-sm',
@@ -97,7 +91,7 @@ export const labelClassNames = cva<Pick<RadioProps, 'size'>>(['text-sm'], {
     },
 });
 
-export const groupClassNames = cva<Pick<GroupProps, 'direction'>>(['nd-radio-group', ['flex', 'gap-x-4', 'gap-y-2']], {
+const group = cva<Pick<GroupProps, 'direction'>>(['nd-radio-group', ['flex', 'gap-x-4', 'gap-y-2']], {
     variants: {
         direction: {
             horizontal: 'flex-row flex-wrap',
@@ -105,3 +99,13 @@ export const groupClassNames = cva<Pick<GroupProps, 'direction'>>(['nd-radio-gro
         },
     },
 });
+
+export default {
+    radio,
+    indicator,
+    indicatorInput,
+    defaultIndicatorOuterCircle,
+    defaultIndicatorInnerCircle,
+    label,
+    group,
+};

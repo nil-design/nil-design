@@ -3,7 +3,7 @@ import { cnMerge, forwardRefWithGenerics } from '@nild/shared';
 import { ForwardedRef } from 'react';
 import { GroupProvider } from './contexts';
 import { GroupProps } from './interfaces';
-import { groupClassNames } from './style';
+import variants from './style';
 
 const Group = forwardRefWithGenerics(
     <T,>(
@@ -33,7 +33,7 @@ const Group = forwardRefWithGenerics(
 
         return (
             <GroupProvider value={{ variant, size, disabled, value, setValue: updateValue }}>
-                <div {...restProps} className={cnMerge(groupClassNames({ direction }), className)} ref={ref}>
+                <div {...restProps} className={cnMerge(variants.group({ direction }), className)} ref={ref}>
                     {children}
                 </div>
             </GroupProvider>

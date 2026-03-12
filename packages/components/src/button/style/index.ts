@@ -2,7 +2,7 @@ import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
 import { ButtonProps, GroupProps } from '../interfaces';
 
-export const buttonClassNames = cva<ButtonProps>(
+const button = cva<ButtonProps>(
     ['nd-button', ['font-nd', 'cursor-pointer', 'transition-colors'], ['whitespace-nowrap', 'truncate'], DISABLED_CLS],
     {
         variants: {
@@ -68,7 +68,7 @@ export const buttonClassNames = cva<ButtonProps>(
     },
 );
 
-export const groupClassNames = cva<GroupProps>(['nd-button-group', ['flex']], {
+const group = cva<GroupProps>(['nd-button-group', ['flex']], {
     variants: {
         direction: {
             horizontal: '',
@@ -77,7 +77,7 @@ export const groupClassNames = cva<GroupProps>(['nd-button-group', ['flex']], {
     },
 });
 
-export const groupedButtonClassNames = cva<GroupProps & { first?: boolean; last?: boolean }>('', {
+const groupedButton = cva<GroupProps & { first?: boolean; last?: boolean }>('', {
     compoundVariants: [
         {
             first: true,
@@ -142,3 +142,9 @@ export const groupedButtonClassNames = cva<GroupProps & { first?: boolean; last?
         },
     ],
 });
+
+export default {
+    button,
+    group,
+    groupedButton,
+};

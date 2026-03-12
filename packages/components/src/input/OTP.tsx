@@ -12,7 +12,7 @@ import {
 } from 'react';
 import Input from './Input';
 import { OTPProps, OTPRef } from './interfaces';
-import { otpInputWrapperClassNames, otpWrapperClassNames } from './style';
+import variants from './style';
 
 const OTP = forwardRef<OTPRef, OTPProps>(
     (
@@ -159,7 +159,7 @@ const OTP = forwardRef<OTPRef, OTPProps>(
 
         return (
             <span
-                className={cnMerge(otpWrapperClassNames({ block }), className)}
+                className={cnMerge(variants.otpWrapper({ block }), className)}
                 /**
                  * Why not use onPaste?
                  *
@@ -174,7 +174,7 @@ const OTP = forwardRef<OTPRef, OTPProps>(
                 {Array.from({ length }).map((_, index) => (
                     <Fragment key={index}>
                         <Input
-                            className={otpInputWrapperClassNames({ block, size })}
+                            className={variants.otpInputWrapper({ block, size })}
                             type={type}
                             size={size}
                             placeholder={placeholder?.[index]}

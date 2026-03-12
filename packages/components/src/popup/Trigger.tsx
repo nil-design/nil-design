@@ -3,7 +3,7 @@ import { cnJoin, mergeRefs } from '@nild/shared';
 import { ReactElement, isValidElement, cloneElement, Children, FC } from 'react';
 import { usePopupContext } from './contexts';
 import { TriggerProps } from './interfaces';
-import { triggerClassNames } from './style';
+import variants from './style';
 
 const Trigger: FC<TriggerProps> = ({ children }) => {
     const { actions, refs, setOpen, enter, leave } = usePopupContext();
@@ -63,7 +63,7 @@ const Trigger: FC<TriggerProps> = ({ children }) => {
 
     return cloneElement(child as ReactElement, {
         ...child?.props,
-        className: cnJoin(triggerClassNames(), child?.props?.className),
+        className: cnJoin(variants.trigger(), child?.props?.className),
         onMouseEnter: handleMouseEnter,
         onMouseLeave: handleMouseLeave,
         onFocus: handleFocus,

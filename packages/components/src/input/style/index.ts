@@ -2,7 +2,7 @@ import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
 import { InputProps, OTPProps } from '../interfaces';
 
-export const compositeClassNames = cva<{ block?: boolean }>(['nd-input-composite', 'inline-flex', 'items-stretch'], {
+const composite = cva<{ block?: boolean }>(['nd-input-composite', 'inline-flex', 'items-stretch'], {
     variants: {
         block: {
             true: ['flex', 'w-full'],
@@ -11,29 +11,30 @@ export const compositeClassNames = cva<{ block?: boolean }>(['nd-input-composite
     },
 });
 
-export const compositedInputWrapperClassNames = cva<
-    Pick<InputProps, 'variant'> & { prepended?: boolean; appended?: boolean }
->(['flex-auto'], {
-    variants: {
-        prepended: {
-            true: ['rounded-l-none'],
-            false: '',
+const compositedInputWrapper = cva<Pick<InputProps, 'variant'> & { prepended?: boolean; appended?: boolean }>(
+    ['flex-auto'],
+    {
+        variants: {
+            prepended: {
+                true: ['rounded-l-none'],
+                false: '',
+            },
+            appended: {
+                true: ['rounded-r-none'],
+                false: '',
+            },
         },
-        appended: {
-            true: ['rounded-r-none'],
-            false: '',
-        },
+        compoundVariants: [
+            {
+                variant: 'outlined',
+                appended: true,
+                className: ['mr-[-1px]', 'hover:z-1', 'focus-within:z-1'],
+            },
+        ],
     },
-    compoundVariants: [
-        {
-            variant: 'outlined',
-            appended: true,
-            className: ['mr-[-1px]', 'hover:z-1', 'focus-within:z-1'],
-        },
-    ],
-});
+);
 
-export const inputWrapperClassNames = cva<InputProps>(
+const inputWrapper = cva<InputProps>(
     [
         'nd-input-wrapper',
         'group',
@@ -69,7 +70,7 @@ export const inputWrapperClassNames = cva<InputProps>(
     },
 );
 
-export const inputClassNames = cva<InputProps>(
+const input = cva<InputProps>(
     [
         'nd-input',
         'flex-auto',
@@ -102,131 +103,119 @@ export const inputClassNames = cva<InputProps>(
     },
 );
 
-export const prefixClassNames = cva<InputProps>(
-    ['nd-input-prefix', 'shrink-0', 'h-full', 'inline-flex', 'items-center', 'text-muted'],
-    {
-        variants: {
-            size: {
-                small: ['pl-2', 'text-sm'],
-                medium: ['pl-3', 'text-md'],
-                large: ['pl-4', 'text-lg'],
-            },
+const prefix = cva<InputProps>(['nd-input-prefix', 'shrink-0', 'h-full', 'inline-flex', 'items-center', 'text-muted'], {
+    variants: {
+        size: {
+            small: ['pl-2', 'text-sm'],
+            medium: ['pl-3', 'text-md'],
+            large: ['pl-4', 'text-lg'],
         },
     },
-);
+});
 
-export const suffixClassNames = cva<InputProps>(
-    ['nd-input-suffix', 'shrink-0', 'h-full', 'inline-flex', 'items-center', 'text-muted'],
-    {
-        variants: {
-            size: {
-                small: ['pr-2', 'text-sm'],
-                medium: ['pr-3', 'text-md'],
-                large: ['pr-4', 'text-lg'],
-            },
+const suffix = cva<InputProps>(['nd-input-suffix', 'shrink-0', 'h-full', 'inline-flex', 'items-center', 'text-muted'], {
+    variants: {
+        size: {
+            small: ['pr-2', 'text-sm'],
+            medium: ['pr-3', 'text-md'],
+            large: ['pr-4', 'text-lg'],
         },
     },
-);
+});
 
-export const prependClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { type: 'string' | 'element' }>(
-    ['shrink-0'],
-    {
-        variants: {
-            variant: {
-                outlined: ['mr-[-1px]', 'hover:z-1', 'focus:z-1', 'focus-within:z-1'],
-                filled: [],
-            },
-            type: {
-                string: ['inline-flex', 'items-center', 'border'],
-                element: ['rounded-r-none'],
-            },
-            size: {
-                small: ['h-6', 'text-sm', 'rounded-l-sm'],
-                medium: ['h-8', 'text-md', 'rounded-l-md'],
-                large: ['h-10', 'text-lg', 'rounded-l-md'],
-            },
+const prepend = cva<Pick<InputProps, 'variant' | 'size'> & { type: 'string' | 'element' }>(['shrink-0'], {
+    variants: {
+        variant: {
+            outlined: ['mr-[-1px]', 'hover:z-1', 'focus:z-1', 'focus-within:z-1'],
+            filled: [],
         },
-        compoundVariants: [
-            {
-                type: 'string',
-                variant: 'outlined',
-                className: ['bg-muted', 'border-main', 'text-muted'],
-            },
-            {
-                type: 'string',
-                variant: 'filled',
-                className: ['bg-brand', 'border-transparent', 'text-brand-contrast'],
-            },
-            {
-                type: 'string',
-                size: 'small',
-                className: ['px-2'],
-            },
-            {
-                type: 'string',
-                size: 'medium',
-                className: ['px-3'],
-            },
-            {
-                type: 'string',
-                size: 'large',
-                className: ['px-4'],
-            },
-        ],
+        type: {
+            string: ['inline-flex', 'items-center', 'border'],
+            element: ['rounded-r-none'],
+        },
+        size: {
+            small: ['h-6', 'text-sm', 'rounded-l-sm'],
+            medium: ['h-8', 'text-md', 'rounded-l-md'],
+            large: ['h-10', 'text-lg', 'rounded-l-md'],
+        },
     },
-);
+    compoundVariants: [
+        {
+            type: 'string',
+            variant: 'outlined',
+            className: ['bg-muted', 'border-main', 'text-muted'],
+        },
+        {
+            type: 'string',
+            variant: 'filled',
+            className: ['bg-brand', 'border-transparent', 'text-brand-contrast'],
+        },
+        {
+            type: 'string',
+            size: 'small',
+            className: ['px-2'],
+        },
+        {
+            type: 'string',
+            size: 'medium',
+            className: ['px-3'],
+        },
+        {
+            type: 'string',
+            size: 'large',
+            className: ['px-4'],
+        },
+    ],
+});
 
-export const appendClassNames = cva<Pick<InputProps, 'variant' | 'size'> & { type: 'string' | 'element' }>(
-    ['shrink-0'],
-    {
-        variants: {
-            type: {
-                string: ['inline-flex', 'items-center', 'border'],
-                element: ['rounded-l-none', 'h-auto'],
-            },
-            size: {
-                small: ['h-6', 'text-sm', 'rounded-r-sm'],
-                medium: ['h-8', 'text-md', 'rounded-r-md'],
-                large: ['h-10', 'text-lg', 'rounded-r-md'],
-            },
+const append = cva<Pick<InputProps, 'variant' | 'size'> & { type: 'string' | 'element' }>(['shrink-0'], {
+    variants: {
+        type: {
+            string: ['inline-flex', 'items-center', 'border'],
+            element: ['rounded-l-none', 'h-auto'],
         },
-        compoundVariants: [
-            {
-                type: 'string',
-                variant: 'outlined',
-                className: ['bg-muted', 'border-main', 'text-muted'],
-            },
-            {
-                type: 'string',
-                variant: 'filled',
-                className: ['bg-brand', 'border-transparent', 'text-brand-contrast'],
-            },
-            {
-                type: 'string',
-                size: 'small',
-                className: ['px-2'],
-            },
-            {
-                type: 'string',
-                size: 'medium',
-                className: ['px-3'],
-            },
-            {
-                type: 'string',
-                size: 'large',
-                className: ['px-4'],
-            },
-        ],
+        size: {
+            small: ['h-6', 'text-sm', 'rounded-r-sm'],
+            medium: ['h-8', 'text-md', 'rounded-r-md'],
+            large: ['h-10', 'text-lg', 'rounded-r-md'],
+        },
     },
-);
+    compoundVariants: [
+        {
+            type: 'string',
+            variant: 'outlined',
+            className: ['bg-muted', 'border-main', 'text-muted'],
+        },
+        {
+            type: 'string',
+            variant: 'filled',
+            className: ['bg-brand', 'border-transparent', 'text-brand-contrast'],
+        },
+        {
+            type: 'string',
+            size: 'small',
+            className: ['px-2'],
+        },
+        {
+            type: 'string',
+            size: 'medium',
+            className: ['px-3'],
+        },
+        {
+            type: 'string',
+            size: 'large',
+            className: ['px-4'],
+        },
+    ],
+});
 
 /**
  * Preset component styles
  */
 
-export const searchIconClassNames = cva<InputProps>(['group-focus-within:text-brand']);
+const searchIcon = cva<InputProps>(['group-focus-within:text-brand']);
 
-export const otpWrapperClassNames = cva<Pick<OTPProps, 'block'>>(['gap-2', 'items-center'], {
+const otpWrapper = cva<Pick<OTPProps, 'block'>>(['gap-2', 'items-center'], {
     variants: {
         block: {
             true: ['flex', 'w-full'],
@@ -235,25 +224,36 @@ export const otpWrapperClassNames = cva<Pick<OTPProps, 'block'>>(['gap-2', 'item
     },
 });
 
-export const otpInputWrapperClassNames = cva<Pick<InputProps, 'block' | 'size'>>(
-    ['flex-auto', 'min-w-0', 'text-center'],
-    {
-        compoundVariants: [
-            {
-                size: 'small',
-                block: false,
-                className: ['w-6'],
-            },
-            {
-                size: 'medium',
-                block: false,
-                className: ['w-8'],
-            },
-            {
-                size: 'large',
-                block: false,
-                className: ['w-10'],
-            },
-        ],
-    },
-);
+const otpInputWrapper = cva<Pick<InputProps, 'block' | 'size'>>(['flex-auto', 'min-w-0', 'text-center'], {
+    compoundVariants: [
+        {
+            size: 'small',
+            block: false,
+            className: ['w-6'],
+        },
+        {
+            size: 'medium',
+            block: false,
+            className: ['w-8'],
+        },
+        {
+            size: 'large',
+            block: false,
+            className: ['w-10'],
+        },
+    ],
+});
+
+export default {
+    composite,
+    compositedInputWrapper,
+    inputWrapper,
+    input,
+    prefix,
+    suffix,
+    prepend,
+    append,
+    searchIcon,
+    otpWrapper,
+    otpInputWrapper,
+};

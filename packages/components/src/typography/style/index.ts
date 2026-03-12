@@ -2,7 +2,7 @@ import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
 import { LinkProps, ParagraphProps, TextProps, TextTag, TitleProps, TypographyProps } from '../interfaces';
 
-export const linkClassNames = cva<LinkProps>(
+const link = cva<LinkProps>(
     [
         'nd-link',
         [
@@ -29,13 +29,13 @@ export const linkClassNames = cva<LinkProps>(
     },
 );
 
-export const paragraphClassNames = cva<ParagraphProps>([
+const paragraph = cva<ParagraphProps>([
     'nd-paragraph',
     ['font-nd', 'text-main', 'text-[length:inherit]'],
     ['mt-0', 'mb-[1em]'],
 ]);
 
-export const textClassNames = cva<TextProps>(['nd-text', ['font-nd', 'text-[length:inherit]'], DISABLED_CLS], {
+const text = cva<TextProps>(['nd-text', ['font-nd', 'text-[length:inherit]'], DISABLED_CLS], {
     variants: {
         secondary: {
             true: 'text-muted',
@@ -48,7 +48,7 @@ export const textClassNames = cva<TextProps>(['nd-text', ['font-nd', 'text-[leng
     },
 });
 
-export const textTagClassNames = cva<{ tag: TextTag }>('', {
+const textTag = cva<{ tag: TextTag }>('', {
     variants: {
         tag: {
             strong: '',
@@ -70,20 +70,19 @@ export const textTagClassNames = cva<{ tag: TextTag }>('', {
     },
 });
 
-export const titleClassNames = cva<TitleProps>(
-    ['nd-title', ['font-nd', 'font-semibold', 'text-main'], ['mt-[1em]', 'mb-[0.5em]']],
-    {
-        variants: {
-            level: {
-                1: ['text-6xl'],
-                2: ['text-5xl'],
-                3: ['text-4xl'],
-                4: ['text-3xl'],
-                5: ['text-2xl'],
-                6: ['text-lg'],
-            },
+const title = cva<TitleProps>(['nd-title', ['font-nd', 'font-semibold', 'text-main'], ['mt-[1em]', 'mb-[0.5em]']], {
+    variants: {
+        level: {
+            1: ['text-6xl'],
+            2: ['text-5xl'],
+            3: ['text-4xl'],
+            4: ['text-3xl'],
+            5: ['text-2xl'],
+            6: ['text-lg'],
         },
     },
-);
+});
 
-export const typographyClassNames = cva<TypographyProps>(['nd-typography', ['font-nd', 'text-md']]);
+const typography = cva<TypographyProps>(['nd-typography', ['font-nd', 'text-md']]);
+
+export default { link, paragraph, text, textTag, title, typography };

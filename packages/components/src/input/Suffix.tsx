@@ -2,7 +2,7 @@ import { cnMerge } from '@nild/shared';
 import { forwardRef, isValidElement, ReactElement, ReactNode } from 'react';
 import { useInputContext } from './contexts';
 import { SuffixProps } from './interfaces';
-import { suffixClassNames } from './style';
+import variants from './style';
 
 export const isSuffixElement = (child: ReactNode): child is ReactElement<SuffixProps> => {
     return isValidElement(child) && child.type === Suffix;
@@ -16,7 +16,7 @@ const Suffix = forwardRef<HTMLSpanElement, SuffixProps>((props, ref) => {
         <span
             {...restProps}
             className={cnMerge(
-                suffixClassNames({
+                variants.suffix({
                     size,
                 }),
                 className,

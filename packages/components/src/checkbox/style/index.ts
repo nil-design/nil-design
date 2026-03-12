@@ -2,7 +2,7 @@ import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
 import { CheckboxProps, GroupProps } from '../interfaces';
 
-export const checkboxClassNames = cva<Pick<CheckboxProps, 'size' | 'disabled'>>(
+const checkbox = cva<Pick<CheckboxProps, 'size' | 'disabled'>>(
     ['nd-checkbox', 'group', ['flex', 'items-center'], 'cursor-pointer', DISABLED_CLS],
     {
         variants: {
@@ -19,25 +19,22 @@ export const checkboxClassNames = cva<Pick<CheckboxProps, 'size' | 'disabled'>>(
     },
 );
 
-export const indicatorClassNames = cva<Pick<CheckboxProps, 'size'>>(
-    ['relative', ['flex', 'items-center', 'justify-center']],
-    {
-        variants: {
-            size: {
-                small: 'size-3.5 text-sm',
-                medium: 'size-4 text-md',
-                large: 'size-4.5 text-lg',
-            },
+const indicator = cva<Pick<CheckboxProps, 'size'>>(['relative', ['flex', 'items-center', 'justify-center']], {
+    variants: {
+        size: {
+            small: 'size-3.5 text-sm',
+            medium: 'size-4 text-md',
+            large: 'size-4.5 text-lg',
         },
     },
-);
+});
 
-export const indicatorInputClassNames = cva<object>([
+const indicatorInput = cva<object>([
     ['absolute', 'inset-0', 'opacity-0'],
     ['group-enabled:cursor-pointer', 'group-disabled:cursor-not-allowed'],
 ]);
 
-export const defaultIndicatorBlockClassNames = cva<Pick<CheckboxProps, 'checked' | 'variant'>>(
+const defaultIndicatorBlock = cva<Pick<CheckboxProps, 'checked' | 'variant'>>(
     [
         ['flex', 'items-center', 'justify-center'],
         ['size-full', 'rounded-sm', 'border'],
@@ -70,9 +67,9 @@ export const defaultIndicatorBlockClassNames = cva<Pick<CheckboxProps, 'checked'
     },
 );
 
-export const defaultIndicatorIconClassNames = cva<object>(['w-full']);
+const defaultIndicatorIcon = cva<object>(['w-full']);
 
-export const labelClassNames = cva<Pick<CheckboxProps, 'size'>>(['text-sm'], {
+const label = cva<Pick<CheckboxProps, 'size'>>(['text-sm'], {
     variants: {
         size: {
             small: 'text-sm',
@@ -82,14 +79,21 @@ export const labelClassNames = cva<Pick<CheckboxProps, 'size'>>(['text-sm'], {
     },
 });
 
-export const groupClassNames = cva<Pick<GroupProps, 'direction'>>(
-    ['nd-checkbox-group', ['flex', 'gap-x-4', 'gap-y-2']],
-    {
-        variants: {
-            direction: {
-                horizontal: 'flex-row flex-wrap',
-                vertical: 'flex-col',
-            },
+const group = cva<Pick<GroupProps, 'direction'>>(['nd-checkbox-group', ['flex', 'gap-x-4', 'gap-y-2']], {
+    variants: {
+        direction: {
+            horizontal: 'flex-row flex-wrap',
+            vertical: 'flex-col',
         },
     },
-);
+});
+
+export default {
+    checkbox,
+    indicator,
+    indicatorInput,
+    defaultIndicatorBlock,
+    defaultIndicatorIcon,
+    label,
+    group,
+};

@@ -5,7 +5,7 @@ import { forwardRef } from 'react';
 import Input from './Input';
 import { SearchProps } from './interfaces';
 import Prefix from './Prefix';
-import { searchIconClassNames } from './style';
+import variants from './style';
 
 const Search = forwardRef<HTMLInputElement, SearchProps>(
     (
@@ -25,7 +25,7 @@ const Search = forwardRef<HTMLInputElement, SearchProps>(
         return (
             <Input ref={ref} value={keyword} onChange={handleChange} {...restProps}>
                 <Prefix>
-                    <Icon component={SearchIcon} className={searchIconClassNames()} />
+                    <Icon component={SearchIcon} className={variants.searchIcon()} />
                 </Prefix>
             </Input>
         );

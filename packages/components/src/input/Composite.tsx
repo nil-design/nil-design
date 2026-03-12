@@ -5,7 +5,7 @@ import { CompositeProvider } from './contexts';
 import { isInputElement } from './Input';
 import { CompositeProps } from './interfaces';
 import { isPrependElement } from './Prepend';
-import { compositeClassNames, compositedInputWrapperClassNames } from './style';
+import variants from './style';
 
 const Composite = forwardRef<HTMLDivElement, CompositeProps>(
     (
@@ -42,7 +42,7 @@ const Composite = forwardRef<HTMLDivElement, CompositeProps>(
                 <span
                     ref={ref}
                     className={cnMerge(
-                        compositeClassNames({
+                        variants.composite({
                             block,
                         }),
                         className,
@@ -52,7 +52,7 @@ const Composite = forwardRef<HTMLDivElement, CompositeProps>(
                     {prependChild}
                     {cloneElement(inputChild, {
                         ...inputChild?.props,
-                        className: compositedInputWrapperClassNames({
+                        className: variants.compositedInputWrapper({
                             variant,
                             prepended: !!prependChild,
                             appended: !!appendChild,

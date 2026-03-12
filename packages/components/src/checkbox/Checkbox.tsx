@@ -5,7 +5,7 @@ import { CheckboxProvider, useGroupContext } from './contexts';
 import Indicator from './Indicator';
 import { CheckboxProps } from './interfaces';
 import Label from './Label';
-import { checkboxClassNames } from './style';
+import variants from './style';
 
 const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
     const children: ReactElement[] = [];
@@ -67,7 +67,7 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
 
     return (
         <CheckboxProvider value={{ variant, size, checked, setChecked: updateChecked }}>
-            <label {...restProps} className={cnMerge(checkboxClassNames({ size, disabled }), className)} ref={ref}>
+            <label {...restProps} className={cnMerge(variants.checkbox({ size, disabled }), className)} ref={ref}>
                 {children.map(child =>
                     cloneElement(child, {
                         key: (child.type as typeof Indicator | typeof Label).displayName,

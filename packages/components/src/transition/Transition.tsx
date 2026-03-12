@@ -2,7 +2,7 @@ import { useEffectCallback } from '@nild/hooks';
 import { cnMerge } from '@nild/shared';
 import { FC, ReactElement, Children, useState, isValidElement, cloneElement, useEffect, useRef } from 'react';
 import { Status, TransitionProps } from './interfaces';
-import { transitionClassNames } from './style';
+import variants from './style';
 
 /**
  * @category Components
@@ -117,7 +117,7 @@ const Transition: FC<TransitionProps> = ({ className, children, visible = true }
 
     return cloneElement(resolvedChildRef.current as ReactElement, {
         ...resolvedChildRef.current.props,
-        className: cnMerge(resolvedChildRef.current.props.className, transitionClassNames({ status }), className),
+        className: cnMerge(resolvedChildRef.current.props.className, variants.transition({ status }), className),
         onTransitionEnd: handleTransitionEnd,
     });
 };

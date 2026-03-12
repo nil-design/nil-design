@@ -1,11 +1,11 @@
 import { cva } from '@nild/shared';
 import { ArrowOrientation, PopupProps, PortalProps } from '../interfaces';
 
-export const triggerClassNames = cva(['nd-popup-trigger']);
+const trigger = cva(['nd-popup-trigger']);
 
-export const portalClassNames = cva<PortalProps>(['nd-popup-portal', ['absolute', 'top-0', 'left-0']]);
+const portal = cva<PortalProps>(['nd-popup-portal', ['absolute', 'top-0', 'left-0']]);
 
-export const portalContentClassNames = cva<Pick<PopupProps, 'size' | 'inverse'>>(['rounded-md', 'shadow-lg'], {
+const portalContent = cva<Pick<PopupProps, 'size' | 'inverse'>>(['rounded-md', 'shadow-lg'], {
     variants: {
         size: {
             small: ['px-2', 'py-1'],
@@ -19,7 +19,7 @@ export const portalContentClassNames = cva<Pick<PopupProps, 'size' | 'inverse'>>
     },
 });
 
-export const arrowClassNames = cva<
+const arrow = cva<
     Pick<PopupProps, 'size' | 'arrowed' | 'inverse'> & {
         orientation: ArrowOrientation;
     }
@@ -64,3 +64,5 @@ export const arrowClassNames = cva<
         },
     ],
 });
+
+export default { trigger, portal, portalContent, arrow };
