@@ -3,7 +3,7 @@ import { Children, cloneElement, forwardRef } from 'react';
 import { isButtonElement } from './Button';
 import { GroupProvider } from './contexts';
 import { GroupProps } from './interfaces';
-import { groupedButtonClassNames, groupClassNames } from './style';
+import variants from './style';
 
 const Group = forwardRef<HTMLDivElement, GroupProps>(
     (
@@ -31,11 +31,11 @@ const Group = forwardRef<HTMLDivElement, GroupProps>(
             <GroupProvider value={{ variant, size, equal, disabled }}>
                 {buttonChildren.length === 1 && buttonChildren[0]}
                 {buttonChildren.length > 1 && (
-                    <div {...restProps} className={cnMerge(groupClassNames({ direction }), className)} ref={ref}>
+                    <div {...restProps} className={cnMerge(variants.group({ direction }), className)} ref={ref}>
                         {buttonChildren.map((child, index) =>
                             cloneElement(child, {
                                 ...child.props,
-                                className: groupedButtonClassNames({
+                                className: variants.groupedButton({
                                     first: index === 0,
                                     last: index === buttonChildren.length - 1,
                                     direction,

@@ -4,27 +4,22 @@ import { cnMerge } from '@nild/shared';
 import { forwardRef } from 'react';
 import { useCheckboxContext } from './contexts';
 import { IndicatorProps } from './interfaces';
-import {
-    defaultIndicatorBlockClassNames,
-    defaultIndicatorIconClassNames,
-    indicatorClassNames,
-    indicatorInputClassNames,
-} from './style';
+import variants from './style';
 
 const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(({ className, children, ...restProps }, ref) => {
     const { variant, size, checked, setChecked } = useCheckboxContext();
     const renderBlock =
         children ??
         (checked => (
-            <div className={defaultIndicatorBlockClassNames({ variant, checked })}>
-                <Icon className={defaultIndicatorIconClassNames()} component={CheckSmall} />
+            <div className={variants.defaultIndicatorBlock({ variant, checked })}>
+                <Icon className={variants.defaultIndicatorIcon()} component={CheckSmall} />
             </div>
         ));
 
     return (
-        <div {...restProps} className={cnMerge(indicatorClassNames({ size }), className)} ref={ref}>
+        <div {...restProps} className={cnMerge(variants.indicator({ size }), className)} ref={ref}>
             {renderBlock(!!checked)}
-            <input type="checkbox" className={indicatorInputClassNames()} checked={checked} onChange={setChecked} />
+            <input type="checkbox" className={variants.indicatorInput()} checked={checked} onChange={setChecked} />
         </div>
     );
 });

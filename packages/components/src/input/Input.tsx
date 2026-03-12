@@ -4,7 +4,7 @@ import { forwardRef, Children, ReactElement, ChangeEvent, ReactNode, isValidElem
 import { useCompositeContext, InputProvider } from './contexts';
 import { InputProps } from './interfaces';
 import { isPrefixElement } from './Prefix';
-import { inputClassNames, inputWrapperClassNames } from './style';
+import variants from './style';
 import { isSuffixElement } from './Suffix';
 
 export const isInputElement = (child: ReactNode): child is ReactElement<InputProps> => {
@@ -56,7 +56,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         >
             <span
                 className={cnMerge(
-                    inputWrapperClassNames({
+                    variants.inputWrapper({
                         variant,
                         size,
                         block,
@@ -72,7 +72,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
                     value={value as string | number}
                     onChange={handleChange}
                     disabled={disabled}
-                    className={inputClassNames({ size })}
+                    className={variants.input({ size })}
                     {...restProps}
                 />
                 {suffixChild}

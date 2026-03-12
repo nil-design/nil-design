@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import Arrow from './Arrow';
 import { usePopupContext, usePortalContext } from './contexts';
 import { PortalProps } from './interfaces';
-import { portalClassNames, portalContentClassNames } from './style';
+import variants from './style';
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(
     ({ className, style, children, container = document.body, ...restProps }, ref) => {
@@ -28,7 +28,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
         return createPortal(
             <div
                 {...restProps}
-                className={cnMerge(portalClassNames(), className)}
+                className={cnMerge(variants.portal(), className)}
                 style={{
                     transform: `translate(${coords.x}px, ${coords.y}px)`,
                     ...(getDPR() >= 1.5 && { willChange: 'transform' }),
@@ -40,7 +40,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             >
                 {cloneElement(child as ReactElement, {
                     ...child.props,
-                    className: cnMerge(portalContentClassNames({ size, inverse }), child?.props?.className),
+                    className: cnMerge(variants.portalContent({ size, inverse }), child?.props?.className),
                 })}
                 <Arrow />
             </div>,

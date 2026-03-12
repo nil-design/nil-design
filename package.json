@@ -37,6 +37,7 @@
         "icons:build": "pnpm --filter @nild/icons build",
         "icons:api": "pnpm --filter @nild/icons api",
         "i18n:dev": "pnpm --filter @nild/i18n dev",
+        "i18n:test": "pnpm --filter @nild/i18n test",
         "i18n:build": "pnpm --filter @nild/i18n build",
         "shared:build": "pnpm --filter @nild/shared build",
         "shared:dev": "pnpm --filter @nild/shared dev",

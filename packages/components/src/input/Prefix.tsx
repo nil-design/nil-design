@@ -2,7 +2,7 @@ import { cnMerge } from '@nild/shared';
 import { forwardRef, isValidElement, ReactElement, ReactNode } from 'react';
 import { useInputContext } from './contexts';
 import { PrefixProps } from './interfaces';
-import { prefixClassNames } from './style';
+import variants from './style';
 
 export const isPrefixElement = (child: ReactNode): child is ReactElement<PrefixProps> => {
     return isValidElement(child) && child.type === Prefix;
@@ -16,7 +16,7 @@ const Prefix = forwardRef<HTMLSpanElement, PrefixProps>((props, ref) => {
         <span
             {...restProps}
             className={cnMerge(
-                prefixClassNames({
+                variants.prefix({
                     size,
                 }),
                 className,

@@ -1,11 +1,11 @@
 import { cnMerge } from '@nild/shared';
 import { forwardRef } from 'react';
 import { TypographyProps } from './interfaces';
-import { typographyClassNames } from './style';
+import variants from './style';
 
 const Typography = forwardRef<HTMLElement, TypographyProps>(({ className, children, ...restProps }, ref) => {
     return (
-        <article {...restProps} className={cnMerge(typographyClassNames(), className)} ref={ref}>
+        <article {...restProps} className={cnMerge(variants.typography(), className)} ref={ref}>
             {children}
         </article>
     );

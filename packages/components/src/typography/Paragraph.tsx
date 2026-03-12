@@ -1,11 +1,11 @@
 import { cnMerge } from '@nild/shared';
 import { forwardRef } from 'react';
 import { ParagraphProps } from './interfaces';
-import { paragraphClassNames } from './style';
+import variants from './style';
 
 const Paragraph = forwardRef<HTMLParagraphElement, ParagraphProps>(({ className, children, ...restProps }, ref) => {
     return (
-        <p {...restProps} className={cnMerge(paragraphClassNames(), className)} ref={ref}>
+        <p {...restProps} className={cnMerge(variants.paragraph(), className)} ref={ref}>
             {children}
         </p>
     );

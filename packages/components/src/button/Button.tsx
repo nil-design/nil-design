@@ -2,7 +2,7 @@ import { cnMerge } from '@nild/shared';
 import { ReactNode, ReactElement, forwardRef, isValidElement } from 'react';
 import { useGroupContext } from './contexts';
 import { ButtonProps } from './interfaces';
-import { buttonClassNames } from './style';
+import variants from './style';
 
 export const isButtonElement = (child: ReactNode): child is ReactElement<ButtonProps> => {
     return isValidElement(child) && child.type === Button;
@@ -28,7 +28,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
             {...restProps}
             disabled={disabled}
             className={cnMerge(
-                buttonClassNames({
+                variants.button({
                     variant,
                     size,
                     shape,

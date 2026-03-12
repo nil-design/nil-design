@@ -3,7 +3,7 @@ import { CSSPropertiesWithVars, cnMerge } from '@nild/shared';
 import { forwardRef, Children, isValidElement, ReactElement } from 'react';
 import { SwitchProvider } from './contexts';
 import { SwitchProps, TrackType } from './interfaces';
-import { switchClassNames } from './style';
+import variants from './style';
 import Thumb from './Thumb';
 import Track from './Track';
 
@@ -74,7 +74,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                     aria-checked={checked}
                     disabled={disabled}
                     className={cnMerge(
-                        switchClassNames({
+                        variants.switch({
                             variant,
                             size,
                             shape,

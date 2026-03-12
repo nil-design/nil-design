@@ -1,7 +1,7 @@
 import { cnMerge, isEmpty } from '@nild/shared';
 import { Children, forwardRef } from 'react';
 import { DividerProps } from './interfaces';
-import { dividerClassNames } from './style';
+import variants from './style';
 
 /**
  * @category Components
@@ -24,7 +24,7 @@ const Divider = forwardRef<HTMLDivElement, DividerProps>(
             <div
                 {...restProps}
                 className={cnMerge(
-                    dividerClassNames({
+                    variants.divider({
                         emptyChildren: isEmpty(children),
                         variant,
                         direction,

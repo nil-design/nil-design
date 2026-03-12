@@ -2,7 +2,7 @@ import { cva } from '@nild/shared';
 import { DISABLED_CLS } from '../../_shared/style';
 import { SwitchProps, TrackProps } from '../interfaces';
 
-export const switchClassNames = cva<SwitchProps & { checked: boolean }>(
+const _switch = cva<SwitchProps & { checked: boolean }>(
     [
         'nd-switch',
         'group',
@@ -42,7 +42,7 @@ export const switchClassNames = cva<SwitchProps & { checked: boolean }>(
     },
 );
 
-export const trackClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'> & Pick<TrackProps, 'type'>>(
+const track = cva<Pick<SwitchProps, 'variant' | 'checked'> & Pick<TrackProps, 'type'>>(
     [
         'h-[var(--nd-switch-height)]',
         'transition-[margin-inline,background-color]',
@@ -99,7 +99,7 @@ export const trackClassNames = cva<Pick<SwitchProps, 'variant' | 'checked'> & Pi
     },
 );
 
-export const thumbClassNames = cva<Pick<SwitchProps, 'variant' | 'shape' | 'checked'>>(
+const thumb = cva<Pick<SwitchProps, 'variant' | 'shape' | 'checked'>>(
     [
         'h-[var(--nd-switch-height)]',
         ['flex', 'justify-center', 'items-center'],
@@ -123,3 +123,5 @@ export const thumbClassNames = cva<Pick<SwitchProps, 'variant' | 'shape' | 'chec
         },
     },
 );
+
+export default { switch: _switch, track, thumb };

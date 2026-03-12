@@ -2,13 +2,13 @@ import { cnMerge } from '@nild/shared';
 import { forwardRef } from 'react';
 import { useSwitchContext } from './contexts';
 import { ThumbProps } from './interfaces';
-import { thumbClassNames } from './style';
+import variants from './style';
 
 const Thumb = forwardRef<HTMLDivElement, ThumbProps>(({ className, children, ...restProps }, ref) => {
     const { variant, shape, checked } = useSwitchContext();
 
     return (
-        <div {...restProps} className={cnMerge(thumbClassNames({ variant, shape, checked }), className)} ref={ref}>
+        <div {...restProps} className={cnMerge(variants.thumb({ variant, shape, checked }), className)} ref={ref}>
             {children?.(!!checked)}
         </div>
     );

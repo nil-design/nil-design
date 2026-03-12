@@ -2,12 +2,7 @@ import { cnMerge } from '@nild/shared';
 import { forwardRef } from 'react';
 import { useRadioContext } from './contexts';
 import { IndicatorProps } from './interfaces';
-import {
-    indicatorClassNames,
-    indicatorInputClassNames,
-    defaultIndicatorOuterCircleClassNames,
-    defaultIndicatorInnerCircleClassNames,
-} from './style';
+import variants from './style';
 
 const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(({ className, children, ...restProps }, ref) => {
     const { variant, size, checked, setChecked } = useRadioContext();
@@ -19,16 +14,16 @@ const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(({ className, child
                 <circle
                     cx="10"
                     cy="10"
-                    className={cnMerge(defaultIndicatorOuterCircleClassNames({ variant, checked }))}
+                    className={cnMerge(variants.defaultIndicatorOuterCircle({ variant, checked }))}
                 />
-                <circle cx="10" cy="10" className={defaultIndicatorInnerCircleClassNames({ variant, checked })} />
+                <circle cx="10" cy="10" className={variants.defaultIndicatorInnerCircle({ variant, checked })} />
             </svg>
         ));
 
     return (
-        <div {...restProps} className={cnMerge(indicatorClassNames({ size }), className)} ref={ref}>
+        <div {...restProps} className={cnMerge(variants.indicator({ size }), className)} ref={ref}>
             {renderCircle(!!checked)}
-            <input type="radio" className={indicatorInputClassNames()} checked={checked} onChange={setChecked} />
+            <input type="radio" className={variants.indicatorInput()} checked={checked} onChange={setChecked} />
         </div>
     );
 });

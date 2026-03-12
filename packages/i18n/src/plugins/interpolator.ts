@@ -1,58 +1,55 @@
-import type { PluginCreator } from '../PluginManger';
+import { escapeRegExp } from '@nild/shared';
+import type { PluginFactory } from '../I18n';
 
 interface InterpolatorOptions {
     openToken?: string;
     closeToken?: string;
 }
 
-const interpolator: PluginCreator<
+const interpolator: PluginFactory<
     InterpolatorOptions,
     {
         parameters?: Record<string, unknown>;
     }
 > = ({ openToken = '{{', closeToken = '}}' } = {}) => {
-    const interpolate = (text: string, parameters: Record<string, unknown>): string => {
-        const tokens: string[] = [];
-        const stack: number[] = [];
-        let i = 0,
-            j = 0;
+    const openPattern = escapeRegExp(openToken);
+    const closePattern = escapeRegExp(closeToken);
+    const tokenPattern = new RegExp(`${openPattern}\\s*([\\s\\S]+?)\\s*${closePattern}`, 'g');
 
-        while (i < text.length) {
-            if (text.slice(i, i + openToken.length) === openToken) {
-                stack.push(i + openToken.length);
-                i += openToken.length;
-            } else if (text.slice(i, i + closeToken.length) === closeToken) {
-                if (stack.length > 0) {
-                    const start = stack.pop()!;
-                    if (stack.length === 0) {
-                        tokens.push(text.slice(j, start - openToken.length));
-                        const placeholder = text.slice(start, i);
-                        const key = placeholder.trim();
-                        if (key in parameters) {
-                            tokens.push(String(parameters[key]));
-                        } else {
-                            tokens.push(`${openToken}${placeholder}${closeToken}`);
-                        }
-                    }
-                }
-                i += closeToken.length;
-                j = i;
-            } else {
-                i++;
-            }
+    const readParameter = (parameters: Record<string, unknown>, token: string) => {
+        if (token in parameters) {
+            return parameters[token];
         }
 
-        tokens.push(text.slice(j));
+        const tokenPath = token.split('.');
+        let nextValue: unknown = parameters;
 
-        return tokens.join('');
+        for (const tokenKey of tokenPath) {
+            const traversable = typeof nextValue === 'object' && nextValue !== null;
+            if (!traversable || !(tokenKey in (nextValue as Record<string, unknown>))) {
+                return undefined;
+            }
+
+            nextValue = (nextValue as Record<string, unknown>)[tokenKey];
+        }
+
+        return nextValue;
     };
+
+    const interpolate = (text: string, parameters: Record<string, unknown>): string =>
+        text.replace(tokenPattern, (placeholder, token: string) => {
+            const trimmedToken = token.trim();
+            const parameter = readParameter(parameters, trimmedToken);
+
+            return parameter === undefined ? placeholder : String(parameter);
+        });
 
     return {
         name: 'interpolator',
-        apply(result: string, context): string {
+        transform(text: string, context): string {
             const { parameters = {} } = context;
 
-            return interpolate(result, parameters);
+            return interpolate(text, parameters);
         },
     };
 };
