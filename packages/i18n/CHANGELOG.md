@@ -1,5 +1,13 @@
 # @nild/i18n
 
+## 0.0.11
+
+### Patch Changes
+
+- 3e5be14: refactor: merge LocaleManager and PluginManager
+- Updated dependencies [c8de8ae]
+  - @nild/shared@0.0.15
+
 ## 0.0.10
 
 ### Patch Changes

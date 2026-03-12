@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.15
+
+### Patch Changes
+
+- c8de8ae: perf: improve cnJoin, cnMerge & cva
+
 ## 0.0.14
 
 ### Patch Changes
