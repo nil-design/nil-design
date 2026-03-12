@@ -36,28 +36,37 @@ const cva = <Props extends object>(base: ClassValue, config: Config<Props> = {} 
     );
 
     return (props: Props = {} as Props) => {
-        const variantClassNames = variantNames.map(name => {
+        const classValues: ClassValue[] = [base];
+
+        for (let i = 0; i < variantNames.length; i++) {
+            const name = variantNames[i];
             const propValue = props[name as keyof Props];
             const defaultValue = defaultVariants?.[name as keyof Props];
-            const valueKey = falsyToString(propValue) || falsyToString(defaultValue);
+            const valueKey = falsyToString(propValue ?? defaultValue);
             const variant = variants[name as keyof Variants<Props>];
+            const classValue = variant[valueKey as keyof typeof variant];
+            classValue && classValues.push(classValue);
+        }
 
-            return variant[valueKey as keyof typeof variant];
-        });
+        for (let i = 0; i < compoundPairs.length; i++) {
+            const [entries, className] = compoundPairs[i];
+            let matched = true;
 
-        const compoundVariantClassNames = compoundPairs.reduce<string[]>((classNames, [entries, className]) => {
-            return entries.every(([name, compoundValue]) => {
+            for (let j = 0; j < entries.length; j++) {
+                const [name, compoundValue] = entries[j];
                 const propValue = props[name as keyof Props];
                 const defaultValue = defaultVariants?.[name as keyof Props];
                 const value = propValue ?? defaultValue;
 
-                return Array.isArray(compoundValue) ? compoundValue.includes(value) : compoundValue === value;
-            })
-                ? classNames.concat(className)
-                : classNames;
-        }, []);
+                if (!(Array.isArray(compoundValue) ? compoundValue.includes(value) : compoundValue === value)) {
+                    matched = false;
+                    break;
+                }
+            }
+            matched && classValues.push(className);
+        }
 
-        return cnJoin(base, variantClassNames, compoundVariantClassNames);
+        return cnJoin(classValues);
     };
 };
 
