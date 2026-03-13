@@ -3,7 +3,7 @@ import I18n from '..';
 import type { Plugin } from '..';
 
 describe('I18n', () => {
-    it('resolves missing keys through language fallback chain', () => {
+    it('should resolve missing keys through language fallback chain', () => {
         const i18n = new I18n({
             language: 'zh-CN',
             fallbackLanguages: ['en-US'],
@@ -29,7 +29,7 @@ describe('I18n', () => {
         expect(i18n.t('home.subtitle')).toBe('Subtitle');
     });
 
-    it('falls back to regional language before configured fallback languages', () => {
+    it('should fall back to regional language before configured fallback languages', () => {
         const i18n = new I18n({
             language: 'zh-CN',
             fallbackLanguages: ['en-US'],
@@ -50,7 +50,7 @@ describe('I18n', () => {
         expect(i18n.t('greeting')).toBe('Hello from zh');
     });
 
-    it('returns full key when namespace key is missing', () => {
+    it('should return full key when namespace key is missing', () => {
         const i18n = new I18n({
             language: 'en-US',
             locales: {
@@ -65,7 +65,7 @@ describe('I18n', () => {
         expect(i18n.t('common:missing')).toBe('common:missing');
     });
 
-    it('runs plugin hooks in order: beforeResolve → onMiss → afterResolve', () => {
+    it('should run plugin hooks in order: beforeResolve -> onMiss -> afterResolve', () => {
         const eventTrail: string[] = [];
         const reporter: Plugin = {
             name: 'reporter',
@@ -93,7 +93,7 @@ describe('I18n', () => {
         expect(eventTrail).toEqual(['beforeResolve:missing.key', 'onMiss:missing.key', 'afterResolve:empty']);
     });
 
-    it('supports replacing locale payload when localeWriteMode is replace', () => {
+    it('should support replacing locale payload when localeWriteMode is replace', () => {
         const i18n = new I18n({
             language: 'en-US',
             localeWriteMode: 'replace',
@@ -122,7 +122,7 @@ describe('I18n', () => {
         expect(i18n.t('profile.name')).toBe('Updated');
     });
 
-    it('prefers root literal key when it collides with nested key path', () => {
+    it('should prefer root literal key when it collides with nested key path', () => {
         const i18n = new I18n({
             language: 'en-US',
             locales: {
@@ -140,7 +140,7 @@ describe('I18n', () => {
         expect(i18n.t('home.title')).toBe('Flat title');
     });
 
-    it('resolves nested keys with custom key delimiter through flattened index', () => {
+    it('should resolve nested keys with custom key delimiter through flattened index', () => {
         const i18n = new I18n({
             language: 'en-US',
             keyDelimiter: '/',
@@ -158,7 +158,7 @@ describe('I18n', () => {
         expect(i18n.t('home/title')).toBe('Title');
     });
 
-    it('supports grouped fallbackLanguages by regional language key', () => {
+    it('should support grouped fallbackLanguages by regional language key', () => {
         const i18n = new I18n({
             language: 'zh-CN',
             fallbackLanguages: {
@@ -176,7 +176,7 @@ describe('I18n', () => {
         expect(i18n.t('tip')).toBe('Tip');
     });
 
-    it('clears cached language trail after setFallbackLanguages', () => {
+    it('should clear cached language trail after setFallbackLanguages', () => {
         const i18n = new I18n({
             language: 'zh-CN',
             fallbackLanguages: ['en-US'],
@@ -201,7 +201,7 @@ describe('I18n', () => {
         expect(i18n.t('tip')).toBe('Tip JP');
     });
 
-    it('uses key namespace before context namespace and instance namespace', () => {
+    it('should use key namespace before context namespace and instance namespace', () => {
         const i18n = new I18n({
             language: 'en-US',
             namespace: 'profile',
@@ -223,7 +223,7 @@ describe('I18n', () => {
         expect(i18n.t('common:title', { namespace: 'profile' })).toBe('Common title');
     });
 
-    it('deduplicates plugins by name and keeps registration order for transform', () => {
+    it('should deduplicate plugins by name and keep registration order for transform', () => {
         const i18n = new I18n({
             language: 'en-US',
             plugins: [
@@ -259,7 +259,7 @@ describe('I18n', () => {
         expect(i18n.t('greeting')).toBe('[Hello]!');
     });
 
-    it('merges locale payload by default when addLocale is called', () => {
+    it('should merge locale payload by default when addLocale is called', () => {
         const i18n = new I18n({
             language: 'en-US',
             locales: {
@@ -288,7 +288,7 @@ describe('I18n', () => {
         expect(i18n.t('profile.age')).toBe('18');
     });
 
-    it('ignores invalid locale namespace values from runtime inputs', () => {
+    it('should ignore invalid locale namespace values from runtime inputs', () => {
         const i18n = new I18n({
             language: 'en-US',
             locales: {
@@ -306,7 +306,7 @@ describe('I18n', () => {
         expect(i18n.t('invalid:any')).toBe('invalid:any');
     });
 
-    it('switches translation language after setLanguage', () => {
+    it('should switch translation language after setLanguage', () => {
         const i18n = new I18n({
             language: 'en-US',
             locales: {
@@ -330,7 +330,7 @@ describe('I18n', () => {
         expect(i18n.t('title')).toBe('Title ZH');
     });
 
-    it('switches default namespace after setNamespace', () => {
+    it('should switch default namespace after setNamespace', () => {
         const i18n = new I18n({
             language: 'en-US',
             defaultNamespace: 'common',
@@ -353,7 +353,7 @@ describe('I18n', () => {
         expect(i18n.t('title')).toBe('Profile title');
     });
 
-    it('parses namespaced key with custom namespace delimiter', () => {
+    it('should parse namespaced key with custom namespace delimiter', () => {
         const i18n = new I18n({
             language: 'en-US',
             namespaceDelimiter: '/',
@@ -369,7 +369,7 @@ describe('I18n', () => {
         expect(i18n.t('profile/title')).toBe('Profile title');
     });
 
-    it('overrides instance language for a single t() call via context.language', () => {
+    it('should override instance language for a single t() call via context.language', () => {
         const i18n = new I18n({
             language: 'zh-CN',
             locales: {
@@ -392,7 +392,7 @@ describe('I18n', () => {
         expect(i18n.t('title')).toBe('Title ZH');
     });
 
-    it('does not invoke transform when key is missing', () => {
+    it('should not invoke transform when key is missing', () => {
         let transformCalled = false;
         const i18n = new I18n({
             language: 'en-US',
@@ -417,7 +417,7 @@ describe('I18n', () => {
         expect(transformCalled).toBe(false);
     });
 
-    it('addLocale writes to the specified namespace', () => {
+    it('should write to the specified namespace when addLocale is called', () => {
         const i18n = new I18n({
             language: 'en-US',
             locales: {
@@ -433,7 +433,7 @@ describe('I18n', () => {
         expect(i18n.t('profile:greeting')).toBe('Hello');
     });
 
-    it('passes hit metadata to afterResolve hook', () => {
+    it('should pass hit metadata to afterResolve hook', () => {
         const events: string[] = [];
         const i18n = new I18n({
             language: 'en-US',

@@ -1,0 +1,44 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+    paths:
+      - 'packages/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'tsconfig.base.json'
+      - 'tsconfig.json'
+      - '.github/workflows/test.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10.10.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Test with coverage
+        run: pnpm test:coverage

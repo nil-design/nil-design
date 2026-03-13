@@ -32,7 +32,10 @@
     ],
     "scripts": {
         "build": "vite build --mode PROD",
-        "dev": "vite build --mode DEV --watch"
+        "dev": "vite build --mode DEV --watch",
+        "typecheck": "tsc --noEmit -p tsconfig.json --pretty true",
+        "test": "vitest run --globals",
+        "test:coverage": "vitest run --globals --coverage"
     },
     "dependencies": {
         "tailwind-merge": "3.3.0"
