@@ -9,6 +9,7 @@ import reactLive from './theme/components/react-live';
 
 const inProd = process.env.NODE_ENV === 'production';
 const base = inProd ? '/nil-design/' : '/';
+const ignoredWarningPatterns = inProd ? [/dynamic import will not move module into another chunk\./] : [];
 
 export default defineConfig({
     base,
@@ -70,6 +71,16 @@ export default defineConfig({
         },
     },
     vite: {
+        build: {
+            rollupOptions: {
+                onwarn(warning, defaultHandler) {
+                    if (ignoredWarningPatterns.some(pattern => pattern.test(warning.message))) {
+                        return;
+                    }
+                    defaultHandler(warning);
+                },
+            },
+        },
         css: {
             postcss: {
                 plugins: [
