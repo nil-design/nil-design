@@ -22,7 +22,11 @@
     "packageManager": "pnpm@10.10.0",
     "scripts": {
         "prepare": "husky",
+        "skills:install": "node ./scripts/skills-install.js",
         "build": "pnpm -r --filter @nild/* build",
+        "typecheck": "pnpm -r --filter @nild/* typecheck",
+        "test": "pnpm -r --filter @nild/* test",
+        "test:coverage": "pnpm -r --filter @nild/* test:coverage",
         "api": "pnpm -r --filter @nild/* api",
         "docs:dev": "vitepress dev docs",
         "docs:build": "vitepress build docs",
@@ -40,6 +44,7 @@
         "i18n:test": "pnpm --filter @nild/i18n test",
         "i18n:build": "pnpm --filter @nild/i18n build",
         "shared:build": "pnpm --filter @nild/shared build",
+        "shared:test": "pnpm --filter @nild/shared test",
         "shared:dev": "pnpm --filter @nild/shared dev",
         "ci:version": "pnpm api && pnpm changeset version",
         "ci:publish": "pnpm -r publish --access public --registry=https://registry.npmjs.org",
@@ -65,6 +70,7 @@
         "@types/react": "18.2.0",
         "@types/react-dom": "18.2.0",
         "@vitejs/plugin-react": "4.4.1",
+        "@vitest/coverage-v8": "3.2.4",
         "esbuild": "0.25.5",
         "eslint": "9.23.0",
         "eslint-config-prettier": "10.1.0",
@@ -98,6 +104,6 @@
         "vite-plugin-dts": "4.5.3",
         "vite-plugin-svgr": "4.3.0",
         "vitepress": "1.6.3",
-        "vitest": "3.1.2"
+        "vitest": "3.2.4"
     }
 }

@@ -29,7 +29,7 @@
         "dev": "vite build --mode DEV --watch",
         "test": "vitest run --globals",
         "test:coverage": "vitest run --globals --coverage",
-        "typecheck": "tsc --noEmit -p tsconfig.json"
+        "typecheck": "tsc --noEmit -p tsconfig.json --pretty true"
     },
     "peerDependencies": {
         "@nild/shared": "workspace:*"
