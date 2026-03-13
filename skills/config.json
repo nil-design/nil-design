@@ -1,0 +1,16 @@
+{
+    "agents": [
+        {
+            "name": "codex",
+            "destination": "../.codex/skills",
+            "createIfMissing": true,
+            "mode": "link"
+        },
+        {
+            "name": "claude",
+            "destination": "../.claude/skills",
+            "createIfMissing": true,
+            "mode": "link"
+        }
+    ]
+}

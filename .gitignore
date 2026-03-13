@@ -3,6 +3,9 @@ node_modules/
 dist/
 cache/
 coverage/
+.cursor/
+.claude/
+.codex/
 
 .pnpm-debug.log
 tsconfig.tsbuildinfo
