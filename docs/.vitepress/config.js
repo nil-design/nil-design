@@ -15,7 +15,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const inProd = process.env.NODE_ENV === 'production';
 const base = inProd ? '/nil-design/' : '/';
 const ignoredWarningPatterns = inProd ? [/dynamic import will not move module into another chunk\./] : [];
-const embeddingBuilder = getEmbeddingBuilder(base);
+const embeddingBuilder = getEmbeddingBuilder();
 
 export default defineConfig({
     base,
@@ -77,6 +77,9 @@ export default defineConfig({
         },
     },
     vite: {
+        optimizeDeps: {
+            exclude: ['@huggingface/transformers'],
+        },
         build: {
             rollupOptions: {
                 onwarn(warning, defaultHandler) {

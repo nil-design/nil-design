@@ -3,7 +3,7 @@ import { join, resolve } from 'node:path';
 import { env, pipeline } from '@huggingface/transformers';
 import getEmbeddingModel from './getEmbeddingModel.js';
 
-env.localModelPath = resolve(process.cwd(), 'models');
+env.localModelPath = resolve(process.cwd(), 'docs', 'public', 'models');
 env.allowRemoteModels = false;
 
 const BUILD_OPTIONS = Object.freeze({
@@ -177,18 +177,20 @@ const toVectors = output => {
 };
 
 class EmbeddingBuilder {
-    constructor(baseURL) {
-        this.baseURL = baseURL;
+    constructor() {
         this.pages = new Map();
         this.extractPromises = new Map();
     }
 
-    collect({ locale, path, content }) {
-        const finalPath = `${this.baseURL}${path}`;
+    collect({ locale, path, title = '', content }) {
+        const finalPath = path.startsWith('/') ? path : `/${path}`;
         if (!this.pages.has(locale)) {
             this.pages.set(locale, new Map());
         }
-        this.pages.get(locale).set(finalPath, content);
+        this.pages.get(locale).set(finalPath, {
+            title,
+            content,
+        });
     }
 
     async getExtractor(model) {
@@ -245,18 +247,27 @@ class EmbeddingBuilder {
             const extractor = await this.getExtractor(model);
             const chunks = [];
             const pages = this.pages.get(locale);
-            let chunkId = 0;
+            const paths = [];
+            const titles = [];
 
-            for (const [path, content] of pages.entries()) {
+            for (const [path, page] of pages.entries()) {
+                const { title, content } = page;
                 const pageChunks = splitContent(content);
-                for (let chunkIndex = 0; chunkIndex < pageChunks.length; chunkIndex += 1) {
+
+                if (!pageChunks.length) {
+                    continue;
+                }
+
+                const pageIndex = paths.length;
+
+                paths.push(path);
+                titles.push(title);
+
+                for (const snippet of pageChunks) {
                     chunks.push({
-                        id: `${locale}-${chunkId}`,
-                        path,
-                        chunkIndex,
-                        text: pageChunks[chunkIndex],
+                        pageIndex,
+                        snippet,
                     });
-                    chunkId += 1;
                 }
             }
 
@@ -264,7 +275,7 @@ class EmbeddingBuilder {
 
             for (let index = 0; index < chunks.length; index += BUILD_OPTIONS.batchSize) {
                 const batch = chunks.slice(index, index + BUILD_OPTIONS.batchSize);
-                const batchInput = batch.map(({ text }) => `${model.passagePrefix}${text}`);
+                const batchInput = batch.map(({ snippet }) => `${model.passagePrefix}${snippet}`);
 
                 if (!batchInput.length) {
                     continue;
@@ -294,11 +305,13 @@ class EmbeddingBuilder {
             await writeFile(
                 join(embeddingsDir, file),
                 JSON.stringify({
-                    version: 1,
+                    version: 2,
                     locale,
                     createdAt,
                     model: modelMeta,
                     dimension,
+                    paths,
+                    titles,
                     chunks: localeChunks,
                 }),
                 'utf8',
@@ -318,8 +331,8 @@ class EmbeddingBuilder {
     }
 }
 
-const getEmbeddingBuilder = baseURL => {
-    return new EmbeddingBuilder(baseURL);
+const getEmbeddingBuilder = () => {
+    return new EmbeddingBuilder();
 };
 
 export default getEmbeddingBuilder;

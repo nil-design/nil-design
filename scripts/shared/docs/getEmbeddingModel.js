@@ -38,7 +38,7 @@ class EmbeddingModel {
 const getEmbeddingModel = locale => {
     if (locale === 'zh-CN') {
         return new EmbeddingModel({
-            name: 'Xenova/bge-small-zh-v1.5',
+            id: 'Xenova/bge-small-zh-v1.5',
             queryPrefix:
                 '\u4e3a\u8fd9\u4e2a\u53e5\u5b50\u751f\u6210\u8868\u793a\u4ee5\u7528\u4e8e\u68c0\u7d22\u76f8\u5173\u6587\u7ae0\uff1a',
         });
@@ -46,7 +46,7 @@ const getEmbeddingModel = locale => {
 
     if (locale === 'en-US') {
         return new EmbeddingModel({
-            name: 'Xenova/bge-small-en-v1.5',
+            id: 'Xenova/bge-small-en-v1.5',
             queryPrefix: 'Represent this sentence for searching relevant passages: ',
         });
     }

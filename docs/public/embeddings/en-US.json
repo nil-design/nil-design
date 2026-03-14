@@ -1,7 +1,7 @@
 {
-    "version": 1,
+    "version": 2,
     "locale": "en-US",
-    "createdAt": "2026-03-14T09:59:19.685Z",
+    "createdAt": "2026-03-14T20:47:05.471Z",
     "model": {
         "id": "Xenova/bge-small-en-v1.5",
         "dtype": "q8",
@@ -11,12 +11,12 @@
         "queryPrefix": "Represent this sentence for searching relevant passages: "
     },
     "dimension": 384,
+    "paths": ["/en-US/"],
+    "titles": ["Nil Design"],
     "chunks": [
         {
-            "id": "en-US-0",
-            "path": "/nil-design/en-US/",
-            "chunkIndex": 0,
-            "text": "---\nlayout: home\nhero:\n  name: Nil Design\n  text: Diversified React Development Library.\n  tagline: A comprehensive solution integrating components, materials, Hooks, and internationalization solutions\n  actions:\n    - theme: brand\n      text: Get Started\n      link: /en-US/guide\n    - theme: alt\n      text: View on GitHub\n      link: https://github.com/nil-design/nil-design\n---",
+            "pageIndex": 0,
+            "snippet": "---\nlayout: home\nhero:\n  name: Nil Design\n  text: Diversified React Development Library.\n  tagline: A comprehensive solution integrating components, materials, Hooks, and internationalization solutions\n  actions:\n    - theme: brand\n      text: Get Started\n      link: /en-US/guide\n    - theme: alt\n      text: View on GitHub\n      link: https://github.com/nil-design/nil-design\n---",
             "embedding": [
                 -0.034008, -0.009679, -0.015427, 0.016128, -0.040383, -0.000626, -0.0034, 0.0819, -0.00114, -0.023355,
                 0.0134, -0.028793, 0.057916, 0.032937, 0.02155, 0.008757, -0.011904, 0.023184, -0.058313, 0.05033,

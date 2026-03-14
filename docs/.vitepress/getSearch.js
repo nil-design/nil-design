@@ -63,6 +63,7 @@ const getSearch = embeddingBuilder => {
                     if (env.relativePath) {
                         embeddingBuilder.collect({
                             ...parseEnvPath(env.relativePath),
+                            title: env.frontmatter?.title ?? 'Nil Design',
                             content: src,
                         });
                     }

@@ -1,11 +1,12 @@
+.cursor/
+.claude/
+.codex/
 .husky/_
 node_modules/
 dist/
 cache/
 coverage/
-.cursor/
-.claude/
-.codex/
+docs/.vitepress/.temp/
 
 .pnpm-debug.log
 tsconfig.tsbuildinfo
