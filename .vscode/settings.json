@@ -13,7 +13,9 @@
         "borderless",
         "commitlint",
         "dirents",
+        "dtype",
         "frontmatter",
+        "huggingface",
         "Morilence",
         "Navs",
         "nild",
@@ -21,6 +23,7 @@
         "pascalize",
         "Qwen",
         "snakeize",
-        "vitepress"
+        "vitepress",
+        "Xenova"
     ]
 }

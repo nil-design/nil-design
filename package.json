@@ -57,6 +57,7 @@
         "@commitlint/config-conventional": "19.8.0",
         "@commitlint/types": "19.8.0",
         "@eslint/js": "9.23.0",
+        "@huggingface/transformers": "^3.8.1",
         "@mlc-ai/web-llm": "^0.2.81",
         "@nild/components": "workspace:*",
         "@nild/hooks": "workspace:*",

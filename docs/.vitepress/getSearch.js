@@ -12,10 +12,22 @@ const tokenize = text => {
     return segments;
 };
 
+const parseEnvPath = envPath => {
+    const [locale] = envPath.split('/');
+    const webPath = envPath.endsWith('index.md')
+        ? envPath.replace(/index\.md$/, '')
+        : envPath.replace(/\.md$/, '.html');
+
+    return {
+        locale,
+        path: webPath,
+    };
+};
+
 /**
  * @returns {import('vitepress').DefaultTheme.Config['search']}
  */
-const getSearch = () => {
+const getSearch = embeddingBuilder => {
     return {
         provider: 'local',
         options: {
@@ -48,6 +60,13 @@ const getSearch = () => {
                 if (env.frontmatter?.search === false) {
                     return '';
                 } else {
+                    if (env.relativePath) {
+                        embeddingBuilder.collect({
+                            ...parseEnvPath(env.relativePath),
+                            content: src,
+                        });
+                    }
+
                     return html.replace(/\{\{\s*\$frontmatter\.([a-zA-Z_$][\w$]*)\s*\}\}/g, (match, key) => {
                         return env.frontmatter?.[key] || match;
                     });
