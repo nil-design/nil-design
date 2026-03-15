@@ -1,5 +1,12 @@
 # @nild/icons
 
+## 0.0.18
+
+### Patch Changes
+
+- Updated dependencies [f60509d]
+  - @nild/shared@0.0.16
+
 ## 0.0.17
 
 ### Patch Changes
