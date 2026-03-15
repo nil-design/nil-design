@@ -1,0 +1,36 @@
+{
+    "name": "@nild/eslint-plugin",
+    "private": false,
+    "version": "0.0.0",
+    "type": "module",
+    "module": "./dist/index.js",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nil-design/nil-design/issues"
+    },
+    "files": [
+        "dist",
+        "package.json",
+        "LICENSE",
+        "NOTICE"
+    ],
+    "scripts": {
+        "build": "vite build --mode PROD",
+        "dev": "vite build --mode DEV --watch",
+        "typecheck": "tsc --noEmit -p tsconfig.json --pretty true",
+        "test": "vitest run --globals",
+        "test:coverage": "vitest run --globals --coverage"
+    },
+    "peerDependencies": {
+        "eslint": "^9.23.0"
+    }
+}

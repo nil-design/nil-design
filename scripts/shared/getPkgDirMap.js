@@ -2,17 +2,29 @@ import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import getRootDir from './getRootDir.js';
 
-const pkgDirMap = readdirSync(join(getRootDir(), 'packages'), { withFileTypes: true }).reduce((dirMap, dirent) => {
-    if (dirent.isDirectory()) {
-        const pkgDir = join(getRootDir(), 'packages', dirent.name);
-        const pkgJsonPath = join(pkgDir, 'package.json');
-        if (existsSync(pkgJsonPath)) {
-            const pkgJson = JSON.parse(readFileSync(pkgJsonPath, 'utf-8'));
-            dirMap[pkgJson.name] = pkgDir;
-        }
+const rootDir = getRootDir();
+const workspaceDirs = ['packages', 'tooling'];
+
+const pkgDirMap = workspaceDirs.reduce((dirMap, workspaceDir) => {
+    const workspaceDirPath = join(rootDir, workspaceDir);
+
+    if (!existsSync(workspaceDirPath)) {
+        return dirMap;
     }
 
-    return dirMap;
+    return readdirSync(workspaceDirPath, { withFileTypes: true }).reduce((workspaceMap, dirent) => {
+        if (dirent.isDirectory()) {
+            const pkgDir = join(workspaceDirPath, dirent.name);
+            const pkgJsonPath = join(pkgDir, 'package.json');
+
+            if (existsSync(pkgJsonPath)) {
+                const pkgJson = JSON.parse(readFileSync(pkgJsonPath, 'utf-8'));
+                workspaceMap[pkgJson.name] = pkgDir;
+            }
+        }
+
+        return workspaceMap;
+    }, dirMap);
 }, {});
 
 const getPkgDirMap = () => {

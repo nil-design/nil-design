@@ -3,7 +3,7 @@
 
     "compilerOptions": {
         "paths": {
-            "@nild/*": ["./packages/*/src"]
+            "@nild/*": ["./packages/*/src", "./tooling/*/src"]
         }
     },
 
@@ -13,6 +13,7 @@
         { "path": "./packages/components/" },
         { "path": "./packages/materials/" },
         { "path": "./packages/hooks/" },
-        { "path": "./packages/i18n/" }
+        { "path": "./packages/i18n/" },
+        { "path": "./tooling/eslint-plugin/" }
     ]
 }
