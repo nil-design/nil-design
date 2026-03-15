@@ -18,6 +18,7 @@
 </template>
 
 <script setup>
+/* eslint-disable @nild/no-hardcoded-colors */
 import { onMounted, ref } from 'vue';
 import PaletteIcon from '../../icons/Palette.vue';
 

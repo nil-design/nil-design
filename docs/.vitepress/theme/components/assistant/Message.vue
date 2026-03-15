@@ -31,8 +31,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
 import { useData, useRouter } from 'vitepress';
+import { computed } from 'vue';
 
 const props = defineProps({
     role: { type: String, required: true },

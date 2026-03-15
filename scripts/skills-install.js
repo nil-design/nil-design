@@ -35,32 +35,34 @@ function expandHome(inputPath) {
 function getPathInfo(targetPath) {
     try {
         const lst = lstatSync(targetPath);
-        let isDirectory = lst.isDirectory();
-        if (lst.isSymbolicLink()) {
+        const symlinked = lst.isSymbolicLink();
+        let directoryLike = lst.isDirectory();
+
+        if (symlinked) {
             try {
-                isDirectory = statSync(targetPath).isDirectory();
+                directoryLike = statSync(targetPath).isDirectory();
             } catch {
-                isDirectory = false;
+                directoryLike = false;
             }
         }
 
         return {
             exists: true,
-            isDirectory,
-            isSymbolicLink: lst.isSymbolicLink(),
+            directoryLike,
+            symlinked,
         };
     } catch {
         return {
             exists: false,
-            isDirectory: false,
-            isSymbolicLink: false,
+            directoryLike: false,
+            symlinked: false,
         };
     }
 }
 
 function discoverSkills(skillsDir) {
     const skillsDirInfo = getPathInfo(skillsDir);
-    if (!skillsDirInfo.exists || !skillsDirInfo.isDirectory) {
+    if (!skillsDirInfo.exists || !skillsDirInfo.directoryLike) {
         throw new Error(`Skills directory not found or not a directory: ${skillsDir}`);
     }
 
@@ -261,7 +263,7 @@ function run() {
                 try {
                     mkdirSync(agent.destination, { recursive: true });
                     destinationInfo = getPathInfo(agent.destination);
-                    if (!destinationInfo.exists || !destinationInfo.isDirectory) {
+                    if (!destinationInfo.exists || !destinationInfo.directoryLike) {
                         failedCount += 1;
                         console.log(
                             `[fail] [${agent.name}] unable to create destination as directory: ${agent.destination}`,
@@ -283,7 +285,7 @@ function run() {
                 continue;
             }
         }
-        if (!destinationInfo.isDirectory) {
+        if (!destinationInfo.directoryLike) {
             skippedCount += 1;
             console.log(`[skip] [${agent.name}] destination is not a directory: ${agent.destination}`);
             continue;

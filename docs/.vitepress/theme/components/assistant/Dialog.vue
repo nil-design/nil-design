@@ -94,9 +94,9 @@ import ChatBubbleIcon from '../../icons/ChatBubble.vue';
 import ExclamationCircleIcon from '../../icons/ExclamationCircle.vue';
 import SparklesIcon from '../../icons/Sparkles.vue';
 import XIcon from '../../icons/X.vue';
+import Message from './Message.vue';
 import { RAGStatus } from './rag.shared.js';
 import { LLMStatus } from './useLLM.js';
-import Message from './Message.vue';
 
 defineEmits(['close', 'retry', 'header-mousedown']);
 

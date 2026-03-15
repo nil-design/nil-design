@@ -61,10 +61,10 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, provide, ref, watch } from 'vue';
 import { useData } from 'vitepress';
-import ChatIcon from '../../icons/Chat.vue';
+import { computed, onMounted, onUnmounted, provide, ref, watch } from 'vue';
 import i18n from '../../../../../locales/index.js';
+import ChatIcon from '../../icons/Chat.vue';
 import Dialog from './Dialog.vue';
 import PromptBox from './PromptBox.vue';
 import { createRAGPrompt, RAGStatus } from './rag.shared.js';

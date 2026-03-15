@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, onBeforeUnmount, watch } from 'vue';
-import { createRoot } from 'react-dom/client';
 import { createElement } from 'react';
+import { createRoot } from 'react-dom/client';
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 export default defineComponent({
     name: 'ReactBridge',
