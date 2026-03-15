@@ -4,6 +4,7 @@ import cnMerge from './cn-merge';
 import cva from './cva';
 import getDPR from './get-dpr';
 import isBrowser from './is-browser';
+import isMobile from './is-mobile';
 import isNumeric from './is-numeric';
 import makeArray from './make-array';
 import pascalize from './pascalize';
@@ -56,6 +57,7 @@ export {
     cva,
     getDPR,
     isBrowser,
+    isMobile,
     isNumeric,
     makeArray,
     pascalize,
