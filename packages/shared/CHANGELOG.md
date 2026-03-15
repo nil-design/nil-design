@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.16
+
+### Patch Changes
+
+- f60509d: feat: add isMobile
+
 ## 0.0.15
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @nild/components
 
+## 0.0.37
+
+### Patch Changes
+
+- 58cd82e: feat: add rounded-xl
+- Updated dependencies [f60509d]
+  - @nild/shared@0.0.16
+  - @nild/hooks@0.0.18
+  - @nild/icons@0.0.18
+
 ## 0.0.36
 
 ### Patch Changes
