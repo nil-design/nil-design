@@ -1,14 +1,21 @@
+/* eslint-disable no-console */
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/postcss';
 import postcssNested from 'postcss-nested';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
+import { getEmbeddingBuilder } from '../../scripts/shared';
 import getAppearance from './getAppearance.js';
 import getSearch from './getSearch.js';
 import getThemeConfig from './getThemeConfig.js';
 import mermaid from './theme/components/mermaid';
 import reactLive from './theme/components/react-live';
 
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const inProd = process.env.NODE_ENV === 'production';
 const base = inProd ? '/nil-design/' : '/';
+const ignoredWarningPatterns = inProd ? [/dynamic import will not move module into another chunk\./] : [];
+const embeddingBuilder = getEmbeddingBuilder();
 
 export default defineConfig({
     base,
@@ -53,7 +60,7 @@ export default defineConfig({
             { icon: 'npm', link: 'https://www.npmjs.com/org/nild' },
             { icon: 'github', link: 'https://github.com/nil-design/nil-design' },
         ],
-        search: getSearch(),
+        search: getSearch(embeddingBuilder),
     },
     locales: {
         'zh-CN': {
@@ -70,6 +77,19 @@ export default defineConfig({
         },
     },
     vite: {
+        optimizeDeps: {
+            exclude: ['@huggingface/transformers'],
+        },
+        build: {
+            rollupOptions: {
+                onwarn(warning, defaultHandler) {
+                    if (ignoredWarningPatterns.some(pattern => pattern.test(warning.message))) {
+                        return;
+                    }
+                    defaultHandler(warning);
+                },
+            },
+        },
         css: {
             postcss: {
                 plugins: [
@@ -91,5 +111,15 @@ export default defineConfig({
             md.use(reactLive);
             md.use(mermaid);
         },
+    },
+    async buildEnd() {
+        await embeddingBuilder
+            .build(resolve(__dirname, '../public'))
+            .then(() => {
+                console.log('✓ embeddings built');
+            })
+            .catch(() => {
+                console.error('✗ embeddings build failed');
+            });
     },
 });

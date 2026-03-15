@@ -33,35 +33,29 @@
             </button>
         </div>
         <div ref="messageListRef" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0 bg-page">
-            <div
-                v-if="llm.status === LLMStatus.LOADING"
-                class="h-full flex flex-col items-center justify-center gap-4 px-4"
-            >
+            <div v-if="showLoading" class="h-full flex flex-col items-center justify-center gap-4 px-4">
                 <SparklesIcon class="text-brand animate-sparkle size-7" />
                 <div class="w-full flex flex-col gap-1.5">
                     <div class="w-full h-1 bg-muted rounded-full overflow-hidden">
                         <div
                             class="h-full bg-brand rounded-full transition-all duration-300 ease-out"
-                            :style="{ width: `${llm.loading.progress}%` }"
+                            :style="{ width: `${activeLoading.progress}%` }"
                         ></div>
                     </div>
                     <div class="flex justify-between items-center">
                         <p class="text-sm text-subtle truncate max-w-[85%]">
-                            {{ llm.loading.text || t('assistant.loading.init') }}
+                            {{ activeLoadingText }}
                         </p>
-                        <p class="text-sm text-subtle flex-shrink-0">{{ llm.loading.progress }}%</p>
+                        <p class="text-sm text-subtle flex-shrink-0">{{ activeLoading.progress }}%</p>
                     </div>
                 </div>
-                <p class="text-sm text-subtle text-center">{{ t('assistant.loading.hint') }}</p>
+                <p class="text-sm text-subtle text-center">{{ activeLoadingHint }}</p>
             </div>
-            <div
-                v-else-if="llm.status === LLMStatus.ERROR"
-                class="h-full flex flex-col items-center justify-center gap-3 px-4"
-            >
+            <div v-else-if="showError" class="h-full flex flex-col items-center justify-center gap-3 px-4">
                 <ExclamationCircleIcon class="text-subtle size-7 opacity-50" />
-                <p class="text-md text-subtle font-medium">{{ t('assistant.error.title') }}</p>
-                <p v-if="llm.error.message" class="text-sm text-subtle text-center leading-relaxed">
-                    {{ llm.error.message }}
+                <p class="text-md text-subtle font-medium">{{ errorTitle }}</p>
+                <p v-if="errorMessage" class="text-sm text-subtle text-center leading-relaxed">
+                    {{ errorMessage }}
                 </p>
                 <button
                     :class="[
@@ -85,7 +79,8 @@
                     :key="msg.id"
                     :role="msg.role"
                     :content="msg.content"
-                    :streaming="llm.status === LLMStatus.GENERATING && msg === llm.messages[llm.messages.length - 1]"
+                    :sources="msg.sources"
+                    :streaming="llm.status === LLMStatus.GENERATING && msg === lastMessage"
                 />
             </template>
         </div>
@@ -99,58 +94,105 @@ import ChatBubbleIcon from '../../icons/ChatBubble.vue';
 import ExclamationCircleIcon from '../../icons/ExclamationCircle.vue';
 import SparklesIcon from '../../icons/Sparkles.vue';
 import XIcon from '../../icons/X.vue';
+import { RAGStatus } from './rag.shared.js';
 import { LLMStatus } from './useLLM.js';
 import Message from './Message.vue';
 
 defineEmits(['close', 'retry', 'header-mousedown']);
 
-/**
- * llm is a reactive obj
- */
-const { llm } = defineProps({
+const { llm, rag } = defineProps({
     llm: { type: Object, required: true },
+    rag: { type: Object, required: true },
 });
 const t = inject('assistant:t');
 const messageListRef = ref(null);
+const llmLoading = computed(() => llm.status === LLMStatus.LOADING);
+const lastMessage = computed(() => llm.messages[llm.messages.length - 1] ?? null);
+const showLoading = computed(
+    () => llmLoading.value || (llm.status === LLMStatus.READY && rag.status === RAGStatus.LOADING),
+);
 
 const statusDotClass = computed(() => {
+    if (showLoading.value) {
+        return 'bg-muted-hover animate-pulse';
+    }
+
     switch (llm.status) {
         case LLMStatus.READY:
             return 'bg-brand';
         case LLMStatus.GENERATING:
             return 'bg-brand animate-pulse';
-        case LLMStatus.LOADING:
-            return 'bg-muted-hover animate-pulse';
         default:
             return 'bg-muted';
     }
 });
 
+const activeLoading = computed(() => (llmLoading.value ? llm.loading : rag.loading));
+
+const activeLoadingText = computed(() => {
+    if (llmLoading.value) {
+        return llm.loading.text || t('assistant.loading.init');
+    }
+
+    return rag.loading.text || t('assistant.rag.init');
+});
+
+const activeLoadingHint = computed(() => {
+    return t('assistant.loading.hint');
+});
+
+const showError = computed(() => {
+    return llm.status === LLMStatus.ERROR || rag.status === RAGStatus.ERROR;
+});
+
+const errorTitle = computed(() => {
+    return llm.status === LLMStatus.ERROR ? t('assistant.error.title') : t('assistant.rag.error.title');
+});
+
+const errorMessage = computed(() => {
+    return llm.status === LLMStatus.ERROR ? llm.error.message : rag.error.message;
+});
+
 const scrollToBottom = () => {
     const el = messageListRef.value;
-    if (el) el.scrollTop = el.scrollHeight;
+
+    if (el) {
+        el.scrollTop = el.scrollHeight;
+    }
 };
 
-/**
- * scroll to bottom when new messages are added
- */
+const isNearBottom = () => {
+    const el = messageListRef.value;
+
+    if (!el) {
+        return false;
+    }
+
+    return el.scrollHeight - el.scrollTop - el.clientHeight < 20;
+};
+
+watch(() => llm.messages.length, scrollToBottom, { flush: 'post' });
+
 watch(
-    () => llm.messages.length,
-    () => scrollToBottom(),
-    { flush: 'post' },
+    () => lastMessage.value?.content,
+    () => {
+        if (llm.status !== LLMStatus.GENERATING || !isNearBottom()) {
+            return;
+        }
+
+        nextTick(scrollToBottom);
+    },
 );
 
-/**
- * during streaming, check if at bottom BEFORE new content renders (flush: 'pre'),
- * then scroll to new bottom AFTER DOM update via nextTick
- */
 watch(
-    () => llm.messages[llm.messages.length - 1]?.content,
+    () => lastMessage.value?.sources?.length ?? 0,
     () => {
-        if (llm.status !== LLMStatus.GENERATING) return;
-        const el = messageListRef.value;
-        if (!el) return;
-        if (el.scrollHeight - el.scrollTop - el.clientHeight < 20) nextTick(scrollToBottom);
+        if (!isNearBottom()) {
+            return;
+        }
+
+        nextTick(scrollToBottom);
     },
+    { flush: 'post' },
 );
 </script>

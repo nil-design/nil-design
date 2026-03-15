@@ -13,13 +13,18 @@
         "borderless",
         "commitlint",
         "dirents",
+        "dtype",
         "frontmatter",
+        "huggingface",
         "Morilence",
         "Navs",
         "nild",
+        "onwarn",
         "pascalize",
         "Qwen",
         "snakeize",
-        "vitepress"
+        "sourceable",
+        "vitepress",
+        "Xenova"
     ]
 }
