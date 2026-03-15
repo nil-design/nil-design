@@ -1,2 +1,6 @@
 packages:
   - 'packages/**'
+  - 'tooling/**'
+
+allowedDeprecatedVersions:
+  boolean: 3.2.0 # introduced by @huggingface/transformers

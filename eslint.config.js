@@ -1,4 +1,5 @@
 import eslint from '@eslint/js';
+import nildPlugin from '@nild/eslint-plugin';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import jsoncPlugin from 'eslint-plugin-jsonc';
@@ -8,10 +9,18 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import jsoncParser from 'jsonc-eslint-parser';
 import * as tslint from 'typescript-eslint';
+import vueParser from 'vue-eslint-parser';
 
 export default tslint.config(
     {
-        ignores: ['**/dist/**', '**/node_modules/**', '**/assets/**'],
+        ignores: [
+            '**/dist/**',
+            '**/cache/**',
+            '**/.cache/**',
+            '**/node_modules/**',
+            '**/assets/**',
+            '**/*.timestamp-*.mjs',
+        ],
     },
     eslint.configs.recommended,
     {
@@ -33,6 +42,22 @@ export default tslint.config(
             'padding-line-between-statements': ['warn', { blankLine: 'always', prev: '*', next: 'return' }],
         },
     },
+    {
+        files: ['**/*.vue'],
+        languageOptions: {
+            globals: {
+                ...globals.browser,
+            },
+            parser: vueParser,
+            parserOptions: {
+                parser: tslint.parser,
+                ecmaVersion: 'latest',
+                sourceType: 'module',
+                extraFileExtensions: ['.vue'],
+            },
+        },
+    },
+    nildPlugin.configs.recommended,
     importPlugin.flatConfigs.recommended,
     {
         /** only use sorting functionality */
@@ -67,9 +92,13 @@ export default tslint.config(
             ],
         },
     },
-    react.configs.flat.recommended,
+    {
+        files: ['**/*.{jsx,tsx}'],
+        ...react.configs.flat.recommended,
+    },
     {
         /** @link https://github.com/facebook/react/issues/28313 */
+        files: ['**/*.{js,jsx,ts,tsx}'],
         plugins: {
             'react-hooks': reactHooks,
         },
@@ -104,7 +133,7 @@ export default tslint.config(
         },
     },
     {
-        files: ['docs/.vitepress/theme/components/**/*.js'],
+        files: ['docs/.vitepress/theme/components/**/*.{js,jsx}'],
         languageOptions: {
             globals: {
                 ...globals.browser,

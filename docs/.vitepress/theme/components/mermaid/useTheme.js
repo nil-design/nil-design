@@ -1,3 +1,4 @@
+/* eslint-disable @nild/boolean-naming */
 import { ref, shallowRef, computed, unref, onMounted, onUnmounted } from 'vue';
 
 const useTheme = () => {

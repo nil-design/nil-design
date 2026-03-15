@@ -1,3 +1,4 @@
+/* eslint-disable @nild/no-hardcoded-colors */
 import { useState, useMemo, useEffect } from 'react';
 
 const useTheme = (dark = false) => {

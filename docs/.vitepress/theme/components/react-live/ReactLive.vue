@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
 import { useData } from 'vitepress';
+import { defineComponent } from 'vue';
 import ReactLive from './ReactLive.jsx';
 
 export default defineComponent({

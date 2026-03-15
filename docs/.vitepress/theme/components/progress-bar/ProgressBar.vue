@@ -11,8 +11,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vitepress';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const router = useRouter();
 const progress = ref(0);

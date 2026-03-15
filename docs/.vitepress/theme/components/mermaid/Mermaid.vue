@@ -3,8 +3,9 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, watch } from 'vue';
+/* eslint-disable no-unused-vars */
 import mermaid from 'mermaid';
+import { defineComponent, onMounted, ref, watch } from 'vue';
 import useTheme from './useTheme';
 
 export default defineComponent({

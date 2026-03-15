@@ -32,6 +32,9 @@ importers:
       '@nild/components':
         specifier: workspace:*
         version: link:packages/components
+      '@nild/eslint-plugin':
+        specifier: workspace:*
+        version: link:tooling/eslint-plugin
       '@nild/hooks':
         specifier: workspace:*
         version: link:packages/hooks
@@ -170,6 +173,9 @@ importers:
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/node@22.15.30)(jsdom@26.1.0)(lightningcss@1.31.1)
+      vue-eslint-parser:
+        specifier: 10.4.0
+        version: 10.4.0(eslint@9.23.0(jiti@2.6.1))
 
   packages/components:
     dependencies:
@@ -242,6 +248,12 @@ importers:
       tailwindcss:
         specifier: ^4.1.7
         version: 4.2.1
+
+  tooling/eslint-plugin:
+    dependencies:
+      eslint:
+        specifier: ^9.23.0
+        version: 9.23.0(jiti@2.6.1)
 
 packages:
 
@@ -5079,6 +5091,12 @@ packages:
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
 
+  vue-eslint-parser@10.4.0:
+    resolution: {integrity: sha512-Vxi9pJdbN3ZnVGLODVtZ7y4Y2kzAAE2Cm0CZ3ZDRvydVYxZ6VrnBhLikBsRS+dpwj4Jv4UCv21PTEwF5rQ9WXg==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    peerDependencies:
+      eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
+
   vue@3.5.16:
     resolution: {integrity: sha512-rjOV2ecxMd5SiAmof2xzh2WxntRcigkX/He4YFJ6WdRvVUrbt6DxC1Iujh10XLl8xCDRDtGKMeO3D+pRQ1PP9w==}
     peerDependencies:
@@ -5673,7 +5691,7 @@ snapshots:
   '@commitlint/is-ignored@19.8.1':
     dependencies:
       '@commitlint/types': 19.8.1
-      semver: 7.7.2
+      semver: 7.7.4
 
   '@commitlint/lint@19.8.1':
     dependencies:
@@ -6913,7 +6931,7 @@ snapshots:
       fast-glob: 3.3.3
       is-glob: 4.0.3
       minimatch: 9.0.5
-      semver: 7.7.2
+      semver: 7.7.4
       ts-api-utils: 2.1.0(typescript@5.8.2)
       typescript: 5.8.2
     transitivePeerDependencies:
@@ -8070,7 +8088,7 @@ snapshots:
   eslint-compat-utils@0.6.5(eslint@9.23.0(jiti@2.6.1)):
     dependencies:
       eslint: 9.23.0(jiti@2.6.1)
-      semver: 7.7.2
+      semver: 7.7.4
 
   eslint-config-prettier@10.1.0(eslint@9.23.0(jiti@2.6.1)):
     dependencies:
@@ -8471,7 +8489,7 @@ snapshots:
       es6-error: 4.1.1
       matcher: 3.0.0
       roarr: 2.15.4
-      semver: 7.7.2
+      semver: 7.7.4
       serialize-error: 7.0.1
 
   global-directory@4.0.1:
@@ -9131,7 +9149,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.7.2
+      semver: 7.7.4
 
   mark.js@8.11.1: {}
 
@@ -10535,6 +10553,18 @@ snapshots:
   vscode-uri@3.0.8: {}
 
   vscode-uri@3.1.0: {}
+
+  vue-eslint-parser@10.4.0(eslint@9.23.0(jiti@2.6.1)):
+    dependencies:
+      debug: 4.4.1
+      eslint: 9.23.0(jiti@2.6.1)
+      eslint-scope: 8.3.0
+      eslint-visitor-keys: 4.2.0
+      espree: 10.3.0
+      esquery: 1.6.0
+      semver: 7.7.4
+    transitivePeerDependencies:
+      - supports-color
 
   vue@3.5.16(typescript@5.8.2):
     dependencies:
