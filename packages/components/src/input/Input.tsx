@@ -1,6 +1,7 @@
 import { useControllableState } from '@nild/hooks';
 import { cnMerge } from '@nild/shared';
-import { forwardRef, Children, ReactElement, ChangeEvent, ReactNode, isValidElement } from 'react';
+import { forwardRef, ReactElement, ChangeEvent, ReactNode, isValidElement } from 'react';
+import { registerSlots } from '../_shared/utils';
 import { useCompositeContext, InputProvider } from './contexts';
 import { InputProps } from './interfaces';
 import { isPrefixElement } from './Prefix';
@@ -10,6 +11,11 @@ import { isSuffixElement } from './Suffix';
 export const isInputElement = (child: ReactNode): child is ReactElement<InputProps> => {
     return isValidElement(child) && child.type === Input;
 };
+
+const collectSlots = registerSlots({
+    prefix: { isMatched: isPrefixElement },
+    suffix: { isMatched: isSuffixElement },
+});
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     const compositeContext = useCompositeContext();
@@ -27,18 +33,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         onChange,
         ...restProps
     } = props;
-
-    let prefixChild: ReactElement | null = null;
-    let suffixChild: ReactElement | null = null;
-
-    Children.forEach(children, child => {
-        if (isPrefixElement(child)) {
-            prefixChild = child;
-        } else if (isSuffixElement(child)) {
-            suffixChild = child;
-        }
-    });
-
+    const { slots } = collectSlots(children);
     const [value, setValue] = useControllableState<string | number>(externalValue, defaultValue);
 
     const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +60,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
                     className,
                 )}
             >
-                {prefixChild}
+                {slots.prefix.el}
                 <input
                     ref={ref}
                     type={type}
@@ -75,7 +70,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
                     className={variants.input({ size })}
                     {...restProps}
                 />
-                {suffixChild}
+                {slots.suffix.el}
             </span>
         </InputProvider>
     );

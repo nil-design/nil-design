@@ -1,11 +1,18 @@
 import { useControllableState } from '@nild/hooks';
 import { CSSPropertiesWithVars, cnMerge } from '@nild/shared';
-import { forwardRef, Children, isValidElement, ReactElement } from 'react';
+import { forwardRef } from 'react';
+import { registerSlots } from '../_shared/utils';
 import { SwitchProvider } from './contexts';
-import { SwitchProps, TrackType } from './interfaces';
+import { SwitchProps } from './interfaces';
 import variants from './style';
 import Thumb from './Thumb';
 import Track from './Track';
+
+const collectSlots = registerSlots({
+    checkedTrack: { isMatched: child => child.type === Track && child.props.type === 'checked' },
+    uncheckedTrack: { isMatched: child => child.type === Track && child.props.type === 'unchecked' },
+    thumb: { isMatched: child => child.type === Thumb },
+});
 
 const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
     (
@@ -26,25 +33,7 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
         },
         ref,
     ) => {
-        let checkedTrackChild: ReactElement | undefined;
-        let uncheckedTrackChild: ReactElement | undefined;
-        let thumbChild: ReactElement | undefined;
-
-        Children.forEach(children, child => {
-            if (isValidElement(child)) {
-                if (child.type === Track) {
-                    const trackType: TrackType = child.props.type;
-                    if (trackType === 'checked') {
-                        checkedTrackChild = child;
-                    } else {
-                        uncheckedTrackChild = child;
-                    }
-                } else if (child.type === Thumb) {
-                    thumbChild = child;
-                }
-            }
-        });
-
+        const { slots } = collectSlots(children);
         const style: CSSPropertiesWithVars = {
             '--nd-switch-height': {
                 small: 'calc(var(--spacing) * 4)',
@@ -86,9 +75,9 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
                     ref={ref}
                     onClick={handleClick}
                 >
-                    {checkedTrackChild ? checkedTrackChild : <Track type="checked" />}
-                    {uncheckedTrackChild ? uncheckedTrackChild : <Track type="unchecked" />}
-                    {thumbChild ? thumbChild : <Thumb />}
+                    {slots.checkedTrack.el ?? <Track type="checked" />}
+                    {slots.uncheckedTrack.el ?? <Track type="unchecked" />}
+                    {slots.thumb.el ?? <Thumb />}
                 </button>
             </SwitchProvider>
         );

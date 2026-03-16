@@ -1,5 +1,6 @@
 import { cnMerge } from '@nild/shared';
-import { forwardRef, Children, ReactElement, cloneElement } from 'react';
+import { forwardRef, cloneElement } from 'react';
+import { registerSlots } from '../_shared/utils';
 import { isAppendElement } from './Append';
 import { CompositeProvider } from './contexts';
 import { isInputElement } from './Input';
@@ -7,26 +8,20 @@ import { CompositeProps } from './interfaces';
 import { isPrependElement } from './Prepend';
 import variants from './style';
 
+const collectSlots = registerSlots({
+    prepend: { isMatched: isPrependElement },
+    input: { isMatched: isInputElement },
+    append: { isMatched: isAppendElement },
+});
+
 const Composite = forwardRef<HTMLDivElement, CompositeProps>(
     (
         { className, children, variant = 'outlined', size = 'medium', block = false, disabled = false, ...restProps },
         ref,
     ) => {
-        let prependChild: ReactElement | undefined;
-        let appendChild: ReactElement | undefined;
-        let inputChild: ReactElement | undefined;
+        const { slots } = collectSlots(children);
 
-        Children.forEach(children, child => {
-            if (isPrependElement(child)) {
-                prependChild = child;
-            } else if (isAppendElement(child)) {
-                appendChild = child;
-            } else if (isInputElement(child)) {
-                inputChild = child;
-            }
-        });
-
-        if (!inputChild) {
+        if (!slots.input.el) {
             return null;
         }
 
@@ -49,16 +44,16 @@ const Composite = forwardRef<HTMLDivElement, CompositeProps>(
                     )}
                     {...restProps}
                 >
-                    {prependChild}
-                    {cloneElement(inputChild, {
-                        ...inputChild?.props,
+                    {slots.prepend.el}
+                    {cloneElement(slots.input.el, {
+                        ...slots.input.el?.props,
                         className: variants.compositedInputWrapper({
                             variant,
-                            prepended: !!prependChild,
-                            appended: !!appendChild,
+                            prepended: !!slots.prepend.el,
+                            appended: !!slots.append.el,
                         }),
                     })}
-                    {appendChild}
+                    {slots.append.el}
                 </span>
             </CompositeProvider>
         );

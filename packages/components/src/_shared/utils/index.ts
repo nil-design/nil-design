@@ -1,3 +1,6 @@
-import isPlainChildren from './isPlainChildren';
+import isPlainChildren from './is-plain-children';
+import mergeHandlers from './merge-handlers';
+import mergeProps from './merge-props';
+import registerSlots from './register-slots';
 
-export { isPlainChildren };
+export { registerSlots, isPlainChildren, mergeHandlers, mergeProps };

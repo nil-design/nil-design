@@ -39,6 +39,7 @@ const defaultIndicatorBlock = cva<Pick<CheckboxProps, 'checked' | 'variant'>>(
         ['flex', 'items-center', 'justify-center'],
         ['size-full', 'rounded-sm', 'border'],
         'transition-[background-color,color,border-color]',
+        'group-enabled:group-hover:border-brand-hover',
     ],
     {
         compoundVariants: [
@@ -50,18 +51,11 @@ const defaultIndicatorBlock = cva<Pick<CheckboxProps, 'checked' | 'variant'>>(
             {
                 checked: true,
                 variant: 'outlined',
-                className: [
-                    'bg-transparent border-brand text-brand',
-                    'group-enabled:group-hover:border-brand-hover',
-                    'group-enabled:group-hover:text-brand-hover',
-                ],
+                className: ['bg-transparent border-brand text-brand', 'group-enabled:group-hover:text-brand-hover'],
             },
             {
                 checked: false,
-                className: [
-                    'bg-transparent border-main text-transparent',
-                    'group-enabled:group-hover:border-brand-hover',
-                ],
+                className: ['bg-transparent border-main text-transparent'],
             },
         ],
     },

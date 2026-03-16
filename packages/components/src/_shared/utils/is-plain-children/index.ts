@@ -1,4 +1,4 @@
-import { isNil, isNumber, isString, isArray } from '@nild/shared';
+import { isArray, isNil, isNumber, isString } from '@nild/shared';
 import { ReactNode } from 'react';
 
 const isPlainChildren = (children: ReactNode): children is string | number => {
