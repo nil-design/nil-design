@@ -1,15 +1,19 @@
 import { useControllableState, useEffectCallback } from '@nild/hooks';
-import { cnMerge, isString } from '@nild/shared';
-import { ReactElement, ComponentType, Children, isValidElement, forwardRef, cloneElement } from 'react';
+import { cnMerge } from '@nild/shared';
+import { forwardRef } from 'react';
+import { registerSlots } from '../_shared/utils';
 import { RadioProvider, useGroupContext } from './contexts';
 import Indicator from './Indicator';
 import { RadioProps } from './interfaces';
 import Label from './Label';
 import variants from './style';
 
+const collectSlots = registerSlots({
+    indicator: { isMatched: child => child.type === Indicator },
+    label: { isMatched: child => child.type === Label },
+});
+
 const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
-    const children: ReactElement[] = [];
-    const childrenMap = new Map<ComponentType, ReactElement>();
     const groupContext = useGroupContext();
     const {
         className,
@@ -23,6 +27,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
         onChange,
         ...restProps
     } = props;
+    const { slots, plainChildren } = collectSlots(externalChildren);
     const [checked, setChecked] = useControllableState(
         !groupContext ? externalChecked : groupContext.value === value,
         defaultChecked ?? false,
@@ -43,37 +48,16 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
         });
     });
 
-    Children.forEach(externalChildren, child => {
-        if (isValidElement(child)) {
-            if (child.type === Indicator) {
-                childrenMap.delete(Indicator);
-                childrenMap.set(Indicator, child);
-            } else if (child.type === Label) {
-                childrenMap.delete(Label);
-                childrenMap.set(Label, child);
-            }
-        } else if (isString(child)) {
-            if (!childrenMap.has(Label)) {
-                childrenMap.set(Label, <Label>{child}</Label>);
-            }
-        }
-    });
-
-    children.push(...childrenMap.values());
-
-    if (!childrenMap.has(Indicator)) {
-        children.unshift(<Indicator />);
-    }
+    const indicatorChild = slots.indicator.el ?? <Indicator />;
+    const labelChild = slots.label.el ?? (plainChildren.length > 0 ? <Label>{plainChildren[0].content}</Label> : null);
+    const labelSeq = slots.label.el ? slots.label.seq : (plainChildren[0]?.seq ?? -1);
+    const labelFirst = !!slots.indicator.el && !!labelChild && labelSeq < slots.indicator.seq;
 
     return (
         <RadioProvider value={{ variant, size, checked, setChecked: updateChecked }}>
             <label {...restProps} className={cnMerge(variants.radio({ size, disabled }), className)} ref={ref}>
-                {children.map(child =>
-                    cloneElement(child, {
-                        key: (child.type as typeof Indicator | typeof Label).displayName,
-                        ...child.props,
-                    }),
-                )}
+                {labelFirst ? labelChild : indicatorChild}
+                {labelFirst ? indicatorChild : labelChild}
             </label>
         </RadioProvider>
     );

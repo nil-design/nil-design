@@ -1,12 +1,22 @@
 import { useControllableState, useEffectCallback, useIsomorphicLayoutEffect } from '@nild/hooks';
 import { isArray, isFunction, makeArray } from '@nild/shared';
-import { ReactElement, Children, isValidElement, FC, useState, SetStateAction, useRef, useMemo } from 'react';
+import { FC, SetStateAction, useMemo, useRef, useState } from 'react';
+import { registerSlots } from '../_shared/utils';
 import Transition from '../transition';
 import { ArrowProvider, PopupProvider, PortalProvider } from './contexts';
 import { usePopup } from './hooks';
 import { PopupProps } from './interfaces';
 import Portal from './Portal';
 import Trigger from './Trigger';
+
+const collectSlots = registerSlots({
+    trigger: { isMatched: child => child.type === Trigger },
+    portal: { isMatched: child => child.type === Portal },
+    firstBare: {
+        isMatched: child => child.type !== Trigger && child.type !== Portal,
+        strategy: 'first',
+    },
+});
 
 const Popup: FC<PopupProps> = ({
     children,
@@ -23,26 +33,7 @@ const Popup: FC<PopupProps> = ({
     onOpen,
     onClose,
 }) => {
-    let firstBareChild: ReactElement | undefined;
-    let triggerChild: ReactElement | undefined;
-    let portalChild: ReactElement | undefined;
-
-    Children.forEach(children, child => {
-        if (isValidElement(child)) {
-            switch (child.type) {
-                case Trigger:
-                    triggerChild = child;
-                    break;
-                case Portal:
-                    portalChild = child;
-                    break;
-                default:
-                    firstBareChild = child;
-                    break;
-            }
-        }
-    });
-
+    const { slots } = collectSlots(children);
     const [mounted, setMounted] = useState(defaultOpen);
     const [open, setOpen] = useControllableState(externalOpen, defaultOpen);
     const [enterDelay, leaveDelay = 100] = isArray(delay) ? delay : [delay, delay];
@@ -116,10 +107,10 @@ const Popup: FC<PopupProps> = ({
 
     return (
         <PopupProvider value={context}>
-            {triggerChild ? triggerChild : firstBareChild && <Trigger>{firstBareChild}</Trigger>}
+            {slots.trigger.el ?? (slots.firstBare.el && <Trigger>{slots.firstBare.el}</Trigger>)}
             <PortalProvider value={portalContext}>
                 <ArrowProvider value={arrowContext}>
-                    {portalChild && <Transition visible={open}>{mounted && portalChild}</Transition>}
+                    {slots.portal.el && <Transition visible={open}>{mounted && slots.portal.el}</Transition>}
                 </ArrowProvider>
             </PortalProvider>
         </PopupProvider>
