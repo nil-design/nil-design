@@ -7,7 +7,8 @@ import { IndicatorProps } from './interfaces';
 import variants from './style';
 
 const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(({ className, children, ...restProps }, ref) => {
-    const { variant, size, checked, setChecked } = useCheckboxContext();
+    const { variant, size, checked, disabled, setChecked } = useCheckboxContext();
+    const defaultRendered = !children;
     const renderBlock =
         children ??
         (checked => (
@@ -17,9 +18,19 @@ const Indicator = forwardRef<HTMLDivElement, IndicatorProps>(({ className, child
         ));
 
     return (
-        <div {...restProps} className={cnMerge(variants.indicator({ size }), className)} ref={ref}>
+        <div
+            {...restProps}
+            className={cnMerge(variants.indicator({ size, default: defaultRendered }), className)}
+            ref={ref}
+        >
             {renderBlock(!!checked)}
-            <input type="checkbox" className={variants.indicatorInput()} checked={checked} onChange={setChecked} />
+            <input
+                type="checkbox"
+                className={variants.indicatorInput()}
+                checked={checked}
+                disabled={disabled}
+                onChange={setChecked}
+            />
         </div>
     );
 });

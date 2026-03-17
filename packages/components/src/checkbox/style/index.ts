@@ -19,15 +19,22 @@ const checkbox = cva<Pick<CheckboxProps, 'size' | 'disabled'>>(
     },
 );
 
-const indicator = cva<Pick<CheckboxProps, 'size'>>(['relative', ['flex', 'items-center', 'justify-center']], {
-    variants: {
-        size: {
-            small: 'size-3.5 text-sm',
-            medium: 'size-4 text-md',
-            large: 'size-4.5 text-lg',
+const indicator = cva<Pick<CheckboxProps, 'size'> & { default?: boolean }>(
+    ['nd-checkbox-indicator', 'relative', ['flex', 'items-center', 'justify-center']],
+    {
+        variants: {
+            size: {
+                small: 'size-3.5 text-sm',
+                medium: 'size-4 text-md',
+                large: 'size-4.5 text-lg',
+            },
+            default: {
+                true: ['rounded-sm', 'transition-[box-shadow]', 'group-enabled:focus-visible-within:ring-focused'],
+                false: '',
+            },
         },
     },
-});
+);
 
 const indicatorInput = cva<object>([
     ['absolute', 'inset-0', 'opacity-0'],

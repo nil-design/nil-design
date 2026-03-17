@@ -160,6 +160,14 @@
    */
   --color-brand-contrast: light-dark(var(--nd-color-neutral-0), var(--nd-color-neutral-100));
 
+  /*
+   * transparent colors
+   */
+  --color-brand-ring: light-dark(
+    color-mix(in oklch, var(--nd-color-brand-60) 28%, transparent),
+    color-mix(in oklch, var(--nd-color-brand-60) 36%, transparent)
+  );
+
   /**
    * border, outline & stroke colors
    */
@@ -263,8 +271,27 @@
   text-underline-offset: 0.125rem;
 }
 
+@utility ring-focused {
+  outline: none;
+  box-shadow:
+    0 0 0 0.2rem var(--color-brand-ring),
+    var(--tw-shadow, 0 0 #00000000);
+}
+
+@utility ring-focused-with-outline {
+  box-shadow:
+    0 0 0 0.2rem var(--color-brand-ring),
+    var(--tw-shadow, 0 0 #00000000);
+}
+
 @utility r-* {
   r: --value(number);
+}
+
+@custom-variant focus-visible-within {
+  &:has(:focus-visible) {
+    @slot;
+  }
 }
 
 @custom-variant disabled {

@@ -70,4 +70,10 @@ describe('Radio', () => {
         expect(root?.firstElementChild).toHaveTextContent('Label first');
         expect(root?.lastElementChild).toHaveTextContent('Indicator second');
     });
+
+    it('disables the hidden native input when the radio is disabled', () => {
+        const { container } = render(<Radio disabled>Choice</Radio>);
+
+        expect(container.querySelector('input[type="radio"]')).toBeDisabled();
+    });
 });
