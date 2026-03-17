@@ -1,52 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="200" height="200" viewBox="0 0 340 250" preserveAspectRatio="xMidYMid meet" color-interpolation-filters="sRGB">  
-  <g fill="currentColor" class="iconlettersvg-g iconlettersvg" transform="translate(0,30) scale(3.892186)"> 
-    <g> 
-      <g class="tp-name" transform="translate(0,0)"> 
-        <g transform="scale(1)"> 
-          <g transform="translate(0, 0)"> 
-            <g class="name-imagesvg"> 
-              <g> 
-                <svg x="0" y="0" width="44.26771749661663" height="50" class="image-svg-svg primary" style="overflow: visible;"> 
-                  <svg viewBox="0 0 28.12 31.75">  
-                    <g> 
-                      <path d="M9.59 19.4v12.35h-.81V17.74l18.53 12.35V0h.8v31.75L9.59 19.4z"/>  
-                      <path d="M0 31.43V0l18.52 12.13V0h3.24v18.93L3.24 6.8v24.95H0v-.32z"/> 
-                    </g> 
-                  </svg> 
-                </svg> 
-              </g> 
-            </g> 
-          </g>  
-          <g transform="translate(44.26771749661663, 0)"> 
-            <g class="name-imagesvg"> 
-              <g> 
-                <svg x="0" y="0" width="15.647652770933377" height="50" class="image-svg-svg primary" style="overflow: visible;"> 
-                  <svg viewBox="0 0 9.93 31.73">  
-                    <g> 
-                      <path d="M9.12 31.73V0h.81v31.73h-.81zM0 31.73V0h3.24v31.73H0z"/> 
-                    </g> 
-                  </svg> 
-                </svg> 
-              </g> 
-            </g> 
-          </g>  
-          <g transform="translate(59.91537026755001, 0)"> 
-            <g class="name-imagesvg"> 
-              <g> 
-                <svg x="0" y="0" width="27.442663140478597" height="50" class="image-svg-svg primary" style="overflow: visible;"> 
-                  <svg viewBox="0 0 17.47 31.83">  
-                    <g> 
-                      <path d="M0 31.83V0h.81v31.02h16.66v.81H0z"/>  
-                      <path d="M6.69 26.11V0h3.24v22.87h7.54v3.24H6.69z"/> 
-                    </g> 
-                  </svg> 
-                </svg> 
-              </g> 
-            </g> 
-          </g> 
-        </g> 
-      </g> 
-    </g> 
-  </g> 
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 112" fill="none">
+  <style>
+    svg {
+      --logo-shadow: rgb(17 17 17 / 0.14);
+      --logo-base: #111111;
+      --logo-accent: #8c8c8c;
+      --logo-line: #8c8c8c;
+      --logo-node: #bebebe;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      svg {
+        --logo-shadow: rgb(158 158 158 / 0.22);
+        --logo-base: #ffffff;
+        --logo-accent: #9e9e9e;
+        --logo-line: #9e9e9e;
+        --logo-node: #707070;
+      }
+    }
+
+    .logo-shadow {
+      fill: var(--logo-shadow);
+    }
+
+    .logo-base {
+      fill: var(--logo-base);
+    }
+
+    .logo-accent {
+      fill: var(--logo-accent);
+    }
+
+    .logo-linework {
+      fill: none;
+      stroke: var(--logo-line);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 4;
+      opacity: 0.88;
+    }
+
+    .logo-nodes {
+      fill: var(--logo-node);
+      opacity: 0.9;
+    }
+
+  </style>
+  <g transform="translate(8 8) scale(0.44)">
+    <g class="logo-shadow" transform="translate(12 14)">
+      <rect x="22" y="24" width="28" height="172" rx="8" />
+      <polygon points="50,24 90,24 156,144 156,196 116,196 50,76" />
+      <rect x="128" y="24" width="28" height="172" rx="8" />
+      <rect x="214" y="24" width="30" height="172" rx="8" />
+      <rect x="304" y="24" width="30" height="172" rx="8" />
+      <rect x="304" y="166" width="160" height="30" rx="8" />
+    </g>
+    <g class="logo-base">
+      <rect x="22" y="24" width="28" height="172" rx="8" />
+      <polygon points="50,24 90,24 156,144 156,196 116,196 50,76" />
+      <rect x="128" y="24" width="28" height="172" rx="8" />
+      <rect x="214" y="24" width="30" height="172" rx="8" />
+      <rect x="304" y="24" width="30" height="172" rx="8" />
+      <rect x="304" y="166" width="160" height="30" rx="8" />
+    </g>
+    <g class="logo-accent">
+      <polygon points="50,24 90,24 103,46 63,46" />
+      <rect x="128" y="24" width="28" height="42" rx="8" />
+      <rect x="214" y="24" width="30" height="36" rx="8" />
+      <rect x="304" y="166" width="92" height="30" rx="8" />
+    </g>
+    <g class="logo-linework">
+      <path d="M10 12H134" />
+      <path d="M438 12H510V84" />
+      <path d="M10 186V212H84" />
+      <path d="M372 212H510" />
+      <path d="M86 46H156" />
+      <path d="M318 180H464" />
+    </g>
+    <g class="logo-nodes">
+      <circle cx="10" cy="12" r="6" />
+      <circle cx="510" cy="84" r="6" />
+      <circle cx="84" cy="212" r="6" />
+    </g>
+  </g>
 </svg>
