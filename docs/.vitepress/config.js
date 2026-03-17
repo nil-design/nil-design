@@ -53,7 +53,6 @@ export default defineConfig({
     },
     lastUpdated: true,
     themeConfig: {
-        logo: '/logo.svg',
         siteTitle: false,
         i18nRouting: false,
         socialLinks: [
@@ -64,7 +63,7 @@ export default defineConfig({
     },
     locales: {
         'zh-CN': {
-            label: '简体中文',
+            label: '\u7b80\u4f53\u4e2d\u6587',
             lang: 'zh-CN',
             link: '/zh-CN/',
             themeConfig: getThemeConfig('zh-CN'),
@@ -116,10 +115,10 @@ export default defineConfig({
         await embeddingBuilder
             .build(resolve(__dirname, '../public'))
             .then(() => {
-                console.log('✓ embeddings built');
+                console.log('embeddings built');
             })
             .catch(() => {
-                console.error('✗ embeddings build failed');
+                console.error('embeddings build failed');
             });
     },
 });

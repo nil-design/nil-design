@@ -2,7 +2,7 @@ import { createContextSuite } from '@nild/shared';
 import { RadioProps, GroupProps } from '../interfaces';
 
 const [RadioProvider, useRadioContext] = createContextSuite<
-    Pick<RadioProps, 'variant' | 'size' | 'checked'> & { setChecked?: () => void }
+    Pick<RadioProps, 'variant' | 'size' | 'checked' | 'disabled'> & { setChecked?: () => void }
 >({
     defaultValue: {},
 });

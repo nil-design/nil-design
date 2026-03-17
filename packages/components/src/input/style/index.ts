@@ -28,7 +28,7 @@ const compositedInputWrapper = cva<Pick<InputProps, 'variant'> & { prepended?: b
             {
                 variant: 'outlined',
                 appended: true,
-                className: ['mr-[-1px]', 'hover:z-1', 'focus-within:z-1'],
+                className: ['mr-[-1px]', 'hover:z-1'],
             },
         ],
     },
@@ -39,7 +39,8 @@ const inputWrapper = cva<InputProps>(
         'nd-input-wrapper',
         'group',
         ['inline-flex', 'items-center', 'box-border', 'font-nd', 'transition-colors', 'overflow-hidden'],
-        ['border', 'enabled:focus-within:border-brand'],
+        ['border', 'enabled:focus-within:border-brand', 'enabled:focus-within:z-1'],
+        'enabled:focus-visible-within:ring-focused',
         DISABLED_CLS,
     ],
     {

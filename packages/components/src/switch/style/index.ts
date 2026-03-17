@@ -7,15 +7,15 @@ const _switch = cva<SwitchProps & { checked: boolean }>(
         'nd-switch',
         'group',
         'h-[var(--nd-switch-height)]',
-        'transition-[outline-color]',
         ['relative', 'inline-block', 'font-nd', 'overflow-hidden', 'cursor-pointer'],
+        'transition-[outline-color,box-shadow]',
         DISABLED_CLS,
     ],
     {
         variants: {
             variant: {
-                solid: '',
-                outlined: ['outline-solid', 'outline'],
+                solid: 'focus-visible:ring-focused',
+                outlined: ['outline', 'focus-visible:ring-focused-with-outline'],
             },
             size: {
                 small: ['min-w-8', 'text-sm'],
@@ -103,14 +103,14 @@ const thumb = cva<Pick<SwitchProps, 'variant' | 'shape' | 'checked'>>(
     [
         'h-[var(--nd-switch-height)]',
         ['flex', 'justify-center', 'items-center'],
-        ['absolute', 'aspect-square', 'scale-80'],
+        ['absolute', 'top-0', 'aspect-square', 'scale-80'],
         ['text-brand-contrast', 'transition-[left,background-color]'],
     ],
     {
         variants: {
             variant: {
-                solid: ['bg-brand-contrast', 'top-0'],
-                outlined: ['bg-brand', 'top-0', 'group-enabled:group-hover:bg-brand-hover'],
+                solid: ['bg-brand-contrast'],
+                outlined: ['bg-emphasized', 'group-enabled:group-hover:bg-brand-hover'],
             },
             shape: {
                 round: 'rounded-full',
@@ -121,6 +121,13 @@ const thumb = cva<Pick<SwitchProps, 'variant' | 'shape' | 'checked'>>(
                 false: 'left-0',
             },
         },
+        compoundVariants: [
+            {
+                variant: 'outlined',
+                checked: true,
+                className: ['bg-brand'],
+            },
+        ],
     },
 );
 

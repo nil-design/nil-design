@@ -54,7 +54,7 @@ const Radio = forwardRef<HTMLLabelElement, RadioProps>((props, ref) => {
     const labelFirst = !!slots.indicator.el && !!labelChild && labelSeq < slots.indicator.seq;
 
     return (
-        <RadioProvider value={{ variant, size, checked, setChecked: updateChecked }}>
+        <RadioProvider value={{ variant, size, checked, disabled, setChecked: updateChecked }}>
             <label {...restProps} className={cnMerge(variants.radio({ size, disabled }), className)} ref={ref}>
                 {labelFirst ? labelChild : indicatorChild}
                 {labelFirst ? indicatorChild : labelChild}

@@ -19,20 +19,29 @@ const radio = cva<Pick<RadioProps, 'size' | 'disabled'>>(
     },
 );
 
-const indicator = cva<Pick<RadioProps, 'size'>>(['relative', ['flex', 'items-center', 'justify-center']], {
-    variants: {
-        size: {
-            small: 'size-3.5 text-sm',
-            medium: 'size-4 text-md',
-            large: 'size-4.5 text-lg',
+const indicator = cva<Pick<RadioProps, 'size'> & { default?: boolean }>(
+    ['nd-radio-indicator', 'relative', ['flex', 'items-center', 'justify-center']],
+    {
+        variants: {
+            size: {
+                small: 'size-3.5 text-sm',
+                medium: 'size-4 text-md',
+                large: 'size-4.5 text-lg',
+            },
+            default: {
+                true: ['rounded-full', 'transition-[box-shadow]', 'group-enabled:focus-visible-within:ring-focused'],
+                false: '',
+            },
         },
     },
-});
+);
 
 const indicatorInput = cva<object>([
     ['absolute', 'inset-0', 'opacity-0'],
     ['group-enabled:cursor-pointer', 'group-disabled:cursor-not-allowed'],
 ]);
+
+const defaultIndicatorSvg = cva<object>(['size-full']);
 
 const defaultIndicatorOuterCircle = cva<Pick<RadioProps, 'variant' | 'checked'>>(
     ['stroke-1', 'r-9', 'transition-[stroke,fill]', 'group-enabled:group-hover:stroke-brand-hover'],
@@ -104,6 +113,7 @@ export default {
     radio,
     indicator,
     indicatorInput,
+    defaultIndicatorSvg,
     defaultIndicatorOuterCircle,
     defaultIndicatorInnerCircle,
     label,

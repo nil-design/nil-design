@@ -3,7 +3,13 @@ import { DISABLED_CLS } from '../../_shared/style';
 import { ButtonProps, GroupProps } from '../interfaces';
 
 const button = cva<ButtonProps>(
-    ['nd-button', ['font-nd', 'cursor-pointer', 'transition-colors'], ['whitespace-nowrap', 'truncate'], DISABLED_CLS],
+    [
+        'nd-button',
+        ['font-nd', 'cursor-pointer', 'transition-colors'],
+        ['whitespace-nowrap', 'truncate'],
+        'focus-visible:ring-focused',
+        DISABLED_CLS,
+    ],
     {
         variants: {
             variant: {
@@ -77,7 +83,7 @@ const group = cva<GroupProps>(['nd-button-group', ['flex']], {
     },
 });
 
-const groupedButton = cva<GroupProps & { first?: boolean; last?: boolean }>('', {
+const groupedButton = cva<GroupProps & { first?: boolean; last?: boolean }>('focus-visible:z-1', {
     compoundVariants: [
         {
             first: true,

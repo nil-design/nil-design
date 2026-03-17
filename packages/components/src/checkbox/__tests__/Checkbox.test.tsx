@@ -44,4 +44,10 @@ describe('Checkbox', () => {
 
         expect(container.querySelector('input[type="checkbox"]')).toBeInTheDocument();
     });
+
+    it('disables the hidden native input when the checkbox is disabled', () => {
+        const { container } = render(<Checkbox disabled>Choice</Checkbox>);
+
+        expect(container.querySelector('input[type="checkbox"]')).toBeDisabled();
+    });
 });
