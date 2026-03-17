@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.38
+
+### Patch Changes
+
+- 084bf18: perf: improve keyboard focus ring styling across the core interactive components
+
 ## 0.0.37
 
 ### Patch Changes
