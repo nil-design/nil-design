@@ -23,79 +23,76 @@
     oklch(17% var(--nd-brand-c) var(--nd-brand-h))
   );
   --nd-color-brand-10: light-dark(
-    oklch(94% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(21% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(95% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(20% var(--nd-brand-c) var(--nd-brand-h))
   );
   --nd-color-brand-15: light-dark(
-    oklch(90% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(26% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(92% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(25% var(--nd-brand-c) var(--nd-brand-h))
   );
   --nd-color-brand-20: light-dark(
-    oklch(85% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(32% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(88% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(30% var(--nd-brand-c) var(--nd-brand-h))
   );
   --nd-color-brand-30: light-dark(
-    oklch(76% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(42% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(80% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(38% var(--nd-brand-c) var(--nd-brand-h))
   );
   --nd-color-brand-40: light-dark(
-    oklch(67% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(50% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(72% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(46% var(--nd-brand-c) var(--nd-brand-h))
   );
   --nd-color-brand-50: light-dark(
-    oklch(58% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(58% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(64% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(52% var(--nd-brand-c) var(--nd-brand-h))
   );
-  --nd-color-brand-60: light-dark(
-    oklch(50% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(67% var(--nd-brand-c) var(--nd-brand-h))
-  );
+  --nd-color-brand-60: oklch(58% var(--nd-brand-c) var(--nd-brand-h));
   --nd-color-brand-70: light-dark(
-    oklch(42% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(76% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(50% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(66% var(--nd-brand-c) var(--nd-brand-h))
   );
   --nd-color-brand-80: light-dark(
-    oklch(35% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(85% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(40% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(76% var(--nd-brand-c) var(--nd-brand-h))
   );
   --nd-color-brand-90: light-dark(
-    oklch(25% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(93% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(30% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(88% var(--nd-brand-c) var(--nd-brand-h))
   );
   --nd-color-brand-100: light-dark(
-    oklch(15% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(98% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(20% var(--nd-brand-c) var(--nd-brand-h)),
+    oklch(96% var(--nd-brand-c) var(--nd-brand-h))
   );
 
   /*
    * neutral color scale
    */
   --nd-color-neutral-0: light-dark(
-    oklch(99.5% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(99% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(14% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-5: light-dark(
-    oklch(98% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(97.5% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(17% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-10: light-dark(
-    oklch(96.5% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(95.5% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(21% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-15: light-dark(
-    oklch(94% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(92.5% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(26% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-20: light-dark(
-    oklch(91% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(89% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(32% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-30: light-dark(
-    oklch(84% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(81% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(42% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-40: light-dark(
-    oklch(73% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(72% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(50% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-50: light-dark(
@@ -111,11 +108,11 @@
     oklch(76% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-80: light-dark(
-    oklch(30% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(32% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(85% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-90: light-dark(
-    oklch(20% var(--nd-neutral-c) var(--nd-brand-h)),
+    oklch(22% var(--nd-neutral-c) var(--nd-brand-h)),
     oklch(93% var(--nd-neutral-c) var(--nd-brand-h))
   );
   --nd-color-neutral-100: light-dark(
@@ -148,7 +145,7 @@
    * brand colors
    */
   --color-brand: var(--nd-color-brand-60);
-  --color-brand-hover: var(--nd-color-brand-50);
+  --color-brand-hover: light-dark(var(--nd-color-brand-50), var(--nd-color-brand-70));
   --color-brand-active: var(--nd-color-brand-60);
 
   /*
@@ -222,24 +219,27 @@
   --text-6xl: 2.875rem; /* 46px */
   --text-6xl--line-height: 3.375rem;
 
-  --radius-sm: 0.125rem;
-  --radius-md: 0.25rem;
-  --radius-lg: 0.375rem;
-  --radius-xl: 0.5rem;
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
 
-  --shadow-sm: 0 0 0 1px var(--border-color-subtle), 0 1px 2px 0 var(--nd-color-shadow-key);
+  --shadow-sm: 0 0 0 0.8px var(--border-color-muted), 0 1px 2px 0 var(--nd-color-shadow-key);
   --shadow-md:
-    0 0 0 1px var(--border-color-subtle), 0 3px 6px -1px var(--nd-color-shadow-key),
-    0 1px 3px -1px var(--nd-color-shadow-ambient);
+    0 0 0 0.8px var(--border-color-muted), 0 4px 6px -1px var(--nd-color-shadow-key),
+    0 2px 4px -2px var(--nd-color-shadow-ambient);
   --shadow-lg:
-    0 0 0 1px var(--border-color-subtle), 0 8px 16px -2px var(--nd-color-shadow-key),
-    0 3px 6px -2px var(--nd-color-shadow-ambient);
+    0 0 0 0.8px var(--border-color-muted), 0 10px 15px -3px var(--nd-color-shadow-key),
+    0 4px 6px -4px var(--nd-color-shadow-ambient);
   --shadow-xl:
-    0 0 0 1px var(--border-color-subtle), 0 16px 24px -4px var(--nd-color-shadow-key),
-    0 6px 12px -4px var(--nd-color-shadow-ambient);
+    0 0 0 0.8px var(--border-color-muted), 0 20px 25px -5px var(--nd-color-shadow-key),
+    0 8px 10px -6px var(--nd-color-shadow-ambient);
   --shadow-2xl:
-    0 0 0 1px var(--border-color-subtle), 0 24px 36px -6px var(--nd-color-shadow-key),
-    0 10px 16px -6px var(--nd-color-shadow-ambient);
+    0 0 0 0.8px var(--border-color-muted), 0 25px 50px -12px var(--nd-color-shadow-key),
+    0 12px 24px -12px var(--nd-color-shadow-ambient);
 
   --font-nd: var(--nd-font-family);
 

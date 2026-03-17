@@ -48,19 +48,19 @@ const arrow = cva<
     compoundVariants: [
         {
             orientation: 'up',
-            className: ['shadow-[-1px_-1px_0_0_var(--border-color-subtle)]'],
+            className: ['shadow-[-1px_-1px_0_0_var(--border-color-muted)]'],
         },
         {
             orientation: 'down',
-            className: ['shadow-[1px_1px_0_0_var(--border-color-subtle)]'],
+            className: ['shadow-[1px_1px_0_0_var(--border-color-muted)]'],
         },
         {
             orientation: 'left',
-            className: ['shadow-[-1px_1px_0_0_var(--border-color-subtle)]'],
+            className: ['shadow-[-1px_1px_0_0_var(--border-color-muted)]'],
         },
         {
             orientation: 'right',
-            className: ['shadow-[1px_-1px_0_0_var(--border-color-subtle)]'],
+            className: ['shadow-[1px_-1px_0_0_var(--border-color-muted)]'],
         },
     ],
 });
