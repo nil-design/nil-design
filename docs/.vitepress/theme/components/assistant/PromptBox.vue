@@ -1,11 +1,11 @@
 <template>
-    <div class="flex-shrink-0 bg-page border-t border-muted flex gap-2 px-3 py-2.5">
+    <div class="shrink-0 bg-page border-t border-muted flex gap-2 px-3 py-2.5">
         <textarea
             ref="textareaRef"
             :value="modelValue"
             rows="1"
             :class="[
-                'flex-1 resize-none bg-transparent outline-none border-0 leading-[1.375rem]',
+                'flex-1 resize-none bg-transparent outline-none border-0 leading-5.5',
                 'placeholder:text-subtle text-main text-md',
                 'max-h-28 overflow-y-auto',
                 disabled ? 'cursor-not-allowed opacity-60' : '',
@@ -17,7 +17,7 @@
         />
         <button
             :class="[
-                'self-end flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center',
+                'self-end shrink-0 w-8 h-8 rounded-lg flex items-center justify-center',
                 'bg-brand text-brand-contrast transition-[opacity,background-color]',
                 'enabled:hover:bg-brand-hover',
                 'enabled:active:bg-brand-active',
@@ -33,7 +33,7 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import SendIcon from '../../icons/Send.vue';
+import SendIcon from '../../icons/send.svg';
 
 const props = defineProps({
     modelValue: { type: String, default: '' },
