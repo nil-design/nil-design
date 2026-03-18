@@ -2,7 +2,7 @@
     <Teleport v-if="mounted" to="body">
         <div
             :class="[
-                'vp-raw fixed z-[9999] overflow-hidden text-brand-contrast font-nd shadow-2xl rounded-xl',
+                'vp-raw fixed z-9999 overflow-hidden text-brand-contrast font-nd shadow-2xl rounded-xl',
                 dragging ? 'transition-none' : 'transition-[width,height,top,left,border-radius]',
             ]"
             :style="{
@@ -64,7 +64,7 @@
 import { useData } from 'vitepress';
 import { computed, onMounted, onUnmounted, provide, ref, watch } from 'vue';
 import i18n from '../../../../../locales/index.js';
-import ChatIcon from '../../icons/Chat.vue';
+import ChatIcon from '../../icons/chat.svg';
 import Dialog from './Dialog.vue';
 import PromptBox from './PromptBox.vue';
 import { createRAGPrompt, RAGStatus } from './rag.shared.js';

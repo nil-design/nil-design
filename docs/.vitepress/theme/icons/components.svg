@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    .base-fill {
+      fill: var(--nd-color-neutral-100);
+    }
+
+    .muted-fill {
+      fill: var(--nd-color-neutral-70);
+    }
+
+    .accent-fill {
+      fill: var(--nd-color-brand-60);
+    }
+
+    .muted-stroke {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+      stroke: var(--nd-color-neutral-70);
+    }
+
+    .soft-fill {
+      fill: var(--nd-color-neutral-70);
+      opacity: 0.18;
+    }
+  </style>
+  <rect class="soft-fill" x="11" y="11" width="17" height="17" rx="5" />
+  <rect class="accent-fill" x="36" y="11" width="17" height="17" rx="5" />
+  <rect class="base-fill" x="11" y="36" width="17" height="17" rx="5" opacity="0.88" />
+  <rect class="muted-stroke" x="36" y="36" width="17" height="17" rx="5" opacity="0.72" />
+  <circle class="muted-fill" cx="32" cy="32" r="2.25" opacity="0.8" />
+</svg>

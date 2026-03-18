@@ -82,33 +82,9 @@
     animation: clip-rtl 0.5s var(--default-transition-timing-function);
   }
 
-  --nil-glass-bg: light-dark(
-    color-mix(in oklch, var(--nd-color-neutral-0) 76%, transparent),
-    color-mix(in oklch, var(--nd-color-neutral-10) 72%, transparent)
-  );
-  --nil-glass-bg-strong: light-dark(
-    color-mix(in oklch, var(--nd-color-neutral-0) 88%, transparent),
-    color-mix(in oklch, var(--nd-color-neutral-15) 84%, transparent)
-  );
-  --nil-glass-border: light-dark(
-    color-mix(in oklch, var(--nd-color-neutral-40) 32%, transparent),
-    color-mix(in oklch, var(--nd-color-neutral-70) 18%, transparent)
-  );
-  --nil-glass-highlight: light-dark(
-    color-mix(in oklch, var(--nd-color-neutral-0) 84%, transparent),
-    color-mix(in oklch, var(--nd-color-neutral-90) 12%, transparent)
-  );
   --nil-grid-line: light-dark(
     color-mix(in oklch, var(--background-color-page) 94%, var(--nd-color-brand-15)),
     color-mix(in oklch, var(--background-color-page) 87%, var(--nd-color-brand-30))
-  );
-  --nil-brand-glow-soft: light-dark(
-    color-mix(in oklch, var(--nd-color-brand-30) 42%, transparent),
-    color-mix(in oklch, var(--nd-color-brand-40) 34%, transparent)
-  );
-  --nil-brand-glow-strong: light-dark(
-    color-mix(in oklch, var(--nd-color-brand-50) 34%, transparent),
-    color-mix(in oklch, var(--nd-color-brand-60) 30%, transparent)
   );
   --nil-page-glow-left: light-dark(
     var(--background-color-page),
@@ -118,18 +94,6 @@
     color-mix(in oklch, var(--background-color-page) 95%, var(--nd-color-brand-30)),
     color-mix(in oklch, var(--background-color-page) 83%, var(--nd-color-brand-40))
   );
-  --nil-page-grid-opacity: light-dark(0.24, 0.2);
-  --nil-page-grid-focus-opacity: light-dark(0.32, 0.28);
-  --nil-hero-halo-opacity: light-dark(0.9, 1);
-  --nil-hero-gradient: linear-gradient(
-    135deg,
-    var(--nd-color-neutral-100) 0%,
-    color-mix(in oklch, var(--nd-color-neutral-100) 72%, var(--nd-color-brand-90)) 42%,
-    var(--nd-color-brand-60) 100%
-  );
-  --nil-shadow-glass:
-    inset 0 1px 0 0 var(--nil-glass-highlight), 0 22px 44px -28px var(--nd-color-shadow-key),
-    0 14px 26px -24px var(--nd-color-shadow-ambient);
 
   --vp-c-brand-1: var(--color-brand);
   --vp-c-brand-2: var(--color-brand-hover);
@@ -173,18 +137,27 @@
     color-mix(in oklch, var(--background-color-page) 74%, transparent),
     color-mix(in oklch, var(--background-color-page) 66%, transparent)
   );
-  --vp-sidebar-bg-color: light-dark(
-    color-mix(in oklch, var(--background-color-page) 92%, transparent),
-    color-mix(in oklch, var(--background-color-page) 86%, transparent)
-  );
   --vp-backdrop-bg-color: light-dark(
     color-mix(in oklch, var(--nd-color-neutral-100) 16%, transparent),
     color-mix(in oklch, var(--nd-color-neutral-100) 44%, transparent)
   );
 
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: var(--nil-hero-gradient);
-  --vp-home-hero-image-background-image: radial-gradient(circle, var(--nil-brand-glow-soft) 0%, transparent 72%);
+  --vp-home-hero-name-background: linear-gradient(
+    135deg,
+    var(--nd-color-neutral-100) 0%,
+    color-mix(in oklch, var(--nd-color-neutral-100) 72%, var(--nd-color-brand-90)) 42%,
+    var(--nd-color-brand-60) 100%
+  );
+  --vp-home-hero-image-background-image: radial-gradient(
+    circle,
+    light-dark(
+        color-mix(in oklch, var(--nd-color-brand-30) 42%, transparent),
+        color-mix(in oklch, var(--nd-color-brand-40) 34%, transparent)
+      )
+      0%,
+    transparent 72%
+  );
   --vp-home-hero-image-filter: blur(46px);
 
   --vp-font-family-base: var(--font-nd);
@@ -192,31 +165,26 @@
 
 html,
 body {
-  background-color: var(--vp-c-bg);
+  @apply bg-page;
 }
 
 .Layout {
-  @apply relative isolate;
-
-  background: var(--vp-c-bg);
-  overflow-x: clip;
+  @apply relative isolate bg-page overflow-x-clip;
 }
 
 .Layout::before {
   content: '';
 
-  @apply fixed inset-x-0 top-0 h-screen opacity-[0.92];
+  @apply fixed inset-x-0 top-0 z-0 h-screen pointer-events-none opacity-[0.92];
 
   background: radial-gradient(circle at 30% 30%, var(--nil-page-glow-left) 0%, transparent 36rem);
   mask-image: linear-gradient(180deg, black 0%, black 62%, transparent 100%);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .Layout::after {
   content: '';
 
-  @apply fixed inset-x-0 top-0 h-[min(42rem,72vh)];
+  @apply fixed inset-x-0 top-0 z-0 h-[min(42rem,72vh)] pointer-events-none opacity-[0.24];
 
   background-image:
     linear-gradient(to right, var(--nil-grid-line) 1px, transparent 1px),
@@ -229,9 +197,6 @@ body {
     20px 20px,
     20px 20px;
   mask-image: radial-gradient(circle at 50% 14%, black 0%, black 16%, rgb(0 0 0 / 82%) 34%, transparent 64%);
-  opacity: var(--nil-page-grid-opacity);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .Layout > .VPNav {
@@ -240,45 +205,39 @@ body {
 
 .Layout > .VPContent,
 .Layout > .VPFooter {
-  @apply relative;
-
-  z-index: 1;
+  @apply relative z-[1];
 }
 
 .VPButton {
-  letter-spacing: 0.01em;
+  @apply tracking-[0.01em];
 }
 
 .VPNavBar {
   background:
     linear-gradient(180deg, color-mix(in oklch, var(--nd-color-neutral-0) 8%, transparent), transparent 82%),
     var(--vp-nav-bg-color) !important;
-  box-shadow: inset 0 -1px 0 var(--nil-glass-border);
+  box-shadow: inset 0 -1px 0 var(--border-color-subtle);
   backdrop-filter: blur(22px) saturate(148%);
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-backdrop-filter: blur(22px) saturate(148%);
 
   &.screen-open {
-    border-bottom: none;
+    @apply border-b-0;
   }
 
   .title,
   .content {
-    @apply relative;
-
-    z-index: 1;
+    @apply relative z-[1];
   }
 
   .title {
     .title {
-      @apply w-full px-0;
-
-      border-bottom-color: transparent !important;
+      @apply w-full border-b-transparent! px-0;
     }
   }
 
   .content-body {
-    background-color: transparent !important;
+    @apply bg-transparent!;
 
     .extra + .theme-picker {
       &::before {
@@ -310,44 +269,35 @@ body {
   }
 }
 
-.theme-picker {
-  button {
-    transition: transform 0.25s ease;
-
-    &:hover {
-      background-color: transparent;
-      box-shadow: none;
-    }
-
-    &:active {
-      transform: scale(0.96);
-    }
-  }
-}
-
 .VPLocalNav {
-  border-bottom: none;
+  @apply border-b-0;
+
   background-color: var(--vp-local-nav-bg-color);
-  box-shadow: inset 0 -1px 0 var(--nil-glass-border);
+  box-shadow: inset 0 -1px 0 var(--border-color-subtle);
   backdrop-filter: blur(18px) saturate(140%);
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-backdrop-filter: blur(18px) saturate(140%);
 }
 
 .VPSidebar {
-  border-right: 1px solid var(--nil-glass-border);
-  background: transparent !important;
-  box-shadow: var(--vp-shadow-3);
-  backdrop-filter: blur(24px) saturate(145%);
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-backdrop-filter: blur(24px) saturate(145%);
+  @apply border-r border-subtle bg-transparent! shadow-none;
+
+  backdrop-filter: none;
 
   .curtain {
-    border-bottom: 1px solid var(--nil-glass-border);
-    background-color: transparent !important;
-    backdrop-filter: blur(24px) saturate(145%);
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-backdrop-filter: blur(24px) saturate(145%);
+    @apply border-b border-subtle bg-transparent!;
+
+    backdrop-filter: none;
+  }
+}
+
+@media (width < 960px) {
+  .VPSidebar.open {
+    @apply bg-page shadow-lg;
+  }
+
+  .VPSidebar.open .curtain {
+    @apply bg-page;
   }
 }
 
@@ -380,9 +330,7 @@ body {
   }
 
   .heading {
-    @apply gap-[0.35rem];
-
-    overflow: visible;
+    @apply gap-[0.35rem] overflow-visible;
   }
 
   .name,
@@ -393,9 +341,7 @@ body {
   }
 
   .name {
-    @apply inline-block pb-[0.12em];
-
-    line-height: 1.16;
+    @apply inline-block pb-[0.12em] leading-[1.16];
   }
 
   .name.clip {
@@ -403,13 +349,11 @@ body {
   }
 
   .text {
-    color: var(--vp-c-text-1);
+    @apply text-main;
   }
 
   .tagline {
-    @apply max-w-[36rem];
-
-    color: var(--vp-c-text-2);
+    @apply max-w-[36rem] text-muted;
   }
 
   .actions {
@@ -418,7 +362,7 @@ body {
 
   .action {
     .VPButton {
-      box-shadow: var(--vp-shadow-1);
+      @apply shadow-sm;
     }
   }
 
@@ -427,15 +371,11 @@ body {
   }
 
   .image-container {
-    @apply h-auto w-full max-w-[35rem] aspect-[1/1.02];
-
-    transform: none;
+    @apply aspect-[1/1.02] h-auto w-full max-w-[35rem] transform-none;
   }
 
   .image-bg {
-    @apply aspect-square w-[72%] max-w-[22rem];
-
-    opacity: 0.9;
+    @apply aspect-square w-[72%] max-w-[22rem] opacity-90;
   }
 }
 
@@ -444,303 +384,34 @@ body {
     @apply pb-24;
 
     .container {
-      @apply gap-12;
+      @apply justify-between gap-12;
     }
 
     .image {
-      @apply m-0;
+      @apply m-0 flex-none;
     }
 
     .image-container {
-      @apply w-full max-w-[36rem] min-h-[32rem];
+      @apply w-[29.5rem] max-w-[29.5rem] min-h-0;
     }
-  }
-}
-
-.nil-home-badge {
-  @apply mx-auto mb-6 inline-flex w-fit items-center gap-[0.65rem] rounded-full px-[0.9rem] py-[0.45rem];
-
-  border: 1px solid var(--nil-glass-border);
-  background: var(--nil-glass-bg-strong);
-  box-shadow: var(--nil-shadow-glass);
-  color: var(--vp-c-text-2);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  backdrop-filter: blur(18px) saturate(140%);
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-
-  &::before {
-    content: '';
-
-    @apply size-2 rounded-full;
-
-    background: var(--vp-c-brand-1);
-    box-shadow: 0 0 0 0.3rem color-mix(in oklch, var(--nd-color-brand-30) 18%, transparent);
-  }
-}
-
-@media (width >= 960px) {
-  .nil-home-badge {
-    @apply mx-0;
-  }
-}
-
-.nil-hero-logo {
-  @apply relative mx-auto aspect-[1/1.02] w-full max-w-[35rem];
-}
-
-.nil-hero-logo__halo {
-  @apply absolute inset-[8%_4%_10%] rounded-[2rem];
-
-  background:
-    radial-gradient(
-      circle at 50% 28%,
-      color-mix(in oklch, var(--nil-page-glow-right) 96%, transparent) 0%,
-      transparent 48%
-    ),
-    radial-gradient(
-      circle at 70% 70%,
-      color-mix(in oklch, var(--nil-page-glow-left) 94%, transparent) 0%,
-      transparent 42%
-    );
-  filter: blur(28px);
-  opacity: var(--nil-hero-halo-opacity);
-}
-
-.nil-hero-logo__panel {
-  @apply absolute inset-[8%_8%_10%] rounded-[1.9rem];
-
-  border: 1px solid var(--nil-glass-border);
-  background:
-    linear-gradient(180deg, color-mix(in oklch, var(--nd-color-neutral-0) 12%, transparent), transparent 72%),
-    var(--nil-glass-bg-strong);
-  box-shadow: var(--nil-shadow-glass);
-  backdrop-filter: blur(24px) saturate(150%);
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
-  overflow: hidden;
-
-  &::before {
-    content: '';
-
-    @apply absolute inset-0;
-
-    background:
-      radial-gradient(
-        circle at 20% 18%,
-        color-mix(in oklch, var(--nil-page-glow-left) 68%, transparent),
-        transparent 34%
-      ),
-      linear-gradient(135deg, color-mix(in oklch, var(--nil-page-glow-right) 52%, transparent), transparent 45%);
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-
-    @apply absolute inset-px;
-
-    border-radius: inherit;
-    box-shadow: inset 0 1px 0 0 var(--nil-glass-highlight);
-    pointer-events: none;
-  }
-}
-
-.nil-hero-logo__grid {
-  @apply absolute inset-0;
-
-  background-image:
-    linear-gradient(to right, var(--nil-grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--nil-grid-line) 1px, transparent 1px);
-  background-size: 20px 20px;
-  mask-image: radial-gradient(circle at center, black 0%, transparent 82%);
-  opacity: 0.54;
-}
-
-.nil-hero-logo__trace {
-  @apply absolute h-px;
-
-  background: linear-gradient(90deg, transparent, var(--vp-c-brand-1), transparent);
-  opacity: 0.6;
-}
-
-.nil-hero-logo__trace--top {
-  @apply top-[16%] left-[12%] w-[36%];
-}
-
-.nil-hero-logo__trace--bottom {
-  @apply right-[12%] bottom-[18%] w-[28%];
-}
-
-.nil-hero-logo__svg {
-  @apply absolute inset-[18%_10%_24%] h-auto w-[80%];
-
-  overflow: visible;
-}
-
-.nil-hero-wordmark__shadow {
-  fill: color-mix(in oklch, var(--nd-color-brand-40) 26%, transparent);
-}
-
-.nil-hero-wordmark__base {
-  fill: color-mix(in oklch, var(--nd-color-neutral-100) 96%, var(--nd-color-brand-90));
-}
-
-.nil-hero-wordmark__accent {
-  fill: color-mix(in oklch, var(--nd-color-brand-50) 84%, var(--nd-color-brand-60));
-}
-
-.nil-hero-wordmark__linework {
-  fill: none;
-  stroke: color-mix(in oklch, var(--nd-color-brand-30) 78%, var(--nd-color-brand-40));
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 4;
-  opacity: 0.88;
-}
-
-.nil-hero-wordmark__nodes {
-  fill: color-mix(in oklch, var(--nd-color-neutral-0) 94%, var(--nd-color-brand-20));
-  opacity: 0.9;
-}
-
-.nil-hero-logo__meta {
-  @apply absolute right-[11%] bottom-[10%] left-[11%] flex items-end justify-between gap-4;
-
-  color: var(--vp-c-text-2);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.nil-hero-logo__eyebrow {
-  color: var(--vp-c-text-1);
-  font-weight: 700;
-}
-
-.nil-hero-logo__subtitle {
-  text-align: right;
-  opacity: 0.8;
-}
-
-@media (width < 640px) {
-  .nil-hero-logo__meta {
-    @apply flex-col items-start;
-  }
-
-  .nil-hero-logo__subtitle {
-    text-align: left;
-  }
-}
-
-.VPFeatures {
-  @apply relative z-[1];
-
-  .VPFeature {
-    @apply rounded-[1.4rem] border-0 shadow-sm transition-[background-color,box-shadow,transform] duration-200 ease-out;
-
-    background-color: var(--background-color-subtle);
-
-    &:hover {
-      @apply shadow-md;
-
-      transform: translateY(-2px);
-    }
-
-    .box {
-      @apply p-[26px];
-    }
-
-    .icon {
-      @apply rounded-2xl;
-
-      border: 1px solid var(--vp-c-divider);
-      background-color: var(--background-color-muted);
-    }
-
-    .title {
-      letter-spacing: -0.02em;
-    }
-
-    .details {
-      color: var(--vp-c-text-2);
-    }
-  }
-}
-
-.nil-home-icon {
-  @apply relative block size-[1.15rem];
-}
-
-.nil-home-icon-grid {
-  @apply rounded-[0.35rem];
-
-  background:
-    linear-gradient(var(--vp-c-brand-1) 0 0) left top / 0.44rem 0.44rem no-repeat,
-    linear-gradient(var(--vp-c-text-1) 0 0) right top / 0.44rem 0.44rem no-repeat,
-    linear-gradient(var(--vp-c-text-1) 0 0) left bottom / 0.44rem 0.44rem no-repeat,
-    linear-gradient(var(--vp-c-brand-1) 0 0) right bottom / 0.44rem 0.44rem no-repeat;
-}
-
-.nil-home-icon-orbit {
-  @apply rounded-full;
-
-  border: 1.5px solid color-mix(in oklch, var(--nd-color-neutral-50) 72%, transparent);
-
-  &::before {
-    content: '';
-
-    @apply absolute inset-[0.23rem];
-
-    border: 1.5px solid var(--vp-c-brand-1);
-    border-radius: inherit;
-  }
-
-  &::after {
-    content: '';
-
-    @apply absolute top-[0.05rem] right-[0.08rem] size-[0.34rem] rounded-full;
-
-    background: var(--vp-c-brand-1);
-    box-shadow: -0.48rem 0.62rem 0 0 color-mix(in oklch, var(--nd-color-neutral-100) 84%, transparent);
-  }
-}
-
-.nil-home-icon-layers {
-  &::before,
-  &::after {
-    content: '';
-
-    @apply absolute inset-[0.12rem] rounded-[0.35rem];
-
-    border: 1.5px solid color-mix(in oklch, var(--nd-color-neutral-60) 76%, transparent);
-    transform: skew(-12deg);
-  }
-
-  &::before {
-    background: color-mix(in oklch, var(--nd-color-brand-15) 64%, transparent);
-  }
-
-  &::after {
-    @apply top-[0.34rem] right-0 bottom-0 left-[0.34rem];
-
-    border-color: color-mix(in oklch, var(--nd-color-brand-40) 42%, transparent);
-    background: color-mix(in oklch, var(--nd-color-neutral-0) 42%, transparent);
   }
 }
 
 .Layout > .VPFooter {
+  @apply bg-transparent;
+
   border-top-color: var(--vp-c-divider);
-  background: transparent;
 }
 
 .Layout > .VPFooter a:hover {
-  color: var(--vp-c-brand-1);
+  @apply text-brand;
 }
 
 .dark {
+  .Layout::after {
+    @apply opacity-20;
+  }
+
   &::view-transition-new(root) {
     animation: clip-ltr 0.5s var(--default-transition-timing-function);
   }

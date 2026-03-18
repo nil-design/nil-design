@@ -6,7 +6,7 @@
             @click="randomize"
         >
             <PaletteIcon
-                class="transition-[color,rotate] duration-200 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]"
+                class="transition-[color,rotate] ease-in-out"
                 :class="{ 'rotate-180': spinning }"
                 :style="{ color: `var(--nd-color-brand-60)` }"
                 width="20"
@@ -20,7 +20,7 @@
 <script setup>
 /* eslint-disable @nild/no-hardcoded-colors */
 import { onMounted, ref } from 'vue';
-import PaletteIcon from '../../icons/Palette.vue';
+import PaletteIcon from '../../icons/palette.svg';
 
 /**
  * Curated hues for OKLCH at C≈0.14, L≈50%.

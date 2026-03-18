@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    .base-fill {
+      fill: var(--nd-color-neutral-100);
+    }
+
+    .muted-fill {
+      fill: var(--nd-color-neutral-70);
+    }
+
+    .accent-fill {
+      fill: var(--nd-color-brand-60);
+    }
+
+    .muted-stroke {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.75;
+      stroke: var(--nd-color-neutral-70);
+    }
+  </style>
+  <path class="muted-stroke" d="M18 22H25C29.418 22 33 25.582 33 30V32" />
+  <path class="muted-stroke" d="M46 42H39C34.582 42 31 38.418 31 34V32" />
+  <circle class="base-fill" cx="18" cy="22" r="3" />
+  <rect class="accent-fill" x="27.5" y="24" width="9" height="16" rx="4.5" />
+  <circle class="muted-fill" cx="46" cy="42" r="3" opacity="0.84" />
+</svg>

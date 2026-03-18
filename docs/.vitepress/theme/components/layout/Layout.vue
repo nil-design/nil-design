@@ -8,30 +8,25 @@
             <ThemePicker />
         </template>
         <template #home-hero-info-before>
-            <div v-if="isHome" class="nil-home-badge">
-                {{ badgeLabel }}
-            </div>
+            <BadgeLabel />
         </template>
         <template #home-hero-image>
-            <HeroLogo v-if="isHome" />
+            <HeroLogo />
+        </template>
+        <template #home-features-after>
+            <Features />
         </template>
     </DefaultTheme.Layout>
     <Assistant />
 </template>
 
 <script setup>
-import { useData } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
-import { computed } from 'vue';
 import Assistant from '../assistant/Assistant.vue';
-import HeroLogo from '../branding/HeroLogo.vue';
-import NavLogo from '../branding/NavLogo.vue';
 import ProgressBar from '../progress-bar/ProgressBar.vue';
 import ThemePicker from '../theme-picker/ThemePicker.vue';
-
-const { frontmatter, lang } = useData();
-const isHome = computed(() => frontmatter.value.layout === 'home');
-const badgeLabel = computed(() =>
-    lang.value.startsWith('zh') ? 'OKLCH \u4f18\u5148\u7684 React \u4f53\u7cfb' : 'OKLCH-first React System',
-);
+import BadgeLabel from './BadgeLabel.vue';
+import Features from './Features.vue';
+import HeroLogo from './HeroLogo.vue';
+import NavLogo from './NavLogo.vue';
 </script>

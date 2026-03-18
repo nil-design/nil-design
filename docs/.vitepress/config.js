@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/postcss';
 import postcssNested from 'postcss-nested';
+import svgLoader from 'vite-svg-loader';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
 import { getEmbeddingBuilder } from '../../scripts/shared';
 import getAppearance from './getAppearance.js';
@@ -76,6 +77,11 @@ export default defineConfig({
         },
     },
     vite: {
+        plugins: [
+            svgLoader({
+                defaultImport: 'component',
+            }),
+        ],
         optimizeDeps: {
             exclude: ['@huggingface/transformers'],
         },

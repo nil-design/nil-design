@@ -2,7 +2,7 @@
     <div class="h-full flex flex-col">
         <div
             :class="[
-                'flex-shrink-0',
+                'shrink-0',
                 'px-4 h-12 border-b border-muted',
                 'flex items-center justify-between gap-3',
                 'cursor-move select-none',
@@ -10,18 +10,16 @@
             @mousedown="$emit('header-mousedown', $event)"
         >
             <div class="flex items-center gap-2 min-w-0">
-                <span
-                    :class="['w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-300', statusDotClass]"
-                ></span>
+                <span :class="['w-2 h-2 rounded-full shrink-0 transition-colors duration-300', statusDotClass]"></span>
                 <span class="text-md font-semibold text-main truncate">{{ t('assistant.title') }}</span>
-                <span class="flex-shrink-0 px-2 py-1 rounded text-xs bg-muted text-muted leading-none">{{
+                <span class="shrink-0 px-2 py-1 rounded text-xs bg-muted text-muted leading-none">{{
                     llm.model.name
                 }}</span>
             </div>
             <button
                 :class="[
                     'w-6 h-6',
-                    'flex-shrink-0 flex items-center justify-center',
+                    'shrink-0 flex items-center justify-center',
                     'rounded-md text-main',
                     'transition-colors cursor-pointer',
                     'hover:bg-muted-hover',
@@ -46,7 +44,7 @@
                         <p class="text-sm text-subtle truncate max-w-[85%]">
                             {{ activeLoadingText }}
                         </p>
-                        <p class="text-sm text-subtle flex-shrink-0">{{ activeLoading.progress }}%</p>
+                        <p class="text-sm text-subtle shrink-0">{{ activeLoading.progress }}%</p>
                     </div>
                 </div>
                 <p class="text-sm text-subtle text-center">{{ activeLoadingHint }}</p>
@@ -90,10 +88,10 @@
 
 <script setup>
 import { computed, inject, nextTick, ref, watch } from 'vue';
-import ChatBubbleIcon from '../../icons/ChatBubble.vue';
-import ExclamationCircleIcon from '../../icons/ExclamationCircle.vue';
-import SparklesIcon from '../../icons/Sparkles.vue';
-import XIcon from '../../icons/X.vue';
+import ChatBubbleIcon from '../../icons/chat-bubble.svg';
+import ExclamationCircleIcon from '../../icons/exclamation-circle.svg';
+import SparklesIcon from '../../icons/sparkles.svg';
+import XIcon from '../../icons/x.svg';
 import Message from './Message.vue';
 import { RAGStatus } from './rag.shared.js';
 import { LLMStatus } from './useLLM.js';
