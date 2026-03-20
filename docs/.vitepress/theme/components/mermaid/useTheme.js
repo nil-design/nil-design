@@ -14,11 +14,13 @@ const useTheme = () => {
         document.body.appendChild(probe.value);
 
         const canvas = document.createElement('canvas');
+
         canvas.width = canvas.height = 1;
         canvasCtx.value = canvas.getContext('2d', { willReadFrequently: true });
 
         observer.value = new MutationObserver(mutations => {
             let changed = false;
+
             mutations.forEach(mutation => {
                 if (mutation.attributeName === 'class' || mutation.attributeName === 'style') {
                     changed = true;
@@ -48,6 +50,7 @@ const useTheme = () => {
         probe.value.style.color = `var(${varName})`;
         const color = getComputedStyle(probe.value).color;
         const ctx = canvasCtx.value;
+
         ctx.clearRect(0, 0, 1, 1);
         ctx.fillStyle = color;
         ctx.fillRect(0, 0, 1, 1);

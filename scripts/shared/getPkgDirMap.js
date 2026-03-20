@@ -19,6 +19,7 @@ const pkgDirMap = workspaceDirs.reduce((dirMap, workspaceDir) => {
 
             if (existsSync(pkgJsonPath)) {
                 const pkgJson = JSON.parse(readFileSync(pkgJsonPath, 'utf-8'));
+
                 workspaceMap[pkgJson.name] = pkgDir;
             }
         }

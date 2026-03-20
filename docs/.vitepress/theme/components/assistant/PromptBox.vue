@@ -48,6 +48,7 @@ const textareaRef = ref(null);
 
 const autoResize = () => {
     const el = textareaRef.value;
+
     if (!el) return;
     el.style.height = 'auto';
     el.style.height = `${el.scrollHeight}px`;

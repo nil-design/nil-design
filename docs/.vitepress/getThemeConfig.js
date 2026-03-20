@@ -91,6 +91,7 @@ const getNavAndSidebar = locale => {
             getDocsWithMatter(navDir).forEach(({ path: docPath, data }) => {
                 if (docPath === join(navDir, 'index.md')) {
                     const { title, navOrder = 0, rewrite = '', dropdown } = data;
+
                     nav.push({
                         text: title,
                         link: `/${locale}/${navName}${rewrite.startsWith('/') ? rewrite : `/${rewrite}`}`,
@@ -102,6 +103,7 @@ const getNavAndSidebar = locale => {
                 } else {
                     const { title, order = 0, cat, catOrder } = data;
                     const link = relative(navDir, docPath).replace(/\\/, '/');
+
                     if (cat) {
                         const item = {
                             text: title,
@@ -109,6 +111,7 @@ const getNavAndSidebar = locale => {
                             order,
                         };
                         const categoryIdx = categories.findIndex(({ text }) => text === cat);
+
                         if (categoryIdx === -1) {
                             categories.push({ text: cat, items: [item], catOrder });
                         } else {
@@ -138,6 +141,7 @@ const getNavAndSidebar = locale => {
 
             if (navValid) {
                 const curNav = last(nav);
+
                 if (curNav.dropdown) {
                     curNav.link = undefined;
                     curNav.items = categories.reduce(

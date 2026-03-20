@@ -105,6 +105,7 @@ const getStaticName = (rawNode: AnyNode | null | undefined): string | null => {
     }
 
     const literalValue = getLiteralValue(node);
+
     if (literalValue && IDENTIFIER_PATTERN.test(literalValue)) {
         return literalValue;
     }
@@ -173,6 +174,7 @@ const findVariable = (sourceCode: SourceCode, node: AnyNode, name: string): Scop
 
     while (scope) {
         const variable = scope.set.get(name);
+
         if (variable) {
             return variable;
         }
@@ -199,6 +201,7 @@ const isBooleanFunctionLikeNode = (
 
     if (node.type === 'Identifier' && typeof node.name === 'string') {
         const variable = findVariable(sourceCode, node, node.name);
+
         if (!variable || visitedVariables.has(variable)) {
             return false;
         }
@@ -219,6 +222,7 @@ const isBooleanFunctionLikeNode = (
             }
 
             const declarator = asNode(definition.node);
+
             if (isBooleanFunctionTypeNode(getTypeAnnotation(asNode(declarator?.id)))) {
                 return true;
             }
@@ -232,6 +236,7 @@ const isBooleanFunctionLikeNode = (
     }
 
     const typeAnnotation = getTypeAnnotation(node);
+
     if (isBooleanFunctionTypeNode(typeAnnotation)) {
         return true;
     }
@@ -241,6 +246,7 @@ const isBooleanFunctionLikeNode = (
     }
 
     const body = asNode(node.body);
+
     if (!body || body.type !== 'BlockStatement') {
         return false;
     }
@@ -250,6 +256,7 @@ const isBooleanFunctionLikeNode = (
 
     while (stack.length > 0) {
         const current = stack.pop();
+
         if (!current) {
             continue;
         }
@@ -264,17 +271,21 @@ const isBooleanFunctionLikeNode = (
         }
 
         const visitorKeys = sourceCode.visitorKeys[current.type] ?? [];
+
         for (const visitorKey of visitorKeys) {
             const child = current[visitorKey];
+
             if (Array.isArray(child)) {
                 for (let i = child.length - 1; i >= 0; i -= 1) {
                     const childNode = asNode(child[i]);
+
                     if (childNode) {
                         stack.push(childNode);
                     }
                 }
             } else {
                 const childNode = asNode(child);
+
                 if (childNode) {
                     stack.push(childNode);
                 }
@@ -316,6 +327,7 @@ const isBooleanVariable = (
         }
 
         const declarator = asNode(definition.node);
+
         if (isBooleanTypeNode(getTypeAnnotation(asNode(declarator?.id)))) {
             return true;
         }
@@ -352,6 +364,7 @@ const isBooleanCallExpression = (
         }
 
         const variable = findVariable(sourceCode, callee, callee.name);
+
         if (!variable) {
             return false;
         }
@@ -366,6 +379,7 @@ const isBooleanCallExpression = (
             }
 
             const declarator = asNode(definition.node);
+
             if (isBooleanFunctionTypeNode(getTypeAnnotation(asNode(declarator?.id)))) {
                 return true;
             }

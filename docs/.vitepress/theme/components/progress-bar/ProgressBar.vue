@@ -37,6 +37,7 @@ const start = () => {
 
         incrementTimer = setInterval(() => {
             const remaining = 95 - progress.value;
+
             progress.value += remaining * 0.1;
         }, 200);
     }, 150);

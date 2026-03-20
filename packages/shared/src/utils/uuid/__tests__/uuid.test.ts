@@ -8,6 +8,7 @@ describe('uuid', () => {
 
     it('should use crypto.randomUUID by default when available', () => {
         const randomUUID = vi.fn(() => 'mocked-random-uuid');
+
         vi.stubGlobal('crypto', { randomUUID });
 
         expect(uuid()).toBe('mocked-random-uuid');

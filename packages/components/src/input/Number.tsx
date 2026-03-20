@@ -29,6 +29,7 @@ const Number = forwardRef<HTMLInputElement, NumberProps>(
 
         const handleStep = (delta: number) => {
             let nextValue = (value ?? 0) + delta;
+
             if (nextValue < min) nextValue = min;
             if (nextValue > max) nextValue = max;
 

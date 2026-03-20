@@ -37,6 +37,7 @@ const OTP = forwardRef<OTPRef, OTPProps>(
         const [chars, setChars] = useControllableState<string[]>(externalValue, defaultValue ?? []);
         const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
         const latestCharsRef = useRef(chars);
+
         latestCharsRef.current = chars;
 
         const getLatestChars = () => Array.from({ length }, (_, i) => latestCharsRef.current[i] ?? '');
@@ -52,6 +53,7 @@ const OTP = forwardRef<OTPRef, OTPProps>(
 
         const handleChange = (index: number, v: string | number, evt: SyntheticEvent) => {
             const strV = String(v ?? '');
+
             if (!strV) return;
 
             const newChars = getLatestChars();
@@ -66,6 +68,7 @@ const OTP = forwardRef<OTPRef, OTPProps>(
 
             // focus the next
             const nextIndex = Math.min(index + inputChars.length, length - 1);
+
             inputRefs.current[nextIndex]?.focus();
         };
 
@@ -96,6 +99,7 @@ const OTP = forwardRef<OTPRef, OTPProps>(
             if (evt.key === 'Backspace' || evt.keyCode === 8) {
                 evt.preventDefault();
                 const newChars = getLatestChars();
+
                 if (!isEmpty(newChars[index])) {
                     // clear the current
                     newChars[index] = '';
@@ -119,6 +123,7 @@ const OTP = forwardRef<OTPRef, OTPProps>(
             evt.preventDefault();
             const rawV = evt.clipboardData?.getData?.('text') ?? '';
             const formattedV = type === 'number' ? rawV.replace(/\D/g, '') : rawV.replace(/\s/g, '');
+
             if (!formattedV) return;
 
             const activeIndex = Math.max(
@@ -138,6 +143,7 @@ const OTP = forwardRef<OTPRef, OTPProps>(
             updateChars(newChars, evt);
 
             const nextIndex = Math.min(activeIndex + pastedChars.length, length - 1);
+
             inputRefs.current[nextIndex]?.focus();
         };
 
@@ -149,6 +155,7 @@ const OTP = forwardRef<OTPRef, OTPProps>(
                     const currentChars = getLatestChars();
                     const firstEmptyIndex = currentChars.findIndex(c => c === '');
                     const targetIndex = firstEmptyIndex !== -1 ? firstEmptyIndex : 0;
+
                     inputRefs.current[targetIndex]?.focus();
                 }
             },

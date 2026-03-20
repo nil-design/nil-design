@@ -62,6 +62,7 @@ function getPathInfo(targetPath) {
 
 function discoverSkills(skillsDir) {
     const skillsDirInfo = getPathInfo(skillsDir);
+
     if (!skillsDirInfo.exists || !skillsDirInfo.directoryLike) {
         throw new Error(`Skills directory not found or not a directory: ${skillsDir}`);
     }
@@ -79,6 +80,7 @@ function discoverSkills(skillsDir) {
 
         const skillPath = path.join(skillsDir, entry.name);
         const skillMd = path.join(skillPath, 'SKILL.md');
+
         if (!existsSync(skillMd)) {
             continue;
         }
@@ -102,10 +104,12 @@ function loadRawAgents(configPath) {
     }
 
     let parsed;
+
     try {
         parsed = JSON.parse(readFileSync(configPath, 'utf8'));
     } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
+
         throw new Error(`Invalid JSON in ${configPath}: ${message}`);
     }
 
@@ -124,6 +128,7 @@ function loadRawAgents(configPath) {
 
 function resolveDestinationPath(rawDestination, configDir) {
     const expanded = expandHome(rawDestination);
+
     if (path.isAbsolute(expanded)) {
         return path.resolve(expanded);
     }
@@ -156,24 +161,28 @@ function normalizeAgents(rawAgents, configDir) {
         seenNames.add(normalizedName);
 
         const rawDestination = typeof rawAgent.destination === 'string' ? rawAgent.destination.trim() : '';
+
         if (!rawDestination) {
             errors.push(`[skip] [${name}] destination is not configured`);
             continue;
         }
 
         const modeCandidate = typeof rawAgent.mode === 'string' ? rawAgent.mode.trim().toLowerCase() : 'copy';
+
         if (!VALID_MODES.has(modeCandidate)) {
             errors.push(`[skip] [${name}] invalid mode "${modeCandidate}" (allowed: copy, link)`);
             continue;
         }
 
         const createIfMissingCandidate = rawAgent.createIfMissing;
+
         if (createIfMissingCandidate !== undefined && typeof createIfMissingCandidate !== 'boolean') {
             errors.push(`[skip] [${name}] "createIfMissing" must be boolean when provided`);
             continue;
         }
 
         const destination = resolveDestinationPath(rawDestination, configDir);
+
         normalizedAgents.push({
             name,
             mode: modeCandidate,
@@ -197,9 +206,11 @@ function installSkill(sourceSkillPath, targetSkillPath, mode) {
         if (mode === 'link') {
             try {
                 const targetLst = lstatSync(targetResolved);
+
                 if (targetLst.isSymbolicLink()) {
                     const targetReal = realpathSync(targetResolved);
                     const sourceReal = realpathSync(sourceResolved);
+
                     if (targetReal === sourceReal) {
                         return 'unchanged';
                     }
@@ -218,6 +229,7 @@ function installSkill(sourceSkillPath, targetSkillPath, mode) {
     }
 
     const linkType = process.platform === 'win32' ? 'junction' : 'dir';
+
     symlinkSync(sourceResolved, targetResolved, linkType);
 
     return 'installed';
@@ -225,6 +237,7 @@ function installSkill(sourceSkillPath, targetSkillPath, mode) {
 
 function run() {
     const skills = discoverSkills(SKILLS_DIR);
+
     if (!skills.length) {
         console.log(`[info] No skill folders found under ${SKILLS_DIR}`);
 
@@ -232,6 +245,7 @@ function run() {
     }
 
     const rawAgents = loadRawAgents(CONFIG_PATH);
+
     if (!rawAgents.length) {
         console.log('[info] No agents configured, nothing to install.');
 
@@ -240,6 +254,7 @@ function run() {
 
     const configDir = path.dirname(CONFIG_PATH);
     const { normalizedAgents, errors } = normalizeAgents(rawAgents, configDir);
+
     for (const message of errors) {
         console.log(message);
     }
@@ -258,6 +273,7 @@ function run() {
 
     for (const agent of normalizedAgents) {
         let destinationInfo = getPathInfo(agent.destination);
+
         if (!destinationInfo.exists) {
             if (agent.createIfMissing) {
                 try {
@@ -274,6 +290,7 @@ function run() {
                 } catch (error) {
                     failedCount += 1;
                     const message = error instanceof Error ? error.message : String(error);
+
                     console.log(`[fail] [${agent.name}] unable to create destination: ${message}`);
                     continue;
                 }
@@ -295,8 +312,10 @@ function run() {
 
         for (const skill of skills) {
             const targetSkillPath = path.join(agent.destination, skill.name);
+
             try {
                 const result = installSkill(skill.sourcePath, targetSkillPath, agent.mode);
+
                 if (result === 'unchanged') {
                     skippedCount += 1;
                     console.log(`[skip] [${agent.name}] ${skill.name} already linked: ${targetSkillPath}`);
@@ -308,6 +327,7 @@ function run() {
             } catch (error) {
                 failedCount += 1;
                 const message = error instanceof Error ? error.message : String(error);
+
                 console.log(`[fail] [${agent.name}] ${skill.name} -> ${targetSkillPath} (${message})`);
             }
         }
@@ -328,6 +348,7 @@ try {
     run();
 } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
+
     console.error(`skills:install failed: ${message}`);
     process.exit(1);
 }

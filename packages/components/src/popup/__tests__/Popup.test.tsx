@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import Popup from '..';
 
 vi.mock('@floating-ui/dom', () => ({
     autoUpdate: vi.fn(() => vi.fn()),
@@ -19,8 +20,6 @@ vi.mock('@floating-ui/dom', () => ({
     flip: vi.fn(() => ({ name: 'flip' })),
     arrow: vi.fn(() => ({ name: 'arrow' })),
 }));
-
-import Popup from '..';
 
 describe('Popup', () => {
     beforeEach(() => {

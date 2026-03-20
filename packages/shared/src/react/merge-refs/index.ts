@@ -11,6 +11,7 @@ const mergeRefs = <T>(...refs: PossibleRef<T>[]): RefCallback<T> => {
 
             if (isFunction(ref)) {
                 const clear = ref(node);
+
                 isFunction(clear) && clears.push(clear);
             } else if (isObject(ref) && 'current' in ref) {
                 (ref as MutableRefObject<T | null>).current = node;

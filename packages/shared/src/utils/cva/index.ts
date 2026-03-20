@@ -45,6 +45,7 @@ const cva = <Props extends object>(base: ClassValue, config: Config<Props> = {} 
             const valueKey = falsyToString(propValue ?? defaultValue);
             const variant = variants[name as keyof Variants<Props>];
             const classValue = variant[valueKey as keyof typeof variant];
+
             classValue && classValues.push(classValue);
         }
 

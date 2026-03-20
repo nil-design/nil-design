@@ -17,6 +17,7 @@ const useLocalStorage = <T>(
     const getStoredValue = useCallback((): T => {
         try {
             const storedValue = storage?.getItem(key);
+
             if (!isNil(storedValue)) {
                 return deserializer(storedValue);
             }
@@ -33,6 +34,7 @@ const useLocalStorage = <T>(
         nextValue => {
             setValue(prevValue => {
                 const value = isFunction(nextValue) ? nextValue(prevValue) : nextValue;
+
                 try {
                     storage?.setItem(key, serializer(value));
                 } catch (error) {
@@ -52,6 +54,7 @@ const useLocalStorage = <T>(
             if (event.key === key && event.newValue !== event.oldValue) {
                 try {
                     const newValue = event.newValue ? deserializer(event.newValue) : defaultValue;
+
                     setValue(newValue);
                 } catch (error) {
                     onError?.(error);

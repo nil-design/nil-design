@@ -6,9 +6,11 @@ const Input = forwardRefWithGenerics<HTMLInputElement, { label: string; disabled
 });
 
 const inputRef = createRef<HTMLInputElement>();
+
 Input({ label: 'username', ref: inputRef, disabled: true });
 
 const callbackRef: RefCallback<HTMLInputElement> = () => {};
+
 Input({ label: 'email', ref: callbackRef });
 
 // @ts-expect-error label is required
@@ -22,6 +24,7 @@ const Button = forwardRefWithGenerics<HTMLButtonElement, { kind: 'primary' | 'se
 });
 
 const buttonRef = createRef<HTMLButtonElement>();
+
 Button({ kind: 'primary', ref: buttonRef });
 
 // @ts-expect-error kind should be limited to declared union values
