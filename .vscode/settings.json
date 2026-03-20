@@ -3,6 +3,7 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit"
     },
+    "css.lint.unknownAtRules": "ignore",
     "[json]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
