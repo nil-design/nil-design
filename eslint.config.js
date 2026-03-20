@@ -100,6 +100,11 @@ export default tslint.config(
     {
         files: ['**/*.{jsx,tsx}'],
         ...react.configs.flat.recommended,
+        settings: {
+            react: {
+                version: 'detect',
+            },
+        },
     },
     {
         /** @link https://github.com/facebook/react/issues/28313 */
