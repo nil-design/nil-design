@@ -1,10 +1,18 @@
 import { cva } from '@nild/shared';
-import { ModalPlacement, ModalSize } from '../interfaces';
+import { TransitionStatus } from '../../transition/interfaces';
+import { ModalPlacement, ModalSize, ModalVariant } from '../interfaces';
+
+const HIDDEN_STATUSES: TransitionStatus[] = [
+    TransitionStatus.UNMOUNTED,
+    TransitionStatus.ENTERING,
+    TransitionStatus.EXITING,
+    TransitionStatus.EXITED,
+];
 
 const trigger = cva(['nd-modal-trigger']);
 
-const viewport = cva<{ placement: ModalPlacement }>(
-    ['nd-modal-viewport', 'fixed', 'inset-0', 'flex', 'pointer-events-auto'],
+const portal = cva<{ placement: ModalPlacement }>(
+    ['nd-modal-portal', 'fixed', 'inset-0', 'flex', 'pointer-events-auto'],
     {
         variants: {
             placement: {
@@ -18,29 +26,39 @@ const viewport = cva<{ placement: ModalPlacement }>(
     },
 );
 
-const overlay = cva<{ visible: boolean }>(
-    [
-        'nd-modal-overlay',
-        'absolute',
-        'inset-0',
-        'transition-opacity',
-        'duration-[var(--default-transition-duration)]',
-        'ease-out',
-        'bg-[color-mix(in_oklch,var(--background-color-page-inverse)_18%,transparent)]',
-    ],
-    {
-        variants: {
-            visible: {
-                true: 'opacity-100',
-                false: 'opacity-0',
-            },
+const overlay = cva([
+    'nd-modal-overlay',
+    'absolute',
+    'inset-0',
+    'transition-opacity',
+    'duration-[var(--default-transition-duration)]',
+    'ease-out',
+    'bg-[color-mix(in_oklch,var(--background-color-page-inverse)_18%,transparent)]',
+]);
+
+const overlayMotion = cva<{ status: TransitionStatus }>([], {
+    variants: {
+        status: {
+            [TransitionStatus.UNMOUNTED]: '',
+            [TransitionStatus.ENTERING]: '',
+            [TransitionStatus.ENTERED]: '',
+            [TransitionStatus.EXITING]: '',
+            [TransitionStatus.EXITED]: '',
         },
     },
-);
+    compoundVariants: [
+        {
+            status: HIDDEN_STATUSES,
+            className: 'opacity-0',
+        },
+        {
+            status: TransitionStatus.ENTERED,
+            className: 'opacity-100',
+        },
+    ],
+});
 
-const header = cva(['nd-modal-header', 'shrink-0', 'px-6', 'pt-6', 'pb-4', 'text-lg', 'font-semibold']);
-
-const closableHeader = cva(['pr-16']);
+const header = cva(['nd-modal-header', 'shrink-0', 'px-6', 'pt-6', 'pb-4', 'pr-16', 'text-lg', 'font-semibold']);
 
 const body = cva(['nd-modal-body', 'min-h-0', 'flex-auto', 'overflow-auto', 'px-6', 'pb-6']);
 
@@ -56,9 +74,9 @@ const footer = cva([
     'py-4',
 ]);
 
-const close = cva(['nd-modal-close', 'absolute', 'top-4', 'right-4', 'z-1']);
+const close = cva(['nd-modal-close', 'absolute', 'top-4', 'right-6', 'z-1']);
 
-const surface = cva<{ placement: ModalPlacement; size: ModalSize; visible: boolean }>(
+const surface = cva<{ variant: ModalVariant; placement: ModalPlacement; size: ModalSize }>(
     [
         'nd-modal-surface',
         'relative',
@@ -71,12 +89,16 @@ const surface = cva<{ placement: ModalPlacement; size: ModalSize; visible: boole
         'text-main',
         'shadow-2xl',
         'outline-none',
-        'transition-[opacity,transform]',
+        'transition-[opacity,translate,scale]',
         'duration-[var(--default-transition-duration)]',
         'ease-out',
     ],
     {
         variants: {
+            variant: {
+                dialog: '',
+                drawer: '',
+            },
             placement: {
                 center: ['w-full', 'max-h-[calc(100vh-2rem)]'],
                 left: ['h-full', 'max-h-screen'],
@@ -90,144 +112,180 @@ const surface = cva<{ placement: ModalPlacement; size: ModalSize; visible: boole
                 large: '',
                 full: '',
             },
-            visible: {
-                true: '',
-                false: '',
-            },
         },
         compoundVariants: [
             {
+                variant: 'dialog',
                 placement: 'center',
                 size: 'small',
                 className: ['max-w-96', 'rounded-xl'],
             },
             {
+                variant: 'dialog',
                 placement: 'center',
                 size: 'medium',
                 className: ['max-w-[36rem]', 'rounded-xl'],
             },
             {
+                variant: 'dialog',
                 placement: 'center',
                 size: 'large',
                 className: ['max-w-[48rem]', 'rounded-xl'],
             },
             {
+                variant: 'dialog',
                 placement: 'center',
                 size: 'full',
                 className: ['h-[calc(100vh-2rem)]', 'w-[calc(100vw-2rem)]', 'max-w-none', 'rounded-xl'],
             },
             {
+                variant: 'drawer',
                 placement: ['left', 'right'],
                 size: 'small',
                 className: 'w-80',
             },
             {
+                variant: 'drawer',
                 placement: ['left', 'right'],
                 size: 'medium',
                 className: 'w-[28rem]',
             },
             {
+                variant: 'drawer',
                 placement: ['left', 'right'],
                 size: 'large',
                 className: 'w-[36rem]',
             },
             {
+                variant: 'drawer',
                 placement: ['left', 'right'],
                 size: 'full',
-                className: 'w-screen rounded-none',
+                className: 'w-screen',
             },
             {
+                variant: 'drawer',
                 placement: ['top', 'bottom'],
                 size: 'small',
                 className: 'h-64',
             },
             {
+                variant: 'drawer',
                 placement: ['top', 'bottom'],
                 size: 'medium',
                 className: 'h-96',
             },
             {
+                variant: 'drawer',
                 placement: ['top', 'bottom'],
                 size: 'large',
                 className: 'h-[32rem]',
             },
             {
+                variant: 'drawer',
                 placement: ['top', 'bottom'],
                 size: 'full',
-                className: 'h-screen rounded-none',
-            },
-            {
-                placement: 'left',
-                size: ['small', 'medium', 'large'],
-                className: 'rounded-r-xl',
-            },
-            {
-                placement: 'right',
-                size: ['small', 'medium', 'large'],
-                className: 'rounded-l-xl',
-            },
-            {
-                placement: 'top',
-                size: ['small', 'medium', 'large'],
-                className: 'rounded-b-xl',
-            },
-            {
-                placement: 'bottom',
-                size: ['small', 'medium', 'large'],
-                className: 'rounded-t-xl',
-            },
-            {
-                placement: 'center',
-                visible: true,
-                className: ['opacity-100', 'scale-100'],
-            },
-            {
-                placement: 'center',
-                visible: false,
-                className: ['opacity-0', 'scale-95'],
-            },
-            {
-                placement: 'left',
-                visible: true,
-                className: ['translate-x-0'],
-            },
-            {
-                placement: 'left',
-                visible: false,
-                className: ['-translate-x-full'],
-            },
-            {
-                placement: 'right',
-                visible: true,
-                className: ['translate-x-0'],
-            },
-            {
-                placement: 'right',
-                visible: false,
-                className: ['translate-x-full'],
-            },
-            {
-                placement: 'top',
-                visible: true,
-                className: ['translate-y-0'],
-            },
-            {
-                placement: 'top',
-                visible: false,
-                className: ['-translate-y-full'],
-            },
-            {
-                placement: 'bottom',
-                visible: true,
-                className: ['translate-y-0'],
-            },
-            {
-                placement: 'bottom',
-                visible: false,
-                className: ['translate-y-full'],
+                className: 'h-screen',
             },
         ],
     },
 );
 
-export default { trigger, viewport, overlay, header, closableHeader, body, footer, close, surface };
+const surfaceMotion = cva<{
+    status: TransitionStatus;
+    variant: ModalVariant;
+    placement: ModalPlacement;
+}>([], {
+    variants: {
+        status: {
+            [TransitionStatus.UNMOUNTED]: '',
+            [TransitionStatus.ENTERING]: '',
+            [TransitionStatus.ENTERED]: '',
+            [TransitionStatus.EXITING]: '',
+            [TransitionStatus.EXITED]: '',
+        },
+        variant: {
+            dialog: '',
+            drawer: '',
+        },
+        placement: {
+            center: '',
+            left: '',
+            right: '',
+            top: '',
+            bottom: '',
+        },
+    },
+    compoundVariants: [
+        {
+            status: HIDDEN_STATUSES,
+            variant: 'dialog',
+            className: ['opacity-0', 'scale-95'],
+        },
+        {
+            status: TransitionStatus.ENTERED,
+            variant: 'dialog',
+            className: ['opacity-100', 'scale-100'],
+        },
+        {
+            status: HIDDEN_STATUSES,
+            variant: 'drawer',
+            placement: 'left',
+            className: '-translate-x-full',
+        },
+        {
+            status: TransitionStatus.ENTERED,
+            variant: 'drawer',
+            placement: 'left',
+            className: 'translate-x-0',
+        },
+        {
+            status: HIDDEN_STATUSES,
+            variant: 'drawer',
+            placement: 'right',
+            className: 'translate-x-full',
+        },
+        {
+            status: TransitionStatus.ENTERED,
+            variant: 'drawer',
+            placement: 'right',
+            className: 'translate-x-0',
+        },
+        {
+            status: HIDDEN_STATUSES,
+            variant: 'drawer',
+            placement: 'top',
+            className: '-translate-y-full',
+        },
+        {
+            status: TransitionStatus.ENTERED,
+            variant: 'drawer',
+            placement: 'top',
+            className: 'translate-y-0',
+        },
+        {
+            status: HIDDEN_STATUSES,
+            variant: 'drawer',
+            placement: 'bottom',
+            className: 'translate-y-full',
+        },
+        {
+            status: TransitionStatus.ENTERED,
+            variant: 'drawer',
+            placement: 'bottom',
+            className: 'translate-y-0',
+        },
+    ],
+});
+
+export default {
+    trigger,
+    portal,
+    overlay,
+    overlayMotion,
+    surfaceMotion,
+    header,
+    body,
+    footer,
+    close,
+    surface,
+};

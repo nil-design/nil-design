@@ -1,10 +1,10 @@
 import { createContextSuite } from '@nild/shared';
 import { Dispatch, RefObject, SetStateAction } from 'react';
-import { ModalPlacement, ModalProps, ModalSize } from '../interfaces';
+import { ModalAccessibility, ModalPlacement, ModalSize, ModalVariant } from '../interfaces';
 
 export interface ModalContextValue {
-    id: number;
     open: boolean;
+    variant: ModalVariant;
     placement: ModalPlacement;
     size: ModalSize;
     disabled: boolean;
@@ -13,10 +13,11 @@ export interface ModalContextValue {
     trapFocus: boolean;
     restoreFocus: boolean;
     lockScroll: boolean;
-    accessibility: Pick<ModalProps, 'aria-label' | 'aria-labelledby' | 'aria-describedby'>;
+    accessibility: ModalAccessibility;
     refs: {
         trigger: RefObject<Element>;
         surface: RefObject<HTMLDivElement>;
+        lastActiveEl: RefObject<HTMLElement | null>;
     };
     requestOpen: Dispatch<SetStateAction<boolean>>;
     close: () => void;
@@ -24,8 +25,8 @@ export interface ModalContextValue {
 
 const [ModalProvider, useModalContext] = createContextSuite<ModalContextValue>({
     defaultValue: {
-        id: 0,
         open: false,
+        variant: 'dialog',
         placement: 'center',
         size: 'medium',
         disabled: false,
@@ -42,6 +43,7 @@ const [ModalProvider, useModalContext] = createContextSuite<ModalContextValue>({
         refs: {
             trigger: { current: null },
             surface: { current: null },
+            lastActiveEl: { current: null },
         },
         requestOpen: () => undefined,
         close: () => undefined,

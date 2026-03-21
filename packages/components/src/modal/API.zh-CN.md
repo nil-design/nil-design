@@ -1,33 +1,42 @@
 ### Modal Props
 
-| 属性名 | 描述 | 类型 | 默认值 |
-| :-- | :-- | :-- | :-- |
-| children | - | `ReactNode` | - |
-| placement | - | `'center' \| 'left' \| 'right' \| 'top' \| 'bottom'` | - |
-| size | - | `'small' \| 'medium' \| 'large' \| 'full'` | - |
-| open | - | `boolean` | - |
-| defaultOpen | - | `boolean` | - |
-| disabled | - | `boolean` | - |
-| closeOnEscape | - | `boolean` | - |
-| closeOnOverlayClick | - | `boolean` | - |
-| trapFocus | - | `boolean` | - |
-| restoreFocus | - | `boolean` | - |
-| lockScroll | - | `boolean` | - |
-| aria-label | - | `string` | - |
-| aria-labelledby | - | `string` | - |
-| aria-describedby | - | `string` | - |
-| onOpen | - | `() => void` | - |
-| onClose | - | `() => void` | - |
+> 等价于 `DialogProps | DrawerProps`
 
-### Modal.Portal Props
+### Modal.Body Props
 
 > 继承自 `HTMLAttributes<HTMLDivElement>`
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | :-- | :-- | :-- | :-- |
 | children | - | `ReactNode` | - |
+
+### Modal.Footer Props
+
+> 继承自 `HTMLAttributes<HTMLDivElement>`
+
+| 属性名 | 描述 | 类型 | 默认值 |
+| :-- | :-- | :-- | :-- |
+| children | - | `ReactNode` | - |
+
+### Modal.Header Props
+
+> 继承自 `HTMLAttributes<HTMLDivElement>`
+
+| 属性名 | 描述 | 类型 | 默认值 |
+| :-- | :-- | :-- | :-- |
+| children | - | `ReactNode` | - |
+
+### Modal.Portal Props
+
+> 继承自 `Omit<HTMLAttributes<HTMLDivElement>, 'aria-label' | 'aria-labelledby' | 'aria-describedby'>`
+
+| 属性名 | 描述 | 类型 | 默认值 |
+| :-- | :-- | :-- | :-- |
+| children | - | `ReactNode` | - |
 | container | - | `Element \| DocumentFragment` | - |
-| overlaid | - | `boolean` | - |
+| overlayless | - | `boolean` | - |
+| overlayClassName | - | `string` | - |
+| surfaceClassName | - | `string` | - |
 
 ### Modal.Trigger Props
 

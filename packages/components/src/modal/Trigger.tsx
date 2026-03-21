@@ -1,6 +1,6 @@
 import { useEffectCallback } from '@nild/hooks';
 import { mergeRefs } from '@nild/shared';
-import { Children, FC, MouseEvent, ReactElement, cloneElement, isValidElement } from 'react';
+import { Children, FC, ReactElement, cloneElement, isValidElement } from 'react';
 import { mergeProps } from '../_shared/utils';
 import { useModalContext } from './contexts';
 import { TriggerProps } from './interfaces';
@@ -14,16 +14,8 @@ const Trigger: FC<TriggerProps> = ({ children }) => {
     const { refs, requestOpen } = useModalContext();
     const child = Children.toArray(children).find(child => isValidElement(child));
 
-    const handleClick = useEffectCallback((evt: MouseEvent<Element>) => {
-        requestOpen(previousOpen => {
-            if (!previousOpen) {
-                return true;
-            }
-
-            return previousOpen;
-        });
-
-        return evt;
+    const handleClick = useEffectCallback(() => {
+        requestOpen(true);
     });
 
     if (!child) {

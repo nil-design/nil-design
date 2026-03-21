@@ -64,20 +64,37 @@ const useTheme = () => {
         unref(themeVersion); // track style/hue switch and dark/light switch
         const darkScheme =
             typeof document !== 'undefined' ? document.documentElement.classList.contains('dark') : false;
+        const brandColor = resolveCssColor('--nd-color-brand-60');
 
         return {
             darkMode: darkScheme,
             fontSize: '14px',
             fontFamily: 'var(--nd-font-family)',
             mainBkg: resolveCssColor('--nd-color-neutral-5'),
-            primaryColor: resolveCssColor('--nd-color-brand-60'),
+            edgeLabelBackground: resolveCssColor('--nd-color-neutral-0'),
+            primaryColor: brandColor,
             primaryTextColor: resolveCssColor('--nd-color-neutral-100'),
-            primaryBorderColor: resolveCssColor('--nd-color-brand-60'),
+            primaryBorderColor: brandColor,
+            arrowheadColor: brandColor,
             lineColor: resolveCssColor('--nd-color-brand-80'),
+            transitionColor: brandColor,
         };
     });
 
-    return { theme, themeVariables, themeVersion };
+    const themeCSS = computed(() => {
+        unref(themeVersion); // track style/hue switch and dark/light switch
+        const brandColor = resolveCssColor('--nd-color-brand-60');
+
+        return `
+            marker[id$='-barbEnd'] path,
+            marker[id='statediagram-barbEnd'] path {
+                fill: ${brandColor};
+                stroke: ${brandColor};
+            }
+        `;
+    });
+
+    return { theme, themeVariables, themeCSS, themeVersion };
 };
 
 export default useTheme;

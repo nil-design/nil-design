@@ -17,7 +17,7 @@ const Close = forwardRef<HTMLButtonElement, CloseProps>(
         {
             children,
             variant = 'text',
-            shape = 'round',
+            shape = 'square',
             size = 'small',
             equal = true,
             'aria-label': ariaLabel = 'Close',

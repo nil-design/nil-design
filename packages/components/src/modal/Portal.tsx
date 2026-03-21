@@ -1,36 +1,28 @@
 import { useEffectCallback, useEventListener, useIsomorphicLayoutEffect } from '@nild/hooks';
 import { cnMerge, mergeRefs } from '@nild/shared';
-import {
-    CSSProperties,
-    MouseEvent,
-    ReactElement,
-    forwardRef,
-    useEffect,
-    useMemo,
-    useState,
-    isValidElement,
-} from 'react';
+import { ReactElement, forwardRef, useEffect, isValidElement, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { mergeProps } from '../_shared/utils';
+import { getOwnerDocument, lockDocumentScroll, registerSlots } from '../_shared/utils';
+import { focusWithin, getFocusableElements, restoreFocusTo } from './_shared';
+import { isBodyElement } from './Body';
+import Close, { isCloseElement } from './Close';
 import { useModalContext } from './contexts';
+import { isFooterElement } from './Footer';
+import { isHeaderElement } from './Header';
+import { useModalStack } from './hooks';
 import { PortalProps } from './interfaces';
-import {
-    addModalToStack,
-    focusWithin,
-    getFocusableElements,
-    getModalStackIndex,
-    isTopModal,
-    lockDocumentScroll,
-    MODAL_TRANSITION_DURATION,
-    removeModalFromStack,
-    resolveDocument,
-    subscribeModalStack,
-} from './internals';
 import variants from './style';
 
 export const isPortalElement = (child: unknown): child is ReactElement<PortalProps> => {
     return isValidElement(child) && child.type === Portal;
 };
+
+const collectSlots = registerSlots({
+    header: { isMatched: child => isHeaderElement(child) },
+    body: { isMatched: child => isBodyElement(child) },
+    footer: { isMatched: child => isFooterElement(child) },
+    close: { isMatched: child => isCloseElement(child) },
+});
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(
     (
@@ -38,66 +30,48 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             className,
             style,
             children,
-            container,
-            overlaid = true,
-            'aria-label': portalAriaLabel,
-            'aria-labelledby': portalAriaLabelledBy,
-            'aria-describedby': portalAriaDescribedBy,
+            container: externalContainer,
+            overlayless = false,
+            overlayClassName,
+            surfaceClassName,
+            onTransitionEnd,
             ...restProps
         },
         ref,
     ) => {
         const {
-            id,
             open,
+            variant,
             placement,
             size,
             closeOnEscape,
             closeOnOverlayClick,
             trapFocus,
             lockScroll,
+            restoreFocus,
             accessibility,
             refs,
-            requestOpen,
+            close,
         } = useModalContext();
-        const [present, setPresent] = useState(open);
-        const [visible, setVisible] = useState(open);
-        const [stackVersion, forceStackSync] = useState(0);
-        const ownerDocument = resolveDocument(container, refs.surface.current, refs.trigger.current);
-        const portalContainer = useMemo(() => {
-            if (container) {
-                return container;
-            }
+        const openRef = useRef(open);
+        const ownerDocument = getOwnerDocument(externalContainer, refs.surface.current, refs.trigger.current);
+        const container = externalContainer ?? ownerDocument?.body ?? null;
+        const { zIndex, topmost } = useModalStack(ownerDocument, Boolean(container));
 
-            return ownerDocument?.body ?? null;
-        }, [container, ownerDocument]);
-        const viewportStyle = useMemo<CSSProperties>(() => {
-            const stackIndex = getModalStackIndex(id);
+        openRef.current = open;
 
-            return {
-                zIndex: 40 + (stackIndex === -1 ? 0 : stackIndex),
-            };
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [id, stackVersion]);
-
-        const close = useEffectCallback(() => {
-            requestOpen(false);
-        });
-
-        const handleOverlayClick = useEffectCallback((evt: MouseEvent<HTMLDivElement>) => {
-            if (!overlaid || !closeOnOverlayClick || !isTopModal(id)) {
+        const handleOverlayClick = useEffectCallback(() => {
+            if (overlayless || !open || !closeOnOverlayClick || !topmost) {
                 return;
             }
 
-            requestOpen(false);
-
-            return evt;
+            close();
         });
 
         const handleKeyDown = useEffectCallback((evt: KeyboardEvent) => {
             const surface = refs.surface.current;
 
-            if (!surface || !present || !isTopModal(id)) {
+            if (!surface || !open || !topmost) {
                 return;
             }
 
@@ -112,10 +86,10 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
                 return;
             }
 
-            const focusables = getFocusableElements(surface);
+            const focusableEls = getFocusableElements(surface);
             const activeElement = ownerDocument?.activeElement as HTMLElement | null;
 
-            if (focusables.length === 0) {
+            if (focusableEls.length === 0) {
                 evt.preventDefault();
                 surface.focus();
 
@@ -129,15 +103,15 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
                 return;
             }
 
-            const firstFocusable = focusables[0];
-            const lastFocusable = focusables.at(-1);
+            const firstFocusableEl = focusableEls[0];
+            const lastFocusableEl = focusableEls.at(-1);
 
-            if (evt.shiftKey && activeElement === firstFocusable) {
+            if (evt.shiftKey && activeElement === firstFocusableEl) {
                 evt.preventDefault();
-                lastFocusable?.focus();
-            } else if (!evt.shiftKey && activeElement === lastFocusable) {
+                lastFocusableEl?.focus();
+            } else if (!evt.shiftKey && activeElement === lastFocusableEl) {
                 evt.preventDefault();
-                firstFocusable?.focus();
+                firstFocusableEl?.focus();
             }
         });
 
@@ -145,7 +119,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             const surface = refs.surface.current;
             const nextTarget = evt.target as Node | null;
 
-            if (!surface || !trapFocus || !present || !isTopModal(id) || !nextTarget || surface.contains(nextTarget)) {
+            if (!surface || !trapFocus || !open || !topmost || !nextTarget || surface.contains(nextTarget)) {
                 return;
             }
 
@@ -153,66 +127,32 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
         });
 
         useEffect(() => {
-            return subscribeModalStack(() => {
-                forceStackSync(version => version + 1);
-            });
-        }, []);
-
-        useEffect(() => {
-            const timers: Array<ReturnType<typeof setTimeout>> = [];
-
-            if (open) {
-                setPresent(true);
-                timers.push(
-                    setTimeout(() => {
-                        setVisible(true);
-                    }, 0),
-                );
-            } else if (present) {
-                setVisible(false);
-                timers.push(
-                    setTimeout(() => {
-                        setPresent(false);
-                    }, MODAL_TRANSITION_DURATION),
-                );
-            }
-
-            return () => {
-                timers.forEach(timer => {
-                    clearTimeout(timer);
-                });
-            };
-        }, [open, present]);
-
-        useEffect(() => {
-            if (!present) {
-                return;
-            }
-
-            addModalToStack(id);
-
-            return () => {
-                removeModalFromStack(id);
-            };
-        }, [id, present]);
-
-        useEffect(() => {
-            if (!present || !lockScroll || !ownerDocument) {
+            if (!container || !lockScroll || !ownerDocument) {
                 return;
             }
 
             return lockDocumentScroll(ownerDocument);
-        }, [lockScroll, ownerDocument, present]);
+        }, [lockScroll, ownerDocument, container]);
+
+        useEffect(() => {
+            return () => {
+                if (!restoreFocus || openRef.current) {
+                    return;
+                }
+
+                restoreFocusTo(refs.lastActiveEl.current, refs.trigger.current as HTMLElement | null);
+            };
+        }, [refs.lastActiveEl, refs.trigger, restoreFocus]);
 
         useIsomorphicLayoutEffect(() => {
-            if (!open || !present) {
+            if (!open) {
                 return;
             }
 
             const timer = setTimeout(() => {
                 const surface = refs.surface.current;
 
-                if (!surface || !isTopModal(id)) {
+                if (!surface || !topmost) {
                     return;
                 }
 
@@ -226,37 +166,47 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             return () => {
                 clearTimeout(timer);
             };
-        }, [id, open, ownerDocument, present, refs.surface]);
+        }, [open, ownerDocument, refs.surface, topmost]);
 
         useEventListener(ownerDocument, 'keydown', handleKeyDown);
         useEventListener(ownerDocument, 'focusin', handleFocusIn);
 
-        if (!present || !portalContainer) {
+        if (!container) {
             return null;
         }
 
-        const surfaceProps = mergeProps(restProps, {
-            className: cnMerge(variants.surface({ placement, size, visible }), className),
-            style,
-        });
+        const { slots } = collectSlots(children);
 
         return createPortal(
-            <div className={variants.viewport({ placement })} style={viewportStyle}>
-                {overlaid && <div className={variants.overlay({ visible })} onClick={handleOverlayClick} />}
+            <div
+                className={cnMerge(variants.portal({ placement }), className)}
+                style={{
+                    zIndex,
+                    ...style,
+                }}
+                {...restProps}
+            >
+                {!overlayless && (
+                    <div className={cnMerge(variants.overlay(), overlayClassName)} onClick={handleOverlayClick} />
+                )}
                 <div
-                    {...surfaceProps}
-                    aria-describedby={portalAriaDescribedBy ?? accessibility['aria-describedby']}
-                    aria-label={portalAriaLabel ?? accessibility['aria-label']}
-                    aria-labelledby={portalAriaLabelledBy ?? accessibility['aria-labelledby']}
-                    aria-modal="true"
                     ref={mergeRefs(refs.surface, ref)}
+                    className={cnMerge(variants.surface({ variant, placement, size }), surfaceClassName)}
+                    aria-describedby={accessibility['aria-describedby']}
+                    aria-label={accessibility['aria-label']}
+                    aria-labelledby={accessibility['aria-labelledby']}
+                    aria-modal="true"
                     role="dialog"
                     tabIndex={-1}
+                    onTransitionEnd={onTransitionEnd}
                 >
-                    {children}
+                    {slots.header.el}
+                    {slots.body.el}
+                    {slots.footer.el}
+                    {slots.close.el ?? <Close />}
                 </div>
             </div>,
-            portalContainer,
+            container,
         );
     },
 );

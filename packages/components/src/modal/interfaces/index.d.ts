@@ -3,15 +3,20 @@ import type { HTMLAttributes, ReactNode } from 'react';
 
 export type ModalPlacement = 'center' | 'left' | 'right' | 'top' | 'bottom';
 export type ModalSize = 'small' | 'medium' | 'large' | 'full';
+export type ModalVariant = 'dialog' | 'drawer';
+export type DrawerPlacement = Exclude<ModalPlacement, 'center'>;
 
 export interface TriggerProps {
     children?: ReactNode;
 }
 
-export interface PortalProps extends HTMLAttributes<HTMLDivElement> {
+export interface PortalProps
+    extends Omit<HTMLAttributes<HTMLDivElement>, 'aria-label' | 'aria-labelledby' | 'aria-describedby'> {
     children?: ReactNode;
     container?: Element | DocumentFragment;
-    overlaid?: boolean;
+    overlayless?: boolean;
+    overlayClassName?: string;
+    surfaceClassName?: string;
 }
 
 export interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
@@ -28,9 +33,8 @@ export interface FooterProps extends HTMLAttributes<HTMLDivElement> {
 
 export type CloseProps = ButtonProps;
 
-export interface ModalProps {
+export interface ModalCommonProps {
     children?: ReactNode;
-    placement?: ModalPlacement;
     size?: ModalSize;
     open?: boolean;
     defaultOpen?: boolean;
@@ -46,3 +50,16 @@ export interface ModalProps {
     onOpen?: () => void;
     onClose?: () => void;
 }
+
+export interface DialogProps extends ModalCommonProps {
+    variant?: 'dialog';
+    placement?: 'center';
+}
+
+export interface DrawerProps extends ModalCommonProps {
+    variant: 'drawer';
+    placement?: DrawerPlacement;
+}
+
+export type ModalProps = DialogProps | DrawerProps;
+export type ModalAccessibility = Pick<ModalCommonProps, 'aria-label' | 'aria-labelledby' | 'aria-describedby'>;

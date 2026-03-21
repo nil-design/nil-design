@@ -21,7 +21,7 @@ export default defineComponent({
         const decodedCode = decodeURIComponent(props.code);
         const timestamp = Date.now();
         const innerHTMLRef = ref(`<pre>${decodedCode}</pre>`);
-        const { theme, themeVariables, themeVersion } = useTheme();
+        const { theme, themeVariables, themeCSS, themeVersion } = useTheme();
 
         async function renderMermaid() {
             if (containerRef.value) {
@@ -29,6 +29,7 @@ export default defineComponent({
                     mermaid.initialize({
                         startOnLoad: false,
                         theme: theme.value,
+                        themeCSS: themeCSS.value,
                         themeVariables: themeVariables.value,
                     });
 

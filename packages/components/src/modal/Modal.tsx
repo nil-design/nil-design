@@ -1,11 +1,13 @@
 import { useControllableState, useEffectCallback } from '@nild/hooks';
-import { isFunction } from '@nild/shared';
-import { Dispatch, FC, SetStateAction, useEffect, useMemo, useRef } from 'react';
-import { registerSlots } from '../_shared/utils';
+import { cnJoin, isFunction } from '@nild/shared';
+import { cloneElement, Dispatch, FC, SetStateAction, useEffect, useMemo, useRef } from 'react';
+import { getOwnerDocument, registerSlots } from '../_shared/utils';
+import Transition, { TransitionStatus } from '../transition';
+import { resolvePlacement } from './_shared';
 import { ModalProvider } from './contexts';
 import { ModalProps } from './interfaces';
-import { createModalId, MODAL_TRANSITION_DURATION, resolveDocument, restoreFocusTo } from './internals';
 import { isPortalElement } from './Portal';
+import variants from './style';
 import Trigger, { isTriggerElement } from './Trigger';
 
 const collectSlots = registerSlots({
@@ -17,52 +19,56 @@ const collectSlots = registerSlots({
     },
 });
 
-const Modal: FC<ModalProps> = ({
-    children,
-    placement = 'center',
-    size = 'medium',
-    open: externalOpen,
-    defaultOpen = false,
-    disabled = false,
-    closeOnEscape = true,
-    closeOnOverlayClick = true,
-    trapFocus = true,
-    restoreFocus = true,
-    lockScroll = true,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
-    'aria-describedby': ariaDescribedBy,
-    onOpen,
-    onClose,
-}) => {
+const Modal: FC<ModalProps> = props => {
+    const {
+        children,
+        variant = 'dialog',
+        size = 'medium',
+        open: externalOpen,
+        defaultOpen = false,
+        disabled = false,
+        closeOnEscape = true,
+        closeOnOverlayClick = true,
+        trapFocus = true,
+        restoreFocus = true,
+        lockScroll = true,
+        'aria-label': ariaLabel,
+        'aria-labelledby': ariaLabelledBy,
+        'aria-describedby': ariaDescribedBy,
+        onOpen,
+        onClose,
+    } = props;
     const { slots } = collectSlots(children);
     const [open, setOpen] = useControllableState(externalOpen, defaultOpen);
+    const openRef = useRef(open);
     const triggerRef = useRef<Element>(null);
     const surfaceRef = useRef<HTMLDivElement>(null);
-    const modalIdRef = useRef(createModalId());
-    const lastActiveElementRef = useRef<HTMLElement | null>(null);
-    const previousOpenRef = useRef(open);
+    const lastActiveElRef = useRef<HTMLElement | null>(null);
+    const prevOpenRef = useRef(open);
+    const placement = resolvePlacement(variant, props.placement);
+
+    openRef.current = open;
 
     const requestOpen = useEffectCallback<Dispatch<SetStateAction<boolean>>>(action => {
         if (disabled) {
             return;
         }
 
-        setOpen(previousOpen => {
-            const nextOpen = isFunction(action) ? action(previousOpen) : action;
+        const currentOpen = openRef.current;
+        const nextOpen = isFunction(action) ? action(currentOpen) : action;
 
-            if (nextOpen === previousOpen) {
-                return previousOpen;
-            }
+        if (nextOpen === currentOpen) {
+            return;
+        }
 
-            if (nextOpen) {
-                onOpen?.();
-            } else {
-                onClose?.();
-            }
+        openRef.current = nextOpen;
+        setOpen(nextOpen);
 
-            return nextOpen;
-        });
+        if (nextOpen) {
+            onOpen?.();
+        } else {
+            onClose?.();
+        }
     });
 
     const close = useEffectCallback(() => {
@@ -70,30 +76,19 @@ const Modal: FC<ModalProps> = ({
     });
 
     useEffect(() => {
-        const ownerDocument = resolveDocument(null, triggerRef.current, surfaceRef.current);
-        let timer: ReturnType<typeof setTimeout> | undefined;
+        if (open && !prevOpenRef.current) {
+            const ownerDocument = getOwnerDocument(triggerRef.current, surfaceRef.current);
 
-        if (open && !previousOpenRef.current) {
-            lastActiveElementRef.current = ownerDocument?.activeElement as HTMLElement | null;
+            lastActiveElRef.current = ownerDocument?.activeElement as HTMLElement | null;
         }
 
-        if (!open && previousOpenRef.current && restoreFocus) {
-            timer = setTimeout(() => {
-                restoreFocusTo(lastActiveElementRef.current, triggerRef.current as HTMLElement | null);
-            }, MODAL_TRANSITION_DURATION);
-        }
-
-        previousOpenRef.current = open;
-
-        return () => {
-            timer && clearTimeout(timer);
-        };
-    }, [open, restoreFocus]);
+        prevOpenRef.current = open;
+    }, [open]);
 
     const context = useMemo(
         () => ({
-            id: modalIdRef.current,
             open,
+            variant,
             placement,
             size,
             disabled,
@@ -110,6 +105,7 @@ const Modal: FC<ModalProps> = ({
             refs: {
                 trigger: triggerRef,
                 surface: surfaceRef,
+                lastActiveEl: lastActiveElRef,
             },
             requestOpen,
             close,
@@ -129,13 +125,34 @@ const Modal: FC<ModalProps> = ({
             restoreFocus,
             size,
             trapFocus,
+            variant,
         ],
     );
 
     return (
         <ModalProvider value={context}>
             {slots.trigger.el ?? (slots.firstBare.el && <Trigger>{slots.firstBare.el}</Trigger>)}
-            {slots.portal.el}
+            {slots.portal.el && (
+                <Transition visible={open}>
+                    {(status: TransitionStatus) => {
+                        if (!open && [TransitionStatus.UNMOUNTED, TransitionStatus.EXITED].includes(status)) {
+                            return null;
+                        }
+
+                        return cloneElement(slots.portal.el!, {
+                            ...slots.portal.el!.props,
+                            overlayClassName: cnJoin(
+                                variants.overlayMotion({ status }),
+                                slots.portal.el!.props.overlayClassName,
+                            ),
+                            surfaceClassName: cnJoin(
+                                variants.surfaceMotion({ status, variant, placement }),
+                                slots.portal.el!.props.surfaceClassName,
+                            ),
+                        });
+                    }}
+                </Transition>
+            )}
         </ModalProvider>
     );
 };

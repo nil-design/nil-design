@@ -168,6 +168,10 @@ body {
   @apply bg-page;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 .Layout {
   @apply relative isolate bg-page overflow-x-clip;
 }
