@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <style>
-    .icon-bg,
-    .icon-stroke {
-      fill: #111111;
-    }
-    
-    .icon-stroke-subtle {
-      stroke: #8c8c8c;
+    svg {
+      --favicon-badge: oklch(99% 0 0);
+      --favicon-base: oklch(15% 0 0);
+      --favicon-accent: #8c8c8c;
     }
 
     @media (prefers-color-scheme: dark) {
-      .icon-bg,
-      .icon-stroke {
-        fill: #ffffff;
-      }
-
-      .icon-stroke-subtle {
-        stroke: #9e9e9e;
+      svg {
+        --favicon-badge: oklch(14% 0 0);
+        --favicon-base: oklch(98% 0 0);
+        --favicon-accent: #9e9e9e;
       }
     }
+
+    .icon-badge {
+      fill: var(--favicon-badge);
+    }
+
+    .icon-base {
+      fill: var(--favicon-base);
+    }
+
+    .icon-accent {
+      fill: var(--favicon-accent);
+    }
   </style>
-  <rect class="icon-bg" x="2" y="2" width="60" height="60" rx="20" opacity="0.12"/>
-  <g transform="translate(32 32) scale(1.14) translate(-32 -32)">
-    <rect class="icon-stroke" x="18" y="17" width="6" height="30" rx="3"/>
-    <polygon class="icon-stroke" points="24,17 30.5,17 42.5,37.5 42.5,47 36,47 24,26.2"/>
-    <rect class="icon-stroke" x="40" y="17" width="6" height="30" rx="3"/>
-    <path class="icon-stroke-subtle" d="M16 21H30" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
-    <path class="icon-stroke-subtle" d="M34 47H48" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+  <rect class="icon-badge" x="0" y="0" width="64" height="64" rx="18"/>
+  <g transform="translate(20.7 17.2) scale(0.168)">
+    <rect class="icon-base" x="0" y="0" width="30" height="176" rx="9"/>
+    <rect class="icon-base" x="104" y="0" width="30" height="176" rx="9"/>
+    <polygon class="icon-base" points="30,0 60,0 134,128 134,176 104,176 30,48"/>
+    <polygon class="icon-accent" points="30,0 60,0 111,88 81,88"/>
   </g>
 </svg>

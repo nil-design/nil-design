@@ -47,27 +47,26 @@
 
   </style>
   <g transform="translate(8 8) scale(0.44)">
-    <g class="logo-shadow" transform="translate(12 14)">
-      <rect x="22" y="24" width="28" height="172" rx="8" />
-      <polygon points="50,24 90,24 156,144 156,196 116,196 50,76" />
-      <rect x="128" y="24" width="28" height="172" rx="8" />
-      <rect x="214" y="24" width="30" height="172" rx="8" />
-      <rect x="304" y="24" width="30" height="172" rx="8" />
-      <rect x="304" y="166" width="160" height="30" rx="8" />
+    <g class="logo-shadow" transform="translate(14 14)">
+      <rect x="34" y="24" width="30" height="176" rx="9" />
+      <rect x="138" y="24" width="30" height="176" rx="9" />
+      <polygon points="64,24 94,24 168,152 168,200 138,200 64,72" />
+      <rect x="236" y="24" width="30" height="176" rx="9" />
+      <rect x="340" y="24" width="30" height="176" rx="9" />
+      <rect x="340" y="170" width="146" height="30" rx="9" />
     </g>
     <g class="logo-base">
-      <rect x="22" y="24" width="28" height="172" rx="8" />
-      <polygon points="50,24 90,24 156,144 156,196 116,196 50,76" />
-      <rect x="128" y="24" width="28" height="172" rx="8" />
-      <rect x="214" y="24" width="30" height="172" rx="8" />
-      <rect x="304" y="24" width="30" height="172" rx="8" />
-      <rect x="304" y="166" width="160" height="30" rx="8" />
+      <rect x="34" y="24" width="30" height="176" rx="9" />
+      <rect x="138" y="24" width="30" height="176" rx="9" />
+      <polygon points="64,24 94,24 168,152 168,200 138,200 64,72" />
+      <rect x="236" y="24" width="30" height="176" rx="9" />
+      <rect x="340" y="24" width="30" height="176" rx="9" />
+      <rect x="340" y="170" width="146" height="30" rx="9" />
     </g>
     <g class="logo-accent">
-      <polygon points="50,24 90,24 103,46 63,46" />
-      <rect x="128" y="24" width="28" height="42" rx="8" />
-      <rect x="214" y="24" width="30" height="36" rx="8" />
-      <rect x="304" y="166" width="92" height="30" rx="8" />
+      <polygon points="64,24 94,24 145,112 115,112" />
+      <rect x="236" y="24" width="30" height="46" rx="9" />
+      <rect x="340" y="170" width="92" height="30" rx="9" />
     </g>
     <g class="logo-linework">
       <path d="M10 12H134" />
