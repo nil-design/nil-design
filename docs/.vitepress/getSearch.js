@@ -3,6 +3,7 @@ import i18n from '../../locales/index.js';
 const tokenize = text => {
     const segmenter = new Intl.Segmenter(['zh-CN', 'en-US'], { granularity: 'word' });
     const segments = [];
+
     for (const it of segmenter.segment(text)) {
         if (it.isWordLike) {
             segments.push(it.segment);
@@ -57,6 +58,7 @@ const getSearch = embeddingBuilder => {
              */
             _render: (src, env, md) => {
                 const html = md.render(src, env);
+
                 if (env.frontmatter?.search === false) {
                     return '';
                 } else {

@@ -26,6 +26,7 @@ const interpolator: PluginFactory<
 
         for (const tokenKey of tokenPath) {
             const traversable = typeof nextValue === 'object' && nextValue !== null;
+
             if (!traversable || !(tokenKey in (nextValue as Record<string, unknown>))) {
                 return undefined;
             }

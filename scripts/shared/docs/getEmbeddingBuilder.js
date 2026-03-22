@@ -23,8 +23,10 @@ const normalizeText = text => {
 
 const splitByLength = (text, maxLength) => {
     const chunks = [];
+
     for (let index = 0; index < text.length; index += maxLength) {
         const chunk = text.slice(index, index + maxLength).trim();
+
         if (chunk) {
             chunks.push(chunk);
         }
@@ -128,6 +130,7 @@ const splitContent = content => {
         const lastIndex = chunks.length - 1;
         const previous = chunks[lastIndex - 1];
         const last = chunks[lastIndex];
+
         if (
             last.length < BUILD_OPTIONS.targetChunkLength &&
             previous.length + 2 + last.length <= BUILD_OPTIONS.maxChunkLength
@@ -170,6 +173,7 @@ const toVectors = output => {
     for (let row = 0; row < rows; row += 1) {
         const start = row * columns;
         const end = start + columns;
+
         vectors.push(Array.from(output.data.slice(start, end), roundValue));
     }
 
@@ -184,6 +188,7 @@ class EmbeddingBuilder {
 
     collect({ locale, path, title = '', content }) {
         const finalPath = path.startsWith('/') ? path : `/${path}`;
+
         if (!this.pages.has(locale)) {
             this.pages.set(locale, new Map());
         }
@@ -204,6 +209,7 @@ class EmbeddingBuilder {
                 this.extractPromises.delete(modelKey);
                 throw error;
             });
+
             this.extractPromises.set(modelKey, extractPromise);
         }
 

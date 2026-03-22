@@ -1,0 +1,4 @@
+interface:
+  display_name: "Override VP Default Theme"
+  short_description: "Plan and implement VitePress default theme overrides"
+  default_prompt: "Use this skill to plan or implement overrides for the VitePress default theme using CSS variables, custom CSS, theme extension, and component replacement only when necessary."

@@ -10,6 +10,7 @@ const getAffiliatedComponentReflections = componentReflection => {
 
     if (componentType.type === 'intersection') {
         const objectReflection = componentType.types.find(type => type.type === 'reflection');
+
         if (objectReflection) {
             for (const reflection of objectReflection.declaration.children) {
                 if (!reflection.type) continue;
@@ -26,6 +27,7 @@ const getAffiliatedComponentReflections = componentReflection => {
                 } else if (reflection.type.type === 'reflection') {
                     const { declaration } = reflection.type;
                     const [signatureReflection] = declaration.signatures || [];
+
                     if (signatureReflection?.kind === ReflectionKind.CallSignature) {
                         // function signature
                         reflection.escapedName = `${escapedName}.${reflection.escapedName}`;

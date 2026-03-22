@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export enum Status {
+export enum TransitionStatus {
     UNMOUNTED = 'unmounted',
     ENTERING = 'entering',
     ENTERED = 'entered',
@@ -10,6 +10,6 @@ export enum Status {
 
 export interface TransitionProps {
     className?: string;
-    children?: ReactNode;
+    children?: ReactNode | ((status: TransitionStatus) => ReactNode);
     visible?: boolean;
 }

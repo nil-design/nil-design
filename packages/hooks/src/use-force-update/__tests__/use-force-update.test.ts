@@ -9,6 +9,7 @@ describe('useForceUpdate', () => {
         const { result } = renderHook(() => {
             const forceUpdate = useForceUpdate();
             const renderCountRef = useRef(0);
+
             renderCountRef.current += 1;
 
             return {

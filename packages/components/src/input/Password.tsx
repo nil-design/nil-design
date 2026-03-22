@@ -25,6 +25,7 @@ const Password = forwardRef<HTMLInputElement, PasswordProps>(
 
         const handleToggle = () => {
             const nextVisible = !visible;
+
             setVisible(nextVisible);
             onVisibleChange?.(nextVisible);
         };

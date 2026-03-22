@@ -13,6 +13,7 @@ const getPropsTypeFromFunctionComponentType = componentType => {
  */
 const getPropsAndRefTypeFromForwardRefExoticComponentType = componentType => {
     const [argType] = componentType.typeArguments;
+
     if (argType) {
         if (argType.type === 'intersection') {
             // [propsType, refType]
@@ -56,6 +57,7 @@ const getPropsTypeAndRefType = componentReflection => {
         const { declaration } = componentType;
         const [signatureReflection] = declaration.signatures || [];
         const [parameterReflection] = signatureReflection.parameters;
+
         if (parameterReflection.type.type === 'intersection') {
             // parameters of forwardRefWithGenerics
             propsType = parameterReflection.type.types[0];

@@ -55,6 +55,7 @@ const booleanNaming: Rule.RuleModule = {
         const listeners: Record<string, (node: AnyNode) => void> = {
             FunctionDeclaration: node => {
                 const name = getStaticName(node.id as AnyNode | null);
+
                 if (!name) {
                     return;
                 }
@@ -69,6 +70,7 @@ const booleanNaming: Rule.RuleModule = {
                 }
 
                 const name = getStaticName(node.key as AnyNode | null);
+
                 if (!name) {
                     return;
                 }
@@ -91,6 +93,7 @@ const booleanNaming: Rule.RuleModule = {
                 }
 
                 const name = getStaticName(node.key as AnyNode | null);
+
                 if (!name) {
                     return;
                 }
@@ -115,6 +118,7 @@ const booleanNaming: Rule.RuleModule = {
             },
             PropertyDefinition: node => {
                 const name = getStaticName((node.key as AnyNode | null) ?? null);
+
                 if (!name) {
                     return;
                 }
@@ -139,6 +143,7 @@ const booleanNaming: Rule.RuleModule = {
             },
             TSMethodSignature: node => {
                 const name = getStaticName(node.key as AnyNode | null);
+
                 if (!name) {
                     return;
                 }
@@ -153,6 +158,7 @@ const booleanNaming: Rule.RuleModule = {
                 }
 
                 const name = getStaticName(node.key as AnyNode | null);
+
                 if (!name) {
                     return;
                 }
@@ -171,6 +177,7 @@ const booleanNaming: Rule.RuleModule = {
             },
             VariableDeclarator: node => {
                 const name = getStaticName(node.id as AnyNode | null);
+
                 if (!name) {
                     return;
                 }

@@ -2,7 +2,7 @@
     <Teleport v-if="mounted" to="body">
         <div
             :class="[
-                'vp-raw fixed z-9999 overflow-hidden text-brand-contrast font-nd shadow-2xl rounded-xl',
+                'vp-raw fixed z-39 overflow-hidden text-brand-contrast font-nd shadow-2xl rounded-xl',
                 dragging ? 'transition-none' : 'transition-[width,height,top,left,border-radius]',
             ]"
             :style="{

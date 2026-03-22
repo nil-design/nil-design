@@ -12,7 +12,7 @@ const serializeDeclarationReflection = declarationReflection => {
         const props = [];
         const { type, extendedTypes = [], children } = declarationReflection;
 
-        if (!children && type?.type === 'reference') {
+        if (!children && ['reference', 'union', 'intersection'].includes(type?.type)) {
             // type XXX = YYY
             return {
                 name: declarationReflection.escapedName,

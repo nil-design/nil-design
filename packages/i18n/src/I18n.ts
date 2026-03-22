@@ -178,6 +178,7 @@ class I18n<const Options extends I18nOptions = I18nOptions> {
         const walkLocale = (currentLocale: Locale, prefix = '') => {
             for (const [key, value] of Object.entries(currentLocale)) {
                 const nextPath = prefix ? `${prefix}${this.keyDelimiter}${key}` : key;
+
                 if (typeof value === 'string') {
                     flatLocale.set(nextPath, value);
                     continue;
@@ -221,6 +222,7 @@ class I18n<const Options extends I18nOptions = I18nOptions> {
      */
     private parseKey(key: string): { namespace?: string; resolvedKey: string } {
         const cached = this.parsedKeyCache.get(key);
+
         if (cached) return cached;
 
         const delimiterIndex = key.indexOf(this.namespaceDelimiter);
@@ -231,6 +233,7 @@ class I18n<const Options extends I18nOptions = I18nOptions> {
         this.parsedKeyCache.set(key, parsed);
         if (this.parsedKeyCache.size > KEY_CACHE_LIMIT) {
             const oldest = this.parsedKeyCache.keys().next();
+
             if (!oldest.done) this.parsedKeyCache.delete(oldest.value);
         }
 
@@ -260,6 +263,7 @@ class I18n<const Options extends I18nOptions = I18nOptions> {
             languageChain.push(language);
 
             const regional = language.split('-')[0] as Language;
+
             if (regional !== language && !seen.has(regional)) {
                 seen.add(regional);
                 languageChain.push(regional);
@@ -280,9 +284,11 @@ class I18n<const Options extends I18nOptions = I18nOptions> {
     private resolveLanguageChain(anchorLanguage?: Language): Language[] {
         const cacheKey = anchorLanguage ?? '__contextual__';
         const cached = this.languageChainCache.get(cacheKey);
+
         if (cached) return cached;
 
         const languageChain = this.createLanguageChain(anchorLanguage);
+
         this.languageChainCache.set(cacheKey, languageChain);
 
         return languageChain;
@@ -298,6 +304,7 @@ class I18n<const Options extends I18nOptions = I18nOptions> {
     ): { text: string; language: Language } | undefined {
         for (const language of languageChain) {
             const text = this.locales.get(language)?.get(namespace)?.flatLocale.get(resolvedKey);
+
             if (text !== undefined) return { text, language };
         }
 
@@ -356,6 +363,7 @@ class I18n<const Options extends I18nOptions = I18nOptions> {
         for (const plugin of this.plugins) plugin.beforeResolve?.(payload);
 
         const resolvedEntry = this.resolveEntry(namespace, parsedKey.resolvedKey, languageChain);
+
         if (!resolvedEntry) {
             for (const plugin of this.plugins) plugin.onMiss?.(payload);
             for (const plugin of this.plugins) plugin.afterResolve?.(payload);
@@ -365,6 +373,7 @@ class I18n<const Options extends I18nOptions = I18nOptions> {
 
         const pluginContext = { ...resolvedContext, language: resolvedEntry.language };
         let result = resolvedEntry.text;
+
         for (const plugin of this.plugins) {
             if (plugin.transform) result = plugin.transform(result, pluginContext);
         }

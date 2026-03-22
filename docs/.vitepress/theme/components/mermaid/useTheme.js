@@ -14,11 +14,13 @@ const useTheme = () => {
         document.body.appendChild(probe.value);
 
         const canvas = document.createElement('canvas');
+
         canvas.width = canvas.height = 1;
         canvasCtx.value = canvas.getContext('2d', { willReadFrequently: true });
 
         observer.value = new MutationObserver(mutations => {
             let changed = false;
+
             mutations.forEach(mutation => {
                 if (mutation.attributeName === 'class' || mutation.attributeName === 'style') {
                     changed = true;
@@ -48,6 +50,7 @@ const useTheme = () => {
         probe.value.style.color = `var(${varName})`;
         const color = getComputedStyle(probe.value).color;
         const ctx = canvasCtx.value;
+
         ctx.clearRect(0, 0, 1, 1);
         ctx.fillStyle = color;
         ctx.fillRect(0, 0, 1, 1);
@@ -61,20 +64,37 @@ const useTheme = () => {
         unref(themeVersion); // track style/hue switch and dark/light switch
         const darkScheme =
             typeof document !== 'undefined' ? document.documentElement.classList.contains('dark') : false;
+        const brandColor = resolveCssColor('--nd-color-brand-60');
 
         return {
             darkMode: darkScheme,
             fontSize: '14px',
             fontFamily: 'var(--nd-font-family)',
             mainBkg: resolveCssColor('--nd-color-neutral-5'),
-            primaryColor: resolveCssColor('--nd-color-brand-60'),
+            edgeLabelBackground: resolveCssColor('--nd-color-neutral-0'),
+            primaryColor: brandColor,
             primaryTextColor: resolveCssColor('--nd-color-neutral-100'),
-            primaryBorderColor: resolveCssColor('--nd-color-brand-60'),
+            primaryBorderColor: brandColor,
+            arrowheadColor: brandColor,
             lineColor: resolveCssColor('--nd-color-brand-80'),
+            transitionColor: brandColor,
         };
     });
 
-    return { theme, themeVariables, themeVersion };
+    const themeCSS = computed(() => {
+        unref(themeVersion); // track style/hue switch and dark/light switch
+        const brandColor = resolveCssColor('--nd-color-brand-60');
+
+        return `
+            marker[id$='-barbEnd'] path,
+            marker[id='statediagram-barbEnd'] path {
+                fill: ${brandColor};
+                stroke: ${brandColor};
+            }
+        `;
+    });
+
+    return { theme, themeVariables, themeCSS, themeVersion };
 };
 
 export default useTheme;

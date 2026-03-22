@@ -1,5 +1,6 @@
 export default md => {
     const fence = md.renderer.rules.fence;
+
     md.renderer.rules.fence = (tokens, idx, options, env, self) => {
         const token = tokens[idx];
 

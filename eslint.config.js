@@ -39,7 +39,12 @@ export default tslint.config(
         rules: {
             'no-console': 'warn',
             'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-            'padding-line-between-statements': ['warn', { blankLine: 'always', prev: '*', next: 'return' }],
+            'padding-line-between-statements': [
+                'warn',
+                { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+                { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
+                { blankLine: 'always', prev: '*', next: 'return' },
+            ],
         },
     },
     {
@@ -95,6 +100,11 @@ export default tslint.config(
     {
         files: ['**/*.{jsx,tsx}'],
         ...react.configs.flat.recommended,
+        settings: {
+            react: {
+                version: 'detect',
+            },
+        },
     },
     {
         /** @link https://github.com/facebook/react/issues/28313 */

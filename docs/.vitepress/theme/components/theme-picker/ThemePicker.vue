@@ -64,6 +64,7 @@ const randomize = () => {
 
 onMounted(() => {
     const others = HUES.filter(item => item.h !== currentHue.value);
+
     applyHue(others[Math.floor(Math.random() * others.length)].h);
 });
 </script>

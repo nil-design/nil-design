@@ -48,6 +48,7 @@ const Popup: FC<PopupProps> = ({
         if (disabled) return;
         setOpen(prevOpen => {
             const nextOpen = isFunction(action) ? action(prevOpen) : action;
+
             if (nextOpen) {
                 onOpen?.();
             } else {

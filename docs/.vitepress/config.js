@@ -121,10 +121,10 @@ export default defineConfig({
         await embeddingBuilder
             .build(resolve(__dirname, '../public'))
             .then(() => {
-                console.log('embeddings built');
+                console.log('✓ embeddings built');
             })
             .catch(() => {
-                console.error('embeddings build failed');
+                console.error('✗ embeddings build failed');
             });
     },
 });
