@@ -1,12 +1,12 @@
 ---
-title: Modal 弹窗
+title: Modal 模态框
 cat: 展示
 catOrder: 6
 ---
 
 # {{ $frontmatter.title }}
 
-用于在当前页面之上承载需要中断流程确认或补充信息的内容。
+用于在当前页面上承载需要中断流程以进行确认或补充信息的内容。
 
 ## 变体
 
