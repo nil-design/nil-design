@@ -7,8 +7,21 @@ import Popover from './popover';
 import Radio from './radio';
 import Switch from './switch';
 import Tooltip from './tooltip';
-import Transition from './transition';
+import Transition, { TransitionStatus } from './transition';
 import Typography from './typography';
 import './tailwind.css';
 
-export { Button, Checkbox, Divider, Input, Modal, Popover, Radio, Switch, Tooltip, Transition, Typography };
+export {
+    Button,
+    Checkbox,
+    Divider,
+    Input,
+    Modal,
+    Popover,
+    Radio,
+    Switch,
+    Tooltip,
+    Transition,
+    TransitionStatus,
+    Typography,
+};

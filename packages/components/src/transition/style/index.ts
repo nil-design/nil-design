@@ -1,14 +1,19 @@
 import { cva } from '@nild/shared';
-import { Status } from '../interfaces';
+import { TransitionStatus } from '../interfaces';
 
-const transition = cva<{ status: Status }>(['transition-[opacity,visibility]'], {
+const transition = cva<{ status: TransitionStatus }>(['transition-[opacity,visibility]'], {
     compoundVariants: [
         {
-            status: Status.ENTERED,
+            status: TransitionStatus.ENTERED,
             className: ['opacity-100', 'visible'],
         },
         {
-            status: [Status.UNMOUNTED, Status.ENTERING, Status.EXITING, Status.EXITED],
+            status: [
+                TransitionStatus.UNMOUNTED,
+                TransitionStatus.ENTERING,
+                TransitionStatus.EXITING,
+                TransitionStatus.EXITED,
+            ],
             className: ['opacity-0', 'invisible'],
         },
     ],

@@ -1,124 +1,139 @@
-import { useEffectCallback } from '@nild/hooks';
-import { cnMerge } from '@nild/shared';
-import { FC, ReactElement, Children, useState, isValidElement, cloneElement, useEffect, useRef } from 'react';
-import { Status, TransitionProps } from './interfaces';
+import { cnMerge, isFunction } from '@nild/shared';
+import {
+    ReactElement,
+    Children,
+    useState,
+    isValidElement,
+    cloneElement,
+    useEffect,
+    useRef,
+    TransitionEvent,
+    FC,
+} from 'react';
+import { mergeHandlers } from '../_shared/utils';
+import { TransitionStatus, TransitionProps } from './interfaces';
 import variants from './style';
+
+const resolveChild = (children: TransitionProps['children'], status: TransitionStatus) => {
+    const resolvedChildren = isFunction(children) ? children(status) : children;
+
+    return Children.toArray(resolvedChildren).find(child => isValidElement(child));
+};
 
 /**
  * @category Components
  */
 const Transition: FC<TransitionProps> = ({ className, children, visible = true }) => {
-    const child = Children.toArray(children).find(child => isValidElement(child));
-    const targetStatus = child ? (visible ? Status.ENTERED : Status.EXITED) : Status.UNMOUNTED;
-    const [status, setStatus] = useState<Status>(targetStatus);
+    const [status, setStatus] = useState<TransitionStatus>(() => {
+        const initialStatus = visible ? TransitionStatus.ENTERED : TransitionStatus.EXITED;
+
+        return resolveChild(children, initialStatus) ? initialStatus : TransitionStatus.UNMOUNTED;
+    });
+    const child = resolveChild(children, status);
+    const targetStatus = child
+        ? visible
+            ? TransitionStatus.ENTERED
+            : TransitionStatus.EXITED
+        : TransitionStatus.UNMOUNTED;
     const updateCallbackRef = useRef<{ (): void; cancel(): void }>();
-    const resolvedChildRef = useRef(child);
+    const cachedChildRef = useRef(child);
 
     // This ref is completely dependent on the props and state of the component, so its execution is idempotent
-    resolvedChildRef.current = status === Status.UNMOUNTED ? child : (child ?? resolvedChildRef.current);
+    cachedChildRef.current = status === TransitionStatus.UNMOUNTED ? child : (child ?? cachedChildRef.current);
 
-    const setUpdateCallback = useEffectCallback((callback: () => void) => {
+    const cancelUpdateCallback = () => {
+        updateCallbackRef.current?.cancel();
+        updateCallbackRef.current = undefined;
+    };
+
+    const setUpdateCallback = (callback: () => void) => {
         cancelUpdateCallback();
-
         let active = true;
         const callbackWrapper = () => {
-            if (active) {
-                active = false;
-                updateCallbackRef.current = undefined;
-                callback?.();
+            if (!active) {
+                return;
             }
+
+            active = false;
+            updateCallbackRef.current = undefined;
+            callback();
         };
 
         callbackWrapper.cancel = () => {
             active = false;
         };
         updateCallbackRef.current = callbackWrapper;
-    });
+    };
 
-    const executeUpdateCallback = useEffectCallback(() => {
+    const scheduleStatus = (nextStatus: TransitionStatus, completedStatus: TransitionStatus) => {
+        cancelUpdateCallback();
+        setStatus(nextStatus);
+        setUpdateCallback(() => {
+            setUpdateCallback(() => {
+                setStatus(completedStatus);
+            });
+            if (updateCallbackRef.current) {
+                setTimeout(updateCallbackRef.current, 0);
+            }
+        });
+    };
+
+    const handleTransitionEnd = (evt?: TransitionEvent<HTMLElement>) => {
+        // ignore bubbling transition events from descendants; only the transition root should advance state.
+        if (evt && evt.target !== evt.currentTarget) {
+            return;
+        }
+
+        if (targetStatus === TransitionStatus.UNMOUNTED && status === TransitionStatus.EXITED) {
+            setStatus(TransitionStatus.UNMOUNTED);
+        }
+    };
+
+    useEffect(() => {
         if (updateCallbackRef.current) {
             updateCallbackRef.current();
             updateCallbackRef.current = undefined;
         }
-    });
-
-    const cancelUpdateCallback = useEffectCallback(() => {
-        if (updateCallbackRef.current) {
-            updateCallbackRef.current.cancel();
-            updateCallbackRef.current = undefined;
-        }
-    });
-
-    const handleTransitionEnd = useEffectCallback(() => {
-        if (targetStatus === Status.UNMOUNTED && status === Status.EXITED) {
-            setStatus(Status.UNMOUNTED);
-        }
-    });
-
-    useEffect(() => {
-        executeUpdateCallback();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status]);
 
     useEffect(() => {
-        switch (targetStatus) {
-            case Status.ENTERED:
-                if (status !== Status.ENTERING && status !== Status.ENTERED) {
-                    if (status === Status.UNMOUNTED) {
-                        setStatus(Status.EXITED);
-                    } else {
-                        cancelUpdateCallback();
-                        setStatus(Status.ENTERING);
-                        setUpdateCallback(() => {
-                            setUpdateCallback(() => {
-                                setStatus(Status.ENTERED);
-                            });
-                            if (updateCallbackRef.current) {
-                                setTimeout(updateCallbackRef.current, 0);
-                            }
-                        });
-                    }
-                }
-                break;
-            case Status.EXITED:
-                if (status === Status.ENTERING || status === Status.ENTERED) {
-                    cancelUpdateCallback();
-                    setStatus(Status.EXITING);
-                    setUpdateCallback(() => {
-                        setUpdateCallback(() => {
-                            setStatus(Status.EXITED);
-                        });
-                        if (updateCallbackRef.current) {
-                            setTimeout(updateCallbackRef.current, 0);
-                        }
-                    });
-                }
-                break;
-            case Status.UNMOUNTED:
-            default:
-                if (status !== Status.EXITED && status !== Status.UNMOUNTED) {
-                    cancelUpdateCallback();
-                    setStatus(Status.EXITING);
-                    setUpdateCallback(() => {
-                        setUpdateCallback(() => {
-                            setStatus(Status.EXITED);
-                        });
-                        if (updateCallbackRef.current) {
-                            setTimeout(updateCallbackRef.current, 0);
-                        }
-                    });
-                }
-                break;
+        if (targetStatus === TransitionStatus.ENTERED) {
+            if (status === TransitionStatus.UNMOUNTED) {
+                setStatus(TransitionStatus.EXITED);
+            } else if (status !== TransitionStatus.ENTERING && status !== TransitionStatus.ENTERED) {
+                scheduleStatus(TransitionStatus.ENTERING, TransitionStatus.ENTERED);
+            }
+
+            return;
+        }
+
+        if (targetStatus === TransitionStatus.EXITED) {
+            if (status === TransitionStatus.ENTERING || status === TransitionStatus.ENTERED) {
+                scheduleStatus(TransitionStatus.EXITING, TransitionStatus.EXITED);
+            }
+
+            return;
+        }
+
+        if (status !== TransitionStatus.EXITED && status !== TransitionStatus.UNMOUNTED) {
+            scheduleStatus(TransitionStatus.EXITING, TransitionStatus.EXITED);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [visible, targetStatus, status]);
+    }, [targetStatus, status]);
 
-    if (!resolvedChildRef.current) return null;
+    if (!cachedChildRef.current) return null;
 
-    return cloneElement(resolvedChildRef.current as ReactElement, {
-        ...resolvedChildRef.current.props,
-        className: cnMerge(resolvedChildRef.current.props.className, variants.transition({ status }), className),
-        onTransitionEnd: handleTransitionEnd,
+    const cachedChild = cachedChildRef.current as ReactElement<{
+        className?: string;
+        onTransitionEnd?: (evt: TransitionEvent<HTMLElement>) => void;
+    }>;
+
+    return cloneElement(cachedChild, {
+        ...cachedChild.props,
+        className: isFunction(children)
+            ? cachedChild.props.className
+            : cnMerge(cachedChild.props.className, variants.transition({ status }), className),
+        onTransitionEnd: mergeHandlers(cachedChild.props.onTransitionEnd, handleTransitionEnd),
     });
 };
 

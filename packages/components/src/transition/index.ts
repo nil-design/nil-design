@@ -1,4 +1,4 @@
 import Transition from './Transition';
 
-export type * from './interfaces';
+export * from './interfaces';
 export default Transition;
