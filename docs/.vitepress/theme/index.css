@@ -133,10 +133,7 @@
     color-mix(in oklch, var(--background-color-page) 82%, transparent),
     color-mix(in oklch, var(--background-color-page) 74%, transparent)
   );
-  --vp-local-nav-bg-color: light-dark(
-    color-mix(in oklch, var(--background-color-page) 74%, transparent),
-    color-mix(in oklch, var(--background-color-page) 66%, transparent)
-  );
+  --vp-local-nav-bg-color: var(--vp-nav-bg-color);
   --vp-backdrop-bg-color: light-dark(
     color-mix(in oklch, var(--nd-color-neutral-100) 16%, transparent),
     color-mix(in oklch, var(--nd-color-neutral-100) 44%, transparent)
@@ -216,14 +213,27 @@ html {
   @apply tracking-[0.01em];
 }
 
-.VPNavBar {
-  background:
-    linear-gradient(180deg, color-mix(in oklch, var(--nd-color-neutral-0) 8%, transparent), transparent 82%),
-    var(--vp-nav-bg-color) !important;
+.VPNavBar,
+.VPLocalNav {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--nd-color-neutral-0) 8%, transparent),
+    transparent 82%
+  );
   box-shadow: inset 0 -1px 0 var(--border-color-subtle);
-  backdrop-filter: blur(22px) saturate(148%);
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-backdrop-filter: blur(22px) saturate(148%);
+
+  @supports (backdrop-filter: blur(1px)) {
+    backdrop-filter: blur(22px) saturate(148%);
+  }
+
+  @supports (-webkit-backdrop-filter: blur(1px)) {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-backdrop-filter: blur(22px) saturate(148%);
+  }
+}
+
+.VPNavBar {
+  background-color: var(--vp-nav-bg-color) !important;
 
   &.screen-open {
     @apply border-b-0;
@@ -277,27 +287,33 @@ html {
   @apply border-b-0;
 
   background-color: var(--vp-local-nav-bg-color);
-  box-shadow: inset 0 -1px 0 var(--border-color-subtle);
-  backdrop-filter: blur(18px) saturate(140%);
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
 }
 
 .VPSidebar {
-  @apply border-r border-subtle bg-transparent! shadow-none;
+  @apply border-r border-subtle bg-page! shadow-none;
 
   backdrop-filter: none;
 
   .curtain {
-    @apply border-b border-subtle bg-transparent!;
+    @apply border-b border-subtle bg-page!;
 
     backdrop-filter: none;
   }
 }
 
+@media (width >= 1280px) {
+  .VPSidebar {
+    @apply bg-transparent!;
+
+    .curtain {
+      @apply bg-transparent!;
+    }
+  }
+}
+
 @media (width < 960px) {
   .VPSidebar.open {
-    @apply bg-page shadow-lg;
+    @apply shadow-lg;
   }
 
   .VPSidebar.open .curtain {
@@ -306,12 +322,21 @@ html {
 }
 
 .VPNavScreen {
-  background:
-    linear-gradient(180deg, color-mix(in oklch, var(--nd-color-neutral-0) 10%, transparent), transparent 92%),
-    var(--vp-nav-screen-bg-color) !important;
-  backdrop-filter: blur(28px) saturate(145%);
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-backdrop-filter: blur(28px) saturate(145%);
+  background-color: var(--vp-nav-screen-bg-color) !important;
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--nd-color-neutral-0) 10%, transparent),
+    transparent 92%
+  );
+
+  @supports (backdrop-filter: blur(1px)) {
+    backdrop-filter: blur(28px) saturate(145%);
+  }
+
+  @supports (-webkit-backdrop-filter: blur(1px)) {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-backdrop-filter: blur(28px) saturate(145%);
+  }
 }
 
 .VPHome {
