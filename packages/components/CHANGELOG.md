@@ -1,5 +1,12 @@
 # @nild/components
 
+## 0.0.39
+
+### Patch Changes
+
+- 7150d7e: feat: add Modal
+  refactor(Transition): support render-prop mode
+
 ## 0.0.38
 
 ### Patch Changes
