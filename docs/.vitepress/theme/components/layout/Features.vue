@@ -5,8 +5,8 @@
                 <div v-for="feature in features" :key="feature.title" :class="['w-full p-2', itemCls]">
                     <VPLink
                         :class="[
-                            'custom-feature block h-full rounded-3xl bg-subtle shadow-sm',
-                            'transition-[background-color,box-shadow,transform] ease-out',
+                            'custom-feature block h-full rounded-xl bg-subtle shadow-sm',
+                            'transition-[background-color,box-shadow,translate]',
                             'hover:translate-y-[-2px] hover:shadow-md',
                         ]"
                         :href="feature.link"
