@@ -4,7 +4,7 @@
             class="absolute inset-[8%_4%_10%] rounded-3xl bg-[radial-gradient(circle_at_50%_28%,color-mix(in_oklch,var(--nil-page-glow-right)_96%,transparent)_0%,transparent_48%),radial-gradient(circle_at_70%_70%,color-mix(in_oklch,var(--nil-page-glow-left)_94%,transparent)_0%,transparent_42%)] blur-[28px] opacity-[0.9] dark:opacity-100"
         ></div>
         <div
-            class="absolute inset-0 overflow-hidden rounded-3xl border border-subtle bg-[linear-gradient(180deg,color-mix(in_oklch,var(--nd-color-neutral-0)_12%,transparent),transparent_72%),var(--nil-glass-bg-strong)] shadow-xl [backdrop-filter:blur(24px)_saturate(150%)] [-webkit-backdrop-filter:blur(24px)_saturate(150%)]"
+            class="absolute inset-0 overflow-hidden rounded-3xl bg-[linear-gradient(180deg,color-mix(in_oklch,var(--nd-color-neutral-0)_12%,transparent),transparent_72%),var(--nil-glass-bg-strong)] shadow-xl [backdrop-filter:blur(24px)_saturate(150%)] [-webkit-backdrop-filter:blur(24px)_saturate(150%)]"
         >
             <div
                 class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,color-mix(in_oklch,var(--nil-page-glow-left)_68%,transparent),transparent_34%),linear-gradient(135deg,color-mix(in_oklch,var(--nil-page-glow-right)_52%,transparent),transparent_45%)]"
