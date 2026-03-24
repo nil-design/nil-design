@@ -1,15 +1,14 @@
-import { useEffectCallback, useEventListener, useIsomorphicLayoutEffect } from '@nild/hooks';
+import { useEffectCallback, useEventListener } from '@nild/hooks';
 import { cnMerge, mergeRefs } from '@nild/shared';
 import { ReactElement, forwardRef, useEffect, isValidElement, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { getOwnerDocument, lockDocumentScroll, registerSlots } from '../_shared/utils';
-import { focusWithin, getFocusableElements, restoreFocusTo } from './_shared';
 import { isBodyElement } from './Body';
 import Close, { isCloseElement } from './Close';
 import { useModalContext } from './contexts';
 import { isFooterElement } from './Footer';
 import { isHeaderElement } from './Header';
-import { useModalStack } from './hooks';
+import { useModalFocusScope, useModalStack } from './hooks';
 import { PortalProps } from './interfaces';
 import variants from './style';
 
@@ -51,79 +50,30 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             restoreFocus,
             accessibility,
             refs,
-            close,
+            updateOpen,
         } = useModalContext();
-        const openRef = useRef(open);
-        const ownerDocument = getOwnerDocument(externalContainer, refs.surface.current, refs.trigger.current);
+        const surfaceRef = useRef<HTMLDivElement>(null);
+        const ownerDocument = getOwnerDocument(externalContainer, surfaceRef.current, refs.trigger.current);
         const container = externalContainer ?? ownerDocument?.body ?? null;
         const { zIndex, topmost } = useModalStack(ownerDocument, Boolean(container));
-
-        openRef.current = open;
 
         const handleOverlayClick = useEffectCallback(() => {
             if (overlayless || !open || !closeOnOverlayClick || !topmost) {
                 return;
             }
 
-            close();
+            updateOpen(false);
         });
 
         const handleKeyDown = useEffectCallback((evt: KeyboardEvent) => {
-            const surface = refs.surface.current;
-
-            if (!surface || !open || !topmost) {
+            if (!open || !topmost) {
                 return;
             }
 
             if (evt.key === 'Escape' && closeOnEscape) {
                 evt.preventDefault();
-                close();
-
-                return;
+                updateOpen(false);
             }
-
-            if (evt.key !== 'Tab' || !trapFocus) {
-                return;
-            }
-
-            const focusableEls = getFocusableElements(surface);
-            const activeElement = ownerDocument?.activeElement as HTMLElement | null;
-
-            if (focusableEls.length === 0) {
-                evt.preventDefault();
-                surface.focus();
-
-                return;
-            }
-
-            if (!activeElement || !surface.contains(activeElement)) {
-                evt.preventDefault();
-                focusWithin(surface, evt.shiftKey);
-
-                return;
-            }
-
-            const firstFocusableEl = focusableEls[0];
-            const lastFocusableEl = focusableEls.at(-1);
-
-            if (evt.shiftKey && activeElement === firstFocusableEl) {
-                evt.preventDefault();
-                lastFocusableEl?.focus();
-            } else if (!evt.shiftKey && activeElement === lastFocusableEl) {
-                evt.preventDefault();
-                firstFocusableEl?.focus();
-            }
-        });
-
-        const handleFocusIn = useEffectCallback((evt: FocusEvent) => {
-            const surface = refs.surface.current;
-            const nextTarget = evt.target as Node | null;
-
-            if (!surface || !trapFocus || !open || !topmost || !nextTarget || surface.contains(nextTarget)) {
-                return;
-            }
-
-            focusWithin(surface);
         });
 
         useEffect(() => {
@@ -134,42 +84,16 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             return lockDocumentScroll(ownerDocument);
         }, [lockScroll, ownerDocument, container]);
 
-        useEffect(() => {
-            return () => {
-                if (!restoreFocus || openRef.current) {
-                    return;
-                }
-
-                restoreFocusTo(refs.lastActiveEl.current, refs.trigger.current as HTMLElement | null);
-            };
-        }, [refs.lastActiveEl, refs.trigger, restoreFocus]);
-
-        useIsomorphicLayoutEffect(() => {
-            if (!open) {
-                return;
-            }
-
-            const timer = setTimeout(() => {
-                const surface = refs.surface.current;
-
-                if (!surface || !topmost) {
-                    return;
-                }
-
-                const activeElement = ownerDocument?.activeElement as Node | null;
-
-                if (!activeElement || !surface.contains(activeElement)) {
-                    focusWithin(surface);
-                }
-            }, 0);
-
-            return () => {
-                clearTimeout(timer);
-            };
-        }, [open, ownerDocument, refs.surface, topmost]);
-
+        useModalFocusScope({
+            open,
+            trapFocus,
+            restoreFocus,
+            topmost,
+            ownerDocument,
+            surfaceRef,
+            triggerRef: refs.trigger,
+        });
         useEventListener(ownerDocument, 'keydown', handleKeyDown);
-        useEventListener(ownerDocument, 'focusin', handleFocusIn);
 
         if (!container) {
             return null;
@@ -190,7 +114,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
                     <div className={cnMerge(variants.overlay(), overlayClassName)} onClick={handleOverlayClick} />
                 )}
                 <div
-                    ref={mergeRefs(refs.surface, ref)}
+                    ref={mergeRefs(surfaceRef, ref)}
                     className={cnMerge(variants.surface({ variant, placement, size }), surfaceClassName)}
                     aria-describedby={accessibility['aria-describedby']}
                     aria-label={accessibility['aria-label']}

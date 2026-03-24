@@ -1,7 +1,7 @@
 import { useControllableState, useEffectCallback } from '@nild/hooks';
 import { cnJoin, isFunction } from '@nild/shared';
-import { cloneElement, Dispatch, FC, SetStateAction, useEffect, useMemo, useRef } from 'react';
-import { getOwnerDocument, registerSlots } from '../_shared/utils';
+import { cloneElement, Dispatch, FC, SetStateAction, useMemo, useRef } from 'react';
+import { registerSlots } from '../_shared/utils';
 import Transition, { TransitionStatus } from '../transition';
 import { resolvePlacement } from './_shared';
 import { ModalProvider } from './contexts';
@@ -42,14 +42,11 @@ const Modal: FC<ModalProps> = props => {
     const [open, setOpen] = useControllableState(externalOpen, defaultOpen);
     const openRef = useRef(open);
     const triggerRef = useRef<Element>(null);
-    const surfaceRef = useRef<HTMLDivElement>(null);
-    const lastActiveElRef = useRef<HTMLElement | null>(null);
-    const prevOpenRef = useRef(open);
     const placement = resolvePlacement(variant, props.placement);
 
     openRef.current = open;
 
-    const requestOpen = useEffectCallback<Dispatch<SetStateAction<boolean>>>(action => {
+    const updateOpen = useEffectCallback<Dispatch<SetStateAction<boolean>>>(action => {
         if (disabled) {
             return;
         }
@@ -71,20 +68,6 @@ const Modal: FC<ModalProps> = props => {
         }
     });
 
-    const close = useEffectCallback(() => {
-        requestOpen(false);
-    });
-
-    useEffect(() => {
-        if (open && !prevOpenRef.current) {
-            const ownerDocument = getOwnerDocument(triggerRef.current, surfaceRef.current);
-
-            lastActiveElRef.current = ownerDocument?.activeElement as HTMLElement | null;
-        }
-
-        prevOpenRef.current = open;
-    }, [open]);
-
     const context = useMemo(
         () => ({
             open,
@@ -104,24 +87,20 @@ const Modal: FC<ModalProps> = props => {
             },
             refs: {
                 trigger: triggerRef,
-                surface: surfaceRef,
-                lastActiveEl: lastActiveElRef,
             },
-            requestOpen,
-            close,
+            updateOpen,
         }),
         [
             ariaDescribedBy,
             ariaLabel,
             ariaLabelledBy,
-            close,
             closeOnEscape,
             closeOnOverlayClick,
             disabled,
             lockScroll,
             open,
             placement,
-            requestOpen,
+            updateOpen,
             restoreFocus,
             size,
             trapFocus,

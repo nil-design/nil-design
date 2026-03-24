@@ -28,7 +28,7 @@ const Close = forwardRef<HTMLButtonElement, CloseProps>(
         },
         ref,
     ) => {
-        const { disabled, close } = useModalContext();
+        const { disabled, updateOpen } = useModalContext();
 
         return (
             <Button
@@ -38,7 +38,7 @@ const Close = forwardRef<HTMLButtonElement, CloseProps>(
                 disabled={disabled || externalDisabled}
                 equal={equal}
                 onClick={mergeHandlers(onClick, evt => {
-                    close();
+                    updateOpen(false);
 
                     return evt;
                 })}
