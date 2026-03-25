@@ -564,6 +564,77 @@ describe('Modal', () => {
         }
     });
 
+    it('focuses the dialog surface when no focusable descendants are available', async () => {
+        vi.useFakeTimers();
+
+        try {
+            render(
+                <Modal>
+                    <Modal.Trigger>
+                        <button type="button">Launch plain modal</button>
+                    </Modal.Trigger>
+                    <Modal.Portal>
+                        <Modal.Body>Plain content</Modal.Body>
+                        <Modal.Close disabled />
+                    </Modal.Portal>
+                </Modal>,
+            );
+
+            fireEvent.click(screen.getByRole('button', { name: 'Launch plain modal' }));
+
+            act(() => {
+                vi.runAllTimers();
+            });
+
+            expect(screen.getByRole('dialog')).toHaveFocus();
+        } finally {
+            vi.useRealTimers();
+        }
+    });
+
+    it('returns focus to the active modal scope when focus moves outside the surface', async () => {
+        vi.useFakeTimers();
+
+        try {
+            render(
+                <>
+                    <button type="button">Outside action</button>
+                    <Modal>
+                        <Modal.Trigger>
+                            <button type="button">Launch guarded modal</button>
+                        </Modal.Trigger>
+                        <Modal.Portal>
+                            <Modal.Body>
+                                <button type="button">First action</button>
+                                <button type="button">Last action</button>
+                            </Modal.Body>
+                        </Modal.Portal>
+                    </Modal>
+                </>,
+            );
+
+            fireEvent.click(screen.getByRole('button', { name: 'Launch guarded modal' }));
+
+            act(() => {
+                vi.runAllTimers();
+            });
+
+            const firstAction = screen.getByRole('button', { name: 'First action' });
+            const outsideAction = screen.getByRole('button', { name: 'Outside action' });
+
+            expect(firstAction).toHaveFocus();
+
+            act(() => {
+                outsideAction.focus();
+            });
+
+            expect(firstAction).toHaveFocus();
+            expect(outsideAction).not.toHaveFocus();
+        } finally {
+            vi.useRealTimers();
+        }
+    });
+
     it('keeps the modal open when closeOnEscape is false', async () => {
         render(
             <Modal defaultOpen closeOnEscape={false}>

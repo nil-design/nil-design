@@ -11,11 +11,11 @@ export const isTriggerElement = (child: unknown): child is ReactElement<TriggerP
 };
 
 const Trigger: FC<TriggerProps> = ({ children }) => {
-    const { refs, requestOpen } = useModalContext();
+    const { refs, updateOpen } = useModalContext();
     const child = Children.toArray(children).find(child => isValidElement(child));
 
     const handleClick = useEffectCallback(() => {
-        requestOpen(true);
+        updateOpen(true);
     });
 
     if (!child) {

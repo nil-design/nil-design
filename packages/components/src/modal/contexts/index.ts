@@ -16,11 +16,8 @@ export interface ModalContextValue {
     accessibility: ModalAccessibility;
     refs: {
         trigger: RefObject<Element>;
-        surface: RefObject<HTMLDivElement>;
-        lastActiveEl: RefObject<HTMLElement | null>;
     };
-    requestOpen: Dispatch<SetStateAction<boolean>>;
-    close: () => void;
+    updateOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const [ModalProvider, useModalContext] = createContextSuite<ModalContextValue>({
@@ -42,11 +39,8 @@ const [ModalProvider, useModalContext] = createContextSuite<ModalContextValue>({
         },
         refs: {
             trigger: { current: null },
-            surface: { current: null },
-            lastActiveEl: { current: null },
         },
-        requestOpen: () => undefined,
-        close: () => undefined,
+        updateOpen: () => undefined,
     },
 });
 
