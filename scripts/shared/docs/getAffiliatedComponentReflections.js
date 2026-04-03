@@ -9,7 +9,9 @@ const getAffiliatedComponentReflections = componentReflection => {
     const affiliatedComponentReflections = [];
 
     if (componentType.type === 'intersection') {
-        const objectReflection = componentType.types.find(type => type.type === 'reflection');
+        const objectReflection = componentType.types.find(type => {
+            return type.type === 'reflection' && Array.isArray(type.declaration?.children);
+        });
 
         if (objectReflection) {
             for (const reflection of objectReflection.declaration.children) {

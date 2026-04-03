@@ -5,6 +5,7 @@ import Input from './input';
 import Modal from './modal';
 import Popover from './popover';
 import Radio from './radio';
+import Select from './select';
 import Switch from './switch';
 import Tooltip from './tooltip';
 import Transition, { TransitionStatus } from './transition';
@@ -19,6 +20,7 @@ export {
     Modal,
     Popover,
     Radio,
+    Select,
     Switch,
     Tooltip,
     Transition,
