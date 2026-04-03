@@ -40,7 +40,7 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 5. `docs/.vitepress/getThemeConfig.js`：确认组件文档侧边栏是基于 frontmatter 自动收录的，而不是手工维护。
 6. `docs/.vitepress/theme/components/react-live/ReactLive.jsx`：如果文档示例需要 `react`、`@nild/hooks`、`@nild/shared` 或 `@nild/icons` 导入，先确认当前 `react-live` scope。
 
-需要更具体的代码组织示例时，再阅读 `references/component-patterns.md`；需要文档模板时，再阅读 `references/docs-style.md`。
+需要更具体的代码组织示例与实现收敛清单时，再阅读 `references/component-patterns.md`；需要文档模板与章节编排偏好时，再阅读 `references/docs-style.md`。
 
 ## 参考模式
 
@@ -106,6 +106,29 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 - 覆盖层组件先判断是“锚定型弹层”还是“流程打断型表面”：
   - 锚定型弹层优先参考 `popup` 及其 `tooltip`、`popover` 薄封装模式。
   - 流程打断型表面优先参考 `modal`，尤其是 `variant="dialog" | "drawer"`、portal、focus scope、scroll lock 与 stack 管理。
+
+## 风格收敛与实现取舍
+
+默认先让实现回到现有组件模式，再决定是否新增抽象；只有当现有模式、工具或成熟先例明确覆盖不了需求时，才引入新做法。需要更具体的正反例时，阅读 `references/component-patterns.md`。
+
+硬规则：
+
+- 先对齐现有组件模式，再决定实现；现有工具或成熟先例能覆盖时，不再手写平行实现。
+- 复合组件的公开导出默认回到 `index.ts`，由 `Object.assign` 聚合子组件，避免每个组件自造导出形态。
+- 槽位解析优先复用 `registerSlots`；只在现有槽位模型明确不适用时，才新增自定义收集逻辑。
+- 父组件负责状态与运行时交互装配；context 默认只承载被动共享状态，不承载选择、激活、关闭这类动作方法。
+- 不把带下划线、内部感过强的 props 暴露到公开子组件；若父组件需要注入运行时状态，优先使用可读、语义明确的直接 props 或 handlers。
+- 渲染结果必须直接依赖当前同步状态或 memo 派生值；不要把 `useEffectCallback` 这类稳定回调用于 render 期状态判断。
+- 文档章节按用户感知组织；`变体`、`尺寸`、`状态` 等独立成节，不把不同维度强行并在一个首节里。
+
+优先建议：
+
+- 相关派生值尽量在一次遍历或一个 `useMemo` 内产出，避免碎片化 `useMemo` 和无收益缓存。
+- 只有当逻辑确实形成清晰职责边界时才拆 hook；不要为了压缩主文件长度把本地派生逻辑机械拆走。
+- 视觉上优先做“减法”：避免额外造一套重样式交互；选中、激活、hover 的差异只保留必要辨识，不平白新增装饰。
+- 保留合理的 hover affordance；不要因为去掉 active/selected 特殊背景，就顺带抹掉正常 hover 反馈。
+- 图标选择先看语义和仓库既有模式，不随意换图标或引入组件专属图形表达。
+- `mergeHandlers` 作为已有工具可以使用，但只在“内部逻辑 + 外部事件”确实需要统一合并时使用；不要为了工具而工具。
 
 ## 文档规范
 

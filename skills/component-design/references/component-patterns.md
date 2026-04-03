@@ -10,6 +10,22 @@
 - 只有公开组件才默认需要更新根入口与 `docs/zh-CN/components/<component>/index.md`。
 - `pnpm components:api` 会扫描 `packages/components/src/*/index.ts`，读取 `@category Components`，并展开复合子组件。
 
+## 实现收敛清单
+
+当仓库里已经有可对齐的模式时，优先把实现收回到这些稳定写法：
+
+- `registerSlots` 优于手写 `collectXxx`；只有当现有槽位模型无法表达需求时，才新增自定义收集逻辑。
+- `index.ts + Object.assign` 优于分散式复合导出；公开子组件默认回到目录入口统一聚合。
+- data-only context + parent-injected handlers 优于 action-heavy context；context 默认共享状态和视觉参数，不默认承载选择、激活、关闭等动作。
+- inline derivation / single-pass memo 优于为了缩短文件而额外抽 hook；只有在职责边界已经稳定时，才把派生逻辑拆到独立 hook。
+- 公开 props 优先保持语义直接、可读；避免把带下划线或内部运行时感过强的字段暴露给使用方。
+- render 期判断优先直接读取同步状态或 memo 派生值；不要把为事件场景设计的稳定回调拿来驱动渲染结果。
+
+出现实现分歧时，先问自己两件事：
+
+- 这个做法是不是仓库里已经存在的稳定模式？
+- 这个抽象是在降低复杂度，还是只是在搬运复杂度？
+
 ## Button：标准复合导出模式
 
 `button` 适合用来参考“视觉变体为主、结构相对稳定”的公开组件：
