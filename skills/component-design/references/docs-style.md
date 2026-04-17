@@ -60,7 +60,28 @@ render(<Demo />);
 - 示例保持短小、直接可运行，避免为了展示源码结构而写大量无关样板。
 - 示例中的类名、布局方式、命名风格尽量贴近现有文档页面。
 
-## `react-live` 示例模板
+## 章节编排偏好
+
+- 首节优先放最核心、最容易被用户感知的维度，通常是 `变体`、`基础用法` 或最主要的交互模式。
+- `变体` 与 `尺寸` 默认拆成独立章节，不为了压缩篇幅把两个维度合并展示。
+- 示例顺序尽量从视觉规格到交互场景，例如：`变体`、`尺寸`、`基础用法`、`状态`、`组合`。
+- 不要因为源码里恰好有多个子文件，就把文档章节写成实现结构导览。
+- 页面结构优先服务“用户如何理解和使用组件”，而不是“实现里有哪些内部概念”。
+
+## `react-live` 可用 import 范围
+
+当前文档运行环境的 `react-live` scope 已经预置下面这些包：
+
+- `react`
+- `@nild/components`
+- `@nild/hooks`
+- `@nild/shared`
+- `@nild/icons`
+- `@nild/icons/Layers`
+
+这表示组件文档示例可以直接导入 `useState`、hooks、shared utils 或 icons；不要把示例错误地限制成只能导入 `@nild/components`。
+
+## 基础示例模板
 
 ````md
 ::: react-live
@@ -77,6 +98,34 @@ render(<Demo />);
 ```
 :::
 ````
+
+## 状态示例模板
+
+````md
+::: react-live
+```tsx
+import { useState } from 'react';
+import { Button, Modal } from '@nild/components';
+
+const Demo = () => {
+  const [open, setOpen] = useState(false);
+
+  return <>
+    <Button onClick={() => setOpen(true)}>Open</Button>
+    <Modal open={open} onClose={() => setOpen(false)} aria-label="Example modal">
+      <Modal.Portal className="vp-raw">
+        <Modal.Body>Portal content</Modal.Body>
+      </Modal.Portal>
+    </Modal>
+  </>;
+}
+
+render(<Demo />);
+```
+:::
+````
+
+当示例会把内容渲染到 portal 或浮层容器时，优先参考 `modal` 文档，在 portal 根节点或表面节点上使用 `className="vp-raw"`，避免 VitePress 文档样式污染内容。
 
 ## 插槽扩展示例模板
 

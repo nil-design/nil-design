@@ -1,6 +1,6 @@
 import { useEffectCallback, useEventListener } from '@nild/hooks';
 import { cnJoin, mergeRefs } from '@nild/shared';
-import { ReactElement, isValidElement, cloneElement, Children, FC } from 'react';
+import { ReactElement, Ref, isValidElement, cloneElement, Children, FC } from 'react';
 import { usePopupContext } from './contexts';
 import { TriggerProps } from './interfaces';
 import variants from './style';
@@ -68,7 +68,7 @@ const Trigger: FC<TriggerProps> = ({ children }) => {
         onMouseLeave: handleMouseLeave,
         onFocus: handleFocus,
         onBlur: handleBlur,
-        ref: mergeRefs(refs.trigger, child?.props?.ref),
+        ref: mergeRefs(refs.trigger, (child as ReactElement & { ref?: Ref<Element> }).ref),
     });
 };
 

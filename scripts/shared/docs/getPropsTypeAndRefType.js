@@ -29,6 +29,32 @@ const getPropsAndRefTypeFromForwardRefExoticComponentType = componentType => {
 };
 
 /**
+ * @param {import('typedoc').SomeType} componentType
+ * @returns {[import('typedoc').SomeType, import('typedoc').SomeType | undefined]}
+ */
+const getPropsAndRefTypeFromReflectionComponentType = componentType => {
+    const { declaration } = componentType;
+    const [signatureReflection] = declaration.signatures || [];
+    const [parameterReflection] = signatureReflection?.parameters || [];
+    let propsType;
+    let refType;
+
+    if (!parameterReflection?.type) {
+        return [];
+    }
+
+    if (parameterReflection.type.type === 'intersection') {
+        // parameters of forwardRefWithGenerics
+        propsType = parameterReflection.type.types[0];
+        refType = parameterReflection.type.types[1].typeArguments[0];
+    } else if (parameterReflection.type.type === 'reference') {
+        propsType = parameterReflection.type;
+    }
+
+    return [propsType, refType];
+};
+
+/**
  * @param {import('typedoc').DeclarationReflection} componentReflection
  * @returns {[import('typedoc').SomeType, import('typedoc').SomeType | undefined]}
  */
@@ -45,24 +71,28 @@ const getPropsTypeAndRefType = componentReflection => {
         }
     } else if (componentType.type === 'intersection') {
         componentType.types.forEach(type => {
+            let nextPropsType;
+            let nextRefType;
+
             if (type.type === 'reference') {
                 if (['FC', 'FunctionComponent'].includes(type.name)) {
-                    [propsType] = getPropsTypeFromFunctionComponentType(type);
+                    [nextPropsType] = getPropsTypeFromFunctionComponentType(type);
                 } else if (type.name === 'ForwardRefExoticComponent') {
-                    [propsType, refType] = getPropsAndRefTypeFromForwardRefExoticComponentType(type);
+                    [nextPropsType, nextRefType] = getPropsAndRefTypeFromForwardRefExoticComponentType(type);
                 }
+            } else if (type.type === 'reflection') {
+                [nextPropsType, nextRefType] = getPropsAndRefTypeFromReflectionComponentType(type);
+            }
+
+            if (nextPropsType) {
+                propsType = nextPropsType;
+            }
+            if (nextRefType) {
+                refType = nextRefType;
             }
         });
     } else if (componentType.type === 'reflection') {
-        const { declaration } = componentType;
-        const [signatureReflection] = declaration.signatures || [];
-        const [parameterReflection] = signatureReflection.parameters;
-
-        if (parameterReflection.type.type === 'intersection') {
-            // parameters of forwardRefWithGenerics
-            propsType = parameterReflection.type.types[0];
-            refType = parameterReflection.type.types[1].typeArguments[0];
-        }
+        [propsType, refType] = getPropsAndRefTypeFromReflectionComponentType(componentType);
     }
 
     return [propsType, refType];

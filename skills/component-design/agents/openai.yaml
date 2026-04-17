@@ -1,4 +1,4 @@
 interface:
-  display_name: "组件设计"
-  short_description: "设计并交付新的 @nild/components 组件"
-  default_prompt: "使用 $component-design 按照 nil-design 规范设计并实现一个新的 @nild/components 组件，包括样式、文档、API 生成与验收。"
+  display_name: "Nil 组件设计"
+  short_description: "按 nil-design 现状设计或刷新 @nild/components 组件"
+  default_prompt: "使用 $component-design 按照 nil-design 当前规范设计或实现 @nild/components 组件或内部基础能力，先核对公开导出与既有模式（button、input、checkbox/radio、popup + wrappers、modal、transition），再完成样式、文档、API 生成与验收。"
