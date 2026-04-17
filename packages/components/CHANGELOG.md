@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.40
+
+### Patch Changes
+
+- 364d6dc: feat: Select
+
 ## 0.0.39
 
 ### Patch Changes
