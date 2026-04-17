@@ -59,6 +59,7 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 
 - 围绕 `packages/components/src/tailwind.css` 中的 ND tokens 与 Tailwind 语义别名设计视觉层，不凭空定义新的颜色、阴影、圆角和状态色。
 - 优先在 `style/index.ts` 中通过 `cva` 定义尺寸、变体、状态和结构差异，让视觉逻辑集中在样式变体层，而不是散落在 JSX 条件分支里。
+- `cva` 的 `variants` / `compoundVariants` 里只写样式相关的 Tailwind 类，不写 `open`、`active`、`selected`、`disabled` 一类语义 class；组件命名类或状态语义应留在基础类、props、`data-*` / `aria-*` 或原生状态上表达。
 - 允许通过 `cnMerge` 合并外部 `className`，但不要把外部 `className` 当作内部视觉规则的替代品。
 - 优先复用现有语义类，例如品牌色、背景色、文本色、边框色、焦点态、禁用态、阴影和圆角。
 - 当现有 token 不能完全覆盖需求时，先复用最接近的语义 token，再决定是否需要新增设计约束；不要把 lint 细节写进技能。
@@ -90,6 +91,7 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 - 复合组件使用 `Object.assign` 聚合公开子组件，保持与现有仓库一致的公开形态。
 - 类型优先集中在 `interfaces/index.d.ts` 中管理，公共 props、枚举、别名与 ref 类型尽量在这里声明。
 - 主组件实现中保持“结构职责”和“样式职责”分离：结构写在组件文件，视觉变体写在 `style/index.ts`。
+- 当把 DOM ref 的 `.current` 单独赋给本地变量时，本地变量名统一以 `$` 开头，例如 `const $listbox = listboxRef.current`，以便快速识别它是 DOM 节点快照而不是普通数据。
 
 关于内部节点扩展，默认遵循下面这条强约束：
 
