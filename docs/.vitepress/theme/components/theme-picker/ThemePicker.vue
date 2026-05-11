@@ -27,33 +27,73 @@ import PaletteIcon from '../../icons/palette.svg';
  * ~26° spacing across the usable hue wheel, skipping low-contrast yellows (65–125°).
  */
 const HUES = [
-    { h: 10, label: 'Red' },
-    { h: 35, label: 'Orange' },
-    { h: 60, label: 'Amber' },
-    { h: 125, label: 'Lime' },
-    { h: 150, label: 'Green' },
-    { h: 178, label: 'Teal' },
+    { h: 25, label: 'Red' },
+    { h: 45, label: 'Orange' },
+    { h: 75, label: 'Amber' },
+    { h: 110, label: 'Lime' },
+    { h: 145, label: 'Green' },
+    { h: 175, label: 'Teal' },
     { h: 205, label: 'Cyan' },
-    { h: 230, label: 'Sky' },
-    { h: 258, label: 'Blue' },
+    { h: 235, label: 'Sky' },
+    { h: 255, label: 'Blue' },
     { h: 285, label: 'Indigo' },
-    { h: 310, label: 'Violet' },
-    { h: 338, label: 'Magenta' },
+    { h: 315, label: 'Violet' },
+    { h: 340, label: 'Magenta' },
 ];
 
-const currentHue = ref(258);
+const currentHue = ref(255);
 const spinning = ref(false);
+const recentHues = [];
+
+const rememberHue = h => {
+    const index = recentHues.indexOf(h);
+
+    if (index !== -1) {
+        recentHues.splice(index, 1);
+    }
+
+    recentHues.unshift(h);
+    recentHues.length = Math.min(recentHues.length, HUES.length);
+};
+
+const getHueWeight = h => {
+    const recentIndex = recentHues.indexOf(h);
+
+    if (recentIndex === -1) {
+        return HUES.length + 1;
+    }
+
+    return recentIndex;
+};
+
+const pickWeightedHue = () => {
+    const candidates = HUES.filter(item => item.h !== currentHue.value);
+    const weighted = candidates.map(item => ({
+        ...item,
+        weight: getHueWeight(item.h),
+    }));
+    const totalWeight = weighted.reduce((total, item) => total + item.weight, 0);
+    let cursor = Math.random() * totalWeight;
+
+    return (
+        weighted.find(item => {
+            cursor -= item.weight;
+
+            return cursor <= 0;
+        }) ?? weighted.at(-1)
+    );
+};
 
 const applyHue = h => {
     document.documentElement.style.setProperty('--nd-brand-h', String(h));
     currentHue.value = h;
+    rememberHue(h);
 };
 
 const randomize = () => {
     if (spinning.value) return;
 
-    const others = HUES.filter(item => item.h !== currentHue.value);
-    const next = others[Math.floor(Math.random() * others.length)];
+    const next = pickWeightedHue();
 
     spinning.value = true;
     applyHue(next.h);
@@ -63,8 +103,6 @@ const randomize = () => {
 };
 
 onMounted(() => {
-    const others = HUES.filter(item => item.h !== currentHue.value);
-
-    applyHue(others[Math.floor(Math.random() * others.length)].h);
+    applyHue(pickWeightedHue().h);
 });
 </script>
