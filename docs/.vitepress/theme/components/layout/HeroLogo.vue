@@ -1,19 +1,17 @@
 <template>
     <div class="relative mx-auto aspect-[1/1.02] w-full max-w-140" aria-hidden="true">
         <div
-            class="absolute inset-[8%_4%_10%] rounded-3xl bg-[radial-gradient(circle_at_50%_28%,color-mix(in_oklch,var(--nil-page-glow-right)_96%,transparent)_0%,transparent_48%),radial-gradient(circle_at_70%_70%,color-mix(in_oklch,var(--nil-page-glow-left)_94%,transparent)_0%,transparent_42%)] blur-[28px] opacity-[0.9] dark:opacity-100"
+            class="absolute inset-[8%_4%_10%] rounded-3xl [background:var(--vp-custom-hero-logo-glow)] blur-[28px] opacity-90 dark:opacity-100"
         ></div>
         <div
-            class="absolute inset-0 overflow-hidden rounded-3xl bg-[linear-gradient(180deg,color-mix(in_oklch,var(--nd-color-neutral-0)_12%,transparent),transparent_72%),var(--nil-glass-bg-strong)] shadow-xl [backdrop-filter:blur(24px)_saturate(150%)] [-webkit-backdrop-filter:blur(24px)_saturate(150%)]"
+            class="absolute inset-0 overflow-hidden rounded-3xl [background:var(--vp-custom-hero-logo-surface)] shadow-(--vp-custom-glass-shadow) [backdrop-filter:var(--vp-custom-glass-backdrop-strong)] [-webkit-backdrop-filter:var(--vp-custom-glass-backdrop-strong)]"
         >
+            <div class="pointer-events-none absolute inset-0 [background:var(--vp-custom-hero-logo-overlay)]"></div>
             <div
-                class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,color-mix(in_oklch,var(--nil-page-glow-left)_68%,transparent),transparent_34%),linear-gradient(135deg,color-mix(in_oklch,var(--nil-page-glow-right)_52%,transparent),transparent_45%)]"
+                class="pointer-events-none absolute inset-px rounded-[calc(1.5rem-1px)] [box-shadow:var(--vp-custom-glass-highlight)]"
             ></div>
             <div
-                class="pointer-events-none absolute inset-px rounded-[calc(1.5rem-1px)] [box-shadow:inset_0_1px_0_0_color-mix(in_oklch,var(--nd-color-neutral-0)_84%,transparent)] dark:[box-shadow:inset_0_1px_0_0_color-mix(in_oklch,var(--nd-color-neutral-90)_12%,transparent)]"
-            ></div>
-            <div
-                class="absolute inset-0 opacity-[0.54] bg-[linear-gradient(to_right,var(--nil-grid-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--nil-grid-line)_1px,transparent_1px)] bg-size-[20px_20px] mask-[radial-gradient(circle_at_center,black_0%,transparent_82%)]"
+                class="absolute inset-0 opacity-[0.54] [background-image:var(--vp-custom-page-grid-background)] [background-size:var(--vp-custom-page-grid-size)] [mask:var(--vp-custom-hero-logo-grid-mask)]"
             ></div>
             <svg
                 class="absolute inset-[18%_10%_24%] h-auto w-[80%] overflow-visible"
@@ -21,10 +19,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
             >
-                <g
-                    class="fill-[color-mix(in_oklch,var(--nd-color-brand-40)_26%,transparent)]"
-                    transform="translate(14 14)"
-                >
+                <g class="fill-(--vp-custom-logo-shadow-fill)" transform="translate(14 14)">
                     <rect x="34" y="24" width="30" height="176" rx="9" />
                     <rect x="138" y="24" width="30" height="176" rx="9" />
                     <polygon points="64,24 94,24 168,152 168,200 138,200 64,72" />
@@ -32,7 +27,7 @@
                     <rect x="340" y="24" width="30" height="176" rx="9" />
                     <rect x="340" y="170" width="146" height="30" rx="9" />
                 </g>
-                <g class="fill-[color-mix(in_oklch,var(--nd-color-neutral-100)_96%,var(--nd-color-brand-90))]">
+                <g class="fill-(--vp-custom-logo-ink)">
                     <rect x="34" y="24" width="30" height="176" rx="9" />
                     <rect x="138" y="24" width="30" height="176" rx="9" />
                     <polygon points="64,24 94,24 168,152 168,200 138,200 64,72" />
@@ -40,13 +35,13 @@
                     <rect x="340" y="24" width="30" height="176" rx="9" />
                     <rect x="340" y="170" width="146" height="30" rx="9" />
                 </g>
-                <g class="fill-[color-mix(in_oklch,var(--nd-color-brand-50)_84%,var(--nd-color-brand-60))]">
+                <g class="fill-(--vp-custom-logo-accent)">
                     <polygon points="64,24 94,24 145,112 115,112" />
                     <rect x="236" y="24" width="30" height="46" rx="9" />
                     <rect x="340" y="170" width="92" height="30" rx="9" />
                 </g>
                 <g
-                    class="fill-none stroke-[color-mix(in_oklch,var(--nd-color-brand-30)_78%,var(--nd-color-brand-40))] [stroke-linecap:round] [stroke-linejoin:round] stroke-4 opacity-[0.88]"
+                    class="fill-none stroke-(--vp-custom-logo-line) [stroke-linecap:round] [stroke-linejoin:round] stroke-4 opacity-[0.88]"
                 >
                     <path d="M10 12H134" />
                     <path d="M438 12H510V84" />
@@ -55,7 +50,7 @@
                     <path d="M86 46H156" />
                     <path d="M318 180H464" />
                 </g>
-                <g class="fill-[color-mix(in_oklch,var(--nd-color-neutral-0)_94%,var(--nd-color-brand-20))] opacity-90">
+                <g class="fill-(--vp-custom-logo-dot) opacity-90">
                     <circle cx="10" cy="12" r="6" />
                     <circle cx="510" cy="84" r="6" />
                     <circle cx="84" cy="212" r="6" />

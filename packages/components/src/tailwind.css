@@ -120,6 +120,13 @@
     oklch(98% var(--nd-neutral-c) var(--nd-brand-h))
   );
 
+  /**
+   * status color bases
+   */
+  --nd-color-success-base: oklch(60% 0.14 140deg);
+  --nd-color-warning-base: oklch(76% 0.15 80deg);
+  --nd-color-error-base: oklch(58% 0.16 28deg);
+
   /*
    * shadow colors
    */
@@ -166,6 +173,54 @@
   --color-brand-ring: light-dark(
     color-mix(in oklch, var(--nd-color-brand-60) 28%, transparent),
     color-mix(in oklch, var(--nd-color-brand-60) 36%, transparent)
+  );
+
+  /*
+   * status colors
+   */
+  --color-success: color-mix(in oklch, var(--nd-color-success-base) 90%, var(--nd-color-brand-60) 10%);
+  --color-success-hover: light-dark(
+    color-mix(in oklch, oklch(66% 0.14 140deg) 90%, var(--nd-color-brand-50) 10%),
+    color-mix(in oklch, oklch(52% 0.14 140deg) 90%, var(--nd-color-brand-70) 10%)
+  );
+  --color-success-subtle: light-dark(
+    color-mix(in oklch, oklch(95% 0.05 140deg) 92%, var(--nd-color-brand-15) 8%),
+    color-mix(in oklch, oklch(26% 0.06 140deg) 92%, var(--nd-color-brand-20) 8%)
+  );
+  --color-success-contrast: light-dark(var(--nd-color-neutral-0), var(--nd-color-neutral-100));
+  --color-success-ring: light-dark(
+    color-mix(in oklch, var(--color-success) 28%, transparent),
+    color-mix(in oklch, var(--color-success) 36%, transparent)
+  );
+
+  --color-warning: color-mix(in oklch, var(--nd-color-warning-base) 95%, var(--nd-color-brand-60) 5%);
+  --color-warning-hover: light-dark(
+    color-mix(in oklch, oklch(82% 0.15 80deg) 95%, var(--nd-color-brand-50) 5%),
+    color-mix(in oklch, oklch(68% 0.15 80deg) 95%, var(--nd-color-brand-70) 5%)
+  );
+  --color-warning-subtle: light-dark(
+    color-mix(in oklch, oklch(96% 0.06 80deg) 96%, var(--nd-color-brand-15) 4%),
+    color-mix(in oklch, oklch(28% 0.06 80deg) 96%, var(--nd-color-brand-20) 4%)
+  );
+  --color-warning-contrast: light-dark(var(--nd-color-neutral-100), var(--nd-color-neutral-0));
+  --color-warning-ring: light-dark(
+    color-mix(in oklch, var(--color-warning) 30%, transparent),
+    color-mix(in oklch, var(--color-warning) 38%, transparent)
+  );
+
+  --color-error: color-mix(in oklch, var(--nd-color-error-base) 92%, var(--nd-color-brand-60) 8%);
+  --color-error-hover: light-dark(
+    color-mix(in oklch, oklch(64% 0.16 28deg) 92%, var(--nd-color-brand-50) 8%),
+    color-mix(in oklch, oklch(50% 0.16 28deg) 92%, var(--nd-color-brand-70) 8%)
+  );
+  --color-error-subtle: light-dark(
+    color-mix(in oklch, oklch(94% 0.05 28deg) 92%, var(--nd-color-brand-15) 8%),
+    color-mix(in oklch, oklch(26% 0.06 28deg) 92%, var(--nd-color-brand-20) 8%)
+  );
+  --color-error-contrast: light-dark(var(--nd-color-neutral-0), var(--nd-color-neutral-100));
+  --color-error-ring: light-dark(
+    color-mix(in oklch, var(--color-error) 28%, transparent),
+    color-mix(in oklch, var(--color-error) 36%, transparent)
   );
 
   /**

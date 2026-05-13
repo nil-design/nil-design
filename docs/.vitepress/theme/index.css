@@ -64,14 +64,6 @@
   --border-color-vp-divider: var(--vp-c-divider);
 }
 
-@layer components {
-  .live-editor {
-    .prism-code {
-      @apply px-6! py-5! rounded-b-lg! whitespace-nowrap! overflow-auto!;
-    }
-  }
-}
-
 :root {
   &::view-transition-old(root) {
     animation: none;
@@ -82,18 +74,105 @@
     animation: clip-rtl 0.5s var(--default-transition-timing-function);
   }
 
-  --nil-grid-line: light-dark(
+  --vp-custom-page-grid-line: light-dark(
     color-mix(in oklch, var(--background-color-page) 94%, var(--nd-color-brand-15)),
     color-mix(in oklch, var(--background-color-page) 87%, var(--nd-color-brand-30))
   );
-  --nil-page-glow-left: light-dark(
+  --vp-custom-page-grid-size: 20px 20px;
+  --vp-custom-page-grid-background:
+    linear-gradient(to right, var(--vp-custom-page-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--vp-custom-page-grid-line) 1px, transparent 1px);
+  --vp-custom-page-grid-mask: radial-gradient(
+    circle at 50% 14%,
+    black 0%,
+    black 16%,
+    rgb(0 0 0 / 82%) 34%,
+    transparent 64%
+  );
+  --vp-custom-page-glow-left: light-dark(
     var(--background-color-page),
     color-mix(in oklch, var(--background-color-page) 88%, var(--nd-color-brand-30))
   );
-  --nil-page-glow-right: light-dark(
+  --vp-custom-page-glow-right: light-dark(
     color-mix(in oklch, var(--background-color-page) 95%, var(--nd-color-brand-30)),
     color-mix(in oklch, var(--background-color-page) 83%, var(--nd-color-brand-40))
   );
+  --vp-custom-page-glow-background: radial-gradient(
+    circle at 30% 30%,
+    var(--vp-custom-page-glow-left) 0%,
+    transparent 36rem
+  );
+  --vp-custom-glass-bg: light-dark(
+    color-mix(in oklch, var(--background-color-page) 86%, transparent),
+    color-mix(in oklch, var(--background-color-muted) 78%, transparent)
+  );
+  --vp-custom-glass-bg-strong: light-dark(
+    color-mix(in oklch, var(--background-color-page) 78%, transparent),
+    color-mix(in oklch, var(--background-color-muted) 72%, transparent)
+  );
+  --vp-custom-glass-border: light-dark(
+    color-mix(in oklch, var(--nd-color-neutral-0) 58%, var(--vp-c-divider)),
+    color-mix(in oklch, var(--nd-color-neutral-90) 16%, var(--vp-c-divider))
+  );
+  --vp-custom-glass-highlight: light-dark(
+    inset 0 1px 0 0 color-mix(in oklch, var(--nd-color-neutral-0) 82%, transparent),
+    inset 0 1px 0 0 color-mix(in oklch, var(--nd-color-neutral-90) 12%, transparent)
+  );
+  --vp-custom-glass-backdrop: blur(18px) saturate(140%);
+  --vp-custom-glass-backdrop-strong: blur(24px) saturate(150%);
+  --vp-custom-glass-shadow-sm: var(--shadow-sm);
+  --vp-custom-glass-shadow: var(--shadow-xl);
+  --vp-custom-logo-surface:
+    linear-gradient(180deg, color-mix(in oklch, var(--nd-color-neutral-0) 18%, transparent), transparent 76%),
+    color-mix(in oklch, var(--nd-color-brand-10) 28%, var(--nd-color-neutral-0));
+  --vp-custom-logo-ink: color-mix(in oklch, var(--nd-color-neutral-100) 96%, var(--nd-color-brand-90));
+  --vp-custom-logo-accent: color-mix(in oklch, var(--nd-color-brand-50) 84%, var(--nd-color-brand-60));
+  --vp-custom-logo-shadow-fill: color-mix(in oklch, var(--nd-color-brand-40) 26%, transparent);
+  --vp-custom-logo-line: color-mix(in oklch, var(--nd-color-brand-30) 78%, var(--nd-color-brand-40));
+  --vp-custom-logo-dot: color-mix(in oklch, var(--nd-color-neutral-0) 94%, var(--nd-color-brand-20));
+  --vp-custom-brand-ring-soft: color-mix(in oklch, var(--nd-color-brand-30) 18%, transparent);
+  --vp-custom-hero-logo-glow:
+    radial-gradient(
+      circle at 50% 28%,
+      color-mix(in oklch, var(--vp-custom-page-glow-right) 96%, transparent) 0%,
+      transparent 48%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      color-mix(in oklch, var(--vp-custom-page-glow-left) 94%, transparent) 0%,
+      transparent 42%
+    );
+  --vp-custom-hero-logo-surface:
+    linear-gradient(180deg, color-mix(in oklch, var(--nd-color-neutral-0) 12%, transparent), transparent 72%),
+    var(--vp-custom-glass-bg-strong);
+  --vp-custom-hero-logo-overlay:
+    radial-gradient(
+      circle at 20% 18%,
+      color-mix(in oklch, var(--vp-custom-page-glow-left) 68%, transparent),
+      transparent 34%
+    ),
+    linear-gradient(135deg, color-mix(in oklch, var(--vp-custom-page-glow-right) 52%, transparent), transparent 45%);
+  --vp-custom-hero-logo-grid-mask: radial-gradient(circle at center, black 0%, transparent 82%);
+  --vp-custom-feature-card-bg: var(--vp-custom-glass-bg);
+  --vp-custom-feature-icon-bg: light-dark(
+    color-mix(in oklch, var(--background-color-muted) 82%, var(--nd-color-brand-10)),
+    color-mix(in oklch, var(--background-color-muted) 88%, var(--nd-color-brand-20))
+  );
+  --vp-custom-feature-card-shadow: var(--shadow-sm);
+  --vp-custom-feature-card-shadow-hover: var(--shadow-md);
+  --vp-custom-nav-highlight: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--nd-color-neutral-0) 8%, transparent),
+    transparent 82%
+  );
+  --vp-custom-nav-screen-highlight: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--nd-color-neutral-0) 10%, transparent),
+    transparent 92%
+  );
+  --vp-custom-nav-shadow: inset 0 -1px 0 var(--border-color-subtle);
+  --vp-custom-nav-backdrop: blur(22px) saturate(148%);
+  --vp-custom-nav-screen-backdrop: blur(28px) saturate(145%);
 
   --vp-c-brand-1: var(--color-brand);
   --vp-c-brand-2: var(--color-brand-hover);
@@ -158,6 +237,17 @@
   --vp-home-hero-image-filter: blur(46px);
 
   --vp-font-family-base: var(--font-nd);
+
+  --vp-custom-scrollbar-size: 0.7rem;
+  --vp-custom-scrollbar-track: transparent;
+  --vp-custom-scrollbar-thumb: light-dark(
+    color-mix(in oklch, var(--nd-color-neutral-60) 34%, transparent),
+    color-mix(in oklch, var(--nd-color-neutral-70) 30%, transparent)
+  );
+  --vp-custom-scrollbar-thumb-hover: light-dark(
+    color-mix(in oklch, var(--nd-color-neutral-60) 42%, transparent),
+    color-mix(in oklch, var(--nd-color-neutral-70) 38%, transparent)
+  );
 }
 
 html,
@@ -169,6 +259,44 @@ html {
   scrollbar-gutter: stable;
 }
 
+html,
+.VPSidebar,
+.vp-doc div[class*='language-'],
+.vp-doc [class*='vp-code-group'] .blocks,
+.vp-doc table,
+.vp-custom-scrollbar,
+.vp-custom-scrollbar :where(.prism-code) {
+  scrollbar-width: thin;
+  scrollbar-color: var(--vp-custom-scrollbar-thumb) var(--vp-custom-scrollbar-track);
+
+  &::-webkit-scrollbar {
+    width: var(--vp-custom-scrollbar-size);
+    height: var(--vp-custom-scrollbar-size);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--vp-custom-scrollbar-track);
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: var(--vp-custom-scrollbar-thumb);
+    background-clip: padding-box;
+
+    &:hover {
+      background: var(--vp-custom-scrollbar-thumb-hover);
+      background-clip: padding-box;
+    }
+  }
+}
+
 .Layout {
   @apply relative isolate bg-page overflow-x-clip;
 }
@@ -178,7 +306,7 @@ html {
 
   @apply fixed inset-x-0 top-0 z-0 h-screen pointer-events-none opacity-[0.92];
 
-  background: radial-gradient(circle at 30% 30%, var(--nil-page-glow-left) 0%, transparent 36rem);
+  background: var(--vp-custom-page-glow-background);
   mask-image: linear-gradient(180deg, black 0%, black 62%, transparent 100%);
 }
 
@@ -187,17 +315,9 @@ html {
 
   @apply fixed inset-x-0 top-0 z-0 h-[min(42rem,72vh)] pointer-events-none opacity-[0.24];
 
-  background-image:
-    linear-gradient(to right, var(--nil-grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--nil-grid-line) 1px, transparent 1px),
-    linear-gradient(to right, var(--nil-grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--nil-grid-line) 1px, transparent 1px);
-  background-size:
-    20px 20px,
-    20px 20px,
-    20px 20px,
-    20px 20px;
-  mask-image: radial-gradient(circle at 50% 14%, black 0%, black 16%, rgb(0 0 0 / 82%) 34%, transparent 64%);
+  background-image: var(--vp-custom-page-grid-background);
+  background-size: var(--vp-custom-page-grid-size);
+  mask-image: var(--vp-custom-page-grid-mask);
 }
 
 .Layout > .VPNav {
@@ -206,7 +326,7 @@ html {
 
 .Layout > .VPContent,
 .Layout > .VPFooter {
-  @apply relative z-[1];
+  @apply relative z-1;
 }
 
 .VPButton {
@@ -215,24 +335,21 @@ html {
 
 .VPNavBar,
 .VPLocalNav {
-  background-image: linear-gradient(
-    180deg,
-    color-mix(in oklch, var(--nd-color-neutral-0) 8%, transparent),
-    transparent 82%
-  );
-  box-shadow: inset 0 -1px 0 var(--border-color-subtle);
+  background-image: var(--vp-custom-nav-highlight);
+  box-shadow: var(--vp-custom-nav-shadow);
 
   @supports (backdrop-filter: blur(1px)) {
-    backdrop-filter: blur(22px) saturate(148%);
+    backdrop-filter: var(--vp-custom-nav-backdrop);
   }
 
   @supports (-webkit-backdrop-filter: blur(1px)) {
     /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-backdrop-filter: blur(22px) saturate(148%);
+    -webkit-backdrop-filter: var(--vp-custom-nav-backdrop);
   }
 }
 
 .VPNavBar {
+  /* Override VitePress scoped nav background states. */
   background-color: var(--vp-nav-bg-color) !important;
 
   &.screen-open {
@@ -241,13 +358,11 @@ html {
 
   .title,
   .content {
-    @apply relative z-[1];
+    @apply relative z-1;
   }
 
-  .title {
-    .title {
-      @apply w-full border-b-transparent! px-0;
-    }
+  .VPNavBarTitle .title {
+    @apply w-full border-b-transparent! px-0;
   }
 
   .content-body {
@@ -301,6 +416,19 @@ html {
   }
 }
 
+@media (width >= 960px) {
+  .Layout .VPSidebar {
+    top: var(--vp-nav-height);
+    bottom: 0;
+    height: calc(100dvh - var(--vp-nav-height));
+    padding-top: 32px;
+
+    .curtain {
+      @apply hidden;
+    }
+  }
+}
+
 @media (width >= 1280px) {
   .VPSidebar {
     @apply bg-transparent!;
@@ -322,29 +450,26 @@ html {
 }
 
 .VPNavScreen {
+  /* Override VitePress scoped nav-screen background. */
   background-color: var(--vp-nav-screen-bg-color) !important;
-  background-image: linear-gradient(
-    180deg,
-    color-mix(in oklch, var(--nd-color-neutral-0) 10%, transparent),
-    transparent 92%
-  );
+  background-image: var(--vp-custom-nav-screen-highlight);
 
   @supports (backdrop-filter: blur(1px)) {
-    backdrop-filter: blur(28px) saturate(145%);
+    backdrop-filter: var(--vp-custom-nav-screen-backdrop);
   }
 
   @supports (-webkit-backdrop-filter: blur(1px)) {
     /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-backdrop-filter: blur(28px) saturate(145%);
+    -webkit-backdrop-filter: var(--vp-custom-nav-screen-backdrop);
   }
 }
 
 .VPHome {
-  @apply relative z-[1];
+  @apply relative z-1;
 }
 
 .VPHome .VPHero {
-  @apply relative box-border grid min-h-[100svh] items-center pb-[72px];
+  @apply relative box-border grid min-h-svh items-center pb-18;
 
   &::before {
     content: none;
@@ -355,22 +480,20 @@ html {
   }
 
   .main {
-    @apply max-w-[38rem];
+    @apply max-w-152;
   }
 
   .heading {
-    @apply gap-[0.35rem] overflow-visible;
+    @apply gap-1.5 overflow-visible;
   }
 
   .name,
   .text {
-    @apply max-w-[40rem];
-
-    letter-spacing: -0.06em;
+    @apply max-w-160 tracking-[-0.06em];
   }
 
   .name {
-    @apply inline-block pb-[0.12em] leading-[1.16];
+    @apply inline-block pb-[0.12em] leading-tight;
   }
 
   .name.clip {
@@ -382,7 +505,7 @@ html {
   }
 
   .tagline {
-    @apply max-w-[36rem] text-muted;
+    @apply max-w-144 text-muted;
   }
 
   .actions {
@@ -400,11 +523,11 @@ html {
   }
 
   .image-container {
-    @apply aspect-[1/1.02] h-auto w-full max-w-[35rem] transform-none;
+    @apply aspect-[1/1.02] h-auto w-full max-w-140 transform-none;
   }
 
   .image-bg {
-    @apply aspect-square w-[72%] max-w-[22rem] opacity-90;
+    @apply aspect-square w-[72%] max-w-88 opacity-90;
   }
 }
 
@@ -421,7 +544,7 @@ html {
     }
 
     .image-container {
-      @apply w-[29.5rem] max-w-[29.5rem] min-h-0;
+      @apply min-h-0 w-118 max-w-118;
     }
   }
 }

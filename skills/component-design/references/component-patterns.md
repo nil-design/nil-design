@@ -1,137 +1,143 @@
 # 组件模式参考
 
-这个文件用于快速对照仓库里已经稳定存在的组件实现方式，帮助新组件优先复用现有模式。
+这个文件只记录 nil-design 中已经稳定存在的组件模式。主流程、公开边界和验收规则以 `../SKILL.md` 为准。
 
-## 通用判断
+## 收敛清单
 
-开始实现前，先确认下面这些事实：
+当仓库里已有可对齐模式时，优先回到这些写法：
 
-- 公开组件以 `packages/components/src/index.ts` 为准，不以 `src/<component>/` 目录是否存在为准。
-- 只有公开组件才默认需要更新根入口与 `docs/zh-CN/components/<component>/index.md`。
-- `pnpm components:api` 会扫描 `packages/components/src/*/index.ts`，读取 `@category Components`，并展开复合子组件。
+- `registerSlots` 优于手写 `collectXxx`；只有现有槽位模型无法表达需求时，才新增自定义收集逻辑。
+- `index.ts + Object.assign` 优于分散式复合导出；公开子组件默认在目录入口统一聚合。
+- data-only context + parent-injected handlers 优于 action-heavy context；context 默认共享状态和视觉参数。
+- inline derivation / single-pass memo 优于机械拆 hook；只有职责边界稳定时才把派生逻辑拆到独立 hook。
+- 公开 props 保持语义直接、可读，避免暴露带下划线或内部运行时感过强的字段。
+- render 期判断直接读取同步状态或 memo 派生值，不用事件稳定回调驱动渲染结果。
 
-## 实现收敛清单
+出现实现分歧时，先问：
 
-当仓库里已经有可对齐的模式时，优先把实现收回到这些稳定写法：
-
-- `registerSlots` 优于手写 `collectXxx`；只有当现有槽位模型无法表达需求时，才新增自定义收集逻辑。
-- `index.ts + Object.assign` 优于分散式复合导出；公开子组件默认回到目录入口统一聚合。
-- data-only context + parent-injected handlers 优于 action-heavy context；context 默认共享状态和视觉参数，不默认承载选择、激活、关闭等动作。
-- inline derivation / single-pass memo 优于为了缩短文件而额外抽 hook；只有在职责边界已经稳定时，才把派生逻辑拆到独立 hook。
-- 公开 props 优先保持语义直接、可读；避免把带下划线或内部运行时感过强的字段暴露给使用方。
-- render 期判断优先直接读取同步状态或 memo 派生值；不要把为事件场景设计的稳定回调拿来驱动渲染结果。
-
-出现实现分歧时，先问自己两件事：
-
-- 这个做法是不是仓库里已经存在的稳定模式？
+- 这个做法是不是仓库里已有的稳定模式？
 - 这个抽象是在降低复杂度，还是只是在搬运复杂度？
 
-## Button：标准复合导出模式
+## Button：视觉变体与复合导出
 
-`button` 适合用来参考“视觉变体为主、结构相对稳定”的公开组件：
+参考点：
 
-- 主组件使用 `forwardRef`
-- 样式放在 `style/index.ts`
-- 样式通过 `cva` 定义变体、尺寸、状态和复合变体
-- 渲染时用 `cnMerge` 合并 `variants.xxx(...)` 与外部 `className`
-- `index.ts` 通过 `Object.assign(ButtonComponent, { Group })` 暴露复合子组件
-
-适用场景：
-
-- 主组件已经足够清晰，只需要少量复合子组件
-- 主要差异来自视觉变体，而不是复杂结构逻辑
-
-## Input：受控输入与复合子组件模式
-
-`input` 适合用来参考“带多个显式插槽子组件”的复杂输入型组件：
-
-- 使用 `useControllableState` 管理受控/非受控值
-- 使用 `registerSlots` 识别 `Prefix`、`Suffix` 等内部结构扩展点
-- 通过 `Object.assign` 暴露 `Composite`、`Prepend`、`Append`、`Prefix`、`Suffix`、`Search`、`Password`、`OTP`、`Number`
-- 类型集中在 `interfaces/index.d.ts`
+- 主组件 `forwardRef`。
+- `style/index.ts` 用 `cva` 定义变体、尺寸、状态和复合变体。
+- 渲染时用 `cnMerge` 合并样式变体和外部 `className`。
+- `index.ts` 通过 `Object.assign(ButtonComponent, { Group })` 暴露复合子组件。
 
 适用场景：
 
-- 组件允许局部结构扩展
-- 需要复合子组件表达组成关系
-- 需要多个衍生子组件共享同一套基础能力
+- 主结构稳定，差异主要来自视觉变体。
+- 只需要少量复合子组件。
 
-## Checkbox / Radio：槽位解析与上下文共享模式
+## Field / Form：表单语义与控件协议
 
-`checkbox` 和 `radio` 适合用来参考“内部节点顺序可扩展”的组件：
+`field` 适合参考字段语义、标签、必填提示、辅助信息和状态展示；`form` 适合参考表单值管理、字段路径、actions 和 issues。
 
-- 使用 `registerSlots` 识别 `Label`、`Indicator` 等子节点
-- 使用 `createContextSuite` 共享状态与视觉参数
-- 允许默认内容和显式子组件共存
-- 通过插槽顺序决定渲染顺序
+参考点：
 
-适用场景：
-
-- 组件内部节点存在固定语义，但允许使用方重排或替换内容
-- 需要让内部节点感知父组件状态
-
-## Popup + Wrappers：锚定型弹层基础能力模式
-
-`popup`、`tooltip`、`popover` 适合用来参考“先沉淀基础能力，再做公开薄封装”的模式：
-
-- `popup` 是底层锚定型弹层能力，负责 trigger、portal、positioning、delay 和 hover/click/focus/contextMenu 行为
-- `tooltip`、`popover` 通过组合 `popup` 能力形成更聚焦的公开 API
-- `popup` 当前更像内部基础能力，不在根入口公开导出；是否公开要显式决定，不要自动把这类基础组件暴露到根入口
+- 表单控件协议以字段值为核心，`onChange` 第一参数传值。
+- 整体表单值命名使用单数：`FormValue`、`formValue`、`defaultValue`、`onChange(value)`。
+- 绑定能力只覆盖真实需要的窄集合，例如 `value`、`checked`。
+- 表单结构组件通过复合子组件表达语义区域，而不是把所有节点都塞进 prop。
 
 适用场景：
 
-- 新需求本质上是已有锚定弹层能力的特化版本
-- 你希望把公共 API 收窄到少量默认参数，而不是复制整套弹层逻辑
+- 新组件需要接入表单状态、字段语义、校验展示或 actions。
+- 需要判断控件 API 是否符合 nild 表单协议。
 
-## Modal：流程打断型覆盖层模式
+## Input：受控输入与显式插槽
 
-`modal` 适合用来参考“流程打断型表面”的公开模式：
+参考点：
 
-- 用 `variant="dialog" | "drawer"` 统一两类覆盖层
-- 根组件负责 open state、上下文和 motion 注入
-- `Portal` 负责 overlay、surface、focus scope、scroll lock、stack 管理和关闭行为
-- 通过 `Object.assign` 暴露 `Trigger`、`Portal`、`Header`、`Body`、`Footer`、`Close`
-
-适用场景：
-
-- 组件会中断当前流程，要求用户确认、补充信息或处理分层任务
-- 组件需要焦点管理、Esc/overlay 关闭、层级栈或 drawer/direction 语义
-- 需求不是“锚定到某个触发元素的轻量弹层”，而是“承载完整流程的覆盖层表面”
-
-## Transition：轻量单组件模式
-
-`transition` 适合用来参考“没有复合子组件，但有状态驱动包装逻辑”的轻量组件：
-
-- 目录结构更简单
-- `index.ts` 只负责导出主组件和类型
-- `@category Components` 不一定只能写在 `index.ts`；像 `transition` 这类简单组件，也可以写在组件文件本身，只要入口能解析到它
+- `useControllableState` 管理受控/非受控值。
+- `registerSlots` 识别 `Prefix`、`Suffix` 等内部结构扩展点。
+- `Object.assign` 暴露 `Composite`、`Prepend`、`Append`、`Prefix`、`Suffix`、`Search`、`Password`、`OTP`、`Number`。
+- 类型集中在 `interfaces/index.d.ts`。
 
 适用场景：
 
-- 组件只有一个明确职责
-- 不需要上下文或复合子组件
-- 逻辑重点是状态机、生命周期包装或 child cloning，而不是复杂视觉结构
+- 组件允许局部结构扩展。
+- 多个衍生子组件共享一套基础输入能力。
+- 使用方需要通过插槽表达前后缀、组合区域或特殊输入形态。
 
-## 关于内部节点扩展的统一约束
+## Checkbox / Radio：槽位解析与上下文共享
 
-在 nil-design 中，为了保持 API 一致性和结构清晰度，默认先采用插槽子组件来表达内部扩展边界：
+参考点：
 
-推荐方式：
+- `registerSlots` 识别 `Label`、`Indicator` 等子节点。
+- `createContextSuite` 共享状态与视觉参数。
+- 默认内容和显式子组件可共存。
+- 插槽顺序决定渲染顺序。
 
-- `Component.Label`
-- `Component.Indicator`
-- `Component.Trigger`
-- `Component.Portal`
-- 其他语义明确的复合子组件
+适用场景：
 
-谨慎使用的方式：
+- 内部节点有固定语义，但允许使用方重排或替换。
+- 内部节点需要感知父组件状态。
 
-- `icon`
-- `prefixNode`
-- `suffixNode`
-- `labelNode`
-- `renderLabel`
-- `renderIndicator`
-- 其他节点注入型 prop
+## Select：父组件装配与键盘导航
 
-只有在仓库中已经存在同类成熟先例时，才沿用同类节点注入型 API；否则默认坚持插槽方案。
+参考点：
+
+- 根组件拥有选项集合、选中值、active item、open state 和必要 DOM refs。
+- 导航 hook 消费父组件传入的 refs、可用索引和派生状态，不反向查询内部 DOM。
+- 单选选择后关闭并回焦 trigger；多选选择后保持 listbox 打开。
+- 禁用 trigger / option、空选项、outside click、Escape、Tab、Home/End、ArrowUp/ArrowDown 都是核心行为。
+
+适用场景：
+
+- 组件需要键盘导航、active descendant、滚动定位或焦点回归。
+- 需要从 options 中派生摘要、选中态、禁用态和可导航项。
+
+## Popup + Wrappers：锚定型弹层基础能力
+
+参考点：
+
+- `popup` 负责 trigger、portal、positioning、delay 和 hover/click/focus/contextMenu 行为。
+- `tooltip`、`popover` 组合 `popup` 能力形成更聚焦的公开 API。
+- `popup` 当前更像内部基础能力；不要因为目录存在就自动加入根入口。
+
+适用场景：
+
+- 新需求是已有锚定弹层能力的特化版本。
+- 希望收窄公开 API，而不是复制整套弹层逻辑。
+
+## Modal：流程打断型覆盖层
+
+参考点：
+
+- `variant="dialog" | "drawer"` 统一两类覆盖层。
+- 根组件负责 open state、上下文和 motion 注入。
+- `Portal` 负责 overlay、surface、focus scope、scroll lock、stack 管理和关闭行为。
+- `Object.assign` 暴露 `Trigger`、`Portal`、`Header`、`Body`、`Footer`、`Close`。
+
+适用场景：
+
+- 组件中断当前流程，要求用户确认、补充信息或处理分层任务。
+- 需要焦点管理、Esc/overlay 关闭、层级栈或 drawer/direction 语义。
+- 需求不是锚定到触发元素的轻量弹层，而是承载完整流程的覆盖层表面。
+
+## Transition：轻量状态包装
+
+参考点：
+
+- 目录结构较简单。
+- `index.ts` 只负责导出主组件和类型。
+- `@category Components` 可写在组件文件本身，只要入口能解析到它。
+
+适用场景：
+
+- 组件只有一个明确职责。
+- 不需要上下文或复合子组件。
+- 逻辑重点是状态机、生命周期包装或 child cloning。
+
+## 内部节点扩展
+
+默认采用插槽子组件表达内部扩展边界：
+
+- 推荐：`Component.Label`、`Component.Indicator`、`Component.Trigger`、`Component.Portal`、其他语义明确的复合子组件。
+- 谨慎：`icon`、`prefixNode`、`suffixNode`、`labelNode`、`renderLabel`、`renderIndicator`、其他节点注入型 prop。
+
+只有仓库中已有同类成熟先例时，才沿用节点注入型 API；否则默认坚持插槽方案。

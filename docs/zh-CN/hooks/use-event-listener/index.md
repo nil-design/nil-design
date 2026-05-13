@@ -2,11 +2,23 @@
 title: useEventListener
 cat: DOM
 catOrder: 4
+order: 1
 ---
 
 # {{ $frontmatter.title }}
 
-更优雅地使用 addEventListener。
+以更稳定的方式绑定和清理事件监听器。
+
+## 签名
+
+```ts
+function useEventListener(
+  target: Window | Document | HTMLElement | Element | EventTarget | null | undefined,
+  eventName: string,
+  listener: (...args: unknown[]) => void,
+  options?: AddEventListenerOptions,
+): void;
+```
 
 ## 基本用法
 
@@ -17,20 +29,32 @@ import { useEventListener } from '@nild/hooks';
 import { Typography } from '@nild/components';
 
 const { Text } = Typography;
+
 const Demo = () => {
   const [pos, setPos] = useState(null);
 
-  useEventListener(window, 'mousemove', evt => {
-    setPos({ x: evt.clientX, y: evt.clientY });
+  useEventListener(window, 'mousemove', event => {
+    setPos({ x: event.clientX, y: event.clientY });
   });
 
   return (
     <Text>
-      Current cursor position: {pos ? `(${pos.x}, ${pos.y})` : '[move your cursor]'}
+      当前鼠标位置：{pos ? `(${pos.x}, ${pos.y})` : '移动鼠标试试'}
     </Text>
   );
-}
+};
 
 render(<Demo />);
 ```
 :::
+
+## 关键行为
+
+- `target` 可以是 `Window`、`Document`、`HTMLElement`、`Element`、通用 `EventTarget`，也可以是 `null` 或 `undefined`。
+- 监听函数变化时不会重复绑定事件，内部会通过最新 ref 调用新版本的 listener。
+- 当 `options.capture`、`options.once`、`options.passive` 或 `options.signal` 变化时，会重新绑定监听器。
+
+## 注意事项
+
+- 只有当目标对象存在 `addEventListener` 时才会绑定监听器，空目标会被直接跳过。
+- 如果目标节点来自 ref，传入 `ref.current` 即可，并接受它在首次渲染时可能为空。

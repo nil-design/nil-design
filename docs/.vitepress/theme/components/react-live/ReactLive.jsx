@@ -89,7 +89,15 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
                 </div>
                 {
                     <LiveEditor
-                        className={cnJoin('live-editor', !editorVisible && 'hidden')}
+                        className={cnJoin(
+                            'live-editor vp-custom-scrollbar',
+                            '[&_.prism-code]:overflow-auto!',
+                            '[&_.prism-code]:whitespace-nowrap!',
+                            '[&_.prism-code]:rounded-b-lg!',
+                            '[&_.prism-code]:px-6!',
+                            '[&_.prism-code]:py-5!',
+                            !editorVisible && 'hidden',
+                        )}
                         code={rawCode}
                         onChange={setRawCode}
                     />
