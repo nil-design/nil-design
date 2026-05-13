@@ -1,0 +1,9 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Option 1: Selected -->
+  <circle cx="28" cy="40" r="10" fill="var(--nd-color-neutral-15)" />
+  <circle cx="28" cy="40" r="5" fill="var(--nd-color-brand-60)" />
+  <rect x="46" y="38" width="16" height="4" rx="2" fill="var(--nd-color-neutral-60)" />
+  <!-- Option 2: Unselected -->
+  <circle cx="80" cy="40" r="10" fill="var(--nd-color-neutral-15)" />
+  <rect x="98" y="38" width="12" height="4" rx="2" fill="var(--nd-color-neutral-15)" />
+</svg>

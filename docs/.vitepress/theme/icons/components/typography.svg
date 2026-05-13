@@ -1,0 +1,10 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Title H1 -->
+  <rect x="20" y="16" width="64" height="12" rx="4" fill="var(--nd-color-brand-60)" />
+  <!-- Subtitle H2 -->
+  <rect x="20" y="36" width="32" height="6" rx="3" fill="var(--nd-color-neutral-60)" />
+  <!-- Paragraph body -->
+  <rect x="20" y="50" width="80" height="4" rx="2" fill="var(--nd-color-neutral-15)" />
+  <rect x="20" y="58" width="64" height="4" rx="2" fill="var(--nd-color-neutral-15)" />
+  <rect x="20" y="66" width="48" height="4" rx="2" fill="var(--nd-color-neutral-15)" />
+</svg>

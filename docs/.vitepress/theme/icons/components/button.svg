@@ -1,0 +1,8 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Primary Button -->
+  <rect x="20" y="28" width="36" height="24" rx="6" fill="var(--nd-color-brand-60)" />
+  <rect x="28" y="38" width="20" height="4" rx="2" fill="var(--nd-color-neutral-0)" />
+  <!-- Secondary Button -->
+  <rect x="64" y="28" width="36" height="24" rx="6" fill="var(--nd-color-neutral-15)" />
+  <rect x="72" y="38" width="20" height="4" rx="2" fill="var(--nd-color-neutral-60)" />
+</svg>

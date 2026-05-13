@@ -1,0 +1,9 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Item 1: Checked -->
+  <rect x="24" y="22" width="16" height="16" rx="4" fill="var(--nd-color-brand-60)" />
+  <path d="M28 30L31 33L36 26" stroke="var(--nd-color-neutral-0)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="48" y="28" width="48" height="4" rx="2" fill="var(--nd-color-neutral-60)" />
+  <!-- Item 2: Unchecked -->
+  <rect x="24" y="46" width="16" height="16" rx="4" fill="var(--nd-color-neutral-15)" />
+  <rect x="48" y="52" width="32" height="4" rx="2" fill="var(--nd-color-neutral-15)" />
+</svg>

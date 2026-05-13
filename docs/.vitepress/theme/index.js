@@ -1,5 +1,6 @@
 import '@nild/icons/css';
 import DefaultTheme from 'vitepress/theme';
+import ComponentCatalog from './components/catalog/ComponentCatalog.vue';
 import Layout from './components/layout/Layout.vue';
 import Mermaid from './components/mermaid/Mermaid.vue';
 import ReactBridge from './components/react-bridge/ReactBridge.vue';
@@ -10,6 +11,7 @@ export default {
     extends: DefaultTheme,
     Layout,
     async enhanceApp({ app }) {
+        app.component('ComponentCatalog', ComponentCatalog);
         app.component('Mermaid', Mermaid);
         app.component('ReactBridge', ReactBridge);
         app.component('ReactLive', ReactLive);

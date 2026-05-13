@@ -1,0 +1,10 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Label -->
+  <rect x="20" y="16" width="24" height="4" rx="2" fill="var(--nd-color-neutral-60)" />
+  <!-- Input Box -->
+  <rect x="20" y="26" width="80" height="24" rx="6" fill="var(--nd-color-neutral-15)" />
+  <rect x="30" y="36" width="24" height="4" rx="2" fill="var(--nd-color-neutral-60)" />
+  <rect x="58" y="32" width="2" height="12" rx="1" fill="var(--nd-color-brand-60)" />
+  <!-- Bottom Helper -->
+  <rect x="20" y="56" width="40" height="4" rx="2" fill="var(--nd-color-neutral-15)" />
+</svg>

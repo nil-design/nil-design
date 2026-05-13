@@ -1,0 +1,13 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Input base -->
+  <rect x="24" y="12" width="72" height="16" rx="4" fill="var(--nd-color-neutral-15)" />
+  <path d="M84 18L88 22L92 18" stroke="var(--nd-color-neutral-60)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <!-- Dropdown Shadow -->
+  <rect x="28" y="36" width="72" height="36" rx="4" fill="var(--nd-color-neutral-60)" />
+  <!-- Dropdown Menu -->
+  <rect x="24" y="32" width="72" height="36" rx="4" fill="var(--nd-color-neutral-0)" />
+  <!-- Menu Items -->
+  <rect x="28" y="36" width="64" height="12" rx="2" fill="var(--nd-color-brand-60)" />
+  <rect x="36" y="40" width="20" height="4" rx="2" fill="var(--nd-color-neutral-0)" />
+  <rect x="36" y="56" width="24" height="4" rx="2" fill="var(--nd-color-neutral-60)" />
+</svg>
