@@ -97,6 +97,7 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 关于内部节点扩展，默认遵循下面这条强约束：
 
 - 默认坚持插槽子组件，例如 `Component.Label`、`Component.Indicator`、`Component.Trigger`、`Component.Portal`。
+- 插槽命名表达结构职责，不暗示内容只能是文本；当 `children` 允许任意 `ReactNode` 时，避免 `Text` 后缀。
 - 只有当仓库中已经存在成熟先例时，才沿用节点注入型 prop API。
 - 不要在没有先例的情况下新增 `icon`、`prefixNode`、`suffixNode`、`labelNode`、`renderXxx` 一类节点注入型 prop。
 
@@ -106,6 +107,7 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 - 上下文共享优先复用 `createContextSuite`。
 - 槽位解析优先复用 `registerSlots`。
 - 事件合并、属性合并和普通子节点识别优先复用 `packages/components/src/_shared/utils` 中已有工具。
+- 表单类运行时优先遵循 nild 控件协议：`onChange` 第一参数是字段值，整体表单值命名使用单数 `FormValue`、`formValue`、`defaultValue`、`onChange(value)`；绑定能力只覆盖真实需要的窄集合，例如 `value`、`checked`。
 - 覆盖层组件先判断是“锚定型弹层”还是“流程打断型表面”：
   - 锚定型弹层优先参考 `popup` 及其 `tooltip`、`popover` 薄封装模式。
   - 流程打断型表面优先参考 `modal`，尤其是 `variant="dialog" | "drawer"`、portal、focus scope、scroll lock 与 stack 管理。
@@ -117,12 +119,14 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 硬规则：
 
 - 先对齐现有组件模式，再决定实现；现有工具或成熟先例能覆盖时，不再手写平行实现。
+- 未发布组件优先按最终心智直接收敛 API，不保留兼容别名；单一取值、过早泛化或缺少真实需求的 props 应删除。
 - 复合组件的公开导出默认回到 `index.ts`，由 `Object.assign` 聚合子组件，避免每个组件自造导出形态。
 - 槽位解析优先复用 `registerSlots`；只在现有槽位模型明确不适用时，才新增自定义收集逻辑。
 - 父组件负责状态与运行时交互装配；context 默认只承载被动共享状态，不承载选择、激活、关闭这类动作方法。
 - 对外副作用回调，例如 `onChange`、`onOpenChange`、`onSelect`，不要放进 state updater / dispatcher 的回调体内；应先在组件层求出 `nextState`，再通过统一更新出口处理外部回调与内部状态写入。
 - 不把带下划线、内部感过强的 props 暴露到公开子组件；若父组件需要注入运行时状态，优先使用可读、语义明确的直接 props 或 handlers。
 - 渲染结果必须直接依赖当前同步状态或 memo 派生值；不要把 `useEffectCallback` 这类稳定回调用于 render 期状态判断。
+- `useMemo` / context 依赖应表达真实刷新边界，不把未使用状态塞进 deps 作为隐藏失效信号；需要刷新时让暴露值或方法自然依赖相关状态，少用 eslint disable。
 - 文档章节按用户感知组织；`变体`、`尺寸`、`状态` 等独立成节，不把不同维度强行并在一个首节里。
 
 优先建议：
@@ -192,6 +196,8 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 2. `pnpm components:test`
 3. 如果预期更新 API 文档，执行 `pnpm components:api`
 4. 如果新增或修改了公开组件文档，执行 `pnpm docs:build`
+
+局部改动优先跑相关目录 eslint、相关测试与组件包 tsc；公开 API 或文档变化再跑 `components:api` / `docs:build`。`docs:build` 若刷新 `docs/public/embeddings/*.json`，除非任务需要更新搜索索引，否则还原这些索引产物，并清理浏览器或截图临时文件。
 
 在准备合并前，再视改动范围执行仓库级 gate：
 
