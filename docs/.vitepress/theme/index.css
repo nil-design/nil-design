@@ -122,9 +122,7 @@
   --vp-custom-glass-backdrop-strong: blur(24px) saturate(150%);
   --vp-custom-glass-shadow-sm: var(--shadow-sm);
   --vp-custom-glass-shadow: var(--shadow-xl);
-  --vp-custom-logo-surface:
-    linear-gradient(180deg, color-mix(in oklch, var(--nd-color-neutral-0) 18%, transparent), transparent 76%),
-    color-mix(in oklch, var(--nd-color-brand-10) 28%, var(--nd-color-neutral-0));
+  --vp-custom-logo-surface: var(--vp-custom-feature-card-bg);
   --vp-custom-logo-ink: color-mix(in oklch, var(--nd-color-neutral-100) 96%, var(--nd-color-brand-90));
   --vp-custom-logo-accent: color-mix(in oklch, var(--nd-color-brand-50) 84%, var(--nd-color-brand-60));
   --vp-custom-logo-shadow-fill: color-mix(in oklch, var(--nd-color-brand-40) 26%, transparent);
