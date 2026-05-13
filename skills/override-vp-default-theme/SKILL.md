@@ -176,6 +176,41 @@ export default theme
 - 尽量不用 `!important`，除非是在对抗内联样式或不可避免的优先级问题。
 - 如果选择器覆盖开始大面积重写组件结构，就不要再硬撑，升级到组件级覆盖。
 
+## Keep Theme CSS Boundaries Clear
+
+把 `<docs-root>/.vitepress/theme/custom.css` 或 `index.css` 当作默认主题覆盖层，而不是所有文档组件样式的收纳处。
+
+- 只在主题 CSS 中放通用变量、基础页面环境、VitePress 默认主题结构覆盖，以及会被多个默认主题区域共享的样式规则。
+- 自定义 Vue、React 或其他主题组件的私有布局与视觉样式，优先留在组件文件、组件局部样式或组件自己的 className 中。
+- 自定义组件可以消费主题 CSS 中定义的共享变量，但不要为了复用几行样式把组件私有选择器写回主题 CSS。
+- 文档站点私有变量优先使用 `--vp-custom-*` 一类不冲突的 `--vp-*` 扩展命名；不要使用产品库或设计系统的前缀，除非变量确实属于那个体系。
+- 新增 `--vp-custom-*` 前先搜索已有 `--vp-*` 变量，避免覆盖 VitePress 默认变量或制造含义相近的平行变量。
+
+## Prefer Modern Tailwind CSS
+
+如果项目已经通过 Tailwind 处理主题 CSS，就优先使用 Tailwind v4 能稳定表达的写法，保留少量原生 CSS 给真正不适合 utility 的场景。
+
+- 在 CSS 文件中优先用 `@apply` 表达布局、间距、尺寸、层级、排版、圆角、边框、背景、颜色和状态工具类。
+- 对 CSS 变量使用 Tailwind v4 的 `--()` 简写，例如 `bg-(--vp-custom-surface)`、`w-(--vp-custom-size)`；只有语法或工具链不支持时再退回 `bg-[var(--...)]`。
+- 对精确百分比、比例、复杂 mask、复杂 gradient、`calc()`、`color-mix()` 等值，该用任意值类就用任意值类；不要为了避免 `[]` 改回低优先级或更分散的原生声明。
+- 当任意值和 Tailwind 内置刻度完全等价时，优先改成内置刻度，例如 `z-[1]` -> `z-1`、`min-h-[100svh]` -> `min-h-svh`、`w-[29.5rem]` -> `w-118`。
+- 使用 CSS nesting 缩短重复选择器，尤其是默认主题块里的子元素、伪类和伪元素；保持父选择器仍然是稳定的 VitePress 类名或语义 class。
+- 原生 CSS 适合保留在变量定义、复杂背景、复杂 `mask`、浏览器专有伪元素、以及 Tailwind 无法清晰表达的声明上。
+
+## Style Native Scrollbars Consistently
+
+视觉需求只是统一滚动条时，优先修饰原生滚动条，不要引入自定义滚动条组件。只有需要虚拟滚动、拖拽行为、overlay 轨道、跨浏览器完全一致结构或特殊可访问性交互时，才考虑组件化滚动条。
+
+通用做法：
+
+- 把滚动条尺寸、track、thumb、thumb hover 抽成共享主题变量，例如 `--vp-custom-scrollbar-size`、`--vp-custom-scrollbar-track`、`--vp-custom-scrollbar-thumb`。
+- 同时覆盖 Firefox 标准属性和 WebKit 伪元素：`scrollbar-width`、`scrollbar-color`、`::-webkit-scrollbar`、`::-webkit-scrollbar-track`、`::-webkit-scrollbar-thumb`。
+- 滚动槽需要弱化时用透明 track；thumb 默认态保持轻量，hover 态只略微增强，不要突然变成高对比色。
+- 在 WebKit 中显式隐藏 `::-webkit-scrollbar-button`，并把宽高归零，避免默认上下或左右箭头露出。
+- 对固定定位的侧栏或目录，检查小窗口高度下的滚动条起点；如果有顶部导航，滚动容器的 `top`、`height` 或 `bottom` 应与导航底部对齐。
+- 对 VitePress 默认主题区域，可以在主题 CSS 中统一覆盖 `html`、侧栏、代码块、代码组和表格等滚动容器。
+- 对自定义主题组件内部的滚动容器，在组件内复用同一组滚动条变量，不把组件私有选择器放进主题 CSS。
+
 ## Extend Layout Before Replacing Components
 
 如果用户想加公告条、埋点容器、全局 provider、页面外框或插槽内容，先扩展 `Layout`，不要直接 fork 默认主题。
@@ -243,5 +278,6 @@ export default theme
 - code block、inline code、copy button
 - light / dark 两套主题
 - 常见断点下的布局与滚动行为
+- 自定义主题组件是否只消费共享变量，私有样式是否仍留在组件边界内
 
 如果用户要的是“覆盖默认主题”，就尽量交付一个仍然能跟随 VitePress 升级的方案，而不是过早把自己锁进重度 fork。
