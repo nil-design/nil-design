@@ -1,27 +1,8 @@
 # 文档写作模板
 
-这个文件用于快速生成 `docs/zh-CN/components/<component>/index.md` 的页面骨架，并保持与现有文档页一致的写法。
+用于生成或重写 `docs/zh-CN/components/<component>/index.md`。公开组件才默认需要文档页；API 表格只通过 `pnpm components:api` 生成。
 
-## frontmatter 模板
-
-```md
----
-title: ComponentName 中文名
-cat: 通用
----
-```
-
-需要排序时再补 `catOrder`。
-
-`cat` 只从下面这些现有分类中选择：
-
-- `通用`
-- `输入`
-- `展示`
-- `布局`
-- `其它`
-
-## 页面骨架模板
+## 页面骨架
 
 ````md
 ---
@@ -40,8 +21,12 @@ cat: 通用
 import { ComponentName } from '@nild/components';
 
 const Demo = () => {
-  return <ComponentName />;
-}
+    return (
+        <div className="flex flex-wrap gap-4">
+            <ComponentName />
+        </div>
+    );
+};
 
 render(<Demo />);
 ```
@@ -52,25 +37,26 @@ render(<Demo />);
 <!--@include: ../../../../packages/components/src/<component>/API.zh-CN.md-->
 ````
 
+## Frontmatter
+
+- `title`：英文组件名 + 中文名。
+- `cat`：只从 `通用`、`输入`、`展示`、`布局`、`其它` 中选择。
+- `catOrder`：只有需要分类排序时再补。
+
+组件文档 sidebar 由 `docs/.vitepress/getThemeConfig.js` 基于 frontmatter 自动收录，不手改导航。
+
 ## 写作风格
 
 - 第一段只写一句简短中文说明组件用途。
-- 后续章节按用户可感知场景组织，不按源码文件拆节。
-- 常见章节包括：变体、尺寸、状态、组合、特殊能力、自定义内容。
-- 示例保持短小、直接可运行，避免为了展示源码结构而写大量无关样板。
-- 示例中的类名、布局方式、命名风格尽量贴近现有文档页面。
+- 章节按用户可感知场景组织，不按源码文件拆节。
+- 常见章节：变体、尺寸、状态、组合、特殊能力、自定义内容。
+- `变体` 与 `尺寸` 默认拆成独立章节，不为压缩篇幅混成一个首节。
+- 示例短小、直接可运行，类名、布局方式和命名风格贴近现有页面。
+- 示例布局优先使用 Tailwind 预设刻度，例如 `w-56`、`gap-4`、`px-3`；只有现有刻度无法表达意图时才使用任意值类或内联样式。
 
-## 章节编排偏好
+## react-live scope
 
-- 首节优先放最核心、最容易被用户感知的维度，通常是 `变体`、`基础用法` 或最主要的交互模式。
-- `变体` 与 `尺寸` 默认拆成独立章节，不为了压缩篇幅把两个维度合并展示。
-- 示例顺序尽量从视觉规格到交互场景，例如：`变体`、`尺寸`、`基础用法`、`状态`、`组合`。
-- 不要因为源码里恰好有多个子文件，就把文档章节写成实现结构导览。
-- 页面结构优先服务“用户如何理解和使用组件”，而不是“实现里有哪些内部概念”。
-
-## `react-live` 可用 import 范围
-
-当前文档运行环境的 `react-live` scope 已经预置下面这些包：
+当前示例可直接导入：
 
 - `react`
 - `@nild/components`
@@ -79,27 +65,9 @@ render(<Demo />);
 - `@nild/icons`
 - `@nild/icons/Layers`
 
-这表示组件文档示例可以直接导入 `useState`、hooks、shared utils 或 icons；不要把示例错误地限制成只能导入 `@nild/components`。
+不要把示例误限制成只能导入 `@nild/components`。
 
-## 基础示例模板
-
-````md
-::: react-live
-```tsx
-import { ComponentName } from '@nild/components';
-
-const Demo = () => {
-  return <div className="flex flex-wrap gap-4">
-    <ComponentName />
-  </div>;
-}
-
-render(<Demo />);
-```
-:::
-````
-
-## 状态示例模板
+## 状态示例
 
 ````md
 ::: react-live
@@ -108,28 +76,30 @@ import { useState } from 'react';
 import { Button, Modal } from '@nild/components';
 
 const Demo = () => {
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
-  return <>
-    <Button onClick={() => setOpen(true)}>Open</Button>
-    <Modal open={open} onClose={() => setOpen(false)} aria-label="Example modal">
-      <Modal.Portal className="vp-raw">
-        <Modal.Body>Portal content</Modal.Body>
-      </Modal.Portal>
-    </Modal>
-  </>;
-}
+    return (
+        <>
+            <Button onClick={() => setOpen(true)}>Open</Button>
+            <Modal open={open} onClose={() => setOpen(false)} aria-label="Example modal">
+                <Modal.Portal className="vp-raw">
+                    <Modal.Body>Portal content</Modal.Body>
+                </Modal.Portal>
+            </Modal>
+        </>
+    );
+};
 
 render(<Demo />);
 ```
 :::
 ````
 
-当示例会把内容渲染到 portal 或浮层容器时，优先参考 `modal` 文档，在 portal 根节点或表面节点上使用 `className="vp-raw"`，避免 VitePress 文档样式污染内容。
+portal 或浮层内容优先参考 `modal` 文档，在 portal 根节点或表面节点上使用 `className="vp-raw"`，避免 VitePress 文档样式污染内容。
 
-## 插槽扩展示例模板
+## 插槽扩展示例
 
-如果组件支持内部节点扩展，只展示插槽式写法：
+组件支持内部节点扩展时，只展示插槽式写法：
 
 ````md
 ## 自定义内容
@@ -139,31 +109,17 @@ render(<Demo />);
 import { ComponentName } from '@nild/components';
 
 const Demo = () => {
-  return <ComponentName>
-    <ComponentName.Label>Custom Label</ComponentName.Label>
-    <ComponentName.Indicator />
-  </ComponentName>;
-}
+    return (
+        <ComponentName>
+            <ComponentName.Label>Custom Label</ComponentName.Label>
+            <ComponentName.Indicator />
+        </ComponentName>
+    );
+};
 
 render(<Demo />);
 ```
 :::
 ````
 
-不要展示下面这类写法：
-
-- 通过 `icon` prop 注入节点
-- 通过 `prefixNode` / `suffixNode` prop 注入节点
-- 通过 `renderXxx` prop 返回 JSX
-
-## API 引用模板
-
-页面末尾固定追加：
-
-````md
-## API
-
-<!--@include: ../../../../packages/components/src/<component>/API.zh-CN.md-->
-````
-
-不要把 API 表格手写进页面正文；统一执行 `pnpm components:api` 生成。
+不要展示 `icon`、`prefixNode`、`suffixNode`、`renderXxx` 等节点注入写法，除非组件已有明确成熟先例。
