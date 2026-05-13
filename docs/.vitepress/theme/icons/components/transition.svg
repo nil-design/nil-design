@@ -1,0 +1,10 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Start State: Small Circle (Back) -->
+  <circle cx="36" cy="52" r="12" fill="var(--nd-color-neutral-15)" />
+  
+  <!-- Mid State: Morphing Rounded Rect (Middle) -->
+  <rect x="44" y="34" width="24" height="24" rx="8" fill="var(--nd-color-neutral-60)" />
+  
+  <!-- End State: Large Square (Front) -->
+  <rect x="64" y="18" width="36" height="36" rx="6" fill="var(--nd-color-brand-60)" />
+</svg>

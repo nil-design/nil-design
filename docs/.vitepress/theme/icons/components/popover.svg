@@ -1,0 +1,11 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Trigger Button -->
+  <rect x="16" y="32" width="24" height="16" rx="4" fill="var(--nd-color-neutral-15)" />
+  <!-- Popover Shadow -->
+  <path d="M60 24C60 21.79 61.79 20 64 20H100C102.21 20 104 21.79 104 24V64C104 66.21 102.21 68 100 68H64C61.79 68 60 66.21 60 64V50L52 44L60 38V24Z" fill="var(--nd-color-neutral-60)" />
+  <!-- Popover Body -->
+  <path d="M56 20C56 17.79 57.79 16 60 16H96C98.21 16 100 17.79 100 20V60C100 62.21 98.21 64 96 64H60C57.79 64 56 62.21 56 60V46L48 40L56 34V20Z" fill="var(--nd-color-brand-60)" />
+  <!-- Inner Content -->
+  <rect x="64" y="28" width="16" height="4" rx="2" fill="var(--nd-color-neutral-0)" />
+  <rect x="64" y="38" width="24" height="4" rx="2" fill="var(--nd-color-neutral-0)" />
+</svg>

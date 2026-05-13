@@ -1,0 +1,8 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Text Line Content -->
+  <rect x="20" y="54" width="80" height="6" rx="3" fill="var(--nd-color-neutral-15)" />
+  <rect x="44" y="54" width="32" height="6" rx="3" fill="var(--nd-color-neutral-60)" />
+  <!-- Tooltip Box -->
+  <path d="M42 24C42 21.79 43.79 20 46 20H74C76.21 20 78 21.79 78 24V36C78 38.21 76.21 40 74 40H66L60 46L54 40H46C43.79 40 42 38.21 42 36V24Z" fill="var(--nd-color-neutral-60)" />
+  <rect x="52" y="28" width="16" height="4" rx="2" fill="var(--nd-color-neutral-0)" />
+</svg>

@@ -1,0 +1,10 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circle (x: 12 to 36) -->
+  <circle cx="24" cy="40" r="12" fill="var(--nd-color-brand-60)" />
+  
+  <!-- Square (x: 48 to 72) -->
+  <rect x="48" y="28" width="24" height="24" rx="4" fill="var(--nd-color-neutral-15)" />
+  
+  <!-- Rounded Triangle (x: 84 to 108) -->
+  <path d="M94.27 29.5C95.04 28.17 96.96 28.17 97.73 29.5L107.25 46C108.02 47.33 107.06 49 105.52 49H86.48C84.94 49 83.98 47.33 84.75 46L94.27 29.5Z" fill="var(--nd-color-neutral-60)" />
+</svg>
