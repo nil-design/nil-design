@@ -30,7 +30,10 @@
                 <XIcon class="size-4" />
             </button>
         </div>
-        <div ref="messageListRef" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0 bg-page">
+        <div
+            ref="messageListRef"
+            class="vp-custom-scrollbar flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0 bg-page"
+        >
             <div v-if="showLoading" class="h-full flex flex-col items-center justify-center gap-4 px-4">
                 <SparklesIcon class="text-brand animate-sparkle size-7" />
                 <div class="w-full flex flex-col gap-1.5">

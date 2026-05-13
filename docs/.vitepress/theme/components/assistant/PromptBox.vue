@@ -7,7 +7,7 @@
             :class="[
                 'flex-1 resize-none bg-transparent outline-none border-0 leading-5.5',
                 'placeholder:text-subtle text-main text-md',
-                'max-h-28 overflow-y-auto',
+                'vp-custom-scrollbar max-h-28 overflow-y-auto',
                 disabled ? 'cursor-not-allowed opacity-60' : '',
             ]"
             :placeholder="placeholder"
