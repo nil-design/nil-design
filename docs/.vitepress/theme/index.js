@@ -1,6 +1,6 @@
 import '@nild/icons/css';
 import DefaultTheme from 'vitepress/theme';
-import ComponentCatalog from './components/catalog/ComponentCatalog.vue';
+import ComponentCatalog from './components/component-catalog/ComponentCatalog.vue';
 import Layout from './components/layout/Layout.vue';
 import Mermaid from './components/mermaid/Mermaid.vue';
 import ReactBridge from './components/react-bridge/ReactBridge.vue';
