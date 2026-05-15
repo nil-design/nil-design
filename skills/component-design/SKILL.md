@@ -80,6 +80,13 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 - 公开组件若要进入 `pnpm components:api` 产物，必须有 `packages/components/src/<component>/index.ts` 入口，且 Typedoc 能从该入口解析到带 `@category Components` 的公开导出；希望进入 API 文档的公开复合子组件也遵循这条约束。
 - 新公开组件、props 变化、公开子组件变化或新增 API include 时，必须执行 `pnpm components:api`。
 - 如果 `API.zh-CN.md` 缺少主组件或公开子组件，先查目录入口是否存在；再查 `@category Components` 是否能从入口被解析到；再查 `Object.assign` 或当前公开导出结构是否仍能让 Typedoc 识别这些导出。
+- 新公开组件若同步新增 `docs/zh-CN/components/<component>/index.md`，还要补组件总览卡片与缩略图。这部分不是自动生成，默认同步三处：
+  - `docs/zh-CN/components/index.md`：在 `componentCards` 中新增卡片，`slug` 与组件文档目录名保持一致，`title` 默认复用组件文档 frontmatter 的 `title`。
+  - `docs/.vitepress/theme/components/component-catalog/ComponentCatalog.vue`：新增对应 SVG import，并把 `slug -> markRaw(Icon)` 补进 `iconMap`。
+  - `docs/.vitepress/theme/icons/components/<component>.svg`：新增组件剪影 SVG。
+- 组件总览卡片默认追加到现有手工列表末尾；只有需求明确指定展示顺序时才调整插入位置。
+- 组件剪影 SVG 统一使用 `viewBox="0 0 120 80"`，只使用当前目录已有的 ND token 色值语义，例如 `--nd-color-brand-60`、`--nd-color-neutral-0`、`--nd-color-neutral-15`、`--nd-color-neutral-60`。
+- 组件剪影以“可识别的组件轮廓或典型使用场景”表达，不做截图式还原、不放文字、不加渐变；几何形状保持简洁，只有组件本身依赖层级关系时才用轻量 offset / shadow 表达层次。
 
 文档模板和章节偏好见 `references/docs-style.md`。
 
@@ -99,7 +106,7 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 - 是否先判断公开组件 / 内部基础能力边界。
 - 是否对齐现有参考模式，而不是引入孤立风格。
 - 样式是否基于 ND tokens 与 `cva`。
-- 是否只在公开需要时更新根入口、文档页和 API。
+- 是否只在公开需要时更新根入口、文档页、总览卡片 / 缩略图和 API。
 - 测试是否覆盖核心行为与关键交互，而不只是渲染成功。
 
 ## 按需阅读 references

@@ -45,6 +45,14 @@ render(<Demo />);
 
 组件文档 sidebar 由 `docs/.vitepress/getThemeConfig.js` 基于 frontmatter 自动收录，不手改导航。
 
+新建公开组件文档页时，除正文和 API include 外，还要同步补组件总览卡片与剪影：
+
+- 在 `docs/zh-CN/components/index.md` 的 `componentCards` 中加入该组件。
+- 在 `docs/.vitepress/theme/components/component-catalog/ComponentCatalog.vue` 中补 SVG import 和 `iconMap` 映射。
+- 新增 `docs/.vitepress/theme/icons/components/<component>.svg`。
+
+这部分是组件总览页的手工接线，不属于 sidebar 自动收录范围。
+
 ## 写作风格
 
 - 第一段只写一句简短中文说明组件用途。
