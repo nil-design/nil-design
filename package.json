@@ -25,6 +25,7 @@
         "postinstall": "pnpm tooling:build",
         "skills:install": "node ./scripts/skills-install.js",
         "build": "pnpm -r --filter @nild/* build",
+        "packages:build": "pnpm -r --filter \"./packages/**\" build",
         "tooling:build": "pnpm -r --filter \"./tooling/**\" build",
         "typecheck": "pnpm -r --filter @nild/* typecheck",
         "test": "pnpm -r --filter @nild/* test",

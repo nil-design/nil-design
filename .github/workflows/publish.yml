@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build packages
-        run: pnpm build
+        run: pnpm packages:build
       - name: Create PR & Publish
         uses: changesets/action@v1
         with:
