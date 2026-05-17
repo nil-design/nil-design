@@ -4,97 +4,53 @@ import { writeFile } from 'node:fs/promises';
 import { posix, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import i18n from '../../../locales/index.js';
-import {
-    getProjectReflection,
-    getAffiliatedComponentReflections,
-    getPropsTypeAndRefType,
-    getMarkdownTable,
-    getRootDir,
-    serializeComment,
-    serializeDeclarationReflection,
-} from '../../../scripts/shared/index.js';
+import { getComponentApi, getMarkdownTable, getRootDir } from '../../../scripts/shared/index.js';
 
 const { join } = posix;
 const __dirname = fileURLToPath(new URL('.', import.meta.url)).replace(/\\/g, '/');
 const srcDir = join(__dirname, '../src');
-const tsconfigPath = join(__dirname, '../tsconfig.json');
+const entryPoint = join(srcDir, 'index.ts');
 
-(async () => {
-    const entryPoint = join(srcDir, 'index.ts');
+const renderApi = api => {
+    const content = [];
 
-    if (!existsSync(entryPoint)) return;
-
-    console.log(`[${relative(getRootDir(), srcDir)}]:`);
-
-    const projectReflection = await getProjectReflection({
-        entryPoints: [entryPoint],
-        tsconfig: tsconfigPath,
+    api.forEach(({ name, props = [], extendTypes = [], equalType }) => {
+        content.push(`### ${name} Props`);
+        extendTypes.length && content.push(`> ${i18n.t('extends.from')} \`${extendTypes.join(', ')}\``);
+        equalType && content.push(`> ${i18n.t('equal.with')} \`${equalType}\``);
+        props.length &&
+            content.push(
+                getMarkdownTable({
+                    headers: [i18n.t('property.name'), i18n.t('description'), i18n.t('type'), i18n.t('default.value')],
+                    rows: props.map(prop => [
+                        `${prop.name}${prop.optional ? '' : '*'}`,
+                        prop.description,
+                        { text: prop.type, code: true },
+                        { text: prop.defaultValue, code: true },
+                    ]),
+                }),
+            );
     });
 
-    /** @type {Array<{ name: string, propsDeclaration: ReturnType<typeof serializeDeclarationReflection>, refDeclaration: ReturnType<typeof serializeDeclarationReflection> }>} */
-    const targets = [];
+    return `${content.join('\n\n')}\n`;
+};
 
-    for (const reflection of projectReflection.children) {
-        if (!reflection.comment) continue;
+i18n.setLanguage('zh-CN');
 
-        const { tags } = serializeComment(reflection);
-        const categoryTag = tags['@category'];
+if (existsSync(entryPoint)) {
+    console.log(`[${relative(getRootDir(), srcDir)}]:`);
 
-        if (!categoryTag || categoryTag.text !== 'Components') continue;
-        if (!reflection.type) continue;
+    const api = await getComponentApi({
+        entryPoint,
+        tsconfig: join(__dirname, '../tsconfig.json'),
+        fallbackName: 'Icon',
+    });
 
-        [reflection, ...getAffiliatedComponentReflections(reflection)].forEach(componentReflection => {
-            const { escapedName } = componentReflection;
-            const [propsType, refType] = getPropsTypeAndRefType(componentReflection);
+    if (api.length > 0) {
+        const outputPath = join(srcDir, 'API.zh-CN.md');
 
-            targets.push({
-                name: escapedName,
-                propsDeclaration: serializeDeclarationReflection(propsType?.reflection),
-                refDeclaration: serializeDeclarationReflection(refType?.reflection),
-            });
-        });
+        await writeFile(outputPath, renderApi(api));
+
+        console.log(`output: ${relative(getRootDir(), outputPath)}`);
     }
-
-    if (targets.length === 0) {
-        console.log(`there is nothing to output`);
-
-        return;
-    }
-
-    for (const locale of ['zh-CN']) {
-        i18n.setLanguage(locale);
-        const outputPath = join(srcDir, `API.${locale}.md`);
-        const content = [];
-
-        targets.forEach(({ name, propsDeclaration }) => {
-            if (!propsDeclaration) return;
-
-            const { props = [], extendTypes = [], equalType } = propsDeclaration;
-
-            content.push(`### ${name} Props`);
-            extendTypes.length && content.push(`> ${i18n.t('extends.from')} \`${extendTypes.join(', ')}\``);
-            equalType && content.push(`> ${i18n.t('equal.with')} \`${equalType}\``);
-            props.length &&
-                content.push(
-                    getMarkdownTable({
-                        headers: [
-                            i18n.t('property.name'),
-                            i18n.t('description'),
-                            i18n.t('type'),
-                            i18n.t('default.value'),
-                        ],
-                        rows: props.map(prop => [
-                            `${prop.name}${prop.optional ? '' : '*'}`,
-                            prop.description,
-                            { text: prop.type, code: true },
-                            { text: prop.defaultValue, code: true },
-                        ]),
-                    }),
-                );
-        });
-
-        await writeFile(outputPath, `${content.join('\n\n')}\n`).then(() => {
-            console.log(`output: ${relative(getRootDir(), outputPath)}`);
-        });
-    }
-})();
+}

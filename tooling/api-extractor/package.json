@@ -1,0 +1,41 @@
+{
+    "name": "@nild/api-extractor",
+    "private": false,
+    "version": "0.0.1",
+    "type": "module",
+    "module": "./dist/index.js",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./schema": {
+            "types": "./dist/interfaces/schema.d.ts",
+            "import": "./dist/interfaces/schema.js"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nil-design/nil-design.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nil-design/nil-design/issues"
+    },
+    "files": [
+        "dist",
+        "package.json",
+        "LICENSE",
+        "NOTICE"
+    ],
+    "scripts": {
+        "build": "vite build --mode PROD",
+        "dev": "vite build --mode DEV --watch",
+        "typecheck": "tsc --noEmit -p tsconfig.json --pretty true",
+        "test": "vitest run --globals",
+        "test:coverage": "vitest run --globals --coverage"
+    },
+    "peerDependencies": {
+        "typedoc": "^0.28.4",
+        "typescript": "^5.8.2"
+    }
+}

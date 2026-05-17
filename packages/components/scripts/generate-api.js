@@ -4,103 +4,61 @@ import { readdir, writeFile } from 'node:fs/promises';
 import { posix, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import i18n from '../../../locales/index.js';
-import {
-    getProjectReflection,
-    getAffiliatedComponentReflections,
-    getPropsTypeAndRefType,
-    getMarkdownTable,
-    getRootDir,
-    serializeComment,
-    serializeDeclarationReflection,
-} from '../../../scripts/shared/index.js';
+import { getComponentApi, getMarkdownTable, getRootDir } from '../../../scripts/shared/index.js';
 
 const { join } = posix;
 const __dirname = fileURLToPath(new URL('.', import.meta.url)).replace(/\\/g, '/');
 const srcDir = join(__dirname, '../src');
-const tsconfigPath = join(__dirname, '../tsconfig.json');
+const tsconfig = join(__dirname, '../tsconfig.json');
 
-readdir(srcDir, { withFileTypes: true }).then(async dirents => {
-    for (const dirent of dirents) {
-        const direntPath = join(srcDir, dirent.name);
+const renderApi = api => {
+    const content = [];
 
-        if (!dirent.isDirectory()) continue;
-        if (dirent.name.startsWith('_')) continue;
+    api.forEach(({ name, props = [], extendTypes = [], equalType }) => {
+        content.push(`### ${name} Props`);
+        extendTypes.length && content.push(`> ${i18n.t('extends.from')} \`${extendTypes.join(', ')}\``);
+        equalType && content.push(`> ${i18n.t('equal.with')} \`${equalType}\``);
+        props.length &&
+            content.push(
+                getMarkdownTable({
+                    headers: [i18n.t('property.name'), i18n.t('description'), i18n.t('type'), i18n.t('default.value')],
+                    rows: props.map(prop => [
+                        `${prop.name}${prop.optional ? '' : '*'}`,
+                        prop.description,
+                        { text: prop.type, code: true },
+                        { text: prop.defaultValue, code: true },
+                    ]),
+                }),
+            );
+    });
 
-        const entryPoint = join(direntPath, 'index.ts');
+    return `${content.join('\n\n')}\n`;
+};
 
-        if (!existsSync(entryPoint)) continue;
+i18n.setLanguage('zh-CN');
 
-        console.log(`[${relative(getRootDir(), direntPath)}]:`);
+for (const dirent of await readdir(srcDir, { withFileTypes: true })) {
+    const direntPath = join(srcDir, dirent.name);
+    const entryPoint = join(direntPath, 'index.ts');
 
-        const projectReflection = await getProjectReflection({
-            entryPoints: [entryPoint],
-            tsconfig: tsconfigPath,
-        });
+    if (!dirent.isDirectory() || dirent.name.startsWith('_') || !existsSync(entryPoint)) continue;
 
-        /** @type {Array<{ name: string, propsDeclaration: ReturnType<typeof serializeDeclarationReflection>, refDeclaration: ReturnType<typeof serializeDeclarationReflection> }>} */
-        const targets = [];
+    console.log(`[${relative(getRootDir(), direntPath)}]:`);
 
-        for (const reflection of projectReflection.children) {
-            if (!reflection.comment) continue;
+    const api = await getComponentApi({
+        entryPoint,
+        tsconfig,
+        fallbackName: dirent.name
+            .split('-')
+            .map(part => `${part[0].toUpperCase()}${part.slice(1)}`)
+            .join(''),
+    });
 
-            const { tags } = serializeComment(reflection);
-            const categoryTag = tags['@category'];
+    if (api.length === 0) continue;
 
-            if (!categoryTag || categoryTag.text !== 'Components') continue;
-            if (!reflection.type) continue;
+    const outputPath = join(direntPath, 'API.zh-CN.md');
 
-            [reflection, ...getAffiliatedComponentReflections(reflection)].forEach(componentReflection => {
-                const { escapedName } = componentReflection;
-                const [propsType, refType] = getPropsTypeAndRefType(componentReflection);
+    await writeFile(outputPath, renderApi(api));
 
-                targets.push({
-                    name: escapedName,
-                    propsDeclaration: serializeDeclarationReflection(propsType?.reflection),
-                    refDeclaration: serializeDeclarationReflection(refType?.reflection),
-                });
-            });
-        }
-
-        if (targets.length === 0) {
-            console.log(`there is nothing to output`);
-            continue;
-        }
-
-        for (const locale of ['zh-CN']) {
-            i18n.setLanguage(locale);
-            const outputPath = join(direntPath, `API.${locale}.md`);
-            const content = [];
-
-            targets.forEach(({ name, propsDeclaration }) => {
-                if (!propsDeclaration) return;
-
-                const { props = [], extendTypes = [], equalType } = propsDeclaration;
-
-                content.push(`### ${name} Props`);
-                extendTypes.length && content.push(`> ${i18n.t('extends.from')} \`${extendTypes.join(', ')}\``);
-                equalType && content.push(`> ${i18n.t('equal.with')} \`${equalType}\``);
-                props.length &&
-                    content.push(
-                        getMarkdownTable({
-                            headers: [
-                                i18n.t('property.name'),
-                                i18n.t('description'),
-                                i18n.t('type'),
-                                i18n.t('default.value'),
-                            ],
-                            rows: props.map(prop => [
-                                `${prop.name}${prop.optional ? '' : '*'}`,
-                                prop.description,
-                                { text: prop.type, code: true },
-                                { text: prop.defaultValue, code: true },
-                            ]),
-                        }),
-                    );
-            });
-
-            await writeFile(outputPath, `${content.join('\n\n')}\n`).then(() => {
-                console.log(`output: ${relative(getRootDir(), outputPath)}`);
-            });
-        }
-    }
-});
+    console.log(`output: ${relative(getRootDir(), outputPath)}`);
+}
