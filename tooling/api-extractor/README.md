@@ -84,20 +84,20 @@ const project = await extractProject({
 
 ## 常用选项
 
-| 选项                          | 说明                                                     |
-| ----------------------------- | -------------------------------------------------------- |
-| `cwd`                         | 项目工作目录，默认使用 `process.cwd()`。                 |
-| `entryPoints`                 | 需要提取的入口文件列表。                                 |
-| `tsconfig`                    | TypeScript 配置文件路径。                                |
-| `exclude`                     | 从 TypeDoc 项目中排除的 glob。                           |
-| `includePrivate`              | 是否包含 private 成员。                                  |
-| `includeProtected`            | 是否包含 protected 成员。                                |
-| `includeExternalDeclarations` | 是否包含外部声明。                                       |
-| `comments`                    | 控制 summary、block tags 和 modifier tags 是否写入输出。 |
-| `reactComponents`             | 控制 React 组件、Hook 和包装类型识别规则。               |
-| `filters`                     | 按名称、类型、标签和来源路径过滤输出项。                 |
-| `transforms`                  | 在输出前改写或移除 API 项。                              |
-| `diagnostics`                 | 配置缺失入口和未知导出的诊断等级。                       |
+| 选项 | 说明 |
+| --- | --- |
+| `cwd` | 项目工作目录，默认使用 `process.cwd()`。 |
+| `entryPoints` | 需要提取的入口文件列表。 |
+| `tsconfig` | TypeScript 配置文件路径。 |
+| `exclude` | 从 TypeDoc 项目中排除的 glob。 |
+| `includePrivate` | 是否包含 private 成员。 |
+| `includeProtected` | 是否包含 protected 成员。 |
+| `includeExternalDeclarations` | 是否包含外部声明。 |
+| `comments` | 控制 summary、block tags 和 modifier tags 是否写入输出。 |
+| `reactComponents` | 控制 React 组件、Hook 和包装类型识别规则。 |
+| `filters` | 按名称、类型、标签和来源路径过滤输出项。 |
+| `transforms` | 在输出前改写或移除 API 项。 |
+| `diagnostics` | 配置缺失入口和未知导出的诊断等级。 |
 
 ## Schema 类型
 
