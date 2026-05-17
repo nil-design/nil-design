@@ -8,7 +8,7 @@
                 :class="[
                     'group relative grid overflow-hidden rounded-2xl bg-transparent text-inherit no-underline',
                     '[grid-template-rows:minmax(0,1fr)_auto] shadow-sm',
-                    'transition-[transform,box-shadow] duration-180 ease-out',
+                    'transition-[translate,box-shadow] ease-out',
                     'hover:-translate-y-px hover:shadow-sm',
                     'focus-visible:-translate-y-px focus-visible:outline-none',
                     'focus-visible:[box-shadow:0_0_0_0.2rem_var(--color-brand-ring),var(--shadow-sm)]',
@@ -27,7 +27,7 @@
                     <component
                         :is="card.iconComponent"
                         v-if="card.iconComponent"
-                        class="block h-full w-full overflow-visible transition-transform duration-180 ease-out group-hover:-translate-y-px group-focus-visible:-translate-y-px motion-reduce:transition-none [&_svg]:block [&_svg]:h-full [&_svg]:w-full [&_svg]:overflow-visible"
+                        class="block h-full w-full overflow-visible transition-transform ease-out group-hover:-translate-y-px group-focus-visible:-translate-y-px motion-reduce:transition-none [&_svg]:block [&_svg]:h-full [&_svg]:w-full [&_svg]:overflow-visible"
                         aria-hidden="true"
                     />
                 </div>

@@ -11,6 +11,7 @@ on:
     paths:
       - 'packages/**'
       - 'scripts/**'
+      - 'tooling/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
@@ -37,7 +38,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build
-        run: pnpm build
+        run: pnpm packages:build
       - name: Typecheck
         run: pnpm typecheck
       - name: Test with coverage

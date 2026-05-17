@@ -1,6 +1,6 @@
 # 文档写作模板
 
-用于生成或重写 `docs/zh-CN/components/<component>/index.md`。公开组件才默认需要文档页；API 表格只通过 `pnpm components:api` 生成。
+用于生成或重写 `docs/zh-CN/components/<component>/index.md`。公开组件才默认需要文档页；组件 API 通过 `pnpm components:api` 生成，Icon 页 API 通过 `pnpm icons:api` 生成。
 
 ## 页面骨架
 
@@ -36,6 +36,16 @@ render(<Demo />);
 
 <!--@include: ../../../../packages/components/src/<component>/API.zh-CN.md-->
 ````
+
+Icon 页使用 icons 包产物：
+
+```md
+## API
+
+<!--@include: ../../../../packages/icons/src/API.zh-CN.md-->
+```
+
+`API.zh-CN.md` 是半托管产物：属性名、类型、默认值、继承/等价关系由生成器刷新；只人工维护“描述”列。描述保持简洁，主语明确时省略组件名或“是否”等冗余词。
 
 ## Frontmatter
 

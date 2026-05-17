@@ -1,6 +1,6 @@
 ---
 name: component-design
-description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/components 公开组件与内部基础能力。适用于需要先核对当前公开导出和既有模式（button、field/form、input、checkbox/radio、select、popup + wrappers、modal、transition），再基于 ND tokens、`cva`、现有文档与 API 工具链完成交付和验收的场景。
+description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/components 公开组件、组件文档中的 @nild/icons 图标能力与内部基础能力。适用于需要先核对当前公开导出和既有模式（button、field/form、input、checkbox/radio、select、popup + wrappers、modal、transition），再基于 ND tokens、`cva`、现有文档与半托管 API 工具链完成交付和验收的场景。
 ---
 
 # 组件设计
@@ -9,7 +9,8 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 
 用于 nil-design 的组件工作流：先对齐现有模式，再完成实现、文档、API 生成与验收。
 
-- 公开组件：面向使用者暴露，通常需要更新 `packages/components/src/index.ts`、`docs/zh-CN/components/<component>/index.md` 和生成的 `API.zh-CN.md`。
+- 公开组件：面向使用者暴露，通常需要更新 `packages/components/src/index.ts`、`docs/zh-CN/components/<component>/index.md` 和半托管的 `API.zh-CN.md`。
+- 图标文档：`docs/zh-CN/components/icon/index.md` 属于组件文档导航，但 API 来自 `packages/icons/src/API.zh-CN.md`，由 `pnpm icons:api` 生成。
 - 内部基础能力：只支撑其他组件，不默认加入根入口或公开文档。
 - 如果已有组件模式能解释需求，优先复用模式，不新增孤立的目录结构、API 风格或抽象。
 
@@ -17,12 +18,14 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 
 不要靠目录名猜公开面，先读仓库事实：
 
-1. `packages/components/src/index.ts`：当前公开导出为 `Button`、`Checkbox`、`Divider`、`Field`、`Form`、`Input`、`Modal`、`Popover`、`Radio`、`Select`、`Switch`、`Tooltip`、`Transition`、`TransitionStatus`、`Typography`。
+1. `packages/components/src/index.ts`：当前公开导出为 `Button`、`Checkbox`、`Divider`、`Field`、`Form`、`Input`、`Modal`、`Popover`、`Radio`、`Select`、`Switch`、`Tooltip`、`Transition`、`TransitionStatus`、`Typography`。组件总览还包含 `Icon` 文档页，但它来自 `@nild/icons`，不是 `@nild/components` 根入口。
 2. 最接近需求的组件目录：至少读入口、主组件、`interfaces/`、`style/`、测试、子组件或上下文。
 3. 对应 `docs/zh-CN/components/<name>/index.md`：确认章节、示例组织和语气。
-4. `packages/components/scripts/generate-api.js`：API 会扫描 `src/*/index.ts`，跳过 `_` 开头目录和无入口目录，读取 `@category Components` 并展开复合子组件。
-5. `docs/.vitepress/getThemeConfig.js`：组件文档侧边栏来自 frontmatter 自动收录。
-6. `docs/.vitepress/theme/components/react-live/ReactLive.jsx`：需要确认示例可用 import scope 时再读。
+4. `packages/components/scripts/generate-api.js`：API 会扫描 `src/*/index.ts`，跳过 `_` 开头目录和无入口目录，读取 `@category Components` 并展开复合子组件；生成前会解析旧 `API.zh-CN.md`，保留描述列。
+5. `packages/icons/scripts/generate-api.js`：Icon API 走同样的半托管流程，入口是 `packages/icons/src/index.ts`，输出到 `packages/icons/src/API.zh-CN.md`。
+6. `scripts/shared/docs/parseApiMarkdown.js`：components 与 icons 共享的旧 API 表格解析器，按 `### <Name> Props` section 和属性名保留描述。
+7. `docs/.vitepress/getThemeConfig.js`：组件文档侧边栏来自 frontmatter 自动收录。
+8. `docs/.vitepress/theme/components/react-live/ReactLive.jsx`：需要确认示例可用 import scope 时再读。
 
 当前关键事实：
 
@@ -30,6 +33,7 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 - `Modal` 已经统一 dialog/drawer，并在目录内部协同 open state、motion、portal、focus scope、scroll lock 与 stack。
 - 视觉基础来自 `packages/components/src/tailwind.css` 中的 ND tokens 与 Tailwind 语义别名。
 - `cva`、`cnMerge`、`createContextSuite` 来自 `@nild/shared`；`useControllableState` 等行为 helper 来自 `@nild/hooks`；`registerSlots`、`mergeProps`、`mergeHandlers`、`lockDocumentScroll` 等内部工具来自 `packages/components/src/_shared/utils`。
+- API 文档是“半托管”产物：属性名、类型、默认值、继承/等价关系由 extractor 刷新；中文“描述”列允许人工维护，并会在下一次生成时按 `组件名.属性名` 保留。
 
 ## 实现决策
 
@@ -77,8 +81,21 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 <!--@include: ../../../../packages/components/src/<component>/API.zh-CN.md-->
 ```
 
+- Icon 页使用 icons 包的 API include：
+
+```md
+## API
+
+<!--@include: ../../../../packages/icons/src/API.zh-CN.md-->
+```
+
 - 公开组件若要进入 `pnpm components:api` 产物，必须有 `packages/components/src/<component>/index.ts` 入口，且 Typedoc 能从该入口解析到带 `@category Components` 的公开导出；希望进入 API 文档的公开复合子组件也遵循这条约束。
-- 新公开组件、props 变化、公开子组件变化或新增 API include 时，必须执行 `pnpm components:api`。
+- 新公开组件、props 变化、公开子组件变化或新增 API include 时，必须执行 `pnpm components:api`；图标 API 变化必须执行 `pnpm icons:api`。
+- `API.zh-CN.md` 只能人工维护“描述”列；不要手改属性名、类型、默认值等结构列，这些列会被生成器覆盖。
+- 描述列风格保持简洁：上下文已经明确主语时省略组件名或“是否”等冗余词，例如写“视觉样式。”、“禁用状态。”、“值变化回调。”；保留受控/默认、回调时机、等价关系等必要信息。
+- 不需要在源码注释中写多语种描述。`summary` 或 `@description` 只作为旧 Markdown 没有描述时的兜底；中文描述以 `API.zh-CN.md` 的描述列为准。
+- `parseApiMarkdown` 只解析本仓库生成器输出的标准 API 表格；如果调整表头、section 标题或表格格式，要同步更新 `scripts/shared/docs/parseApiMarkdown.js`，并同时验证 components 与 icons。
+- 生成器输出会按 `[created]`、`[updated]`、`[unchanged]` 分组。只改描述列后再次执行脚本，若结构列没有变化，预期应输出 `[unchanged]`。
 - 如果 `API.zh-CN.md` 缺少主组件或公开子组件，先查目录入口是否存在；再查 `@category Components` 是否能从入口被解析到；再查 `Object.assign` 或当前公开导出结构是否仍能让 Typedoc 识别这些导出。
 - 新公开组件若同步新增 `docs/zh-CN/components/<component>/index.md`，还要补组件总览卡片与缩略图。这部分不是自动生成，默认同步三处：
   - `docs/zh-CN/components/index.md`：在 `componentCards` 中新增卡片，`slug` 与组件文档目录名保持一致，`title` 默认复用组件文档 frontmatter 的 `title`。
@@ -95,9 +112,10 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 按改动范围选择验证：
 
 1. 组件实现：`pnpm components:build`、`pnpm components:test`。
-2. API 变化：`pnpm components:api`。
-3. 公开文档变化：`pnpm docs:build`。
-4. 准备合并前按范围追加 `pnpm lint`、`pnpm typecheck`、`pnpm build`、`pnpm test:coverage`。
+2. 组件 API 变化：`pnpm components:api`。
+3. 图标 API 变化：`pnpm icons:api`。
+4. 公开文档变化：`pnpm docs:build`。
+5. 准备合并前按范围追加 `pnpm lint`、`pnpm typecheck`、`pnpm build`、`pnpm test:coverage`。
 
 `docs:build` 若刷新 `docs/public/embeddings/*.json`，除非任务需要更新搜索索引，否则还原这些验证副作用并清理浏览器或截图临时文件。
 
@@ -107,6 +125,7 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 - 是否对齐现有参考模式，而不是引入孤立风格。
 - 样式是否基于 ND tokens 与 `cva`。
 - 是否只在公开需要时更新根入口、文档页、总览卡片 / 缩略图和 API。
+- API 文档是否只人工维护描述列，且执行对应的 `components:api` 或 `icons:api` 后保持描述不丢失。
 - 测试是否覆盖核心行为与关键交互，而不只是渲染成功。
 
 ## 按需阅读 references
