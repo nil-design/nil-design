@@ -1,7 +1,12 @@
+import { ReflectionKind } from 'typedoc';
 import type { DeclarationReflection, Reflection, SomeType } from 'typedoc';
 
 export const isDeclarationReflection = (reflection: Reflection | undefined): reflection is DeclarationReflection => {
     return !!reflection && reflection.variant === 'declaration';
+};
+
+export const isCallableReflection = (reflection: DeclarationReflection) => {
+    return reflection.kind === ReflectionKind.Function || !!reflection.signatures?.length;
 };
 
 export const hasTypeArguments = (type: SomeType): type is SomeType & { typeArguments: SomeType[] } => {

@@ -1,4 +1,4 @@
-import { hasDeclaration, hasTypeArguments } from '../reflectionGuards';
+import { hasDeclaration, hasTypeArguments } from '../typedocGuards';
 import { serializeCallSignature, serializeProperties } from './member';
 import type {
     CommentExtractOptions,

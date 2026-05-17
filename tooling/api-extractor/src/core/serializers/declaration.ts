@@ -1,6 +1,6 @@
 import { ReflectionKind } from 'typedoc';
 import { serializeComponent } from '../../react/component';
-import { isCallableReflection } from '../reflection';
+import { isCallableReflection } from '../typedocGuards';
 import { serializeComment, serializeSource } from './comment';
 import { serializeBaseReflection } from './itemBase';
 import { getCallSignatures, serializeCallSignature, serializeProperties, serializeTypeParameters } from './member';

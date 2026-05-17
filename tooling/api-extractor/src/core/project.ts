@@ -1,8 +1,8 @@
 import { ReferenceReflection, ReflectionKind } from 'typedoc';
 import { sourceMatchesPath, toRelative } from '../_shared/path';
 import { readPackageName } from './entryPoints';
-import { isDeclarationReflection } from './reflectionGuards';
 import { serializeSource } from './serializers/comment';
+import { isDeclarationReflection } from './typedocGuards';
 import type { ApiDiagnostic, ApiEntryPoint, ApiProject } from '../interfaces';
 import type { DeclarationReflection, ProjectReflection, Reflection } from 'typedoc';
 
