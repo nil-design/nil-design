@@ -11,6 +11,7 @@ on:
     paths:
       - 'packages/**'
       - 'scripts/**'
+      - 'tooling/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
