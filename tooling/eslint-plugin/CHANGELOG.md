@@ -1,5 +1,11 @@
 # @nild/eslint-plugin
 
+## 0.0.2
+
+### Patch Changes
+
+- 0d7eefc: add README.md
+
 ## 0.0.1
 
 ### Patch Changes
