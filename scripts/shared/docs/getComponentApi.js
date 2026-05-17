@@ -8,6 +8,10 @@ const hasBlockTag = (comment, tag, text) => {
     );
 };
 
+const getDescription = comment => {
+    return comment?.summary?.trim() || comment?.blockTags.find(tag => tag.tag === '@description')?.text || '';
+};
+
 const getComponentApi = async ({ entryPoint, tsconfig, fallbackName }) => {
     const project = await extractProject({
         entryPoints: [entryPoint],
@@ -54,10 +58,7 @@ const getComponentApi = async ({ entryPoint, tsconfig, fallbackName }) => {
                         name: prop.name,
                         optional: prop.optional,
                         type: prop.type.text,
-                        description:
-                            prop.comment?.summary ??
-                            prop.comment?.blockTags.find(tag => tag.tag === '@description')?.text ??
-                            '',
+                        description: getDescription(prop.comment),
                         defaultValue: prop.defaultValue ?? '',
                     })),
                 },
