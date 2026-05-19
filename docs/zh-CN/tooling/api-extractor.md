@@ -4,4 +4,4 @@ cat: Tooling
 catOrder: 6
 ---
 
-<!--@include: ../../../tooling/api-extractor/README.md-->
+<!--@include: ../../../tooling/api-extractor/README.zh-CN.md-->
