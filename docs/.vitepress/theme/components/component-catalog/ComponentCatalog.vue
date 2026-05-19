@@ -63,6 +63,7 @@ import SwitchIcon from '../../icons/components/switch.svg';
 import TooltipIcon from '../../icons/components/tooltip.svg';
 import TransitionIcon from '../../icons/components/transition.svg';
 import TypographyIcon from '../../icons/components/typography.svg';
+import WatermarkIcon from '../../icons/components/watermark.svg';
 
 const props = defineProps({
     items: {
@@ -90,6 +91,7 @@ const iconMap = {
     tooltip: markRaw(TooltipIcon),
     transition: markRaw(TransitionIcon),
     typography: markRaw(TypographyIcon),
+    watermark: markRaw(WatermarkIcon),
 };
 
 const navigate = href => {

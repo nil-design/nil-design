@@ -12,6 +12,7 @@ import Switch from './switch';
 import Tooltip from './tooltip';
 import Transition, { TransitionStatus } from './transition';
 import Typography from './typography';
+import Watermark from './watermark';
 import './tailwind.css';
 
 export {
@@ -30,4 +31,5 @@ export {
     Transition,
     TransitionStatus,
     Typography,
+    Watermark,
 };

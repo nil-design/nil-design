@@ -1,0 +1,34 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 1. 蒙版裁切路径：严格限制水印只在卡片内部显示，解决溢出问题 -->
+  <clipPath id="wm-clip">
+    <rect x="20" y="16" width="80" height="48" rx="6" />
+  </clipPath>
+  
+  <!-- 2. 被水印覆盖的底层容器 (无阴影、扁平化) -->
+  <rect x="20" y="16" width="80" height="48" rx="6" fill="var(--nd-color-neutral-15)" />
+  
+  <!-- 3. 模拟的页面骨架内容 (左侧图片块 + 右侧文字条) -->
+  <rect x="28" y="24" width="20" height="20" rx="4" fill="var(--nd-color-neutral-60)" />
+  <rect x="56" y="26" width="32" height="4" rx="2" fill="var(--nd-color-neutral-60)" />
+  <rect x="56" y="34" width="20" height="4" rx="2" fill="var(--nd-color-neutral-60)" />
+  <rect x="56" y="42" width="28" height="4" rx="2" fill="var(--nd-color-neutral-60)" />
+
+  <!-- 4. 水印阵列：带有 25% 透明度的主题色，并且调用 clip-path 裁切边界 -->
+  <g clip-path="url(#wm-clip)">
+    <!-- 以画面中心 (60,40) 为圆心旋转 -30 度 -->
+    <g transform="rotate(-30 60 40)" fill="var(--nd-color-brand-60)" opacity="0.25">
+      <!-- 第一行 -->
+      <rect x="20" y="14" width="32" height="6" rx="3" />
+      <rect x="68" y="14" width="32" height="6" rx="3" />
+      
+      <!-- 第二行 (向左错位偏移，形成经典的交错防伪水印阵列) -->
+      <rect x="-4" y="37" width="32" height="6" rx="3" />
+      <rect x="44" y="37" width="32" height="6" rx="3" />
+      <rect x="92" y="37" width="32" height="6" rx="3" />
+      
+      <!-- 第三行 -->
+      <rect x="20" y="60" width="32" height="6" rx="3" />
+      <rect x="68" y="60" width="32" height="6" rx="3" />
+    </g>
+  </g>
+</svg>
