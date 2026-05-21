@@ -64,6 +64,11 @@ export default tslint.config(
         },
     },
     nildPlugin.configs.recommended,
+    {
+        rules: {
+            '@nild/dom-naming': 'off',
+        },
+    },
     importPlugin.flatConfigs.recommended,
     {
         /** only use sorting functionality */
