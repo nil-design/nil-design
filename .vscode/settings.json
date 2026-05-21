@@ -17,6 +17,7 @@
         "dtype",
         "frontmatter",
         "huggingface",
+        "kebabize",
         "Morilence",
         "Navs",
         "nild",

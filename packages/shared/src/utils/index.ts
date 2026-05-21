@@ -6,6 +6,7 @@ import getDPR from './get-dpr';
 import isBrowser from './is-browser';
 import isMobile from './is-mobile';
 import isNumeric from './is-numeric';
+import kebabize from './kebabize';
 import makeArray from './make-array';
 import pascalize from './pascalize';
 import roundByDPR from './round-by-dpr';
@@ -59,6 +60,7 @@ export {
     isBrowser,
     isMobile,
     isNumeric,
+    kebabize,
     makeArray,
     pascalize,
     roundByDPR,
