@@ -24,20 +24,20 @@ const focusableSelectors = [
     '[tabindex]:not([tabindex="-1"])',
 ].join(',');
 
-const isElementVisible = (element: HTMLElement) => {
-    const view = element.ownerDocument.defaultView;
+const isElementVisible = ($element: HTMLElement) => {
+    const view = $element.ownerDocument.defaultView;
 
     if (!view) {
-        return !element.hidden;
+        return !$element.hidden;
     }
 
-    const style = view.getComputedStyle(element);
+    const style = view.getComputedStyle($element);
 
-    return style.display !== 'none' && style.visibility !== 'hidden' && !element.hidden;
+    return style.display !== 'none' && style.visibility !== 'hidden' && !$element.hidden;
 };
 
-const getFocusableElements = (container: HTMLElement) => {
-    return Array.from(container.querySelectorAll<HTMLElement>(focusableSelectors)).filter(element => {
+const getFocusableElements = ($container: HTMLElement) => {
+    return Array.from($container.querySelectorAll<HTMLElement>(focusableSelectors)).filter(element => {
         return (
             !element.hasAttribute('disabled') &&
             element.getAttribute('aria-hidden') !== 'true' &&
@@ -47,17 +47,17 @@ const getFocusableElements = (container: HTMLElement) => {
     });
 };
 
-const focusWithin = (container: HTMLElement, fromEnd = false) => {
-    const focusableEls = getFocusableElements(container);
-    const focusableEl = focusableEls.at(fromEnd ? -1 : 0) ?? container;
+const focusWithin = ($container: HTMLElement, fromEnd = false) => {
+    const focusableEls = getFocusableElements($container);
+    const focusableEl = focusableEls.at(fromEnd ? -1 : 0) ?? $container;
 
     focusableEl.focus();
 
     return focusableEl;
 };
 
-const restoreFocusTo = (target?: HTMLElement | null, fallback?: HTMLElement | null) => {
-    const resolvedTarget = target?.isConnected ? target : fallback?.isConnected ? fallback : null;
+const restoreFocusTo = ($target?: HTMLElement | null, $fallback?: HTMLElement | null) => {
+    const resolvedTarget = $target?.isConnected ? $target : $fallback?.isConnected ? $fallback : null;
 
     resolvedTarget?.focus?.();
 };
@@ -82,7 +82,7 @@ export const useModalFocusScope = ({
         }
 
         const focusableEls = getFocusableElements(surface);
-        const activeElement = ownerDocument?.activeElement as HTMLElement | null;
+        const $activeElement = ownerDocument?.activeElement as HTMLElement | null;
 
         if (focusableEls.length === 0) {
             evt.preventDefault();
@@ -91,22 +91,22 @@ export const useModalFocusScope = ({
             return;
         }
 
-        if (!activeElement || !surface.contains(activeElement)) {
+        if (!$activeElement || !surface.contains($activeElement)) {
             evt.preventDefault();
             focusWithin(surface, evt.shiftKey);
 
             return;
         }
 
-        const firstFocusableEl = focusableEls[0];
-        const lastFocusableEl = focusableEls.at(-1);
+        const $firstFocusableEl = focusableEls[0];
+        const $lastFocusableEl = focusableEls.at(-1);
 
-        if (evt.shiftKey && activeElement === firstFocusableEl) {
+        if (evt.shiftKey && $activeElement === $firstFocusableEl) {
             evt.preventDefault();
-            lastFocusableEl?.focus();
-        } else if (!evt.shiftKey && activeElement === lastFocusableEl) {
+            $lastFocusableEl?.focus();
+        } else if (!evt.shiftKey && $activeElement === $lastFocusableEl) {
             evt.preventDefault();
-            firstFocusableEl?.focus();
+            $firstFocusableEl?.focus();
         }
     });
 
@@ -132,14 +132,14 @@ export const useModalFocusScope = ({
     }, [open, ownerDocument]);
 
     useEffect(() => {
-        const fallbackTrigger = triggerRef.current as HTMLElement | null;
+        const $fallbackTrigger = triggerRef.current as HTMLElement | null;
 
         return () => {
             if (!restoreFocus || openRef.current) {
                 return;
             }
 
-            restoreFocusTo(lastActiveElRef.current, fallbackTrigger);
+            restoreFocusTo(lastActiveElRef.current, $fallbackTrigger);
         };
     }, [restoreFocus, triggerRef]);
 
@@ -155,9 +155,9 @@ export const useModalFocusScope = ({
                 return;
             }
 
-            const activeElement = ownerDocument?.activeElement as Node | null;
+            const $activeElement = ownerDocument?.activeElement as Node | null;
 
-            if (!activeElement || !surface.contains(activeElement)) {
+            if (!$activeElement || !surface.contains($activeElement)) {
                 focusWithin(surface);
             }
         }, 0);

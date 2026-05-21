@@ -4,9 +4,9 @@ import getOwnerDocument from '..';
 describe('getOwnerDocument', () => {
     it('returns the owner document of the first available node', () => {
         const otherDocument = document.implementation.createHTMLDocument('other');
-        const element = otherDocument.createElement('div');
+        const $element = otherDocument.createElement('div');
 
-        expect(getOwnerDocument(null, element, document.createElement('div'))).toBe(otherDocument);
+        expect(getOwnerDocument(null, $element, document.createElement('div'))).toBe(otherDocument);
     });
 
     it('falls back to the global document when no node provides one', () => {

@@ -83,16 +83,16 @@ describe('Select', () => {
 
         fireEvent.click(trigger);
 
-        const indicator = screen
+        const $indicator = screen
             .getByRole('option', { name: 'Shanghai' })
             .querySelector('.nd-select-option-indicator') as HTMLElement | null;
-        const icon = indicator?.querySelector('.text-brand') as HTMLElement | null;
-        const path = indicator?.querySelector('path') as SVGPathElement | null;
+        const $icon = $indicator?.querySelector('.text-brand') as HTMLElement | null;
+        const $path = $indicator?.querySelector('path') as SVGPathElement | null;
 
-        expect(indicator).not.toBeNull();
-        expect(icon).not.toBeNull();
-        expect(path).not.toBeNull();
-        expect(path).toHaveAttribute('stroke', 'currentColor');
+        expect($indicator).not.toBeNull();
+        expect($icon).not.toBeNull();
+        expect($path).not.toBeNull();
+        expect($path).toHaveAttribute('stroke', 'currentColor');
     });
 
     it('collects fragment options in render order', () => {

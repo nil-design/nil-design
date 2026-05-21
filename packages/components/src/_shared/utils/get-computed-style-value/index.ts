@@ -11,12 +11,12 @@ function getComputedStyleValue(
     element: HTMLElement | null,
     getter: (style: CSSStyleDeclaration) => string | undefined,
 ): string | undefined;
-function getComputedStyleValue(element: HTMLElement | null, getter: ComputedStyleGetter) {
-    if (!element || typeof window === 'undefined' || typeof window.getComputedStyle !== 'function') {
+function getComputedStyleValue($element: HTMLElement | null, getter: ComputedStyleGetter) {
+    if (!$element || typeof window === 'undefined' || typeof window.getComputedStyle !== 'function') {
         return undefined;
     }
 
-    const style = window.getComputedStyle(element);
+    const style = window.getComputedStyle($element);
 
     return typeof getter === 'function' ? getter(style) : style[getter];
 }

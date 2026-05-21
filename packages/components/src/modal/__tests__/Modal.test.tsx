@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import Modal from '..';
 
-const getPortal = (dialog: HTMLElement) => {
-    return dialog.parentElement as HTMLElement;
+const getPortal = ($dialog: HTMLElement) => {
+    return $dialog.parentElement as HTMLElement;
 };
 
-const getOverlay = (dialog: HTMLElement) => {
-    return getPortal(dialog).querySelector('.nd-modal-overlay') as HTMLElement | null;
+const getOverlay = ($dialog: HTMLElement) => {
+    return getPortal($dialog).querySelector('.nd-modal-overlay') as HTMLElement | null;
 };
 
 const advanceEnterMotion = () => {
@@ -22,12 +22,12 @@ const advanceEnterMotion = () => {
     });
 };
 
-const finishExitMotion = (dialog: HTMLElement) => {
+const finishExitMotion = ($dialog: HTMLElement) => {
     act(() => {
         vi.runOnlyPendingTimers();
     });
 
-    fireEvent.transitionEnd(dialog);
+    fireEvent.transitionEnd($dialog);
 };
 
 describe('Modal', () => {
@@ -384,21 +384,21 @@ describe('Modal', () => {
             fireEvent.click(screen.getByRole('button', { name: 'Open dialog motion' }));
 
             const dialogSurface = screen.getByRole('dialog');
-            const dialogOverlay = getOverlay(dialogSurface) as HTMLElement;
+            const $dialogOverlay = getOverlay(dialogSurface) as HTMLElement;
 
             expect(dialogSurface.className).toContain('portal-surface');
             expect(dialogSurface.className).toContain('scale-95');
-            expect(dialogOverlay.className).toContain('portal-overlay');
-            expect(dialogOverlay.className).toContain('opacity-0');
+            expect($dialogOverlay.className).toContain('portal-overlay');
+            expect($dialogOverlay.className).toContain('opacity-0');
 
             advanceEnterMotion();
 
             expect(dialogSurface.className).toContain('scale-100');
-            expect(dialogOverlay.className).toContain('opacity-100');
+            expect($dialogOverlay.className).toContain('opacity-100');
 
             fireEvent.keyDown(document, { key: 'Escape' });
             expect(dialogSurface.className).toContain('scale-95');
-            expect(dialogOverlay.className).toContain('opacity-0');
+            expect($dialogOverlay.className).toContain('opacity-0');
 
             finishExitMotion(dialogSurface);
             expect(screen.queryByText('Dialog motion')).not.toBeInTheDocument();
@@ -483,21 +483,21 @@ describe('Modal', () => {
                 fireEvent.click(screen.getByRole('button', { name: drawerCase.button }));
 
                 const drawerSurface = screen.getByRole('dialog');
-                const drawerOverlay = getOverlay(drawerSurface) as HTMLElement;
+                const $drawerOverlay = getOverlay(drawerSurface) as HTMLElement;
 
                 expect(drawerSurface.className).toContain(drawerCase.customClass);
                 expect(drawerSurface.className).toContain(drawerCase.hiddenClass);
-                expect(drawerOverlay.className).toContain('drawer-overlay');
-                expect(drawerOverlay.className).toContain('opacity-0');
+                expect($drawerOverlay.className).toContain('drawer-overlay');
+                expect($drawerOverlay.className).toContain('opacity-0');
 
                 advanceEnterMotion();
 
                 expect(drawerSurface.className).toContain(drawerCase.visibleClass);
-                expect(drawerOverlay.className).toContain('opacity-100');
+                expect($drawerOverlay.className).toContain('opacity-100');
 
                 fireEvent.keyDown(document, { key: 'Escape' });
                 expect(drawerSurface.className).toContain(drawerCase.hiddenClass);
-                expect(drawerOverlay.className).toContain('opacity-0');
+                expect($drawerOverlay.className).toContain('opacity-0');
 
                 finishExitMotion(drawerSurface);
                 expect(screen.queryByText(drawerCase.text)).not.toBeInTheDocument();

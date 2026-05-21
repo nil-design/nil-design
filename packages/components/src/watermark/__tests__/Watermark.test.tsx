@@ -125,7 +125,7 @@ const createContext = () => {
     } as unknown as CanvasRenderingContext2D;
 };
 
-const getLayer = (container: HTMLElement) => container.querySelector('.nd-watermark-layer') as HTMLDivElement;
+const getLayer = ($container: HTMLElement) => $container.querySelector('.nd-watermark-layer') as HTMLDivElement;
 
 const waitForPreserve = () =>
     new Promise(resolve => {
