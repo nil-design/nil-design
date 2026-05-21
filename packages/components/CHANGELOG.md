@@ -1,5 +1,15 @@
 # @nild/components
 
+## 0.0.42
+
+### Patch Changes
+
+- 961d8c3: feat: Watermark
+- Updated dependencies [85c1bd0]
+  - @nild/shared@0.0.17
+  - @nild/hooks@0.0.19
+  - @nild/icons@0.0.19
+
 ## 0.0.41
 
 ### Patch Changes

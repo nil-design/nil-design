@@ -1,5 +1,11 @@
 # @nild/eslint-plugin
 
+## 0.0.3
+
+### Patch Changes
+
+- 225b457: feat: add the dom-naming rule
+
 ## 0.0.2
 
 ### Patch Changes
