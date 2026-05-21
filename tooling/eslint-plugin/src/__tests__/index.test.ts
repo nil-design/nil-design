@@ -14,6 +14,7 @@ describe('@nild/eslint-plugin', () => {
             name: '@nild/eslint-plugin/recommended',
             rules: {
                 '@nild/boolean-naming': 'warn',
+                '@nild/dom-naming': 'warn',
                 '@nild/no-hardcoded-colors': 'warn',
             },
         });

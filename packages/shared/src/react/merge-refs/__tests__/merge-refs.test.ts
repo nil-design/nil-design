@@ -5,13 +5,13 @@ describe('mergeRefs', () => {
     it('should write node to callback refs and object refs', () => {
         const callbackRef = vi.fn();
         const objectRef = { current: null as HTMLDivElement | null };
-        const node = {} as HTMLDivElement;
+        const $node = {} as HTMLDivElement;
         const merged = mergeRefs<HTMLDivElement>(callbackRef, objectRef);
 
-        merged(node);
+        merged($node);
 
-        expect(callbackRef).toHaveBeenCalledWith(node);
-        expect(objectRef.current).toBe(node);
+        expect(callbackRef).toHaveBeenCalledWith($node);
+        expect(objectRef.current).toBe($node);
     });
 
     it('should return a cleanup callback composed from callback refs', () => {

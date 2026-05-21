@@ -26,6 +26,7 @@ export default [configs.recommended];
     files: ['**/*.{js,cjs,mjs,jsx,ts,tsx,vue}'],
     rules: {
         '@nild/boolean-naming': 'warn',
+        '@nild/dom-naming': 'warn',
         '@nild/no-hardcoded-colors': 'warn',
     },
 }
@@ -44,6 +45,7 @@ export default [
         },
         rules: {
             '@nild/boolean-naming': 'warn',
+            '@nild/dom-naming': 'warn',
             '@nild/no-hardcoded-colors': 'warn',
         },
     },
@@ -75,6 +77,22 @@ function dialogOpen(): boolean {
 ```
 
 规则会检查变量声明、对象属性、类属性、getter、函数声明、方法签名、TS 属性签名以及 Vue `<script setup>` 中的常见写法。
+
+### `@nild/dom-naming`
+
+约束本地 DOM 变量命名，DOM 类型变量必须使用 `$` 前缀，便于区分真实 DOM 节点和普通数据。
+
+```ts
+// valid
+const $root = document.createElement('div');
+const $surface: HTMLDivElement | null = surfaceRef.current;
+
+// invalid
+const root = document.createElement('div');
+const surface: HTMLDivElement | null = surfaceRef.current;
+```
+
+规则会检查变量声明中的显式 DOM 类型标注、DOM 查询/创建表达式以及常见类型断言；函数参数、对象属性和公开类型签名暂不检查，避免误伤 API 命名。
 
 ### `@nild/no-hardcoded-colors`
 

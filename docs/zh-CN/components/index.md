@@ -20,6 +20,7 @@ const componentCards = [
     { slug: 'popover', title: 'Popover 气泡卡片' },
     { slug: 'tooltip', title: 'Tooltip 提示' },
     { slug: 'transition', title: 'Transition 过渡' },
+    { slug: 'watermark', title: 'Watermark 水印' },
 ];
 </script>
 
