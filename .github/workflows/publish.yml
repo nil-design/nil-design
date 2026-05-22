@@ -12,6 +12,10 @@ on:
       - 'package.json'
       - '**/package.json'
 
+permissions:
+  contents: write
+  pull-requests: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -25,25 +29,30 @@ jobs:
            github.ref == 'refs/heads/main') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.10.0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Build packages
         run: pnpm packages:build
+      - name: Generate release PR title
+        id: release-title
+        run: node scripts/generate-release-pr-title.js
       - name: Create PR & Publish
         uses: changesets/action@v1
         with:
           publish: pnpm ci:publish
           version: pnpm ci:version
           commit: 'ci: publish new versions'
-          title: 'ci: publish new versions'
+          title: ${{ steps.release-title.outputs.title }}
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

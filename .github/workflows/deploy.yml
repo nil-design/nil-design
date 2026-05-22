@@ -7,15 +7,6 @@ on:
       - closed
     branches:
       - main
-    paths:
-      - 'docs/**'
-      - 'packages/**'
-      - 'scripts/**'
-      - 'tooling/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'tsconfig.base.json'
-      - 'tsconfig.json'
 
 permissions:
   contents: read
@@ -27,43 +18,69 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  decide:
     if: >-
       ${{ github.event_name == 'workflow_dispatch' ||
           (github.event_name == 'pull_request_target' &&
            github.event.pull_request.merged == true &&
            github.ref == 'refs/heads/main') }}
     runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.decide.outputs.should_deploy }}
+      reason: ${{ steps.decide.outputs.reason }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v2
+      - name: Decide deploy
+        id: decide
+        run: node scripts/decide-deploy.js
+
+  build:
+    needs: decide
+    if: ${{ needs.decide.outputs.should_deploy == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.10.0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Build packages
         run: pnpm packages:build
       - name: Build docs
         run: pnpm docs:build
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: docs/.vitepress/dist
   deploy:
+    if: ${{ needs.decide.outputs.should_deploy == 'true' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs:
+      - decide
+      - build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+
+  skip:
+    needs: decide
+    if: ${{ needs.decide.outputs.should_deploy == 'false' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip deploy
+        run: echo "${{ needs.decide.outputs.reason }}"

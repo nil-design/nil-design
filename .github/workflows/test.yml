@@ -8,38 +8,70 @@ on:
       - synchronize
       - reopened
       - ready_for_review
-    paths:
-      - 'packages/**'
-      - 'scripts/**'
-      - 'tooling/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'pnpm-workspace.yaml'
-      - 'tsconfig.base.json'
-      - 'tsconfig.json'
-      - '.github/workflows/test.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  decide:
+    runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.decide.outputs.mode }}
+      reason: ${{ steps.decide.outputs.reason }}
+      filter: ${{ steps.decide.outputs.filter }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Decide test mode
+        id: decide
+        run: node scripts/decide-test.js
+
   test:
+    needs: decide
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - name: Skip tests
+        if: ${{ needs.decide.outputs.mode == 'skip' }}
+        run: echo "${{ needs.decide.outputs.reason }}"
+      - uses: actions/checkout@v6
+        if: ${{ needs.decide.outputs.mode != 'skip' }}
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+        if: ${{ needs.decide.outputs.mode != 'skip' }}
         with:
           version: 10.10.0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
+        if: ${{ needs.decide.outputs.mode != 'skip' }}
         with:
           node-version: 22.14.0
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install
+        if: ${{ needs.decide.outputs.mode != 'skip' }}
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: pnpm packages:build
+        if: ${{ needs.decide.outputs.mode != 'skip' }}
+        run: |
+          if [ "${{ needs.decide.outputs.mode }}" = "affected" ]; then
+            pnpm -r --filter "${{ needs.decide.outputs.filter }}" --filter "!nil-design" run build
+          else
+            pnpm packages:build
+          fi
       - name: Typecheck
-        run: pnpm typecheck
+        if: ${{ needs.decide.outputs.mode != 'skip' }}
+        run: |
+          if [ "${{ needs.decide.outputs.mode }}" = "affected" ]; then
+            pnpm -r --filter "${{ needs.decide.outputs.filter }}" --filter "!nil-design" run typecheck
+          else
+            pnpm typecheck
+          fi
       - name: Test with coverage
-        run: pnpm test:coverage
+        if: ${{ needs.decide.outputs.mode != 'skip' }}
+        run: |
+          if [ "${{ needs.decide.outputs.mode }}" = "affected" ]; then
+            pnpm -r --filter "${{ needs.decide.outputs.filter }}" --filter "!nil-design" run test:coverage
+          else
+            pnpm test:coverage
+          fi

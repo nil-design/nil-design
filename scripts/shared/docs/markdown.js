@@ -1,3 +1,8 @@
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import matter from 'gray-matter';
+import { isEmpty, isString } from 'lodash-es';
+
 const propertyHeaders = new Set(['propertyname', 'name', '\u5c5e\u6027\u540d']);
 const descriptionHeaders = new Set(['description', 'desc', '\u63cf\u8ff0']);
 
@@ -48,6 +53,55 @@ const getColumnIndex = (headers, headerSet) => {
 
 const isEmptyDescription = description => !description || description === '-';
 
+const getDocsWithMatter = dir => {
+    return readdirSync(dir, { withFileTypes: true }).reduce((docs, dirent) => {
+        const direntPath = join(dir, dirent.name);
+
+        if (dirent.isDirectory()) {
+            docs.push(...getDocsWithMatter(direntPath));
+        } else if (dirent.isFile() && dirent.name.endsWith('.md')) {
+            const { data, content } = matter.read(direntPath);
+
+            if (data.title) {
+                docs.push({ path: direntPath, data, content });
+            }
+        }
+
+        return docs;
+    }, []);
+};
+
+/**
+ * @param {Object} options
+ * @param {(string | { text: string, align?: 'left' | 'center' | 'right' })[]} options.headers
+ * @param {(string | { text: string, code?: boolean })[][]} options.rows
+ * @returns {string}
+ */
+const getMarkdownTable = ({ headers, rows }) => {
+    const normalize = cell => {
+        if (isString(cell)) {
+            return isEmpty(cell) ? '-' : cell.replaceAll('|', '\\|');
+        }
+
+        const { text, code } = cell;
+
+        return isEmpty(text) ? '-' : (code ? `\`${text}\`` : text).replaceAll('|', '\\|');
+    };
+    const titles = headers.map(header => (isString(header) ? header : header.text));
+    const alignments = headers.map(header => (isString(header) ? 'left' : (header.align ?? 'left')));
+    const body = rows.map(row => row.map(cell => normalize(cell)));
+
+    return [
+        titles.join(' | '),
+        alignments
+            .map(alignment => (alignment === 'left' ? ':--' : alignment === 'center' ? ':-:' : '--:'))
+            .join(' | '),
+        ...body.map(row => row.join(' | ')),
+    ]
+        .map(line => `| ${line} |`)
+        .join('\n');
+};
+
 const parseApiMarkdown = content => {
     const descriptions = new Map();
     const lines = content.split(/\r?\n/);
@@ -91,4 +145,5 @@ const parseApiMarkdown = content => {
     return descriptions;
 };
 
-export default parseApiMarkdown;
+export { getDocsWithMatter, getMarkdownTable, parseApiMarkdown };
+export default getDocsWithMatter;
