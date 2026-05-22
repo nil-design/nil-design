@@ -1,7 +1,3 @@
-import getDocsDir from './getDocsDir.js';
-import getPeerDeps from './getPeerDeps.js';
-import getPkgDirMap from './getPkgDirMap.js';
-import getRootDir from './getRootDir.js';
-
+export { getPeerDeps } from './deps.js';
 export * from './docs/index.js';
-export { getDocsDir, getPeerDeps, getPkgDirMap, getRootDir };
+export { getDocsDir, getPkgDirMap, getRootDir } from './dir.js';

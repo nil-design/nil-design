@@ -1,8 +1,10 @@
-import { readdirSync, existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import getRootDir from './getRootDir.js';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const rootDir = getRootDir();
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const rootDir = resolve(__dirname, '../../');
+const docsDir = resolve(rootDir, 'docs');
 const workspaceDirs = ['packages', 'tooling'];
 
 const pkgDirMap = workspaceDirs.reduce((dirMap, workspaceDir) => {
@@ -28,8 +30,17 @@ const pkgDirMap = workspaceDirs.reduce((dirMap, workspaceDir) => {
     }, dirMap);
 }, {});
 
+const getDocsDir = () => {
+    return docsDir;
+};
+
 const getPkgDirMap = () => {
     return pkgDirMap ?? {};
 };
 
-export default getPkgDirMap;
+const getRootDir = () => {
+    return rootDir;
+};
+
+export { getDocsDir, getPkgDirMap, getRootDir };
+export default getRootDir;

@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { minifyES } from '../../scripts/plugins';
 // avoid loading the shared barrel here, because it imports API docs helpers during postinstall builds.
-import getPeerDeps from '../../scripts/shared/getPeerDeps.js';
+import getPeerDeps from '../../scripts/shared/deps.js';
 import pkg from './package.json';
 
 export default defineConfig(({ mode }) => {

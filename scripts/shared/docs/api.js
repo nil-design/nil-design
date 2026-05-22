@@ -66,4 +66,5 @@ const getComponentApi = async ({ entryPoint, tsconfig, fallbackName }) => {
         });
 };
 
+export { getComponentApi };
 export default getComponentApi;

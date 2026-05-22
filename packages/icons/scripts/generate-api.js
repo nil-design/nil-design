@@ -4,7 +4,9 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { posix, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import i18n from '../../../locales/index.js';
-import { getComponentApi, getMarkdownTable, getRootDir, parseApiMarkdown } from '../../../scripts/shared/index.js';
+import { getRootDir } from '../../../scripts/shared/dir.js';
+import { getComponentApi } from '../../../scripts/shared/docs/api.js';
+import { getMarkdownTable, parseApiMarkdown } from '../../../scripts/shared/docs/markdown.js';
 
 const { join } = posix;
 const __dirname = fileURLToPath(new URL('.', import.meta.url)).replace(/\\/g, '/');

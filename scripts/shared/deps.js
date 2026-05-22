@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { has } from 'lodash-es';
-import getPkgDirMap from './getPkgDirMap.js';
+import { getPkgDirMap } from './dir.js';
 
 const getPeerDeps = (...pkgNames) => {
     const pkgDirMap = getPkgDirMap();
@@ -25,4 +25,5 @@ const getPeerDeps = (...pkgNames) => {
     return [...new Set(peerDeps)];
 };
 
+export { getPeerDeps };
 export default getPeerDeps;
