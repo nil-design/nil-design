@@ -53,12 +53,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         if: ${{ needs.decide.outputs.mode != 'skip' }}
-        run: |
-          if [ "${{ needs.decide.outputs.mode }}" = "affected" ]; then
-            pnpm -r --filter "${{ needs.decide.outputs.filter }}" --filter "!nil-design" run build
-          else
-            pnpm packages:build
-          fi
+        run: pnpm packages:build
       - name: Typecheck
         if: ${{ needs.decide.outputs.mode != 'skip' }}
         run: |
