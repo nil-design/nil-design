@@ -9,18 +9,20 @@ const componentCards = [
     { slug: 'icon', title: 'Icon 图标' },
     { slug: 'typography', title: 'Typography 排版' },
     { slug: 'divider', title: 'Divider 分割线' },
+    { slug: 'tabs', title: 'Tabs 标签页' },
     { slug: 'checkbox', title: 'Checkbox 复选框' },
     { slug: 'field', title: 'Field 字段' },
     { slug: 'form', title: 'Form 表单' },
     { slug: 'input', title: 'Input 输入框' },
     { slug: 'radio', title: 'Radio 单选框' },
+    { slug: 'segment', title: 'Segment 分段控制器' },
     { slug: 'select', title: 'Select 选择器' },
     { slug: 'switch', title: 'Switch 开关' },
     { slug: 'modal', title: 'Modal 模态框' },
     { slug: 'popover', title: 'Popover 气泡卡片' },
     { slug: 'tooltip', title: 'Tooltip 提示' },
-    { slug: 'transition', title: 'Transition 过渡' },
     { slug: 'watermark', title: 'Watermark 水印' },
+    { slug: 'transition', title: 'Transition 过渡' },
 ];
 </script>
 

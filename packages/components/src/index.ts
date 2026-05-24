@@ -7,8 +7,10 @@ import Input from './input';
 import Modal from './modal';
 import Popover from './popover';
 import Radio from './radio';
+import Segment from './segment';
 import Select from './select';
 import Switch from './switch';
+import Tabs from './tabs';
 import Tooltip from './tooltip';
 import Transition, { TransitionStatus } from './transition';
 import Typography from './typography';
@@ -25,8 +27,10 @@ export {
     Modal,
     Popover,
     Radio,
+    Segment,
     Select,
     Switch,
+    Tabs,
     Tooltip,
     Transition,
     TransitionStatus,

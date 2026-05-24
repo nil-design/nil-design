@@ -1,6 +1,7 @@
 ---
 title: Checkbox 复选框
 cat: 输入
+catOrder: 4
 ---
 
 # {{ $frontmatter.title }}
