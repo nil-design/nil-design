@@ -1,7 +1,6 @@
 ---
 title: Switch 开关
 cat: 输入
-catOrder: 3
 ---
 
 # {{ $frontmatter.title }}
