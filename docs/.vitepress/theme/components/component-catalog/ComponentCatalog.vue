@@ -58,8 +58,10 @@ import InputIcon from '../../icons/components/input.svg';
 import ModalIcon from '../../icons/components/modal.svg';
 import PopoverIcon from '../../icons/components/popover.svg';
 import RadioIcon from '../../icons/components/radio.svg';
+import SegmentIcon from '../../icons/components/segment.svg';
 import SelectIcon from '../../icons/components/select.svg';
 import SwitchIcon from '../../icons/components/switch.svg';
+import TabsIcon from '../../icons/components/tabs.svg';
 import TooltipIcon from '../../icons/components/tooltip.svg';
 import TransitionIcon from '../../icons/components/transition.svg';
 import TypographyIcon from '../../icons/components/typography.svg';
@@ -77,21 +79,23 @@ const router = useRouter();
 
 const iconMap = {
     button: markRaw(ButtonIcon),
-    checkbox: markRaw(CheckboxIcon),
+    icon: markRaw(IconIcon),
+    typography: markRaw(TypographyIcon),
     divider: markRaw(DividerIcon),
+    tabs: markRaw(TabsIcon),
+    checkbox: markRaw(CheckboxIcon),
     field: markRaw(FieldIcon),
     form: markRaw(FormIcon),
-    icon: markRaw(IconIcon),
     input: markRaw(InputIcon),
-    modal: markRaw(ModalIcon),
-    popover: markRaw(PopoverIcon),
     radio: markRaw(RadioIcon),
+    segment: markRaw(SegmentIcon),
     select: markRaw(SelectIcon),
     switch: markRaw(SwitchIcon),
+    modal: markRaw(ModalIcon),
+    popover: markRaw(PopoverIcon),
     tooltip: markRaw(TooltipIcon),
-    transition: markRaw(TransitionIcon),
-    typography: markRaw(TypographyIcon),
     watermark: markRaw(WatermarkIcon),
+    transition: markRaw(TransitionIcon),
 };
 
 const navigate = href => {

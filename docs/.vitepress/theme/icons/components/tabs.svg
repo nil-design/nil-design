@@ -1,0 +1,9 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 18H40Q44 18 44 22V32H18V22Q18 18 22 18Z" fill="var(--nd-color-brand-60)" />
+  <path d="M52 18H68Q72 18 72 22V32H48V22Q48 18 52 18Z" fill="var(--nd-color-neutral-15)" />
+  <path d="M80 18H98Q102 18 102 22V32H76V22Q76 18 80 18Z" fill="var(--nd-color-neutral-15)" />
+  <rect x="18" y="31" width="84" height="2" rx="1" fill="var(--nd-color-brand-60)" />
+  <rect x="18" y="38" width="84" height="28" rx="4" fill="var(--nd-color-neutral-0)" />
+  <rect x="26" y="46" width="42" height="5" rx="2.5" fill="var(--nd-color-neutral-60)" />
+  <rect x="26" y="56" width="58" height="5" rx="2.5" fill="var(--nd-color-neutral-15)" />
+</svg>
