@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.43
+
+### Patch Changes
+
+- f7574b3: feat: Tabs & Segment
+
 ## 0.0.42
 
 ### Patch Changes
