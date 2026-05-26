@@ -85,7 +85,7 @@ const item = cva<{
             {
                 selected: false,
                 disabled: false,
-                className: ['text-main', 'hover:bg-muted-hover', 'hover:text-brand-hover'],
+                className: ['text-main', 'hover:text-brand-hover'],
             },
             {
                 selected: false,

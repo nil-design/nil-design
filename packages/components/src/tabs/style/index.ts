@@ -138,7 +138,7 @@ const tab = cva<{
                 variant: 'line',
                 selected: false,
                 disabled: false,
-                className: ['text-muted', 'hover:text-brand-hover'],
+                className: ['hover:text-brand-hover'],
             },
             {
                 variant: 'card',
@@ -153,25 +153,25 @@ const tab = cva<{
             {
                 variant: 'card',
                 selected: true,
-                className: ['z-1', 'bg-panel', 'text-brand'],
+                className: ['z-1', 'bg-page', 'text-brand'],
             },
             {
                 variant: 'card',
                 selected: false,
                 disabled: false,
-                className: ['bg-muted', 'text-main', 'hover:bg-muted-hover', 'hover:text-brand-hover'],
+                className: ['bg-muted', 'text-main', 'hover:text-brand-hover'],
             },
             {
                 variant: 'card',
                 selected: true,
                 orientation: 'horizontal',
-                className: 'border-b-[var(--background-color-panel)]',
+                className: 'border-b-transparent',
             },
             {
                 variant: 'card',
                 selected: true,
                 orientation: 'vertical',
-                className: 'border-r-[var(--background-color-panel)]',
+                className: 'border-r-transparent',
             },
             {
                 closable: true,
@@ -194,37 +194,15 @@ const tab = cva<{
 
 const tabContent = cva<object>(['nd-tabs-tab-content', 'min-w-0', 'truncate']);
 
-const close = cva<{ size?: TabsSize }>(
-    [
-        'nd-tabs-tab-close',
-        'inline-flex',
-        'shrink-0',
-        'items-center',
-        'justify-center',
-        'rounded-sm',
-        'border-0',
-        'bg-transparent',
-        'cursor-pointer',
-        'p-0',
-        'text-muted',
-        'outline-none',
-        'transition-colors',
-        'hover:bg-muted-hover',
-        'hover:text-brand-hover',
-        'focus-visible:ring-focused',
-        'disabled:cursor-not-allowed',
-        'disabled:opacity-50',
-    ],
-    {
-        variants: {
-            size: {
-                small: ['size-4', 'text-sm'],
-                medium: ['size-4.5', 'text-md'],
-                large: ['size-5', 'text-lg'],
-            },
+const close = cva<{ size?: TabsSize }>(['nd-tabs-tab-close', 'shrink-0'], {
+    variants: {
+        size: {
+            small: ['size-4', 'text-sm'],
+            medium: ['size-4.5', 'text-md'],
+            large: ['size-5', 'text-lg'],
         },
     },
-);
+});
 
 const panel = cva<{
     orientation?: TabsOrientation;
@@ -237,7 +215,7 @@ const panel = cva<{
         },
         variant: {
             line: '',
-            card: ['border', 'border-main', 'bg-panel', 'p-4'],
+            card: ['border', 'border-main', 'bg-page', 'p-4'],
         },
     },
     compoundVariants: [
