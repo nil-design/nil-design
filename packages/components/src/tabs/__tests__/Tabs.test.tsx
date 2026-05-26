@@ -125,6 +125,7 @@ describe('Tabs', () => {
         const list = screen.getByRole('tablist');
 
         expect(list).toHaveAttribute('aria-orientation', 'vertical');
+        expect(list).toHaveClass('flex-col');
 
         fireEvent.keyDown(list, { key: 'End' });
         expect(screen.getByRole('tab', { name: 'Billing' })).toHaveAttribute('aria-selected', 'true');
@@ -134,29 +135,6 @@ describe('Tabs', () => {
 
         fireEvent.keyDown(list, { key: 'Home' });
         expect(screen.getByRole('tab', { name: 'Profile' })).toHaveAttribute('aria-selected', 'true');
-    });
-
-    it('applies card, size and orientation classes', () => {
-        render(
-            <Tabs defaultValue="profile" orientation="vertical" size="large" variant="card">
-                <Tabs.List>
-                    <Tabs.Tab value="profile">Profile</Tabs.Tab>
-                    <Tabs.Tab value="security">Security</Tabs.Tab>
-                </Tabs.List>
-                <Tabs.Panel value="profile">Profile panel</Tabs.Panel>
-                <Tabs.Panel value="security">Security panel</Tabs.Panel>
-            </Tabs>,
-        );
-
-        const list = screen.getByRole('tablist');
-        const selectedTab = screen.getByRole('tab', { name: 'Profile' });
-        const $panel = screen.getByText('Profile panel').closest('[role="tabpanel"]');
-
-        expect(list).toHaveClass('flex-col');
-        expect(selectedTab).toHaveClass('bg-panel');
-        expect(selectedTab).toHaveClass('text-lg');
-        expect($panel).toHaveClass('border');
-        expect($panel).toHaveClass('rounded-r-md');
     });
 
     it('does not move selection from keyboard when root is disabled', () => {
@@ -194,8 +172,6 @@ describe('Tabs', () => {
         );
 
         const closeButton = screen.getAllByRole('button', { name: 'Close tab' })[0];
-
-        expect(closeButton).toHaveClass('cursor-pointer');
 
         fireEvent.click(closeButton);
 

@@ -2,6 +2,7 @@ import { Icon } from '@nild/icons';
 import CloseSmall from '@nild/icons/CloseSmall';
 import { cnMerge } from '@nild/shared';
 import { MouseEvent, ReactElement, ReactNode, forwardRef, isValidElement } from 'react';
+import Button from '../button';
 import { useTabsContext } from './contexts';
 import { TabProps } from './interfaces';
 import variants from './style';
@@ -34,17 +35,18 @@ const Tab = forwardRef<HTMLDivElement, TabProps>((props, ref) => {
         >
             <span className={variants.tabContent()}>{children}</span>
             {closable && (
-                <button
+                <Button
+                    equal
+                    variant="text"
                     aria-label={CLOSE_ARIA_LABEL}
                     className={variants.close({ size })}
                     disabled={disabled}
                     onClick={handleClose}
                     onKeyDown={evt => evt.stopPropagation()}
                     tabIndex={-1}
-                    type="button"
                 >
                     <Icon component={CloseSmall} />
-                </button>
+                </Button>
             )}
         </div>
     );
