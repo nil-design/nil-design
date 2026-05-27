@@ -1,5 +1,11 @@
 # @nild/hooks
 
+## 0.0.20
+
+### Patch Changes
+
+- 8b164fb: chore: loosen internal peer dependency workspace ranges
+
 ## 0.0.19
 
 ### Patch Changes

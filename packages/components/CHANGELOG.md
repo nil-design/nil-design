@@ -1,5 +1,15 @@
 # @nild/components
 
+## 0.0.45
+
+### Patch Changes
+
+- cf953f7: style: refine background color tokens
+- 8b164fb: chore: loosen internal peer dependency workspace ranges
+- Updated dependencies [8b164fb]
+  - @nild/hooks@0.0.20
+  - @nild/icons@0.0.20
+
 ## 0.0.44
 
 ### Patch Changes
