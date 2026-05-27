@@ -1,5 +1,11 @@
 # @nild/i18n
 
+## 0.0.14
+
+### Patch Changes
+
+- 8b164fb: chore: loosen internal peer dependency workspace ranges
+
 ## 0.0.13
 
 ### Patch Changes
