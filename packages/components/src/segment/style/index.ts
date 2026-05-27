@@ -26,7 +26,7 @@ const indicator = cva<object>([
     'left-0',
     'z-0',
     'rounded-sm',
-    'bg-page',
+    'bg-canvas',
     'shadow-sm',
     'transition-[transform,width,height,opacity]',
     'ease-out',

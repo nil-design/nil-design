@@ -33,7 +33,7 @@ const overlay = cva([
     'transition-opacity',
     'duration-[var(--default-transition-duration)]',
     'ease-out',
-    'bg-[color-mix(in_oklch,var(--background-color-page-inverse)_18%,transparent)]',
+    'bg-[color-mix(in_oklch,var(--background-color-canvas-inverse)_18%,transparent)]',
 ]);
 
 const overlayMotion = cva<{ status: TransitionStatus }>([], {
@@ -85,7 +85,7 @@ const surface = cva<{ variant: ModalVariant; placement: ModalPlacement; size: Mo
         'min-h-0',
         'flex-col',
         'overflow-hidden',
-        'bg-panel',
+        'bg-surface',
         'text-main',
         'shadow-2xl',
         'outline-none',

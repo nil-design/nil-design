@@ -32,7 +32,7 @@
         </div>
         <div
             ref="messageListRef"
-            class="vp-custom-scrollbar flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0 bg-page"
+            class="vp-custom-scrollbar flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0 bg-canvas"
         >
             <div v-if="showLoading" class="h-full flex flex-col items-center justify-center gap-4 px-4">
                 <SparklesIcon class="text-brand animate-sparkle size-7" />
