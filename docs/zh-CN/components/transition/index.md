@@ -94,7 +94,7 @@ const Demo = () => {
                 entered ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0',
               ])}
             >
-              {entered ? 'Fall down' : 'Rise'}
+              {entered ? 'Fall down' : 'Rise up'}
             </div>
           );
         }}

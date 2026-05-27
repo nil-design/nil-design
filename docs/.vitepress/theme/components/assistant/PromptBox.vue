@@ -1,5 +1,5 @@
 <template>
-    <div class="shrink-0 bg-page border-t border-muted flex gap-2 px-3 py-2.5">
+    <div class="shrink-0 bg-canvas border-t border-muted flex gap-2 px-3 py-2.5">
         <textarea
             ref="textareaRef"
             :value="modelValue"

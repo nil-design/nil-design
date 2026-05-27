@@ -289,8 +289,7 @@ describe('Select', () => {
         fireEvent.keyDown(listbox, { key: ' ' });
 
         expect(screen.getByRole('listbox')).toHaveAttribute('aria-activedescendant', shanghai.id);
-        expect(shanghai).toHaveClass('bg-muted');
-        expect(shanghai).toHaveClass('hover:bg-muted-hover');
+        expect(shanghai).toHaveClass('bg-surface-muted');
         expect(trigger).toHaveTextContent('Beijing, Shanghai');
     });
 

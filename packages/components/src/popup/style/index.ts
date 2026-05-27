@@ -13,8 +13,8 @@ const portalContent = cva<Pick<PopupProps, 'size' | 'inverse'>>(['rounded-md', '
             large: ['px-6', 'py-5'],
         },
         inverse: {
-            true: ['bg-page-inverse', 'text-main-inverse'],
-            false: ['bg-panel', 'text-main'],
+            true: ['bg-canvas-inverse', 'text-main-inverse'],
+            false: ['bg-surface', 'text-main'],
         },
     },
 });
@@ -35,8 +35,8 @@ const arrow = cva<
             false: ['opacity-0', 'invisible'],
         },
         inverse: {
-            true: ['bg-page-inverse'],
-            false: ['bg-panel'],
+            true: ['bg-canvas-inverse'],
+            false: ['bg-surface'],
         },
         orientation: {
             up: ['transform-[translateY(-50%)_rotate(45deg)]', 'rounded-tl-sm'],

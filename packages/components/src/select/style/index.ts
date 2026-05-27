@@ -133,10 +133,10 @@ const option = cva<{
             },
             disabled: {
                 true: ['cursor-not-allowed', 'select-none', 'text-subtle', 'opacity-50'],
-                false: ['cursor-pointer', 'hover:bg-muted-hover'],
+                false: ['cursor-pointer'],
             },
             active: {
-                true: ['bg-muted'],
+                true: ['bg-surface-muted'],
                 false: '',
             },
         },

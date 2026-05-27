@@ -153,7 +153,7 @@ const tab = cva<{
             {
                 variant: 'card',
                 selected: true,
-                className: ['z-1', 'bg-page', 'text-brand'],
+                className: ['z-1', 'bg-canvas', 'text-brand'],
             },
             {
                 variant: 'card',
@@ -215,7 +215,7 @@ const panel = cva<{
         },
         variant: {
             line: '',
-            card: ['border', 'border-main', 'bg-page', 'p-4'],
+            card: ['border', 'border-main', 'bg-canvas', 'p-4'],
         },
     },
     compoundVariants: [

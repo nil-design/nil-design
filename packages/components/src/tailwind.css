@@ -237,8 +237,8 @@
   /*
    * background colors
    */
-  --background-color-page: var(--nd-color-neutral-0);
-  --background-color-page-inverse: var(--nd-color-neutral-100);
+  --background-color-canvas: var(--nd-color-neutral-0);
+  --background-color-canvas-inverse: var(--nd-color-neutral-100);
   --background-color-subtle: var(--nd-color-neutral-5);
   --background-color-subtle-hover: var(--nd-color-neutral-10);
   --background-color-muted: var(--nd-color-neutral-10);
@@ -247,16 +247,18 @@
   --background-color-emphasized: var(--nd-color-neutral-20);
   --background-color-emphasized-hover: var(--nd-color-neutral-30);
 
-  --background-color-panel: light-dark(
-    var(--background-color-page),
-    var(--background-color-muted)
-  ); /* popover, dropdown background */
+  --background-color-surface: light-dark(
+    var(--nd-color-neutral-0),
+    var(--nd-color-neutral-10)
+  ); /* popover, dropdown and modal background */
+  --background-color-surface-subtle: light-dark(var(--nd-color-neutral-5), var(--nd-color-neutral-15));
+  --background-color-surface-muted: light-dark(var(--nd-color-neutral-10), var(--nd-color-neutral-20));
 
   /*
    * text colors  
    */
   --text-color-main: var(--nd-color-neutral-100); /* primary text */
-  --text-color-main-inverse: var(--nd-color-neutral-0); /* text color on page-inverse */
+  --text-color-main-inverse: var(--nd-color-neutral-0); /* text color on canvas-inverse */
   --text-color-muted: var(--nd-color-neutral-70); /* descriptions, secondary labels */
   --text-color-subtle: var(--nd-color-neutral-50); /* placeholders, hints, timestamps */
 

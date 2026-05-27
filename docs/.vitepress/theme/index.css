@@ -75,8 +75,8 @@
   }
 
   --vp-custom-page-grid-line: light-dark(
-    color-mix(in oklch, var(--background-color-page) 94%, var(--nd-color-brand-15)),
-    color-mix(in oklch, var(--background-color-page) 87%, var(--nd-color-brand-30))
+    color-mix(in oklch, var(--background-color-canvas) 94%, var(--nd-color-brand-15)),
+    color-mix(in oklch, var(--background-color-canvas) 87%, var(--nd-color-brand-30))
   );
   --vp-custom-page-grid-size: 20px 20px;
   --vp-custom-page-grid-background:
@@ -90,12 +90,12 @@
     transparent 64%
   );
   --vp-custom-page-glow-left: light-dark(
-    var(--background-color-page),
-    color-mix(in oklch, var(--background-color-page) 88%, var(--nd-color-brand-30))
+    var(--background-color-canvas),
+    color-mix(in oklch, var(--background-color-canvas) 88%, var(--nd-color-brand-30))
   );
   --vp-custom-page-glow-right: light-dark(
-    color-mix(in oklch, var(--background-color-page) 95%, var(--nd-color-brand-30)),
-    color-mix(in oklch, var(--background-color-page) 83%, var(--nd-color-brand-40))
+    color-mix(in oklch, var(--background-color-canvas) 95%, var(--nd-color-brand-30)),
+    color-mix(in oklch, var(--background-color-canvas) 83%, var(--nd-color-brand-40))
   );
   --vp-custom-page-glow-background: radial-gradient(
     circle at 30% 30%,
@@ -103,11 +103,11 @@
     transparent 36rem
   );
   --vp-custom-glass-bg: light-dark(
-    color-mix(in oklch, var(--background-color-page) 86%, transparent),
+    color-mix(in oklch, var(--background-color-canvas) 86%, transparent),
     color-mix(in oklch, var(--background-color-muted) 78%, transparent)
   );
   --vp-custom-glass-bg-strong: light-dark(
-    color-mix(in oklch, var(--background-color-page) 78%, transparent),
+    color-mix(in oklch, var(--background-color-canvas) 78%, transparent),
     color-mix(in oklch, var(--background-color-muted) 72%, transparent)
   );
   --vp-custom-glass-border: light-dark(
@@ -190,9 +190,9 @@
   --vp-c-divider: var(--nd-color-neutral-15);
   --vp-c-gutter: var(--nd-color-neutral-15);
 
-  --vp-c-bg: var(--background-color-page);
+  --vp-c-bg: var(--background-color-canvas);
   --vp-c-bg-alt: var(--background-color-subtle);
-  --vp-c-bg-elv: var(--background-color-page);
+  --vp-c-bg-elv: var(--background-color-canvas);
   --vp-c-bg-soft: var(--background-color-subtle);
 
   --vp-shadow-1: var(--shadow-sm);
@@ -203,12 +203,12 @@
   --vp-c-shadow-3: var(--vp-shadow-3);
 
   --vp-nav-bg-color: light-dark(
-    color-mix(in oklch, var(--background-color-page) 76%, transparent),
-    color-mix(in oklch, var(--background-color-page) 68%, transparent)
+    color-mix(in oklch, var(--background-color-canvas) 76%, transparent),
+    color-mix(in oklch, var(--background-color-canvas) 68%, transparent)
   );
   --vp-nav-screen-bg-color: light-dark(
-    color-mix(in oklch, var(--background-color-page) 82%, transparent),
-    color-mix(in oklch, var(--background-color-page) 74%, transparent)
+    color-mix(in oklch, var(--background-color-canvas) 82%, transparent),
+    color-mix(in oklch, var(--background-color-canvas) 74%, transparent)
   );
   --vp-local-nav-bg-color: var(--vp-nav-bg-color);
   --vp-backdrop-bg-color: light-dark(
@@ -250,7 +250,7 @@
 
 html,
 body {
-  @apply bg-page;
+  @apply bg-canvas;
 }
 
 body:not(:where(.vp-raw, .vp-raw *)) {
@@ -300,7 +300,7 @@ html,
 }
 
 .Layout {
-  @apply relative isolate bg-page overflow-x-clip;
+  @apply relative isolate bg-canvas overflow-x-clip;
 }
 
 .Layout::before {
@@ -407,12 +407,12 @@ html,
 }
 
 .VPSidebar {
-  @apply border-r border-subtle bg-page! shadow-none;
+  @apply border-r border-subtle bg-canvas! shadow-none;
 
   backdrop-filter: none;
 
   .curtain {
-    @apply border-b border-subtle bg-page!;
+    @apply border-b border-subtle bg-canvas!;
 
     backdrop-filter: none;
   }
@@ -447,7 +447,7 @@ html,
   }
 
   .VPSidebar.open .curtain {
-    @apply bg-page;
+    @apply bg-canvas;
   }
 }
 

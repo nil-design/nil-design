@@ -32,6 +32,6 @@
         "typecheck": "tsc --noEmit -p tsconfig.json --pretty true"
     },
     "peerDependencies": {
-        "@nild/shared": "workspace:*"
+        "@nild/shared": "workspace:^"
     }
 }
