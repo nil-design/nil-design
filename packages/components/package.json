@@ -36,9 +36,9 @@
         "@floating-ui/dom": "1.7.1"
     },
     "peerDependencies": {
-        "@nild/shared": "workspace:*",
-        "@nild/hooks": "workspace:*",
-        "@nild/icons": "workspace:*",
+        "@nild/shared": "workspace:^",
+        "@nild/hooks": "workspace:^",
+        "@nild/icons": "workspace:^",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     }

@@ -31,7 +31,7 @@
         "test:coverage": "vitest run --environment jsdom --globals --coverage"
     },
     "peerDependencies": {
-        "@nild/shared": "workspace:*",
+        "@nild/shared": "workspace:^",
         "react": "^18.2.0"
     }
 }

@@ -192,13 +192,13 @@ importers:
         specifier: 1.7.1
         version: 1.7.1
       '@nild/hooks':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../hooks
       '@nild/icons':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../icons
       '@nild/shared':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../shared
       react:
         specifier: ^18.2.0
@@ -210,7 +210,7 @@ importers:
   packages/hooks:
     dependencies:
       '@nild/shared':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../shared
       react:
         specifier: ^18.2.0
@@ -219,7 +219,7 @@ importers:
   packages/i18n:
     dependencies:
       '@nild/shared':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../shared
 
   packages/icons:
@@ -228,7 +228,7 @@ importers:
         specifier: 1.4.2
         version: 1.4.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@nild/shared':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../shared
       react:
         specifier: ^18.2.0
