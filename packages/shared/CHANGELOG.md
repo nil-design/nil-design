@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.18
+
+### Patch Changes
+
+- 35d2cc7: refactor: rename target ref type to ResolvableTarget
+
 ## 0.0.17
 
 ### Patch Changes

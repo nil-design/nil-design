@@ -1,5 +1,16 @@
 # @nild/components
 
+## 0.0.47
+
+### Patch Changes
+
+- 35d2cc7: refactor: reuse shared hooks for timers, observers and scroll lock
+- Updated dependencies [35d2cc7]
+- Updated dependencies [35d2cc7]
+  - @nild/hooks@0.0.21
+  - @nild/shared@0.0.18
+  - @nild/icons@0.0.21
+
 ## 0.0.46
 
 ### Patch Changes
