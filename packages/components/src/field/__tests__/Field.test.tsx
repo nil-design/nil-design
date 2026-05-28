@@ -63,4 +63,21 @@ describe('Field', () => {
         expect(onChange).toHaveBeenCalledWith('next', expect.any(Object));
         expect(screen.getByRole('textbox', { name: 'email' })).toHaveValue('next');
     });
+
+    it('marks disabled fields with data-disabled and propagates disabled to controls', () => {
+        render(
+            <Field disabled>
+                <Field.Label>Email</Field.Label>
+                <Input aria-label="email" />
+            </Field>,
+        );
+
+        const $field = screen.getByText('Email').closest('.nd-field');
+        const input = screen.getByRole('textbox', { name: 'email' });
+
+        expect($field).toHaveAttribute('data-disabled');
+        expect($field).toHaveClass('nd-disabled-carrier');
+        expect($field).not.toHaveClass('disabled');
+        expect(input).toBeDisabled();
+    });
 });

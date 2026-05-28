@@ -264,4 +264,32 @@ describe('Form', () => {
         await waitFor(() => expect(resolver).toHaveBeenCalledTimes(2));
         await waitFor(() => expect(screen.queryByText('Old error.')).not.toBeInTheDocument());
     });
+
+    it('marks disabled forms and descendant fields with data-disabled', () => {
+        const { container } = render(
+            <Form disabled>
+                <Field name="email">
+                    <Field.Label>Email</Field.Label>
+                    <Input aria-label="email" />
+                </Field>
+                <Field>
+                    <Button>Action</Button>
+                </Field>
+            </Form>,
+        );
+
+        const $form = container.querySelector('.nd-form');
+        const fields = container.querySelectorAll('.nd-field');
+        const input = screen.getByRole('textbox', { name: 'email' });
+        const button = screen.getByRole('button', { name: 'Action' });
+
+        expect($form).toHaveAttribute('data-disabled');
+        expect($form).toHaveClass('nd-disabled-carrier');
+        expect($form).not.toHaveClass('disabled');
+        expect(fields[0]).toHaveAttribute('data-disabled');
+        expect(fields[1]).toHaveAttribute('data-disabled');
+        expect(input).toBeDisabled();
+        expect(button).toBeDisabled();
+        expect(button).toHaveClass('nd-disabled-carrier');
+    });
 });

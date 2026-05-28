@@ -310,9 +310,18 @@ describe('Select', () => {
 
         fireEvent.click(screen.getByRole('button', { name: 'disabled-select' }));
         expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'disabled-select' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'disabled-select' })).toHaveClass('nd-disabled-carrier');
+        expect(screen.getByRole('button', { name: 'disabled-select' })).not.toHaveClass('disabled');
 
         fireEvent.click(screen.getByRole('button', { name: 'city' }));
-        fireEvent.click(screen.getByRole('option', { name: 'Beijing' }));
+        const disabledOption = screen.getByRole('option', { name: 'Beijing' });
+
+        expect(disabledOption).toHaveAttribute('aria-disabled', 'true');
+        expect(disabledOption).toHaveClass('nd-disabled-carrier');
+        expect(disabledOption).not.toHaveClass('disabled');
+
+        fireEvent.click(disabledOption);
 
         expect(onChange).not.toHaveBeenCalled();
         expect(screen.getByRole('listbox')).toBeInTheDocument();

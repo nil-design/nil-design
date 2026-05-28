@@ -39,9 +39,11 @@ const Composite = forwardRef<HTMLDivElement, CompositeProps>(
                     className={cnMerge(
                         variants.composite({
                             block,
+                            disabled,
                         }),
                         className,
                     )}
+                    data-disabled={disabled || undefined}
                     {...restProps}
                 >
                     {slots.prepend.el}

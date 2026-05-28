@@ -31,7 +31,12 @@ const Group = forwardRef<HTMLDivElement, GroupProps>(
             <GroupProvider value={{ variant, size, equal, disabled }}>
                 {buttonChildren.length === 1 && buttonChildren[0]}
                 {buttonChildren.length > 1 && (
-                    <div {...restProps} className={cnMerge(variants.group({ direction }), className)} ref={ref}>
+                    <div
+                        {...restProps}
+                        className={cnMerge(variants.group({ direction }), className)}
+                        data-disabled={disabled || undefined}
+                        ref={ref}
+                    >
                         {buttonChildren.map((child, index) =>
                             cloneElement(child, {
                                 ...child.props,

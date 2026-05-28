@@ -1,5 +1,5 @@
 import { cva } from '@nild/shared';
-import { DISABLED_CLS } from '../../_shared/style';
+import sharedVariants from '../../_shared/style';
 import { ButtonProps, GroupProps } from '../interfaces';
 
 const button = cva<ButtonProps>(
@@ -8,7 +8,7 @@ const button = cva<ButtonProps>(
         ['font-nd', 'cursor-pointer', 'transition-colors'],
         ['whitespace-nowrap', 'truncate'],
         'focus-visible:ring-focused',
-        DISABLED_CLS,
+        sharedVariants.disabled(),
     ],
     {
         variants: {
@@ -45,10 +45,6 @@ const button = cva<ButtonProps>(
                 true: 'w-full',
                 false: '',
             },
-            disabled: {
-                true: 'disabled',
-                false: '',
-            },
             equal: {
                 true: ['flex', 'justify-center', 'items-center'],
                 false: '',
@@ -74,7 +70,7 @@ const button = cva<ButtonProps>(
     },
 );
 
-const group = cva<GroupProps>(['nd-button-group', ['flex']], {
+const group = cva<GroupProps>(['nd-button-group', ['flex'], sharedVariants.disabled()], {
     variants: {
         direction: {
             horizontal: '',

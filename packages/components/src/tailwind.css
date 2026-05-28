@@ -352,14 +352,22 @@
 }
 
 @custom-variant disabled {
-  &.disabled,
-  &:disabled {
+  &:where(:disabled, [aria-disabled='true'], [data-disabled]) {
+    @slot;
+  }
+}
+
+@custom-variant disabled-visual {
+  &:where(:disabled, [aria-disabled='true'], [data-disabled]):not(
+      :where(.nd-disabled-carrier:where(:disabled, [aria-disabled='true'], [data-disabled]))
+        :where(:disabled, [aria-disabled='true'], [data-disabled])
+    ) {
     @slot;
   }
 }
 
 @custom-variant enabled {
-  &:not(.disabled, :disabled) {
+  &:not(:disabled, [aria-disabled='true'], [data-disabled]) {
     @slot;
   }
 }

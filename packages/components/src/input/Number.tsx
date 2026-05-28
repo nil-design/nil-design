@@ -13,12 +13,21 @@ import Prepend from './Prepend';
 
 const Number = forwardRef<HTMLInputElement, NumberProps>(
     (
-        { min = -Infinity, max = Infinity, step = 1, value: externalValue, defaultValue, onChange, ...restProps },
+        {
+            min = -Infinity,
+            max = Infinity,
+            step = 1,
+            value: externalValue,
+            defaultValue,
+            disabled = false,
+            onChange,
+            ...restProps
+        },
         ref,
     ) => {
         const [value, setValue] = useControllableState<number | undefined>(externalValue, defaultValue);
-        const minusDisabled = !isUndefined(value) && value <= min;
-        const plusDisabled = !isUndefined(value) && value >= max;
+        const minusDisabled = disabled || (!isUndefined(value) && value <= min);
+        const plusDisabled = disabled || (!isUndefined(value) && value >= max);
 
         const handleChange = (v: string | number, evt: ChangeEvent<HTMLInputElement>) => {
             const newValue = isNumeric(v) ? globalThis.Number(v) : undefined;
@@ -38,13 +47,20 @@ const Number = forwardRef<HTMLInputElement, NumberProps>(
         };
 
         return (
-            <Composite>
+            <Composite disabled={disabled}>
                 <Prepend>
                     <Button variant="outlined" disabled={minusDisabled} onClick={() => handleStep(-step)}>
                         <Icon component={Minus} />
                     </Button>
                 </Prepend>
-                <Input ref={ref} type="number" value={value} onChange={handleChange} {...restProps} />
+                <Input
+                    ref={ref}
+                    type="number"
+                    value={value}
+                    disabled={disabled}
+                    onChange={handleChange}
+                    {...restProps}
+                />
                 <Append>
                     <Button variant="outlined" disabled={plusDisabled} onClick={() => handleStep(step)}>
                         <Icon component={Plus} />

@@ -26,7 +26,7 @@ const Option = forwardRefWithGenerics(<T,>(props: SelectOptionProps<T>, ref: For
     return (
         <div
             {...restProps}
-            aria-disabled={disabled || undefined}
+            aria-disabled={disabled}
             aria-selected={selected}
             className={cnMerge(
                 variants.option({

@@ -1,14 +1,11 @@
 import { cnMerge } from '@nild/shared';
 import { forwardRef, isValidElement, ReactElement, ReactNode } from 'react';
-import { useFieldContext } from './contexts';
 import variants from './style';
 import type { LabelProps } from './interfaces';
 
 const Label = forwardRef<HTMLSpanElement, LabelProps>(({ className, children, ...restProps }, ref) => {
-    const { disabled } = useFieldContext();
-
     return (
-        <span {...restProps} className={cnMerge(variants.label({ disabled }), className)} ref={ref}>
+        <span {...restProps} className={cnMerge(variants.label(), className)} ref={ref}>
             {children}
         </span>
     );

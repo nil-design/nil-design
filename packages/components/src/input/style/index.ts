@@ -1,15 +1,18 @@
 import { cva } from '@nild/shared';
-import { DISABLED_CLS } from '../../_shared/style';
-import { InputProps, OTPProps } from '../interfaces';
+import sharedVariants from '../../_shared/style';
+import { CompositeProps, InputProps, OTPProps } from '../interfaces';
 
-const composite = cva<{ block?: boolean }>(['nd-input-composite', 'inline-flex', 'items-stretch'], {
-    variants: {
-        block: {
-            true: ['flex', 'w-full'],
-            false: '',
+const composite = cva<Pick<CompositeProps, 'block' | 'disabled'>>(
+    ['nd-input-composite', 'inline-flex', 'items-stretch', sharedVariants.disabled()],
+    {
+        variants: {
+            block: {
+                true: ['flex', 'w-full'],
+                false: '',
+            },
         },
     },
-});
+);
 
 const compositedInputWrapper = cva<Pick<InputProps, 'variant'> & { prepended?: boolean; appended?: boolean }>(
     ['flex-auto'],
@@ -41,7 +44,7 @@ const inputWrapper = cva<InputProps>(
         ['inline-flex', 'items-center', 'box-border', 'font-nd', 'transition-colors', 'overflow-hidden'],
         ['border', 'enabled:focus-within:border-brand', 'enabled:focus-within:z-1'],
         'enabled:focus-visible-within:ring-focused',
-        DISABLED_CLS,
+        sharedVariants.disabled(),
     ],
     {
         variants: {
@@ -61,10 +64,6 @@ const inputWrapper = cva<InputProps>(
             },
             block: {
                 true: ['flex', 'w-full'],
-                false: '',
-            },
-            disabled: {
-                true: 'disabled',
                 false: '',
             },
         },

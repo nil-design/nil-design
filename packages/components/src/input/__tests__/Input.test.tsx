@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import Input from '..';
 
 describe('Input', () => {
@@ -31,6 +31,18 @@ describe('Input', () => {
         expect(screen.getByText('Second prefix')).toBeInTheDocument();
         expect(screen.queryByText('First suffix')).not.toBeInTheDocument();
         expect(screen.getByText('Second suffix')).toBeInTheDocument();
+    });
+
+    it('marks the wrapper with data-disabled and disables the native input', () => {
+        render(<Input aria-label="email" disabled />);
+
+        const input = screen.getByRole('textbox', { name: 'email' });
+        const $wrapper = input.closest('.nd-input-wrapper');
+
+        expect(input).toBeDisabled();
+        expect($wrapper).toHaveAttribute('data-disabled');
+        expect($wrapper).toHaveClass('nd-disabled-carrier');
+        expect($wrapper).not.toHaveClass('disabled');
     });
 });
 
@@ -78,5 +90,48 @@ describe('Input.Composite', () => {
         );
 
         expect(container).toBeEmptyDOMElement();
+    });
+
+    it('marks disabled composites with data-disabled and propagates disabled to the input', () => {
+        const { container } = render(
+            <Input.Composite disabled>
+                <Input aria-label="website" />
+            </Input.Composite>,
+        );
+
+        const $composite = container.querySelector('.nd-input-composite');
+        const input = screen.getByRole('textbox', { name: 'website' });
+
+        expect($composite).toHaveAttribute('data-disabled');
+        expect($composite).toHaveClass('nd-disabled-carrier');
+        expect($composite).not.toHaveClass('disabled');
+        expect(input).toBeDisabled();
+        expect(input.closest('.nd-input-wrapper')).toHaveAttribute('data-disabled');
+    });
+});
+
+describe('Input.Number', () => {
+    it('disables the composite, input and step buttons when disabled', () => {
+        const onChange = vi.fn();
+
+        const { container } = render(
+            <Input.Number aria-label="amount" defaultValue={1} disabled onChange={onChange} />,
+        );
+
+        const input = screen.getByRole('spinbutton', { name: 'amount' });
+        const buttons = screen.getAllByRole('button');
+        const $composite = container.querySelector('.nd-input-composite');
+
+        expect($composite).toHaveAttribute('data-disabled');
+        expect($composite).toHaveClass('nd-disabled-carrier');
+        expect(input).toBeDisabled();
+        expect(buttons).toHaveLength(2);
+        expect(buttons[0]).toBeDisabled();
+        expect(buttons[1]).toBeDisabled();
+
+        fireEvent.click(buttons[0]);
+        fireEvent.click(buttons[1]);
+
+        expect(onChange).not.toHaveBeenCalled();
     });
 });

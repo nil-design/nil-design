@@ -253,7 +253,12 @@ const Tabs = forwardRefWithGenerics(<T,>(props: TabsProps<T>, ref: ForwardedRef<
                 onClose: onClose as TabsProps['onClose'],
             }}
         >
-            <div {...restProps} className={cnMerge(variants.tabs({ variant, orientation }), className)} ref={ref}>
+            <div
+                {...restProps}
+                className={cnMerge(variants.tabs({ variant, orientation, disabled }), className)}
+                data-disabled={disabled || undefined}
+                ref={ref}
+            >
                 {listEl &&
                     cloneElement<ListProps & RefAttributes<HTMLDivElement>>(listEl, {
                         ...listEl.props,

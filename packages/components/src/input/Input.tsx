@@ -59,6 +59,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
                     }),
                     className,
                 )}
+                data-disabled={disabled || undefined}
             >
                 {slots.prefix.el}
                 <input

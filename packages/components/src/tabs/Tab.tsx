@@ -26,7 +26,7 @@ const Tab = forwardRef<HTMLDivElement, TabProps>((props, ref) => {
     return (
         <div
             {...restProps}
-            aria-disabled={disabled || undefined}
+            aria-disabled={disabled}
             aria-selected={selected}
             className={cnMerge(variants.tab({ variant, size, orientation, selected, disabled, closable }), className)}
             id={id}

@@ -1,6 +1,9 @@
-export const DISABLED_CLS = [
+const disabled = () => [
+    'nd-disabled-carrier',
     'disabled:cursor-not-allowed',
-    'disabled:grayscale-[50%]',
-    'disabled:opacity-50',
     'disabled:select-none',
+    'disabled-visual:grayscale-25',
+    'disabled-visual:opacity-60',
 ];
+
+export default { disabled };

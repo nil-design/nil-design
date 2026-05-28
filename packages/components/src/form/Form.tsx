@@ -108,7 +108,8 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
         <FormProvider value={context}>
             <form
                 {...restProps}
-                className={cnMerge(variants.form({ disabled }), className)}
+                className={cnMerge(variants.form(), className)}
+                data-disabled={disabled || undefined}
                 ref={ref}
                 onSubmit={handleSubmit}
             >

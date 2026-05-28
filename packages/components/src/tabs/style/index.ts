@@ -1,11 +1,12 @@
 import { cva } from '@nild/shared';
-import { DISABLED_CLS } from '../../_shared/style';
+import sharedVariants from '../../_shared/style';
 import { TabsOrientation, TabsSize, TabsVariant } from '../interfaces';
 
 const tabs = cva<{
     orientation?: TabsOrientation;
     variant?: TabsVariant;
-}>(['nd-tabs', 'font-nd', 'text-main'], {
+    disabled?: boolean;
+}>(['nd-tabs', 'font-nd', 'text-main', sharedVariants.disabled()], {
     variants: {
         orientation: {
             horizontal: '',
@@ -88,7 +89,7 @@ const tab = cva<{
         'outline-none',
         'transition-[background-color,border-color,color]',
         'focus-visible:ring-focused',
-        DISABLED_CLS,
+        sharedVariants.disabled(),
     ],
     {
         variants: {
@@ -110,7 +111,7 @@ const tab = cva<{
                 false: '',
             },
             disabled: {
-                true: ['disabled', 'cursor-not-allowed'],
+                true: '',
                 false: ['cursor-pointer'],
             },
             closable: {
