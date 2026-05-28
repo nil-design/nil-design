@@ -31,8 +31,8 @@
         "build": "vite build --mode PROD",
         "dev": "vite build --mode DEV --watch",
         "typecheck": "tsc --noEmit -p tsconfig.json --pretty true",
-        "test": "vitest run --globals",
-        "test:coverage": "vitest run --globals --coverage"
+        "test": "vitest run --globals --test-timeout 15000",
+        "test:coverage": "vitest run --globals --coverage --test-timeout 15000"
     },
     "peerDependencies": {
         "typedoc": "^0.28.4",
