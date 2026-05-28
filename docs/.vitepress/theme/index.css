@@ -65,15 +65,89 @@
 }
 
 :root {
-  &::view-transition-old(root) {
-    animation: none;
-  }
+  /*
+   * VP surfaces & text
+   */
+  --vp-c-bg: var(--background-color-canvas);
+  --vp-c-bg-alt: var(--background-color-subtle);
+  --vp-c-bg-elv: var(--background-color-canvas);
+  --vp-c-bg-soft: var(--background-color-subtle);
 
-  &::view-transition-new(root) {
-    mix-blend-mode: normal;
-    animation: clip-rtl 0.5s var(--default-transition-timing-function);
-  }
+  --vp-c-text-1: var(--nd-color-neutral-100);
+  --vp-c-text-2: var(--nd-color-neutral-70);
+  --vp-c-text-3: var(--nd-color-neutral-50);
 
+  --vp-c-border: var(--nd-color-neutral-30);
+  --vp-c-divider: var(--nd-color-neutral-15);
+  --vp-c-gutter: var(--nd-color-neutral-15);
+
+  /*
+   * VP semantic colors
+   */
+  --vp-c-brand-1: var(--color-brand);
+  --vp-c-brand-2: var(--color-brand-hover);
+  --vp-c-brand-3: var(--color-brand);
+  --vp-c-brand-soft: color-mix(in oklch, var(--nd-color-brand-15) 88%, transparent);
+
+  --vp-c-default-1: var(--background-color-muted-active);
+  --vp-c-default-2: var(--background-color-muted-hover);
+  --vp-c-default-3: var(--background-color-muted);
+  --vp-c-default-soft: var(--background-color-subtle);
+
+  /*
+   * VP elevation & type
+   */
+  --vp-shadow-1: var(--shadow-sm);
+  --vp-shadow-2: var(--shadow-md);
+  --vp-shadow-3: var(--shadow-lg);
+  --vp-shadow-4: var(--shadow-xl);
+  --vp-shadow-5: var(--shadow-2xl);
+  --vp-c-shadow-3: var(--vp-shadow-3);
+
+  --vp-font-family-base: var(--font-nd);
+  --vp-code-font-size: var(--text-md);
+
+  /*
+   * VP navigation
+   */
+  --vp-nav-bg-color: light-dark(
+    color-mix(in oklch, var(--background-color-canvas) 76%, transparent),
+    color-mix(in oklch, var(--background-color-canvas) 68%, transparent)
+  );
+  --vp-nav-screen-bg-color: light-dark(
+    color-mix(in oklch, var(--background-color-canvas) 82%, transparent),
+    color-mix(in oklch, var(--background-color-canvas) 74%, transparent)
+  );
+  --vp-local-nav-bg-color: var(--vp-nav-bg-color);
+  --vp-backdrop-bg-color: light-dark(
+    color-mix(in oklch, var(--nd-color-neutral-100) 16%, transparent),
+    color-mix(in oklch, var(--nd-color-neutral-100) 44%, transparent)
+  );
+
+  /*
+   * VP home hero
+   */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    135deg,
+    var(--nd-color-neutral-100) 0%,
+    color-mix(in oklch, var(--nd-color-neutral-100) 72%, var(--nd-color-brand-90)) 42%,
+    var(--nd-color-brand-60) 100%
+  );
+  --vp-home-hero-image-background-image: radial-gradient(
+    circle,
+    light-dark(
+        color-mix(in oklch, var(--nd-color-brand-30) 42%, transparent),
+        color-mix(in oklch, var(--nd-color-brand-40) 34%, transparent)
+      )
+      0%,
+    transparent 72%
+  );
+  --vp-home-hero-image-filter: blur(46px);
+
+  /*
+   * Page backdrop
+   */
   --vp-custom-page-grid-line: light-dark(
     color-mix(in oklch, var(--background-color-canvas) 94%, var(--nd-color-brand-15)),
     color-mix(in oklch, var(--background-color-canvas) 87%, var(--nd-color-brand-30))
@@ -102,6 +176,10 @@
     var(--vp-custom-page-glow-left) 0%,
     transparent 36rem
   );
+
+  /*
+   * Glass material
+   */
   --vp-custom-glass-bg: light-dark(
     color-mix(in oklch, var(--background-color-canvas) 86%, transparent),
     color-mix(in oklch, var(--background-color-muted) 78%, transparent)
@@ -122,6 +200,21 @@
   --vp-custom-glass-backdrop-strong: blur(24px) saturate(150%);
   --vp-custom-glass-shadow-sm: var(--shadow-sm);
   --vp-custom-glass-shadow: var(--shadow-xl);
+
+  /*
+   * Feature cards
+   */
+  --vp-custom-feature-card-bg: var(--vp-custom-glass-bg);
+  --vp-custom-feature-icon-bg: light-dark(
+    color-mix(in oklch, var(--background-color-muted) 82%, var(--nd-color-brand-10)),
+    color-mix(in oklch, var(--background-color-muted) 88%, var(--nd-color-brand-20))
+  );
+  --vp-custom-feature-card-shadow: var(--shadow-sm);
+  --vp-custom-feature-card-shadow-hover: var(--shadow-md);
+
+  /*
+   * Brand logo
+   */
   --vp-custom-logo-surface: var(--vp-custom-feature-card-bg);
   --vp-custom-logo-ink: color-mix(in oklch, var(--nd-color-neutral-100) 96%, var(--nd-color-brand-90));
   --vp-custom-logo-accent: color-mix(in oklch, var(--nd-color-brand-50) 84%, var(--nd-color-brand-60));
@@ -129,6 +222,10 @@
   --vp-custom-logo-line: color-mix(in oklch, var(--nd-color-brand-30) 78%, var(--nd-color-brand-40));
   --vp-custom-logo-dot: color-mix(in oklch, var(--nd-color-neutral-0) 94%, var(--nd-color-brand-20));
   --vp-custom-brand-ring-soft: color-mix(in oklch, var(--nd-color-brand-30) 18%, transparent);
+
+  /*
+   * Hero logo
+   */
   --vp-custom-hero-logo-glow:
     radial-gradient(
       circle at 50% 28%,
@@ -151,13 +248,10 @@
     ),
     linear-gradient(135deg, color-mix(in oklch, var(--vp-custom-page-glow-right) 52%, transparent), transparent 45%);
   --vp-custom-hero-logo-grid-mask: radial-gradient(circle at center, black 0%, transparent 82%);
-  --vp-custom-feature-card-bg: var(--vp-custom-glass-bg);
-  --vp-custom-feature-icon-bg: light-dark(
-    color-mix(in oklch, var(--background-color-muted) 82%, var(--nd-color-brand-10)),
-    color-mix(in oklch, var(--background-color-muted) 88%, var(--nd-color-brand-20))
-  );
-  --vp-custom-feature-card-shadow: var(--shadow-sm);
-  --vp-custom-feature-card-shadow-hover: var(--shadow-md);
+
+  /*
+   * Nav material
+   */
   --vp-custom-nav-highlight: linear-gradient(
     180deg,
     color-mix(in oklch, var(--nd-color-neutral-0) 8%, transparent),
@@ -172,70 +266,9 @@
   --vp-custom-nav-backdrop: blur(22px) saturate(148%);
   --vp-custom-nav-screen-backdrop: blur(28px) saturate(145%);
 
-  --vp-c-brand-1: var(--color-brand);
-  --vp-c-brand-2: var(--color-brand-hover);
-  --vp-c-brand-3: var(--color-brand);
-  --vp-c-brand-soft: color-mix(in oklch, var(--nd-color-brand-15) 88%, transparent);
-
-  --vp-c-default-1: var(--background-color-muted-active);
-  --vp-c-default-2: var(--background-color-muted-hover);
-  --vp-c-default-3: var(--background-color-muted);
-  --vp-c-default-soft: var(--background-color-subtle);
-
-  --vp-c-text-1: var(--nd-color-neutral-100);
-  --vp-c-text-2: var(--nd-color-neutral-70);
-  --vp-c-text-3: var(--nd-color-neutral-50);
-
-  --vp-c-border: var(--nd-color-neutral-30);
-  --vp-c-divider: var(--nd-color-neutral-15);
-  --vp-c-gutter: var(--nd-color-neutral-15);
-
-  --vp-c-bg: var(--background-color-canvas);
-  --vp-c-bg-alt: var(--background-color-subtle);
-  --vp-c-bg-elv: var(--background-color-canvas);
-  --vp-c-bg-soft: var(--background-color-subtle);
-
-  --vp-shadow-1: var(--shadow-sm);
-  --vp-shadow-2: var(--shadow-md);
-  --vp-shadow-3: var(--shadow-lg);
-  --vp-shadow-4: var(--shadow-xl);
-  --vp-shadow-5: var(--shadow-2xl);
-  --vp-c-shadow-3: var(--vp-shadow-3);
-
-  --vp-nav-bg-color: light-dark(
-    color-mix(in oklch, var(--background-color-canvas) 76%, transparent),
-    color-mix(in oklch, var(--background-color-canvas) 68%, transparent)
-  );
-  --vp-nav-screen-bg-color: light-dark(
-    color-mix(in oklch, var(--background-color-canvas) 82%, transparent),
-    color-mix(in oklch, var(--background-color-canvas) 74%, transparent)
-  );
-  --vp-local-nav-bg-color: var(--vp-nav-bg-color);
-  --vp-backdrop-bg-color: light-dark(
-    color-mix(in oklch, var(--nd-color-neutral-100) 16%, transparent),
-    color-mix(in oklch, var(--nd-color-neutral-100) 44%, transparent)
-  );
-
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(
-    135deg,
-    var(--nd-color-neutral-100) 0%,
-    color-mix(in oklch, var(--nd-color-neutral-100) 72%, var(--nd-color-brand-90)) 42%,
-    var(--nd-color-brand-60) 100%
-  );
-  --vp-home-hero-image-background-image: radial-gradient(
-    circle,
-    light-dark(
-        color-mix(in oklch, var(--nd-color-brand-30) 42%, transparent),
-        color-mix(in oklch, var(--nd-color-brand-40) 34%, transparent)
-      )
-      0%,
-    transparent 72%
-  );
-  --vp-home-hero-image-filter: blur(46px);
-
-  --vp-font-family-base: var(--font-nd);
-
+  /*
+   * Scrollbars
+   */
   --vp-custom-scrollbar-size: 0.7rem;
   --vp-custom-scrollbar-track: transparent;
   --vp-custom-scrollbar-thumb: light-dark(
@@ -246,6 +279,15 @@
     color-mix(in oklch, var(--nd-color-neutral-60) 42%, transparent),
     color-mix(in oklch, var(--nd-color-neutral-70) 38%, transparent)
   );
+
+  &::view-transition-old(root) {
+    animation: none;
+  }
+
+  &::view-transition-new(root) {
+    mix-blend-mode: normal;
+    animation: clip-rtl 0.5s var(--default-transition-timing-function);
+  }
 }
 
 html,
