@@ -1,59 +1,103 @@
-import { PossibleTarget } from '@nild/shared';
-import { useEffect } from 'react';
+import { isNil } from '@nild/shared';
+import { useEffect, useRef } from 'react';
+import { resolveTarget } from '../_shared/utils/target';
 import useLatestRef from '../use-latest-ref';
+import type { ResolvableTarget } from '@nild/shared';
 
 function useEventListener<K extends keyof WindowEventMap>(
-    target: PossibleTarget<Window>,
+    target: ResolvableTarget<Window>,
     eventName: K,
     listener: (event: WindowEventMap[K]) => void,
     options?: AddEventListenerOptions,
 ): void;
 
 function useEventListener<K extends keyof DocumentEventMap>(
-    target: PossibleTarget<Document>,
+    target: ResolvableTarget<Document>,
     eventName: K,
     listener: (event: DocumentEventMap[K]) => void,
     options?: AddEventListenerOptions,
 ): void;
 
 function useEventListener<K extends keyof HTMLElementEventMap, T extends HTMLElement = HTMLElement>(
-    target: PossibleTarget<T>,
+    target: ResolvableTarget<T>,
     eventName: K,
     listener: (event: HTMLElementEventMap[K]) => void,
     options?: AddEventListenerOptions,
 ): void;
 
 function useEventListener<K extends keyof ElementEventMap>(
-    target: PossibleTarget<Element>,
+    target: ResolvableTarget<Element>,
     eventName: K,
     listener: (event: ElementEventMap[K]) => void,
     options?: AddEventListenerOptions,
 ): void;
 
 function useEventListener<K = Event>(
-    target: PossibleTarget<EventTarget>,
+    target: ResolvableTarget<EventTarget>,
     eventName: K,
     listener: (event: K) => void,
     options?: AddEventListenerOptions,
 ): void;
 
 function useEventListener(
-    target: PossibleTarget,
+    target: ResolvableTarget,
     eventName: string,
     listener: (...args: unknown[]) => void,
     options?: AddEventListenerOptions,
 ): void;
 
 function useEventListener(
-    target: PossibleTarget,
+    target: ResolvableTarget,
     eventName: string,
     listener: (...args: unknown[]) => void,
     options?: AddEventListenerOptions,
 ) {
     const listenerRef = useLatestRef(listener);
+    const cleanupRef = useRef<VoidFunction>();
+    const bindingRef = useRef<{
+        target: EventTarget | null;
+        eventName: string;
+        capture?: boolean;
+        once?: boolean;
+        passive?: boolean;
+        signal?: AbortSignal | null;
+    }>({
+        target: null,
+        eventName: '',
+    });
+
+    const cleanup = () => {
+        cleanupRef.current?.();
+        cleanupRef.current = undefined;
+        bindingRef.current = { target: null, eventName: '' };
+    };
 
     useEffect(() => {
-        if (!target?.addEventListener) {
+        const resolvedTarget = resolveTarget(target);
+        const nextBinding = {
+            target: resolvedTarget,
+            eventName,
+            capture: options?.capture,
+            once: options?.once,
+            passive: options?.passive,
+            signal: options?.signal,
+        };
+        const binding = bindingRef.current;
+
+        if (
+            binding.target === nextBinding.target &&
+            binding.eventName === nextBinding.eventName &&
+            binding.capture === nextBinding.capture &&
+            binding.once === nextBinding.once &&
+            binding.passive === nextBinding.passive &&
+            binding.signal === nextBinding.signal
+        ) {
+            return;
+        }
+
+        cleanup();
+
+        if (isNil(resolvedTarget)) {
             return;
         }
 
@@ -61,13 +105,14 @@ function useEventListener(
             listenerRef.current(event);
         };
 
-        target.addEventListener(eventName, eventListener, options);
-
-        return () => {
-            target.removeEventListener(eventName, eventListener, options);
+        resolvedTarget.addEventListener(eventName, eventListener, options);
+        cleanupRef.current = () => {
+            resolvedTarget.removeEventListener(eventName, eventListener, options);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [target, eventName, options?.capture, options?.once, options?.passive, options?.signal]);
+        bindingRef.current = nextBinding;
+    });
+
+    useEffect(() => cleanup, []);
 }
 
 export default useEventListener;

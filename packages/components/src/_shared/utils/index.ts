@@ -2,7 +2,6 @@ import getComputedStyleValue from './get-computed-style-value';
 import getGlobalState, { GlobalStateKey } from './get-global-state';
 import getOwnerDocument from './get-owner-document';
 import isPlainChildren from './is-plain-children';
-import lockDocumentScroll from './lock-document-scroll';
 import mergeHandlers from './merge-handlers';
 import mergeProps from './merge-props';
 import registerSlots from './register-slots';
@@ -13,7 +12,6 @@ export {
     getOwnerDocument,
     GlobalStateKey,
     isPlainChildren,
-    lockDocumentScroll,
     registerSlots,
     mergeHandlers,
     mergeProps,

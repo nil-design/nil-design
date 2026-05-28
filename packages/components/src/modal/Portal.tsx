@@ -1,8 +1,8 @@
-import { useEffectCallback, useEventListener } from '@nild/hooks';
+import { useEffectCallback, useEventListener, useScrollLock } from '@nild/hooks';
 import { cnMerge, mergeRefs } from '@nild/shared';
-import { ReactElement, forwardRef, useEffect, isValidElement, useRef } from 'react';
+import { ReactElement, forwardRef, isValidElement, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { getOwnerDocument, lockDocumentScroll, registerSlots } from '../_shared/utils';
+import { getOwnerDocument, registerSlots } from '../_shared/utils';
 import { isBodyElement } from './Body';
 import Close, { isCloseElement } from './Close';
 import { useModalContext } from './contexts';
@@ -76,13 +76,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             }
         });
 
-        useEffect(() => {
-            if (!container || !lockScroll || !ownerDocument) {
-                return;
-            }
-
-            return lockDocumentScroll(ownerDocument);
-        }, [lockScroll, ownerDocument, container]);
+        useScrollLock(ownerDocument, lockScroll && Boolean(container));
 
         useModalFocusScope({
             open,

@@ -57,6 +57,27 @@ describe('useLocalStorage', () => {
         expect(result.current[0]).toBe(3);
     });
 
+    it('should deserialize empty string storage event values', () => {
+        const options = {
+            deserializer: (value: string) => value,
+        };
+        const { result } = renderHook(() => useLocalStorage('message', 'fallback', options));
+
+        const event = new Event('storage') as StorageEvent;
+
+        Object.defineProperties(event, {
+            key: { value: 'message' },
+            oldValue: { value: 'hello' },
+            newValue: { value: '' },
+        });
+
+        act(() => {
+            window.dispatchEvent(event);
+        });
+
+        expect(result.current[0]).toBe('');
+    });
+
     it('should call onError and fall back to default when deserialization fails', () => {
         window.localStorage.setItem('broken', '{invalid-json');
         const onError = vi.fn();

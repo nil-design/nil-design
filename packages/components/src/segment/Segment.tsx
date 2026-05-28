@@ -1,4 +1,4 @@
-import { useControllableState, useEffectCallback, useIsomorphicLayoutEffect } from '@nild/hooks';
+import { useControllableState, useEffectCallback, useIsomorphicLayoutEffect, useResizeObserver } from '@nild/hooks';
 import { cnMerge, forwardRefWithGenerics, mergeRefs } from '@nild/shared';
 import {
     CSSProperties,
@@ -18,6 +18,7 @@ import { SegmentProvider } from './contexts';
 import { ItemProps, SegmentProps } from './interfaces';
 import { isItemElement } from './Item';
 import variants from './style';
+import type { ResolvableTarget } from '@nild/shared';
 
 type ItemElement<T> = ReactElement<ItemProps<T> & RefAttributes<HTMLButtonElement>> & { ref?: Ref<HTMLButtonElement> };
 
@@ -162,34 +163,21 @@ const Segment = forwardRefWithGenerics(<T,>(props: SegmentProps<T>, ref: Forward
 
     useIsomorphicLayoutEffect(() => {
         updateIndicatorStyle();
-
-        const $segment = segmentRef.current;
-
-        if (!$segment || typeof window === 'undefined') {
-            return;
-        }
-
-        const ResizeObserverCtor = (window as unknown as { ResizeObserver?: typeof ResizeObserver }).ResizeObserver;
-
-        if (ResizeObserverCtor) {
-            const observer = new ResizeObserverCtor(updateIndicatorStyle);
-
-            observer.observe($segment);
-            itemRefs.current.slice(0, items.length).forEach($item => {
-                $item && observer.observe($item);
-            });
-
-            return () => {
-                observer.disconnect();
-            };
-        }
-
-        window.addEventListener('resize', updateIndicatorStyle);
-
-        return () => {
-            window.removeEventListener('resize', updateIndicatorStyle);
-        };
     }, [block, effectiveSelectedIndex, items, orientation, size, updateIndicatorStyle]);
+
+    const resizeTargets = useMemo<ResolvableTarget<Element>[]>(
+        () => [
+            segmentRef,
+            ...items.map((_, index) => ({
+                get current() {
+                    return itemRefs.current[index];
+                },
+            })),
+        ],
+        [items],
+    );
+
+    useResizeObserver(resizeTargets, updateIndicatorStyle);
 
     const renderItem = (item: ParsedItem<T>, index: number) => {
         const { element: itemElement } = item;

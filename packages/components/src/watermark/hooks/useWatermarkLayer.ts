@@ -1,5 +1,5 @@
-import { useEffectCallback } from '@nild/hooks';
-import { CSSProperties, RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffectCallback, useRefState } from '@nild/hooks';
+import { CSSProperties, RefObject, useCallback, useEffect, useMemo } from 'react';
 import { getComputedStyleValue } from '../../_shared/utils';
 import { RenderParams, createTile, normalizeContent, normalizeImage, toTuple } from '../_shared/canvas';
 import { WatermarkImage, WatermarkProps } from '../interfaces';
@@ -35,8 +35,7 @@ export const useWatermarkLayer = (options: UseWatermarkLayerOptions) => {
         zIndex,
         onError,
     } = options;
-    const [tile, setTile] = useState<TileState>(emptyTile);
-    const tileRef = useRef<TileState>(emptyTile);
+    const [tile, setTile, tileRef] = useRefState<TileState>(emptyTile);
 
     const contentKey = useMemo(() => normalizeContent(externalText).join('\n'), [externalText]);
 
@@ -91,18 +90,20 @@ export const useWatermarkLayer = (options: UseWatermarkLayerOptions) => {
         onError?.(error, errorImage);
     });
 
-    const updateTile = useCallback((nextTile: TileState) => {
-        const { current } = tileRef;
+    const updateTile = useCallback(
+        (nextTile: TileState) => {
+            const { current } = tileRef;
 
-        if (
-            current.dataUrl !== nextTile.dataUrl ||
-            current.size?.width !== nextTile.size?.width ||
-            current.size?.height !== nextTile.size?.height
-        ) {
-            tileRef.current = nextTile;
-            setTile(nextTile);
-        }
-    }, []);
+            if (
+                current.dataUrl !== nextTile.dataUrl ||
+                current.size?.width !== nextTile.size?.width ||
+                current.size?.height !== nextTile.size?.height
+            ) {
+                setTile(nextTile);
+            }
+        },
+        [setTile, tileRef],
+    );
 
     useEffect(() => {
         let canceled = false;

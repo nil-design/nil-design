@@ -14,6 +14,10 @@ const useLocalStorage = <T>(
     // eslint-disable-next-line no-console
     const { serializer = JSON.stringify, deserializer = JSON.parse, onError = console.error } = options ?? {};
 
+    const getDefaultValue = useCallback(() => {
+        return isFunction(defaultValue) ? defaultValue() : defaultValue;
+    }, [defaultValue]);
+
     const getStoredValue = useCallback((): T => {
         try {
             const storedValue = storage?.getItem(key);
@@ -25,8 +29,8 @@ const useLocalStorage = <T>(
             onError?.(error);
         }
 
-        return isFunction(defaultValue) ? defaultValue() : defaultValue;
-    }, [defaultValue, storage, key, deserializer, onError]);
+        return getDefaultValue();
+    }, [getDefaultValue, storage, key, deserializer, onError]);
 
     const [value, setValue] = useState<T>(getStoredValue);
 
@@ -53,7 +57,7 @@ const useLocalStorage = <T>(
         const handleStorageChange = (event: StorageEvent) => {
             if (event.key === key && event.newValue !== event.oldValue) {
                 try {
-                    const newValue = event.newValue ? deserializer(event.newValue) : defaultValue;
+                    const newValue = isNil(event.newValue) ? getDefaultValue() : deserializer(event.newValue);
 
                     setValue(newValue);
                 } catch (error) {
@@ -65,7 +69,7 @@ const useLocalStorage = <T>(
         window.addEventListener('storage', handleStorageChange);
 
         return () => window.removeEventListener('storage', handleStorageChange);
-    }, [key, defaultValue, onError, deserializer]);
+    }, [key, getDefaultValue, onError, deserializer]);
 
     useEffect(() => {
         setValue(getStoredValue());

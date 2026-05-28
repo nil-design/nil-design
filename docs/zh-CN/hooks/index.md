@@ -13,6 +13,7 @@ navOrder: 4
 - [useLocalStorage](./use-local-storage/)：像 `useState` 一样读写 `localStorage`。
 - [usePrevious](./use-previous/)：读取上一次被接受的值。
 - [useForceUpdate](./use-force-update/)：在不引入业务状态时强制当前组件重新渲染。
+- [useRefState](./use-ref-state/)：在状态更新时同步维护最新值 ref。
 
 ## 副作用
 
@@ -21,6 +22,8 @@ navOrder: 4
 - [useIsomorphicLayoutEffect](./use-isomorphic-layout-effect/)：在浏览器中使用 `useLayoutEffect`，在非浏览器环境中回退到 `useEffect`。
 - [useMount](./use-mount/)：在组件首次挂载后执行一次逻辑。
 - [useUnmount](./use-unmount/)：在组件卸载时执行清理逻辑。
+- [useTimeout](./use-timeout/)：手动调度并自动清理定时器。
+- [useRaf](./use-raf/)：手动调度并自动清理下一帧回调。
 
 ## Ref
 
@@ -30,3 +33,6 @@ navOrder: 4
 ## DOM
 
 - [useEventListener](./use-event-listener/)：以更稳定的方式绑定和清理事件监听器。
+- [useScrollLock](./use-scroll-lock/)：锁定文档或元素滚动并自动恢复样式。
+- [useResizeObserver](./use-resize-observer/)：监听一个或多个元素尺寸变化。
+- [useMutationObserver](./use-mutation-observer/)：监听一个或多个 DOM 节点变化。
