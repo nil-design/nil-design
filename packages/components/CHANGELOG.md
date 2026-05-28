@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.46
+
+### Patch Changes
+
+- 5c62004: refactor: unify disabled state semantics and visual styles
+
 ## 0.0.45
 
 ### Patch Changes
