@@ -1,6 +1,6 @@
-import { useControllableState, useEffectCallback, useIsomorphicLayoutEffect } from '@nild/hooks';
+import { useControllableState, useEffectCallback, useIsomorphicLayoutEffect, useTimeout } from '@nild/hooks';
 import { isArray, isFunction, makeArray } from '@nild/shared';
-import { FC, SetStateAction, useMemo, useRef, useState } from 'react';
+import { FC, SetStateAction, useMemo, useState } from 'react';
 import { registerSlots } from '../_shared/utils';
 import Transition from '../transition';
 import { ArrowProvider, PopupProvider, PortalProvider } from './contexts';
@@ -38,7 +38,6 @@ const Popup: FC<PopupProps> = ({
     const [open, setOpen] = useControllableState(externalOpen, defaultOpen);
     const [enterDelay, leaveDelay = 100] = isArray(delay) ? delay : [delay, delay];
     const actions = useMemo(() => new Set(makeArray(action)), [action]);
-    const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
     const [{ triggerRef, portalRef, portalContext, arrowRef, arrowContext }, { update, autoUpdate }] = usePopup({
         placement,
         offset,
@@ -58,22 +57,20 @@ const Popup: FC<PopupProps> = ({
             return nextOpen;
         });
     });
+    const enterTimeout = useTimeout(() => updateOpen(true), enterDelay);
+    const leaveTimeout = useTimeout(() => updateOpen(false), leaveDelay);
 
     const handleMouseEnter = useEffectCallback(() => {
         if (actions.has('hover')) {
-            hoverTimeoutRef.current && clearTimeout(hoverTimeoutRef.current);
-            hoverTimeoutRef.current = setTimeout(() => {
-                updateOpen(true);
-            }, enterDelay);
+            leaveTimeout.cancel();
+            enterTimeout.run();
         }
     });
 
     const handleMouseLeave = useEffectCallback(() => {
         if (actions.has('hover')) {
-            hoverTimeoutRef.current && clearTimeout(hoverTimeoutRef.current);
-            hoverTimeoutRef.current = setTimeout(() => {
-                updateOpen(false);
-            }, leaveDelay);
+            enterTimeout.cancel();
+            leaveTimeout.run();
         }
     });
 

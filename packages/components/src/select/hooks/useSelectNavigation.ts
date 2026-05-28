@@ -1,4 +1,4 @@
-import { useEffectCallback, useIsomorphicLayoutEffect } from '@nild/hooks';
+import { useEffectCallback, useIsomorphicLayoutEffect, useRaf } from '@nild/hooks';
 import {
     Dispatch,
     FocusEvent,
@@ -32,7 +32,7 @@ interface UseSelectNavigationReturn {
     focusTrigger: () => void;
 }
 
-const requestFocus = ($node: HTMLElement | null | undefined) => {
+const focusNode = ($node: HTMLElement | null | undefined) => {
     if (typeof window === 'undefined' || !$node) {
         return;
     }
@@ -43,11 +43,9 @@ const requestFocus = ($node: HTMLElement | null | undefined) => {
         return;
     }
 
-    window.requestAnimationFrame(() => {
-        if ($node.isConnected && $document.activeElement !== $node) {
-            $node.focus();
-        }
-    });
+    if ($node.isConnected && $document.activeElement !== $node) {
+        $node.focus();
+    }
 };
 
 export const useSelectNavigation = ({
@@ -63,10 +61,15 @@ export const useSelectNavigation = ({
 }: UseSelectNavigationOptions): UseSelectNavigationReturn => {
     const wasOpenRef = useRef(false);
     const [activeIndex, setActiveIndex] = useState(-1);
+    const focusListboxFrame = useRaf(() => focusNode(listboxRef.current));
+    const focusTriggerFrame = useRaf(() => focusNode(triggerRef.current));
+    const scrollActiveOptionFrame = useRaf(() => {
+        optionRefs.current[activeIndex]?.scrollIntoView({ block: 'nearest' });
+    });
 
-    const focusListbox = useEffectCallback(() => requestFocus(listboxRef.current));
+    const focusListbox = useEffectCallback(() => focusListboxFrame.run());
 
-    const focusTrigger = useEffectCallback(() => requestFocus(triggerRef.current));
+    const focusTrigger = useEffectCallback(() => focusTriggerFrame.run());
 
     const moveActiveOption = (move: 1 | -1 | 'start' | 'end') =>
         setActiveIndex(currentIndex => {
@@ -205,16 +208,14 @@ export const useSelectNavigation = ({
     }, [focusListbox, open]);
 
     useIsomorphicLayoutEffect(() => {
-        if (!open || activeIndex < 0 || typeof window === 'undefined') {
+        if (!open || activeIndex < 0) {
             return;
         }
 
-        const frame = window.requestAnimationFrame(() => {
-            optionRefs.current[activeIndex]?.scrollIntoView({ block: 'nearest' });
-        });
+        scrollActiveOptionFrame.run();
 
-        return () => window.cancelAnimationFrame(frame);
-    }, [activeIndex, open]);
+        return scrollActiveOptionFrame.cancel;
+    }, [activeIndex, open, scrollActiveOptionFrame]);
 
     return {
         activeIndex,

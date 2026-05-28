@@ -17,6 +17,8 @@ export default tslint.config(
             '**/dist/**',
             '**/cache/**',
             '**/.cache/**',
+            'docs/.vitepress/.temp/**',
+            'docs/public/**',
             '**/node_modules/**',
             '**/assets/**',
             '**/*.timestamp-*.mjs',

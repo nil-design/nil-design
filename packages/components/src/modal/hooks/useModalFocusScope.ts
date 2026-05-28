@@ -1,4 +1,4 @@
-import { useEffectCallback, useEventListener, useIsomorphicLayoutEffect } from '@nild/hooks';
+import { useEffectCallback, useEventListener, useIsomorphicLayoutEffect, useTimeout } from '@nild/hooks';
 import { RefObject, useEffect, useRef } from 'react';
 
 interface UseModalFocusScopeOptions {
@@ -73,6 +73,19 @@ export const useModalFocusScope = ({
 }: UseModalFocusScopeOptions) => {
     const lastActiveElRef = useRef<HTMLElement | null>(null);
     const openRef = useRef(open);
+    const initialFocusTimeout = useTimeout(() => {
+        const surface = surfaceRef.current;
+
+        if (!surface || !topmost) {
+            return;
+        }
+
+        const $activeElement = ownerDocument?.activeElement as Node | null;
+
+        if (!$activeElement || !surface.contains($activeElement)) {
+            focusWithin(surface);
+        }
+    }, 0);
 
     const handleKeyDown = useEffectCallback((evt: KeyboardEvent) => {
         const surface = surfaceRef.current;
@@ -148,24 +161,10 @@ export const useModalFocusScope = ({
             return;
         }
 
-        const timer = setTimeout(() => {
-            const surface = surfaceRef.current;
+        initialFocusTimeout.run();
 
-            if (!surface || !topmost) {
-                return;
-            }
-
-            const $activeElement = ownerDocument?.activeElement as Node | null;
-
-            if (!$activeElement || !surface.contains($activeElement)) {
-                focusWithin(surface);
-            }
-        }, 0);
-
-        return () => {
-            clearTimeout(timer);
-        };
-    }, [open, ownerDocument, surfaceRef, topmost]);
+        return initialFocusTimeout.cancel;
+    }, [initialFocusTimeout, open, ownerDocument, surfaceRef, topmost]);
 
     useEventListener(ownerDocument, 'keydown', handleKeyDown);
     useEventListener(ownerDocument, 'focusin', handleFocusIn);

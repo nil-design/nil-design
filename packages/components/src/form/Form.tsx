@@ -1,6 +1,6 @@
-import { useEffectCallback } from '@nild/hooks';
+import { useEffectCallback, useRefState } from '@nild/hooks';
 import { cnMerge } from '@nild/shared';
-import { FormEvent, forwardRef, useCallback, useMemo, useRef, useState } from 'react';
+import { FormEvent, forwardRef, useCallback, useMemo } from 'react';
 import { registerSlots } from '../_shared/utils';
 import { isFieldElement } from '../field/Field';
 import { getByPath, updateByPath } from './_shared/path';
@@ -32,13 +32,10 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
         disabled = false,
         ...restProps
     } = props;
-    const [formValue, setFormValue] = useState<FormValue>(defaultValue);
+    const [formValue, setFormValue, formValueRef] = useRefState<FormValue>(defaultValue);
     const { errors, warnings, getMeta, touch, touchAll, validateValue } = useFormIssues({
         resolver,
     });
-    const formValueRef = useRef(formValue);
-
-    formValueRef.current = formValue;
 
     const setValue = useEffectCallback((name: string, value: unknown) => {
         const nextValue = updateByPath(formValueRef.current, name, value);
@@ -48,7 +45,6 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
         }
 
         setFormValue(nextValue);
-        formValueRef.current = nextValue;
         touch(name);
         onChange?.(nextValue);
 
@@ -79,7 +75,6 @@ const Form = forwardRef<HTMLFormElement, FormProps>((props, ref) => {
         const resolvedErrors = result.errors ?? {};
 
         if (result.value) {
-            formValueRef.current = result.value;
             setFormValue(result.value);
         }
 

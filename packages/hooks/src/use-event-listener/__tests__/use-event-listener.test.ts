@@ -58,4 +58,25 @@ describe('useEventListener', () => {
             });
         }).not.toThrow();
     });
+
+    it('should resolve ref targets', () => {
+        const listener = vi.fn();
+        const targetRef = { current: document.createElement('button') };
+        const { unmount } = renderHook(() => {
+            useEventListener(targetRef, 'click', listener);
+        });
+
+        act(() => {
+            targetRef.current.dispatchEvent(new MouseEvent('click'));
+        });
+
+        expect(listener).toHaveBeenCalledTimes(1);
+
+        unmount();
+        act(() => {
+            targetRef.current.dispatchEvent(new MouseEvent('click'));
+        });
+
+        expect(listener).toHaveBeenCalledTimes(1);
+    });
 });
