@@ -10,8 +10,9 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         return (
             <a
                 {...restProps}
+                aria-disabled={disabled}
                 href={resolvedHref}
-                className={cnMerge(variants.link({ underlined, disabled }), className)}
+                className={cnMerge(variants.link({ underlined }), className)}
                 ref={ref}
             >
                 {children}

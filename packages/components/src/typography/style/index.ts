@@ -1,5 +1,5 @@
 import { cva } from '@nild/shared';
-import { DISABLED_CLS } from '../../_shared/style';
+import sharedVariants from '../../_shared/style';
 import { LinkProps, ParagraphProps, TextProps, TextTag, TitleProps, TypographyProps } from '../interfaces';
 
 const link = cva<LinkProps>(
@@ -13,14 +13,10 @@ const link = cva<LinkProps>(
             'enabled:hover:text-brand-hover',
             'enabled:active:text-brand-active',
         ],
-        DISABLED_CLS,
+        sharedVariants.disabled(),
     ],
     {
         variants: {
-            disabled: {
-                true: 'disabled',
-                false: '',
-            },
             underlined: {
                 true: 'underline',
                 false: 'no-underline',
@@ -35,15 +31,11 @@ const paragraph = cva<ParagraphProps>([
     ['mt-0', 'mb-[1em]'],
 ]);
 
-const text = cva<TextProps>(['nd-text', ['font-nd', 'text-[length:inherit]'], DISABLED_CLS], {
+const text = cva<TextProps>(['nd-text', ['font-nd', 'text-[length:inherit]'], sharedVariants.disabled()], {
     variants: {
         secondary: {
             true: 'text-muted',
             false: 'text-main',
-        },
-        disabled: {
-            true: 'disabled',
-            false: '',
         },
     },
 });

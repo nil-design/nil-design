@@ -91,6 +91,10 @@ describe('Segment', () => {
         expect(onChange).not.toHaveBeenCalled();
         expect(screen.getByRole('radio', { name: 'Day' })).toHaveAttribute('aria-checked', 'true');
         expect(screen.getByRole('radio', { name: 'Month' })).toBeDisabled();
+        expect(screen.getByRole('radiogroup')).toHaveAttribute('data-disabled');
+        expect(screen.getByRole('radiogroup')).toHaveClass('nd-disabled-carrier');
+        expect(screen.getByRole('radio', { name: 'Month' })).toHaveClass('nd-disabled-carrier');
+        expect(screen.getByRole('radio', { name: 'Month' })).not.toHaveClass('disabled');
 
         rerender(
             <Segment defaultValue="day" onChange={onChange}>
@@ -195,6 +199,9 @@ describe('Segment', () => {
         expect(selected).toHaveClass('text-brand');
         expect(selected).toHaveClass('text-lg');
         expect(selected).toHaveClass('flex-1');
-        expect(disabled).toHaveClass('cursor-not-allowed');
+        expect(disabled).toBeDisabled();
+        expect(disabled).toHaveClass('nd-disabled-carrier');
+        expect(disabled).toHaveClass('disabled:cursor-not-allowed');
+        expect(disabled).not.toHaveClass('disabled');
     });
 });

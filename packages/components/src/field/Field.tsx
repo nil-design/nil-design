@@ -74,7 +74,8 @@ const Field = forwardRef<HTMLDivElement, FieldProps>((props, ref) => {
         <FieldProvider value={{ status, issue: formMeta.issue, required, disabled }}>
             <div
                 {...restProps}
-                className={cnMerge(variants.field({ disabled, status }), className)}
+                className={cnMerge(variants.field({ status }), className)}
+                data-disabled={disabled || undefined}
                 data-status={status}
                 ref={ref}
             >

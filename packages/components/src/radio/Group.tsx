@@ -33,7 +33,12 @@ const Group = forwardRefWithGenerics(
 
         return (
             <GroupProvider value={{ variant, size, disabled, value, setValue: updateValue }}>
-                <div {...restProps} className={cnMerge(variants.group({ direction }), className)} ref={ref}>
+                <div
+                    {...restProps}
+                    className={cnMerge(variants.group({ direction }), className)}
+                    data-disabled={disabled || undefined}
+                    ref={ref}
+                >
                     {children}
                 </div>
             </GroupProvider>

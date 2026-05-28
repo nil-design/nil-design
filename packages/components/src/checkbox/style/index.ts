@@ -1,19 +1,15 @@
 import { cva } from '@nild/shared';
-import { DISABLED_CLS } from '../../_shared/style';
+import sharedVariants from '../../_shared/style';
 import { CheckboxProps, GroupProps } from '../interfaces';
 
 const checkbox = cva<Pick<CheckboxProps, 'size' | 'disabled'>>(
-    ['nd-checkbox', 'group', ['flex', 'items-center'], 'cursor-pointer', DISABLED_CLS],
+    ['nd-checkbox', 'group', ['flex', 'items-center'], 'cursor-pointer', sharedVariants.disabled()],
     {
         variants: {
             size: {
                 small: 'gap-1.5',
                 medium: 'gap-2',
                 large: 'gap-2.5',
-            },
-            disabled: {
-                true: 'disabled',
-                false: '',
             },
         },
     },
@@ -80,14 +76,17 @@ const label = cva<Pick<CheckboxProps, 'size'>>(['text-sm'], {
     },
 });
 
-const group = cva<Pick<GroupProps, 'direction'>>(['nd-checkbox-group', ['flex', 'gap-x-4', 'gap-y-2']], {
-    variants: {
-        direction: {
-            horizontal: 'flex-row flex-wrap',
-            vertical: 'flex-col',
+const group = cva<Pick<GroupProps, 'direction'>>(
+    ['nd-checkbox-group', ['flex', 'gap-x-4', 'gap-y-2'], sharedVariants.disabled()],
+    {
+        variants: {
+            direction: {
+                horizontal: 'flex-row flex-wrap',
+                vertical: 'flex-col',
+            },
         },
     },
-});
+);
 
 export default {
     checkbox,

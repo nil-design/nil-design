@@ -1,9 +1,19 @@
 import { cva } from '@nild/shared';
-import { DISABLED_CLS } from '../../_shared/style';
+import sharedVariants from '../../_shared/style';
 import { SegmentOrientation, SegmentProps, SegmentSize } from '../interfaces';
 
 const segment = cva<Pick<SegmentProps, 'block'> & { orientation?: SegmentOrientation }>(
-    ['nd-segment', 'relative', 'isolate', 'font-nd', 'rounded-md', 'bg-muted', 'p-0.5', 'text-main'],
+    [
+        'nd-segment',
+        'relative',
+        'isolate',
+        'font-nd',
+        'rounded-md',
+        'bg-muted',
+        'p-0.5',
+        'text-main',
+        sharedVariants.disabled(),
+    ],
     {
         variants: {
             orientation: {
@@ -55,7 +65,7 @@ const item = cva<{
         'outline-none',
         'transition-[background-color,box-shadow,color]',
         'focus-visible:ring-focused',
-        DISABLED_CLS,
+        sharedVariants.disabled(),
     ],
     {
         variants: {
@@ -73,7 +83,7 @@ const item = cva<{
                 false: '',
             },
             disabled: {
-                true: ['disabled', 'cursor-not-allowed'],
+                true: '',
                 false: 'cursor-pointer',
             },
             block: {

@@ -53,6 +53,10 @@ description: 用于在 nil-design 仓库中设计、实现或刷新 @nild/compon
 - 默认目录为 `index.ts`、`<Component>.tsx`、`interfaces/index.d.ts`、`style/index.ts`；按需增加 `__tests__/`、`contexts/`、`hooks/`、复合子组件和内部 `_shared/`。
 - 样式围绕 ND tokens 和 `cva` 组织；结构写在组件文件，视觉变体写在 `style/index.ts`，外部 `className` 只通过 `cnMerge` 合并。
 - `cva` variants 只表达样式差异，不把 `open`、`active`、`selected`、`disabled` 一类语义 class 当成变体事实来源。
+- 通用禁用态统一使用 `packages/components/src/_shared/style` 的 default helper：`sharedVariants.disabled()`。需要承载禁用视觉的组件样式把它放进 base class；不要再输出 `.disabled` class，也不要为了占位定义 `disabled: { true: '', false: '' }` 这类空 variant，调用侧没有样式差异时也不要把 `disabled` 传给 `cva`。
+- `sharedVariants.disabled()` 内部会加入 `nd-disabled-carrier` marker、`disabled:*` 交互反馈和 `disabled-visual:*` 视觉衰减。`nd-disabled-carrier` 只标记“这个节点会承载禁用视觉”，不单独定义 CSS。`disabled` variant 匹配 `:disabled`、`[aria-disabled='true']`、`[data-disabled]`；`disabled-visual` 使用同样语义，但当前节点处于另一个已禁用的 `.nd-disabled-carrier` 祖先内时不生效，避免父子组件重复 opacity / grayscale。
+- 禁用运行时属性按节点职责选择：原生可禁用元素使用 `disabled={disabled}`；非原生交互节点使用 `aria-disabled={disabled}`；只作为视觉承载的包装节点使用 `data-disabled={disabled || undefined}`。不要把 `data-disabled` 写成直接 boolean，因为 React 会渲染 `data-disabled="false"`，而 Tailwind 的 `[data-disabled]` presence selector 会把它误判为禁用。
+- 父组件或祖先组件禁用时，父级 `.nd-disabled-carrier[data-disabled]` 负责整体视觉衰减；子级仍可以通过 `disabled:*` 保留 `cursor-not-allowed` / `select-none` 等非叠加语义，但不重复应用 `disabled-visual:*`。组件特有禁用差异可以继续保留，例如局部 `text-subtle`，但 opacity / grayscale 统一走 `sharedVariants.disabled()`。
 - 公开复合组件默认在 `index.ts` 用 `Object.assign` 聚合；主组件和公开子组件都设置 `displayName`。
 - 类型集中在 `interfaces/index.d.ts`；公共 props 使用语义直接的命名，不暴露带下划线或内部运行时感过强的字段。
 - 内部节点扩展默认使用插槽子组件，例如 `Component.Label`、`Component.Indicator`、`Component.Trigger`、`Component.Portal`；只有成熟先例支持时才沿用 `icon`、`prefixNode`、`renderXxx` 等节点注入型 prop。

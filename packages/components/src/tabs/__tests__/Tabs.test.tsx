@@ -155,6 +155,11 @@ describe('Tabs', () => {
         expect(onChange).not.toHaveBeenCalled();
         expect(screen.getByRole('tab', { name: 'Profile' })).toHaveAttribute('aria-selected', 'true');
         expect(screen.getByRole('tab', { name: 'Security' })).toHaveAttribute('aria-selected', 'false');
+        expect(screen.getByRole('tab', { name: 'Profile' })).toHaveAttribute('aria-disabled', 'true');
+        expect(screen.getByRole('tab', { name: 'Profile' })).toHaveClass('nd-disabled-carrier');
+        expect(screen.getByRole('tab', { name: 'Profile' })).not.toHaveClass('disabled');
+        expect(screen.getByRole('tablist').closest('.nd-tabs')).toHaveAttribute('data-disabled');
+        expect(screen.getByRole('tablist').closest('.nd-tabs')).toHaveClass('nd-disabled-carrier');
     });
 
     it('emits close events without changing value or removing content', () => {

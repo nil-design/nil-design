@@ -11,7 +11,12 @@ const Text = forwardRef<HTMLSpanElement, TextProps>(
         );
 
         return (
-            <span {...restProps} className={cnMerge(variants.text({ secondary, disabled }), className)} ref={ref}>
+            <span
+                {...restProps}
+                aria-disabled={disabled}
+                className={cnMerge(variants.text({ secondary }), className)}
+                ref={ref}
+            >
                 {children}
             </span>
         );

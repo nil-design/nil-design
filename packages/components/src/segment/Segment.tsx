@@ -218,9 +218,10 @@ const Segment = forwardRefWithGenerics(<T,>(props: SegmentProps<T>, ref: Forward
     return (
         <div
             {...restProps}
-            aria-disabled={disabled || undefined}
+            aria-disabled={disabled}
             aria-orientation={orientation}
             className={cnMerge(variants.segment({ orientation, block }), className)}
+            data-disabled={disabled || undefined}
             onKeyDown={handleKeyDown}
             ref={mergeRefs(ref, segmentRef)}
             role="radiogroup"

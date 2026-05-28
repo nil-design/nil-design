@@ -50,4 +50,23 @@ describe('Checkbox', () => {
 
         expect(container.querySelector('input[type="checkbox"]')).toBeDisabled();
     });
+
+    it('marks disabled labels and groups with data-disabled instead of legacy class', () => {
+        const { container } = render(
+            <Checkbox.Group disabled>
+                <Checkbox value="choice">Choice</Checkbox>
+            </Checkbox.Group>,
+        );
+
+        const $group = container.querySelector('.nd-checkbox-group');
+        const $label = screen.getByText('Choice').closest('label');
+
+        expect($group).toHaveAttribute('data-disabled');
+        expect($group).toHaveClass('nd-disabled-carrier');
+        expect($group).not.toHaveClass('disabled');
+        expect($label).toHaveAttribute('data-disabled');
+        expect($label).toHaveClass('nd-disabled-carrier');
+        expect($label).not.toHaveClass('disabled');
+        expect(container.querySelector('input[type="checkbox"]')).toBeDisabled();
+    });
 });

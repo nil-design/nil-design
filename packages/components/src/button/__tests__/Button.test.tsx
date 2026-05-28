@@ -9,4 +9,14 @@ describe('Button', () => {
 
         expect(screen.getByText('Button')).toBeInTheDocument();
     });
+
+    it('uses native disabled semantics and shared disabled marker without legacy class', () => {
+        render(<Button disabled>Button</Button>);
+
+        const button = screen.getByRole('button', { name: 'Button' });
+
+        expect(button).toBeDisabled();
+        expect(button).toHaveClass('nd-disabled-carrier');
+        expect(button).not.toHaveClass('disabled');
+    });
 });

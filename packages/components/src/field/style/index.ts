@@ -1,14 +1,11 @@
 import { cva } from '@nild/shared';
+import sharedVariants from '../../_shared/style';
 import type { FieldStatus } from '../interfaces';
 
-const field = cva<{ disabled?: boolean; status?: FieldStatus }>(
-    ['nd-field', 'flex', 'flex-col', 'items-start', 'gap-1.5', 'font-nd', 'text-md'],
+const field = cva<{ status?: FieldStatus }>(
+    ['nd-field', 'flex', 'flex-col', 'items-start', 'gap-1.5', 'font-nd', 'text-md', sharedVariants.disabled()],
     {
         variants: {
-            disabled: {
-                true: ['disabled'],
-                false: '',
-            },
             status: {
                 success: '',
                 warning: '',
@@ -20,14 +17,7 @@ const field = cva<{ disabled?: boolean; status?: FieldStatus }>(
 
 const labelRow = cva<object>(['nd-field-label-row', 'inline-flex', 'items-center', 'gap-1.5']);
 
-const label = cva<{ disabled?: boolean }>(['nd-field-label', 'text-main', 'font-medium'], {
-    variants: {
-        disabled: {
-            true: ['opacity-60'],
-            false: '',
-        },
-    },
-});
+const label = cva<object>(['nd-field-label', 'text-main', 'font-medium']);
 
 const helper = cva<object>(['nd-field-helper', 'text-sm', 'text-subtle']);
 

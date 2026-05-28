@@ -16,7 +16,7 @@ const Item = forwardRef<HTMLButtonElement, ItemProps>((props, ref) => {
         <button
             {...restProps}
             aria-checked={selected}
-            aria-disabled={disabled || undefined}
+            aria-disabled={disabled}
             className={cnMerge(variants.item({ size, orientation, selected, disabled, block }), className)}
             disabled={disabled}
             ref={ref}

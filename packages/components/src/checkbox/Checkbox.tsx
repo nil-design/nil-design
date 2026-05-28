@@ -55,7 +55,12 @@ const Checkbox = forwardRef<HTMLLabelElement, CheckboxProps>((props, ref) => {
 
     return (
         <CheckboxProvider value={{ variant, size, checked, disabled, setChecked: updateChecked }}>
-            <label {...restProps} className={cnMerge(variants.checkbox({ size, disabled }), className)} ref={ref}>
+            <label
+                {...restProps}
+                className={cnMerge(variants.checkbox({ size, disabled }), className)}
+                data-disabled={disabled || undefined}
+                ref={ref}
+            >
                 {labelFirst ? labelChild : indicatorChild}
                 {labelFirst ? indicatorChild : labelChild}
             </label>

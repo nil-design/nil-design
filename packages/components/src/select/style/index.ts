@@ -1,5 +1,5 @@
 import { cva } from '@nild/shared';
-import { DISABLED_CLS } from '../../_shared/style';
+import sharedVariants from '../../_shared/style';
 import { SelectSize, SelectVariant } from '../interfaces';
 
 const trigger = cva<{
@@ -21,7 +21,7 @@ const trigger = cva<{
         'border',
         'transition-colors',
         'outline-none',
-        DISABLED_CLS,
+        sharedVariants.disabled(),
     ],
     {
         variants: {
@@ -123,6 +123,7 @@ const option = cva<{
         'text-main',
         'select-none',
         'transition-colors',
+        sharedVariants.disabled(),
     ],
     {
         variants: {
@@ -132,7 +133,7 @@ const option = cva<{
                 large: ['min-h-10', 'px-4', 'text-lg'],
             },
             disabled: {
-                true: ['cursor-not-allowed', 'select-none', 'text-subtle', 'opacity-50'],
+                true: ['text-subtle'],
                 false: ['cursor-pointer'],
             },
             active: {
