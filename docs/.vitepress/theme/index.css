@@ -306,6 +306,7 @@ html {
 html,
 .VPSidebar,
 .vp-doc div[class*='language-'],
+.vp-doc div[class*='language-'] pre,
 .vp-doc [class*='vp-code-group'] .blocks,
 .vp-doc table,
 .vp-custom-scrollbar,
