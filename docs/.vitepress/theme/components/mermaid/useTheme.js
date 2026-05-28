@@ -13,10 +13,10 @@ const useTheme = () => {
         probe.value.style.display = 'none';
         document.body.appendChild(probe.value);
 
-        const canvas = document.createElement('canvas');
+        const $canvas = document.createElement('canvas');
 
-        canvas.width = canvas.height = 1;
-        canvasCtx.value = canvas.getContext('2d', { willReadFrequently: true });
+        $canvas.width = $canvas.height = 1;
+        canvasCtx.value = $canvas.getContext('2d', { willReadFrequently: true });
 
         observer.value = new MutationObserver(mutations => {
             let changed = false;
