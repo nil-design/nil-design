@@ -2,6 +2,11 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import Button from '..';
+import type { ComponentProps, ComponentType, ReactNode } from 'react';
+
+const UntypedButtonGroup = Button.Group as ComponentType<
+    Omit<ComponentProps<typeof Button.Group>, 'children'> & { children?: ReactNode }
+>;
 
 describe('Button', () => {
     it('renders children correctly', () => {
@@ -37,12 +42,12 @@ describe('Button', () => {
 
     it('keeps only button children in a multi-button group', () => {
         render(
-            <Button.Group aria-label="actions">
+            <UntypedButtonGroup aria-label="actions">
                 ignored text
                 <span>Ignored node</span>
                 <Button>Save</Button>
                 <Button>Cancel</Button>
-            </Button.Group>,
+            </UntypedButtonGroup>,
         );
 
         expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
