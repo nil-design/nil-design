@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
-/* global document, window */
+/* global CSSStyleDeclaration, MutationObserver, document, getComputedStyle, window */
 import { access, mkdir, readdir, rm } from 'node:fs/promises';
 import { join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,6 +14,7 @@ const DEFAULT_BRAND_H = 255;
 const DEFAULT_DEV_HOST = '127.0.0.1:3000';
 const DEFAULT_LOCALES = ['zh-CN'];
 const DEFAULT_MODE = 'light';
+const BRAND_H_PROPERTY = '--nd-brand-h';
 const DEVICE_SCALE_FACTOR = 2;
 const EXCLUDED_COMPONENTS = new Set(['icon', 'watermark', 'transition']);
 const MODES = new Set(['light', 'dark', 'both']);
@@ -316,10 +317,81 @@ const applyMode = async (page, dark) => {
     }, dark);
 };
 
+const installBrandHGuard = async page => {
+    await page.addInitScript(propertyName => {
+        const stateKey = '__ndDocsScreenshotBrandH';
+        const guardKey = '__ndDocsScreenshotBrandHGuardInstalled';
+        const observerKey = '__ndDocsScreenshotBrandHObserver';
+
+        const applyCurrentBrandH = () => {
+            const value = window[stateKey];
+
+            if (value == null || !document.documentElement) {
+                return;
+            }
+
+            const brandHValue = String(value);
+
+            if (document.documentElement.style.getPropertyValue(propertyName).trim() === brandHValue) {
+                return;
+            }
+
+            document.documentElement.style.setProperty(propertyName, brandHValue);
+        };
+
+        const setupObserver = () => {
+            if (!document.documentElement || window[observerKey]) {
+                return;
+            }
+
+            const observer = new MutationObserver(applyCurrentBrandH);
+
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+            window[observerKey] = observer;
+        };
+
+        if (!window[guardKey]) {
+            const originalSetProperty = CSSStyleDeclaration.prototype.setProperty;
+
+            CSSStyleDeclaration.prototype.setProperty = function setProperty(name, value, priority) {
+                if (this === document.documentElement?.style && name === propertyName && window[stateKey] != null) {
+                    return originalSetProperty.call(this, name, String(window[stateKey]), priority);
+                }
+
+                return originalSetProperty.call(this, name, value, priority);
+            };
+
+            window[guardKey] = true;
+        }
+
+        setupObserver();
+        document.addEventListener('DOMContentLoaded', () => {
+            setupObserver();
+            applyCurrentBrandH();
+        });
+    }, BRAND_H_PROPERTY);
+};
+
 const applyBrandH = async (page, brandH) => {
-    await page.evaluate(value => {
-        document.documentElement.style.setProperty('--nd-brand-h', String(value));
-    }, brandH);
+    const value = String(brandH);
+
+    await page.evaluate(
+        ({ propertyName, value: brandHValue }) => {
+            window.__ndDocsScreenshotBrandH = brandHValue;
+            document.documentElement.style.setProperty(propertyName, brandHValue);
+        },
+        { propertyName: BRAND_H_PROPERTY, value },
+    );
+    await page.waitForFunction(
+        ({ propertyName, value: brandHValue }) => {
+            const inlineValue = document.documentElement.style.getPropertyValue(propertyName).trim();
+            const computedValue = getComputedStyle(document.documentElement).getPropertyValue(propertyName).trim();
+
+            return inlineValue === brandHValue && computedValue === brandHValue;
+        },
+        { propertyName: BRAND_H_PROPERTY, value },
+        { timeout: 5000 },
+    );
 };
 
 const getDemoTargetByHeading = async (page, { headingTexts, selector }) => {
@@ -425,15 +497,15 @@ const captureComponent = async (page, item, options) => {
     await openComponentPage(page, item, options);
 
     for (const behavior of behaviors) {
-        await closeTransientUI(page);
-
-        if (behavior.prepare) {
-            await behavior.prepare(page);
-            await waitForPageSettled(page);
-        }
-
         for (const brandH of options.brandHValues) {
+            await closeTransientUI(page);
             await applyBrandH(page, brandH);
+
+            if (behavior.prepare) {
+                await behavior.prepare(page);
+                await waitForPageSettled(page);
+                await applyBrandH(page, brandH);
+            }
 
             const filePath = join(
                 componentDir,
@@ -442,9 +514,8 @@ const captureComponent = async (page, item, options) => {
 
             await page.screenshot({ fullPage: true, path: filePath, style: SCREENSHOT_STYLE });
             console.log(`Captured ${item.locale}/${componentName}/${relative(componentDir, filePath)}`);
+            await closeTransientUI(page);
         }
-
-        await closeTransientUI(page);
     }
 };
 
@@ -477,6 +548,8 @@ const main = async () => {
                 viewport: VIEWPORT,
             });
             const page = await context.newPage();
+
+            await installBrandHGuard(page);
 
             for (const { components, locale } of localeRouteGroups) {
                 console.log(
