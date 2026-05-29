@@ -61,4 +61,50 @@ describe('Switch', () => {
         expect(onChange).toHaveBeenCalledWith(true);
         expect(screen.getByText('On')).toBeInTheDocument();
     });
+
+    it('does not change or call onChange when disabled', () => {
+        const onChange = vi.fn();
+
+        render(
+            <Switch disabled onChange={onChange}>
+                <Switch.Thumb>{checked => <span>{checked ? 'On' : 'Off'}</span>}</Switch.Thumb>
+            </Switch>,
+        );
+
+        const toggle = screen.getByRole('switch');
+
+        expect(toggle).toBeDisabled();
+        expect(toggle).toHaveAttribute('aria-checked', 'false');
+
+        fireEvent.click(toggle);
+
+        expect(onChange).not.toHaveBeenCalled();
+        expect(toggle).toHaveAttribute('aria-checked', 'false');
+        expect(screen.getByText('Off')).toBeInTheDocument();
+    });
+
+    it('keeps checked state controlled by props', () => {
+        const onChange = vi.fn();
+        const { rerender } = render(
+            <Switch checked={false} onChange={onChange}>
+                <Switch.Thumb>{checked => <span>{checked ? 'On' : 'Off'}</span>}</Switch.Thumb>
+            </Switch>,
+        );
+
+        const toggle = screen.getByRole('switch');
+
+        fireEvent.click(toggle);
+
+        expect(onChange).toHaveBeenCalledWith(true);
+        expect(toggle).toHaveAttribute('aria-checked', 'false');
+
+        rerender(
+            <Switch checked onChange={onChange}>
+                <Switch.Thumb>{checked => <span>{checked ? 'On' : 'Off'}</span>}</Switch.Thumb>
+            </Switch>,
+        );
+
+        expect(toggle).toHaveAttribute('aria-checked', 'true');
+        expect(screen.getByText('On')).toBeInTheDocument();
+    });
 });

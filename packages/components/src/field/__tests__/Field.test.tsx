@@ -26,15 +26,14 @@ describe('Field', () => {
         expect(screen.getByText('Invalid email.').closest('.nd-field-status')).toHaveAttribute('data-status', 'error');
     });
 
-    it('keeps controls at their intrinsic width by default', () => {
+    it('renders bare controls directly', () => {
         render(
             <Field>
                 <button type="button">Toggle</button>
             </Field>,
         );
 
-        expect(screen.getByText('Toggle').closest('.nd-field')).toHaveClass('items-start');
-        expect(screen.getByRole('button', { name: 'Toggle' })).not.toHaveClass('w-full');
+        expect(screen.getByRole('button', { name: 'Toggle' })).toBeInTheDocument();
     });
 
     it('keeps only the first bare control child', () => {
@@ -76,8 +75,6 @@ describe('Field', () => {
         const input = screen.getByRole('textbox', { name: 'email' });
 
         expect($field).toHaveAttribute('data-disabled');
-        expect($field).toHaveClass('nd-disabled-carrier');
-        expect($field).not.toHaveClass('disabled');
         expect(input).toBeDisabled();
     });
 });

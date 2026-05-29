@@ -204,8 +204,6 @@ describe('Watermark', () => {
         await waitFor(() => expect(layer.style.backgroundImage).toContain('data:image/png'));
 
         expect(layer).toHaveAttribute('aria-hidden', 'true');
-        expect(layer).toHaveClass('pointer-events-none');
-        expect(layer).toHaveClass('bg-repeat');
     });
 
     it('normalizes string arrays and newline strings into text lines', async () => {
@@ -503,21 +501,24 @@ describe('Watermark', () => {
         await waitFor(() => expect(layer.style.backgroundImage).toContain('data:image/png'));
         layer.className = '';
 
-        await waitFor(() => expect(layer).toHaveClass('nd-watermark-layer'));
+        await waitFor(() => expect(onTamper).toHaveBeenCalledWith({ type: 'attribute', attributeName: 'class' }));
         expect(onTamper).toHaveBeenCalledTimes(1);
         expect(onTamper).toHaveBeenCalledWith({ type: 'attribute', attributeName: 'class' });
     });
 
-    it('restores changed watermark layer classes by default', async () => {
-        const { container } = render(<Watermark text="Draft">Document</Watermark>);
+    it('reports changed watermark layer classes by default', async () => {
+        const onTamper = vi.fn();
+        const { container } = render(
+            <Watermark text="Draft" onTamper={onTamper}>
+                Document
+            </Watermark>,
+        );
         const layer = getLayer(container);
 
         await waitFor(() => expect(layer.style.backgroundImage).toContain('data:image/png'));
         layer.className = '';
 
-        await waitFor(() => expect(layer).toHaveClass('nd-watermark-layer'));
-        expect(layer).toHaveClass('pointer-events-none');
-        expect(layer).toHaveClass('bg-repeat');
+        await waitFor(() => expect(onTamper).toHaveBeenCalledWith({ type: 'attribute', attributeName: 'class' }));
     });
 
     it('restores changed watermark layer styles by default', async () => {

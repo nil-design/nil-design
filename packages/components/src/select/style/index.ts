@@ -28,11 +28,18 @@ const trigger = cva<{
             variant: {
                 outlined: ['bg-transparent', 'border-main', 'enabled:hover:border-brand-hover'],
                 filled: ['bg-muted', 'border-subtle'],
+                underlined: [
+                    'bg-transparent',
+                    'border-transparent',
+                    'border-b-main',
+                    'enabled:hover:border-b-brand-hover',
+                    'enabled:focus-visible:border-b-brand',
+                ],
             },
             size: {
-                small: ['h-6', 'text-sm', 'rounded-sm'],
-                medium: ['h-8', 'text-md', 'rounded-md'],
-                large: ['h-10', 'text-lg', 'rounded-md'],
+                small: ['h-6', 'text-sm'],
+                medium: ['h-8', 'text-md'],
+                large: ['h-10', 'text-lg'],
             },
             block: {
                 true: ['flex', 'w-full'],
@@ -43,11 +50,31 @@ const trigger = cva<{
                 false: 'cursor-pointer',
             },
             open: {
-                true: ['border-brand', 'z-1', 'ring-focused'],
+                true: ['z-1'],
                 false: '',
             },
         },
         compoundVariants: [
+            {
+                variant: ['outlined', 'filled'],
+                size: 'small',
+                className: ['rounded-sm'],
+            },
+            {
+                variant: ['outlined', 'filled'],
+                size: ['medium', 'large'],
+                className: ['rounded-md'],
+            },
+            {
+                variant: ['outlined', 'filled'],
+                open: true,
+                className: ['border-brand', 'ring-focused'],
+            },
+            {
+                variant: 'underlined',
+                open: true,
+                className: ['border-b-brand'],
+            },
             {
                 variant: 'filled',
                 disabled: false,
@@ -64,37 +91,73 @@ const trigger = cva<{
 );
 
 const triggerContent = cva<{
+    variant?: SelectVariant;
     size?: SelectSize;
     placeholder?: boolean;
 }>(['nd-select-trigger-content', 'min-w-0', 'flex-auto', 'truncate'], {
     variants: {
         size: {
-            small: ['pl-2', 'text-sm'],
-            medium: ['pl-3', 'text-md'],
-            large: ['pl-4', 'text-lg'],
+            small: ['text-sm'],
+            medium: ['text-md'],
+            large: ['text-lg'],
         },
         placeholder: {
             true: ['text-subtle'],
             false: ['text-main'],
         },
     },
+    compoundVariants: [
+        {
+            variant: ['outlined', 'filled'],
+            size: 'small',
+            className: ['pl-2'],
+        },
+        {
+            variant: ['outlined', 'filled'],
+            size: 'medium',
+            className: ['pl-3'],
+        },
+        {
+            variant: ['outlined', 'filled'],
+            size: 'large',
+            className: ['pl-4'],
+        },
+    ],
 });
 
 const triggerIcon = cva<{
+    variant?: SelectVariant;
     size?: SelectSize;
     open?: boolean;
 }>(['nd-select-trigger-icon', 'shrink-0', 'inline-flex', 'items-center', 'text-muted', 'transition-transform'], {
     variants: {
         size: {
-            small: ['px-2', 'text-sm'],
-            medium: ['px-3', 'text-md'],
-            large: ['px-4', 'text-lg'],
+            small: ['text-sm'],
+            medium: ['text-md'],
+            large: ['text-lg'],
         },
         open: {
             true: ['rotate-180'],
             false: '',
         },
     },
+    compoundVariants: [
+        {
+            variant: ['outlined', 'filled'],
+            size: 'small',
+            className: ['px-2'],
+        },
+        {
+            variant: ['outlined', 'filled'],
+            size: 'medium',
+            className: ['px-3'],
+        },
+        {
+            variant: ['outlined', 'filled'],
+            size: 'large',
+            className: ['px-4'],
+        },
+    ],
 });
 
 const listbox = cva<object>([

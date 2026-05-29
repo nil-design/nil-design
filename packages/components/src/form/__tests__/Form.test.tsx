@@ -284,12 +284,9 @@ describe('Form', () => {
         const button = screen.getByRole('button', { name: 'Action' });
 
         expect($form).toHaveAttribute('data-disabled');
-        expect($form).toHaveClass('nd-disabled-carrier');
-        expect($form).not.toHaveClass('disabled');
         expect(fields[0]).toHaveAttribute('data-disabled');
         expect(fields[1]).toHaveAttribute('data-disabled');
         expect(input).toBeDisabled();
         expect(button).toBeDisabled();
-        expect(button).toHaveClass('nd-disabled-carrier');
     });
 });

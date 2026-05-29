@@ -9,7 +9,7 @@ export const isPrefixElement = (child: ReactNode): child is ReactElement<PrefixP
 };
 
 const Prefix = forwardRef<HTMLSpanElement, PrefixProps>((props, ref) => {
-    const { size } = useInputContext();
+    const { size, variant } = useInputContext();
     const { className, children, ...restProps } = props;
 
     return (
@@ -18,6 +18,7 @@ const Prefix = forwardRef<HTMLSpanElement, PrefixProps>((props, ref) => {
             className={cnMerge(
                 variants.prefix({
                     size,
+                    variant,
                 }),
                 className,
             )}

@@ -9,7 +9,7 @@ You may edit only the description column; other API columns are refreshed automa
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | :-- | :-- | :-- | :-- |
-| variant | 视觉样式。 | `'outlined' \| 'filled'` | - |
+| variant | 视觉样式。 | `'outlined' \| 'filled' \| 'underlined'` | - |
 | size | 尺寸。 | `'small' \| 'medium' \| 'large'` | - |
 | block | 撑满父容器。 | `boolean` | - |
 | disabled | 禁用状态。 | `boolean` | - |
@@ -27,7 +27,7 @@ You may edit only the description column; other API columns are refreshed automa
 
 | 属性名 | 描述 | 类型 | 默认值 |
 | :-- | :-- | :-- | :-- |
-| variant | 视觉样式。 | `'outlined' \| 'filled'` | - |
+| variant | 视觉样式。 | `'outlined' \| 'filled' \| 'underlined'` | - |
 | size | 尺寸。 | `'small' \| 'medium' \| 'large'` | - |
 | disabled | 禁用状态。 | `boolean` | - |
 | block | 撑满父容器。 | `boolean` | - |

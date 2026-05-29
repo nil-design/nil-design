@@ -23,6 +23,39 @@ const Demo = () => {
         <Select.Option value="beijing" label="Beijing" />
         <Select.Option value="shanghai" label="Shanghai" />
       </Select>
+      <Select className="w-56" placeholder="Underlined" variant="underlined">
+        <Select.Option value="beijing" label="Beijing" />
+        <Select.Option value="shanghai" label="Shanghai" />
+      </Select>
+    </div>
+  );
+};
+
+render(<Demo />);
+```
+:::
+
+## 禁用状态
+::: react-live
+```tsx
+import { Select } from '@nild/components';
+
+const Demo = () => {
+  return (
+    <div className="flex flex-col items-start gap-4">
+      <Select className="w-60" disabled placeholder="Outlined disabled">
+        <Select.Option value="beijing" label="北京" />
+        <Select.Option value="shanghai" label="上海" />
+      </Select>
+      <Select className="w-60" disabled variant="filled"  placeholder="Filled disabled">
+        <Select.Option value="beijing" label="Beijing" />
+        <Select.Option value="shanghai" label="Shanghai" />
+      </Select>
+      <Select className="w-60" variant="underlined" placeholder="包含禁用选项">
+        <Select.Option value="beijing" label="北京" />
+        <Select.Option value="shanghai" disabled label="上海（暂不可选）" />
+        <Select.Option value="shenzhen" label="深圳" />
+      </Select>
     </div>
   );
 };
@@ -99,31 +132,6 @@ const Demo = () => {
         <Select.Option value="css" label="CSS" />
         <Select.Option value="react" label="React" />
         <Select.Option value="vite" label="Vite" />
-      </Select>
-    </div>
-  );
-};
-
-render(<Demo />);
-```
-:::
-
-## 禁用状态
-::: react-live
-```tsx
-import { Select } from '@nild/components';
-
-const Demo = () => {
-  return (
-    <div className="flex flex-col items-start gap-4">
-      <Select className="w-60" disabled placeholder="整个选择器已禁用">
-        <Select.Option value="beijing" label="北京" />
-        <Select.Option value="shanghai" label="上海" />
-      </Select>
-      <Select className="w-60" placeholder="包含禁用选项">
-        <Select.Option value="beijing" label="北京" />
-        <Select.Option value="shanghai" disabled label="上海（暂不可选）" />
-        <Select.Option value="shenzhen" label="深圳" />
       </Select>
     </div>
   );

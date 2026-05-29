@@ -68,7 +68,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
                     value={value as string | number}
                     onChange={handleChange}
                     disabled={disabled}
-                    className={variants.input({ size })}
+                    className={variants.input({ size, variant })}
                     {...restProps}
                 />
                 {slots.suffix.el}

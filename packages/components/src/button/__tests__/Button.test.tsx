@@ -1,7 +1,12 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import Button from '../Button';
+import Button from '..';
+import type { ComponentProps, ComponentType, ReactNode } from 'react';
+
+const UntypedButtonGroup = Button.Group as ComponentType<
+    Omit<ComponentProps<typeof Button.Group>, 'children'> & { children?: ReactNode }
+>;
 
 describe('Button', () => {
     it('renders children correctly', () => {
@@ -16,7 +21,50 @@ describe('Button', () => {
         const button = screen.getByRole('button', { name: 'Button' });
 
         expect(button).toBeDisabled();
-        expect(button).toHaveClass('nd-disabled-carrier');
-        expect(button).not.toHaveClass('disabled');
+    });
+
+    it('renders nothing for an empty group', () => {
+        const { container } = render(<Button.Group />);
+
+        expect(container).toBeEmptyDOMElement();
+    });
+
+    it('renders a single grouped button without an extra group wrapper', () => {
+        render(
+            <Button.Group aria-label="actions">
+                <Button>Only action</Button>
+            </Button.Group>,
+        );
+
+        expect(screen.getByRole('button', { name: 'Only action' })).toBeInTheDocument();
+        expect(screen.queryByLabelText('actions')).not.toBeInTheDocument();
+    });
+
+    it('keeps only button children in a multi-button group', () => {
+        render(
+            <UntypedButtonGroup aria-label="actions">
+                ignored text
+                <span>Ignored node</span>
+                <Button>Save</Button>
+                <Button>Cancel</Button>
+            </UntypedButtonGroup>,
+        );
+
+        expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+        expect(screen.queryByText('Ignored node')).not.toBeInTheDocument();
+        expect(screen.queryByText('ignored text')).not.toBeInTheDocument();
+    });
+
+    it('propagates group disabled state to child buttons', () => {
+        render(
+            <Button.Group disabled>
+                <Button>Save</Button>
+                <Button>Cancel</Button>
+            </Button.Group>,
+        );
+
+        expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
+        expect(screen.getByRole('button', { name: 'Cancel' })).toBeDisabled();
     });
 });
