@@ -17,8 +17,9 @@ import { Input } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input placeholder="Outlined (default)" variant="outlined" />
-    <Input placeholder="Filled" variant="filled" />
+    <Input className="w-56" placeholder="Outlined (default)" variant="outlined" />
+    <Input className="w-56" placeholder="Filled" variant="filled" />
+    <Input className="w-56" placeholder="Underlined" variant="underlined" />
   </div>;
 }
 
@@ -34,8 +35,9 @@ import { Input } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input disabled placeholder="Disabled outlined" />
-    <Input disabled variant="filled" placeholder="Disabled filled" />
+    <Input className="w-56" disabled placeholder="Disabled outlined" />
+    <Input className="w-56" disabled variant="filled" placeholder="Disabled filled" />
+    <Input className="w-56" disabled variant="underlined" placeholder="Disabled underlined" />
   </div>;
 }
 
@@ -53,9 +55,9 @@ import { Input } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input size="small" placeholder="Small" />
-    <Input size="medium" placeholder="Medium" />
-    <Input size="large" placeholder="Large" />
+    <Input className="w-56" size="small" placeholder="Small" />
+    <Input className="w-56" size="medium" placeholder="Medium" />
+    <Input className="w-56" size="large" placeholder="Large" />
   </div>;
 }
 
@@ -72,7 +74,7 @@ render(<Demo />);
 import { Input } from '@nild/components';
 
 const Demo = () => {
-  return <div>
+  return <div className="w-56">
     <Input block placeholder="Block input" />
   </div>;
 }
@@ -90,7 +92,7 @@ import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input type="number" placeholder="Amount">
+    <Input className="w-56" type="number" placeholder="Amount">
       <Input.Prefix>¥</Input.Prefix>
       <Input.Suffix>RMB</Input.Suffix>
     </Input>
@@ -109,12 +111,12 @@ import { Input, Button } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input.Composite>
+    <Input.Composite className="w-56">
       <Input.Prepend>https://</Input.Prepend>
       <Input placeholder="mysite" />
       <Input.Append>.com</Input.Append>
     </Input.Composite>
-    <Input.Composite variant="filled">
+    <Input.Composite className="w-56" variant="filled">
       <Input placeholder="..." />
       <Input.Append>
         <Button>Submit</Button>
@@ -137,7 +139,7 @@ import { Input } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input.Search placeholder="Enter to search..." />
+    <Input.Search className="w-56" placeholder="Enter to search..." />
   </div>;
 }
 
@@ -153,7 +155,7 @@ import { Input } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input.Password placeholder="Enter password" />
+    <Input.Password className="w-56" placeholder="Enter password" />
   </div>;
 }
 
@@ -169,7 +171,7 @@ import { Input } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input.Number defaultValue={1} min={0} max={10} />
+    <Input.Number className="w-56" defaultValue={1} min={0} max={10} />
   </div>;
 }
 
@@ -185,7 +187,7 @@ import { Input } from '@nild/components';
 
 const Demo = () => {
   return <div className="flex flex-col items-start gap-4">
-    <Input.OTP length={6} />
+    <Input.OTP className="w-56" length={6} />
   </div>;
 }
 

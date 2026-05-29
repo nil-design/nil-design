@@ -70,6 +70,28 @@ describe('Select', () => {
         expect(screen.getByRole('button', { name: 'placeholder' })).toHaveTextContent('Select a city');
     });
 
+    it('renders underlined triggers without side padding or open ring', () => {
+        render(
+            <Select aria-label="city" placeholder="Select a city" variant="underlined">
+                {renderOptions()}
+            </Select>,
+        );
+
+        const trigger = screen.getByRole('button', { name: 'city' });
+        const content = trigger.querySelector('.nd-select-trigger-content');
+        const icon = trigger.querySelector('.nd-select-trigger-icon');
+
+        expect(trigger).toHaveClass('border-transparent', 'border-b-main');
+        expect(trigger).toHaveClass('enabled:focus-visible:border-b-brand');
+        expect(content).not.toHaveClass('pl-3');
+        expect(icon).not.toHaveClass('px-3');
+
+        fireEvent.click(trigger);
+
+        expect(trigger).toHaveClass('border-b-brand');
+        expect(trigger).not.toHaveClass('ring-focused');
+    });
+
     it('marks selected options with aria-selected', () => {
         render(
             <Select aria-label="city" defaultValue="shanghai">

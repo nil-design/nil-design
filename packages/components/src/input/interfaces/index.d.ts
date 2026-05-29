@@ -8,7 +8,7 @@ import type {
     SyntheticEvent,
 } from 'react';
 
-export type InputVariant = 'outlined' | 'filled';
+export type InputVariant = 'outlined' | 'filled' | 'underlined';
 export type InputSize = 'small' | 'medium' | 'large';
 
 export interface InputProps

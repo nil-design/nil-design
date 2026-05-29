@@ -44,6 +44,26 @@ describe('Input', () => {
         expect(input).toBeDisabled();
         expect($wrapper).toHaveAttribute('data-disabled');
     });
+
+    it('renders underlined inputs without side padding or focus ring', () => {
+        render(
+            <Input aria-label="website" variant="underlined">
+                <Input.Prefix>https://</Input.Prefix>
+                <Input.Suffix>.com</Input.Suffix>
+            </Input>,
+        );
+
+        const input = screen.getByRole('textbox', { name: 'website' });
+        const $wrapper = input.closest('.nd-input-wrapper');
+        const $prefix = screen.getByText('https://');
+        const $suffix = screen.getByText('.com');
+
+        expect($wrapper).toHaveClass('border-transparent', 'border-b-main', 'enabled:focus-within:border-b-brand');
+        expect($wrapper).not.toHaveClass('enabled:focus-visible-within:ring-focused');
+        expect(input).not.toHaveClass('px-3');
+        expect($prefix).not.toHaveClass('pl-3');
+        expect($suffix).not.toHaveClass('pr-3');
+    });
 });
 
 describe('Input.Composite', () => {
@@ -105,6 +125,24 @@ describe('Input.Composite', () => {
         expect($composite).toHaveAttribute('data-disabled');
         expect(input).toBeDisabled();
         expect(input.closest('.nd-input-wrapper')).toHaveAttribute('data-disabled');
+    });
+
+    it('renders underlined composite addons without side padding', () => {
+        render(
+            <Input.Composite variant="underlined">
+                <Input.Prepend>https://</Input.Prepend>
+                <Input aria-label="website" />
+                <Input.Append>.com</Input.Append>
+            </Input.Composite>,
+        );
+
+        const $prepend = screen.getByText('https://');
+        const $append = screen.getByText('.com');
+
+        expect($prepend).toHaveClass('border-transparent', 'border-b-main');
+        expect($append).toHaveClass('border-transparent', 'border-b-main');
+        expect($prepend).not.toHaveClass('px-3');
+        expect($append).not.toHaveClass('px-3');
     });
 });
 

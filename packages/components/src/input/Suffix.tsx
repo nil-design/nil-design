@@ -9,7 +9,7 @@ export const isSuffixElement = (child: ReactNode): child is ReactElement<SuffixP
 };
 
 const Suffix = forwardRef<HTMLSpanElement, SuffixProps>((props, ref) => {
-    const { size } = useInputContext();
+    const { size, variant } = useInputContext();
     const { className, children, ...restProps } = props;
 
     return (
@@ -18,6 +18,7 @@ const Suffix = forwardRef<HTMLSpanElement, SuffixProps>((props, ref) => {
             className={cnMerge(
                 variants.suffix({
                     size,
+                    variant,
                 }),
                 className,
             )}

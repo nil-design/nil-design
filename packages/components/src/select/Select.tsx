@@ -272,6 +272,7 @@ const Select = forwardRefWithGenerics(<T,>(props: SelectProps<T>, ref: Forwarded
                 >
                     <span
                         className={variants.triggerContent({
+                            variant,
                             size,
                             placeholder: selectionEmpty,
                         })}
@@ -281,6 +282,7 @@ const Select = forwardRefWithGenerics(<T,>(props: SelectProps<T>, ref: Forwarded
                     <span
                         aria-hidden="true"
                         className={variants.triggerIcon({
+                            variant,
                             size,
                             open: visibleOpen,
                         })}
