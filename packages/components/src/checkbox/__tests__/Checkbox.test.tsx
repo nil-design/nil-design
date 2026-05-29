@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { useState } from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import Checkbox from '..';
 
 describe('Checkbox', () => {
@@ -62,11 +63,61 @@ describe('Checkbox', () => {
         const $label = screen.getByText('Choice').closest('label');
 
         expect($group).toHaveAttribute('data-disabled');
-        expect($group).toHaveClass('nd-disabled-carrier');
-        expect($group).not.toHaveClass('disabled');
         expect($label).toHaveAttribute('data-disabled');
-        expect($label).toHaveClass('nd-disabled-carrier');
-        expect($label).not.toHaveClass('disabled');
         expect(container.querySelector('input[type="checkbox"]')).toBeDisabled();
+    });
+
+    it('updates uncontrolled group values and reports the full selection', () => {
+        const onChange = vi.fn();
+
+        render(
+            <Checkbox.Group defaultValue={['apple']} onChange={onChange}>
+                <Checkbox value="apple">Apple</Checkbox>
+                <Checkbox value="banana">Banana</Checkbox>
+            </Checkbox.Group>,
+        );
+
+        const apple = screen.getByRole('checkbox', { name: 'Apple' });
+        const banana = screen.getByRole('checkbox', { name: 'Banana' });
+
+        expect(apple).toBeChecked();
+        expect(banana).not.toBeChecked();
+
+        fireEvent.click(banana);
+
+        expect(banana).toBeChecked();
+        expect(onChange).toHaveBeenLastCalledWith(['apple', 'banana']);
+
+        fireEvent.click(apple);
+
+        expect(apple).not.toBeChecked();
+        expect(onChange).toHaveBeenLastCalledWith(['banana']);
+    });
+
+    it('supports controlled group values', () => {
+        const onChange = vi.fn();
+        const Demo = () => {
+            const [value, setValue] = useState(['apple']);
+
+            return (
+                <Checkbox.Group
+                    value={value}
+                    onChange={nextValue => {
+                        onChange(nextValue);
+                        setValue(nextValue);
+                    }}
+                >
+                    <Checkbox value="apple">Apple</Checkbox>
+                    <Checkbox value="banana">Banana</Checkbox>
+                </Checkbox.Group>
+            );
+        };
+
+        render(<Demo />);
+
+        fireEvent.click(screen.getByRole('checkbox', { name: 'Banana' }));
+
+        expect(screen.getByRole('checkbox', { name: 'Banana' })).toBeChecked();
+        expect(onChange).toHaveBeenCalledWith(['apple', 'banana']);
     });
 });

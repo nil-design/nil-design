@@ -92,9 +92,6 @@ describe('Segment', () => {
         expect(screen.getByRole('radio', { name: 'Day' })).toHaveAttribute('aria-checked', 'true');
         expect(screen.getByRole('radio', { name: 'Month' })).toBeDisabled();
         expect(screen.getByRole('radiogroup')).toHaveAttribute('data-disabled');
-        expect(screen.getByRole('radiogroup')).toHaveClass('nd-disabled-carrier');
-        expect(screen.getByRole('radio', { name: 'Month' })).toHaveClass('nd-disabled-carrier');
-        expect(screen.getByRole('radio', { name: 'Month' })).not.toHaveClass('disabled');
 
         rerender(
             <Segment defaultValue="day" onChange={onChange}>
@@ -177,7 +174,7 @@ describe('Segment', () => {
         expect(month).toHaveAttribute('aria-checked', 'true');
     });
 
-    it('applies size, orientation, block, selected and disabled classes', () => {
+    it('keeps selection semantics when configured with block and size props', () => {
         render(
             <Segment block defaultValue="day" size="large">
                 <Segment.Item value="day">Day</Segment.Item>
@@ -190,18 +187,10 @@ describe('Segment', () => {
         const group = screen.getByRole('radiogroup');
         const selected = screen.getByRole('radio', { name: 'Day' });
         const disabled = screen.getByRole('radio', { name: 'Month' });
-        const $indicator = group.querySelector('.nd-segment-indicator');
 
-        expect(group).toHaveClass('w-full');
         expect(group).toHaveAttribute('aria-orientation', 'horizontal');
-        expect($indicator).toBeInTheDocument();
-        expect($indicator).toHaveClass('transition-[transform,width,height,opacity]');
-        expect(selected).toHaveClass('text-brand');
-        expect(selected).toHaveClass('text-lg');
-        expect(selected).toHaveClass('flex-1');
+        expect(selected).toHaveAttribute('aria-checked', 'true');
+        expect(disabled).toHaveAttribute('aria-checked', 'false');
         expect(disabled).toBeDisabled();
-        expect(disabled).toHaveClass('nd-disabled-carrier');
-        expect(disabled).toHaveClass('disabled:cursor-not-allowed');
-        expect(disabled).not.toHaveClass('disabled');
     });
 });

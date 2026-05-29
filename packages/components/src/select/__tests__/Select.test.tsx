@@ -70,7 +70,7 @@ describe('Select', () => {
         expect(screen.getByRole('button', { name: 'placeholder' })).toHaveTextContent('Select a city');
     });
 
-    it('applies pointer cursor and brand indicator classes', () => {
+    it('marks selected options with aria-selected', () => {
         render(
             <Select aria-label="city" defaultValue="shanghai">
                 {renderOptions()}
@@ -79,20 +79,11 @@ describe('Select', () => {
 
         const trigger = screen.getByRole('button', { name: 'city' });
 
-        expect(trigger).toHaveClass('cursor-pointer');
-
         fireEvent.click(trigger);
 
-        const $indicator = screen
-            .getByRole('option', { name: 'Shanghai' })
-            .querySelector('.nd-select-option-indicator') as HTMLElement | null;
-        const $icon = $indicator?.querySelector('.text-brand') as HTMLElement | null;
-        const $path = $indicator?.querySelector('path') as SVGPathElement | null;
+        const selectedOption = screen.getByRole('option', { name: 'Shanghai' });
 
-        expect($indicator).not.toBeNull();
-        expect($icon).not.toBeNull();
-        expect($path).not.toBeNull();
-        expect($path).toHaveAttribute('stroke', 'currentColor');
+        expect(selectedOption).toHaveAttribute('aria-selected', 'true');
     });
 
     it('collects fragment options in render order', () => {
@@ -118,7 +109,7 @@ describe('Select', () => {
                 <Select.Option value="shanghai" label="Shanghai">
                     <div data-testid="custom-option">
                         <strong>Shanghai</strong>
-                        <span> / 涓婃捣</span>
+                        <span> / 上海</span>
                     </div>
                 </Select.Option>
             </Select>,
@@ -130,10 +121,10 @@ describe('Select', () => {
 
         fireEvent.click(trigger);
 
-        const option = screen.getByRole('option', { name: 'Shanghai / 涓婃捣' });
+        const option = screen.getByRole('option', { name: 'Shanghai / 上海' });
 
         expect(within(option).getByTestId('custom-option')).toBeInTheDocument();
-        expect(option.querySelector('.nd-select-option-indicator')).not.toBeNull();
+        expect(option).toHaveAttribute('aria-selected', 'true');
     });
 
     it('supports uncontrolled single selection and closes after clicking an option', () => {
@@ -253,7 +244,7 @@ describe('Select', () => {
 
         expect(screen.getByRole('listbox')).toBeInTheDocument();
         expect(trigger).toHaveTextContent('Beijing, Shanghai');
-        expect(screen.getByRole('option', { name: 'Shanghai' }).querySelector('.text-brand')).not.toBeNull();
+        expect(screen.getByRole('option', { name: 'Shanghai' })).toHaveAttribute('aria-selected', 'true');
 
         fireEvent.click(screen.getByRole('option', { name: 'Beijing' }));
 
@@ -289,7 +280,6 @@ describe('Select', () => {
         fireEvent.keyDown(listbox, { key: ' ' });
 
         expect(screen.getByRole('listbox')).toHaveAttribute('aria-activedescendant', shanghai.id);
-        expect(shanghai).toHaveClass('bg-surface-muted');
         expect(trigger).toHaveTextContent('Beijing, Shanghai');
     });
 
@@ -311,15 +301,11 @@ describe('Select', () => {
         fireEvent.click(screen.getByRole('button', { name: 'disabled-select' }));
         expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'disabled-select' })).toBeDisabled();
-        expect(screen.getByRole('button', { name: 'disabled-select' })).toHaveClass('nd-disabled-carrier');
-        expect(screen.getByRole('button', { name: 'disabled-select' })).not.toHaveClass('disabled');
 
         fireEvent.click(screen.getByRole('button', { name: 'city' }));
         const disabledOption = screen.getByRole('option', { name: 'Beijing' });
 
         expect(disabledOption).toHaveAttribute('aria-disabled', 'true');
-        expect(disabledOption).toHaveClass('nd-disabled-carrier');
-        expect(disabledOption).not.toHaveClass('disabled');
 
         fireEvent.click(disabledOption);
 

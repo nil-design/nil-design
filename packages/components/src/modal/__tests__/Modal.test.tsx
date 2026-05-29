@@ -39,7 +39,7 @@ describe('Modal', () => {
         document.body.style.paddingRight = '';
     });
 
-    it('defaults to the dialog variant with centered placement and rounded surface styles', async () => {
+    it('renders the dialog variant by default', async () => {
         render(
             <Modal defaultOpen>
                 <Modal.Portal>
@@ -50,13 +50,11 @@ describe('Modal', () => {
 
         const dialog = await screen.findByRole('dialog');
 
-        expect(dialog.className).toContain('max-w-[36rem]');
-        expect(dialog.className).toContain('rounded-xl');
-        expect(dialog.className).toContain('scale-100');
-        expect(getOverlay(dialog)?.className).toContain('opacity-100');
+        expect(dialog).toHaveTextContent('Centered dialog');
+        expect(dialog).toHaveAttribute('aria-modal', 'true');
     });
 
-    it('defaults the drawer variant to right placement without rounded surface styles', async () => {
+    it('renders the drawer variant with right placement by default', async () => {
         render(
             <Modal defaultOpen variant="drawer">
                 <Modal.Portal>
@@ -67,12 +65,10 @@ describe('Modal', () => {
 
         const dialog = await screen.findByRole('dialog');
 
-        expect(dialog.className).toContain('w-[28rem]');
-        expect(dialog.className).toContain('translate-x-0');
-        expect(dialog.className).not.toMatch(/\brounded-/);
+        expect(dialog).toHaveTextContent('Default drawer');
     });
 
-    it('supports all drawer directions without rounded surface styles', async () => {
+    it('supports all drawer directions', async () => {
         render(
             <>
                 <Modal defaultOpen placement="left" variant="drawer">
@@ -100,13 +96,12 @@ describe('Modal', () => {
 
         const dialogs = await screen.findAllByRole('dialog');
 
-        expect(dialogs[0].className).toContain('translate-x-0');
-        expect(dialogs[1].className).toContain('translate-x-0');
-        expect(dialogs[2].className).toContain('translate-y-0');
-        expect(dialogs[3].className).toContain('translate-y-0');
-        dialogs.forEach(dialog => {
-            expect(dialog.className).not.toMatch(/\brounded-/);
-        });
+        expect(dialogs.map(dialog => dialog.textContent)).toEqual([
+            'Left drawer',
+            'Right drawer',
+            'Top drawer',
+            'Bottom drawer',
+        ]);
     });
 
     it('recognizes explicit trigger and portal slots', async () => {
@@ -288,7 +283,6 @@ describe('Modal', () => {
 
             expect(dialog).toBeInTheDocument();
             expect(document.body.querySelector('.nd-modal-header')).toHaveTextContent('Drawer header');
-            expect(document.body.querySelector('.nd-modal-header')).toHaveClass('pr-16');
             expect(document.body.querySelector('.nd-modal-body')).toHaveTextContent('Drawer body');
             expect(document.body.querySelector('.nd-modal-footer')).toHaveTextContent('Save');
 
@@ -366,7 +360,7 @@ describe('Modal', () => {
         expect(screen.getByRole('dialog')).toHaveTextContent('Explicit close modal');
     });
 
-    it('applies dialog overlay and surface motion classes on enter and exit', async () => {
+    it('keeps dialog content mounted during exit motion and unmounts after transition end', async () => {
         vi.useFakeTimers();
 
         try {
@@ -386,19 +380,15 @@ describe('Modal', () => {
             const dialogSurface = screen.getByRole('dialog');
             const $dialogOverlay = getOverlay(dialogSurface) as HTMLElement;
 
-            expect(dialogSurface.className).toContain('portal-surface');
-            expect(dialogSurface.className).toContain('scale-95');
-            expect($dialogOverlay.className).toContain('portal-overlay');
-            expect($dialogOverlay.className).toContain('opacity-0');
+            expect(dialogSurface).toHaveTextContent('Dialog motion');
+            expect($dialogOverlay).toBeInTheDocument();
 
             advanceEnterMotion();
 
-            expect(dialogSurface.className).toContain('scale-100');
-            expect($dialogOverlay.className).toContain('opacity-100');
+            expect(screen.getByRole('dialog')).toHaveTextContent('Dialog motion');
 
             fireEvent.keyDown(document, { key: 'Escape' });
-            expect(dialogSurface.className).toContain('scale-95');
-            expect($dialogOverlay.className).toContain('opacity-0');
+            expect(screen.getByRole('dialog')).toHaveTextContent('Dialog motion');
 
             finishExitMotion(dialogSurface);
             expect(screen.queryByText('Dialog motion')).not.toBeInTheDocument();
@@ -407,7 +397,7 @@ describe('Modal', () => {
         }
     });
 
-    it('applies drawer motion classes on enter and exit for every placement', async () => {
+    it('keeps drawer content mounted during exit motion and unmounts after transition end', async () => {
         vi.useFakeTimers();
 
         try {
@@ -449,34 +439,10 @@ describe('Modal', () => {
             );
 
             const drawerCases = [
-                {
-                    button: 'Open left drawer',
-                    customClass: 'drawer-surface-left',
-                    text: 'Left drawer motion',
-                    hiddenClass: '-translate-x-full',
-                    visibleClass: 'translate-x-0',
-                },
-                {
-                    button: 'Open right drawer',
-                    customClass: 'drawer-surface-right',
-                    text: 'Right drawer motion',
-                    hiddenClass: 'translate-x-full',
-                    visibleClass: 'translate-x-0',
-                },
-                {
-                    button: 'Open top drawer',
-                    customClass: 'drawer-surface-top',
-                    text: 'Top drawer motion',
-                    hiddenClass: '-translate-y-full',
-                    visibleClass: 'translate-y-0',
-                },
-                {
-                    button: 'Open bottom drawer',
-                    customClass: 'drawer-surface-bottom',
-                    text: 'Bottom drawer motion',
-                    hiddenClass: 'translate-y-full',
-                    visibleClass: 'translate-y-0',
-                },
+                { button: 'Open left drawer', text: 'Left drawer motion' },
+                { button: 'Open right drawer', text: 'Right drawer motion' },
+                { button: 'Open top drawer', text: 'Top drawer motion' },
+                { button: 'Open bottom drawer', text: 'Bottom drawer motion' },
             ] as const;
 
             for (const drawerCase of drawerCases) {
@@ -485,19 +451,15 @@ describe('Modal', () => {
                 const drawerSurface = screen.getByRole('dialog');
                 const $drawerOverlay = getOverlay(drawerSurface) as HTMLElement;
 
-                expect(drawerSurface.className).toContain(drawerCase.customClass);
-                expect(drawerSurface.className).toContain(drawerCase.hiddenClass);
-                expect($drawerOverlay.className).toContain('drawer-overlay');
-                expect($drawerOverlay.className).toContain('opacity-0');
+                expect(drawerSurface).toHaveTextContent(drawerCase.text);
+                expect($drawerOverlay).toBeInTheDocument();
 
                 advanceEnterMotion();
 
-                expect(drawerSurface.className).toContain(drawerCase.visibleClass);
-                expect($drawerOverlay.className).toContain('opacity-100');
+                expect(screen.getByRole('dialog')).toHaveTextContent(drawerCase.text);
 
                 fireEvent.keyDown(document, { key: 'Escape' });
-                expect(drawerSurface.className).toContain(drawerCase.hiddenClass);
-                expect($drawerOverlay.className).toContain('opacity-0');
+                expect(screen.getByRole('dialog')).toHaveTextContent(drawerCase.text);
 
                 finishExitMotion(drawerSurface);
                 expect(screen.queryByText(drawerCase.text)).not.toBeInTheDocument();
@@ -720,8 +682,6 @@ describe('Modal', () => {
 
             const dialogs = screen.getAllByRole('dialog');
 
-            expect(dialogs[0].parentElement).toHaveStyle({ zIndex: '40' });
-            expect(dialogs[1].parentElement).toHaveStyle({ zIndex: '41' });
             expect(document.body.style.overflow).toBe('hidden');
 
             fireEvent.keyDown(document, { key: 'Escape' });

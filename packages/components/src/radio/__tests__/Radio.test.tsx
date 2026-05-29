@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { useState } from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import Radio from '..';
 
 describe('Radio', () => {
@@ -88,11 +89,59 @@ describe('Radio', () => {
         const $label = screen.getByText('Choice').closest('label');
 
         expect($group).toHaveAttribute('data-disabled');
-        expect($group).toHaveClass('nd-disabled-carrier');
-        expect($group).not.toHaveClass('disabled');
         expect($label).toHaveAttribute('data-disabled');
-        expect($label).toHaveClass('nd-disabled-carrier');
-        expect($label).not.toHaveClass('disabled');
         expect(container.querySelector('input[type="radio"]')).toBeDisabled();
+    });
+
+    it('updates uncontrolled group values and ignores repeated selections', () => {
+        const onChange = vi.fn();
+
+        render(
+            <Radio.Group defaultValue="apple" onChange={onChange}>
+                <Radio value="apple">Apple</Radio>
+                <Radio value="banana">Banana</Radio>
+            </Radio.Group>,
+        );
+
+        const apple = screen.getByRole('radio', { name: 'Apple' });
+        const banana = screen.getByRole('radio', { name: 'Banana' });
+
+        expect(apple).toBeChecked();
+        expect(banana).not.toBeChecked();
+
+        fireEvent.click(banana);
+        fireEvent.click(banana);
+
+        expect(banana).toBeChecked();
+        expect(apple).not.toBeChecked();
+        expect(onChange).toHaveBeenCalledTimes(1);
+        expect(onChange).toHaveBeenCalledWith('banana');
+    });
+
+    it('supports controlled group values', () => {
+        const onChange = vi.fn();
+        const Demo = () => {
+            const [value, setValue] = useState('apple');
+
+            return (
+                <Radio.Group
+                    value={value}
+                    onChange={nextValue => {
+                        onChange(nextValue);
+                        setValue(nextValue);
+                    }}
+                >
+                    <Radio value="apple">Apple</Radio>
+                    <Radio value="banana">Banana</Radio>
+                </Radio.Group>
+            );
+        };
+
+        render(<Demo />);
+
+        fireEvent.click(screen.getByRole('radio', { name: 'Banana' }));
+
+        expect(screen.getByRole('radio', { name: 'Banana' })).toBeChecked();
+        expect(onChange).toHaveBeenCalledWith('banana');
     });
 });

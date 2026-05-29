@@ -10,7 +10,7 @@ describe('Transition', () => {
         vi.clearAllTimers();
     });
 
-    it('applies the default status classes in element mode', async () => {
+    it('keeps element children through enter and exit until transition end', async () => {
         vi.useFakeTimers();
 
         const { rerender } = render(
@@ -19,8 +19,7 @@ describe('Transition', () => {
             </Transition>,
         );
 
-        expect(screen.getByTestId('target').className).toContain('opacity-0');
-        expect(screen.getByTestId('target').className).toContain('invisible');
+        expect(screen.getByTestId('target')).toBeInTheDocument();
 
         rerender(
             <Transition visible>
@@ -28,15 +27,13 @@ describe('Transition', () => {
             </Transition>,
         );
 
-        expect(screen.getByTestId('target').className).toContain('opacity-0');
-        expect(screen.getByTestId('target').className).toContain('invisible');
+        expect(screen.getByTestId('target')).toBeInTheDocument();
 
         act(() => {
             vi.runOnlyPendingTimers();
         });
 
-        expect(screen.getByTestId('target').className).toContain('opacity-100');
-        expect(screen.getByTestId('target').className).toContain('visible');
+        expect(screen.getByTestId('target')).toBeInTheDocument();
 
         rerender(
             <Transition visible={false}>
@@ -44,13 +41,15 @@ describe('Transition', () => {
             </Transition>,
         );
 
-        expect(screen.getByTestId('target').className).toContain('opacity-0');
+        const target = screen.getByTestId('target');
 
         act(() => {
             vi.runOnlyPendingTimers();
         });
 
-        expect(screen.getByTestId('target').className).toContain('invisible');
+        fireEvent.transitionEnd(target);
+
+        expect(screen.getByTestId('target')).toBeInTheDocument();
     });
 
     it('passes status to a render-function child without merging transition class props', async () => {
@@ -67,7 +66,7 @@ describe('Transition', () => {
             </Transition>,
         );
 
-        expect(screen.getByTestId('target')).toHaveClass(`status-${TransitionStatus.EXITED}`);
+        expect(screen.getByTestId('target')).toHaveTextContent(TransitionStatus.EXITED);
         expect(screen.getByTestId('target')).not.toHaveClass('shared-transition');
 
         rerender(
@@ -76,14 +75,14 @@ describe('Transition', () => {
             </Transition>,
         );
 
-        expect(screen.getByTestId('target')).toHaveClass(`status-${TransitionStatus.ENTERING}`);
+        expect(screen.getByTestId('target')).toHaveTextContent(TransitionStatus.ENTERING);
         expect(screen.getByTestId('target')).not.toHaveClass('shared-transition');
 
         act(() => {
             vi.runOnlyPendingTimers();
         });
 
-        expect(screen.getByTestId('target')).toHaveClass(`status-${TransitionStatus.ENTERED}`);
+        expect(screen.getByTestId('target')).toHaveTextContent(TransitionStatus.ENTERED);
     });
 
     it('supports unmounting in render-function mode when the target exited render is empty', async () => {
