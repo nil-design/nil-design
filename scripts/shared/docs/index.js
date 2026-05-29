@@ -1,3 +1,3 @@
 export { getComponentApi } from './api.js';
-export { EmbeddingModel, getEmbeddingBuilder, getEmbeddingModel } from './embedding.js';
+export { getIndexesBuilder, IndexesBuilder } from './indexes-builder.js';
 export { getDocsWithMatter, getMarkdownTable, parseApiMarkdown } from './markdown.js';

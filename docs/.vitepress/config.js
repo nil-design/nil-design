@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/postcss';
 import postcssNested from 'postcss-nested';
 import svgLoader from 'vite-svg-loader';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
-import { getEmbeddingBuilder } from '../../scripts/shared';
+import { getIndexesBuilder } from '../../scripts/shared';
 import getAppearance from './getAppearance.js';
 import getSearch from './getSearch.js';
 import getThemeConfig from './getThemeConfig.js';
@@ -16,7 +16,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const inProd = process.env.NODE_ENV === 'production';
 const base = inProd ? '/nil-design/' : '/';
 const ignoredWarningPatterns = inProd ? [/dynamic import will not move module into another chunk\./] : [];
-const embeddingBuilder = getEmbeddingBuilder();
+const indexesBuilder = getIndexesBuilder();
 
 export default defineConfig({
     base,
@@ -60,7 +60,7 @@ export default defineConfig({
             { icon: 'npm', link: 'https://www.npmjs.com/org/nild' },
             { icon: 'github', link: 'https://github.com/nil-design/nil-design' },
         ],
-        search: getSearch(embeddingBuilder),
+        search: getSearch(indexesBuilder),
     },
     locales: {
         'zh-CN': {
@@ -79,7 +79,7 @@ export default defineConfig({
     vite: {
         server: {
             host: '0.0.0.0',
-            port: 5173,
+            port: 3000,
             strictPort: true,
         },
         plugins: [
@@ -87,9 +87,6 @@ export default defineConfig({
                 defaultImport: 'component',
             }),
         ],
-        optimizeDeps: {
-            exclude: ['@huggingface/transformers'],
-        },
         build: {
             rollupOptions: {
                 onwarn(warning, defaultHandler) {
@@ -122,14 +119,9 @@ export default defineConfig({
             md.use(mermaid);
         },
     },
-    async buildEnd() {
-        await embeddingBuilder
-            .build(resolve(__dirname, '../public'))
-            .then(() => {
-                console.log('✓ embeddings built');
-            })
-            .catch(() => {
-                console.error('✗ embeddings build failed');
-            });
+    async buildEnd(siteConfig) {
+        await indexesBuilder.build(resolve(__dirname, '../public'));
+        await indexesBuilder.build(resolve(siteConfig.outDir));
+        console.log('✓ indexes built');
     },
 });

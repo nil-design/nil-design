@@ -60,6 +60,7 @@
   --background-color-vp-info: var(--vp-custom-block-info-bg);
   --background-color-vp-tip: var(--vp-custom-block-tip-bg);
   --background-color-vp-danger: var(--vp-custom-block-danger-bg);
+  --background-color-vp-accent-soft: var(--vp-custom-accent-soft-bg);
 
   --border-color-vp-divider: var(--vp-c-divider);
 }
@@ -209,6 +210,7 @@
     color-mix(in oklch, var(--background-color-muted) 82%, var(--nd-color-brand-10)),
     color-mix(in oklch, var(--background-color-muted) 88%, var(--nd-color-brand-20))
   );
+  --vp-custom-accent-soft-bg: var(--vp-custom-feature-icon-bg);
   --vp-custom-feature-card-shadow: var(--shadow-sm);
   --vp-custom-feature-card-shadow-hover: var(--shadow-md);
 
@@ -297,6 +299,16 @@ body {
 
 body:not(:where(.vp-raw, .vp-raw *)) {
   @apply text-md;
+}
+
+.nd-assistant-root {
+  .nd-assistant-model-select.ring-focused {
+    box-shadow: var(--tw-shadow, 0 0 #00000000);
+  }
+}
+
+.nd-popup-portal:has(.nd-select-listbox) {
+  @apply z-40;
 }
 
 html {

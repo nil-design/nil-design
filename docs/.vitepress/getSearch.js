@@ -28,7 +28,7 @@ const parseEnvPath = envPath => {
 /**
  * @returns {import('vitepress').DefaultTheme.Config['search']}
  */
-const getSearch = embeddingBuilder => {
+const getSearch = assistantIndexBuilder => {
     return {
         provider: 'local',
         options: {
@@ -63,7 +63,7 @@ const getSearch = embeddingBuilder => {
                     return '';
                 } else {
                     if (env.relativePath) {
-                        embeddingBuilder.collect({
+                        assistantIndexBuilder.collect({
                             ...parseEnvPath(env.relativePath),
                             title: env.frontmatter?.title ?? 'Nil Design',
                             content: src,

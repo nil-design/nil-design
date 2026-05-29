@@ -11,7 +11,7 @@ const docsDir = join(rootDir, 'docs');
 const screenshotsDir = join(docsDir, '.screenshots');
 
 const DEFAULT_BRAND_H = 255;
-const DEFAULT_DEV_HOST = '127.0.0.1:5173';
+const DEFAULT_DEV_HOST = '127.0.0.1:3000';
 const DEFAULT_LOCALES = ['zh-CN'];
 const DEFAULT_MODE = 'light';
 const DEVICE_SCALE_FACTOR = 2;
@@ -24,7 +24,7 @@ const SCREENSHOT_STYLE = `
 .VPSidebar,
 .VPDocAside,
 .VPBackToTop,
-.vp-raw.fixed.z-39 {
+.nd-assistant-root {
     visibility: hidden !important;
 }
 `;
@@ -138,7 +138,7 @@ Options:
   --locales <list>       Comma-separated locale list. Default: zh-CN
   --brand-h <list>       One or more --nd-brand-h values. Default: 255
   --mode <mode>          Screenshot mode: light, dark, or both. Default: light
-  --dev-host <host>      Docs dev server host. Default: 127.0.0.1:5173
+  --dev-host <host>      Docs dev server host. Default: 127.0.0.1:3000
   --help                 Show this help message
 `);
 };
