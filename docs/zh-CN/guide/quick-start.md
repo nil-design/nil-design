@@ -1,77 +1,80 @@
 ---
 title: 快速开始
 order: 1
-cat: 开发
+cat: 入门
 catOrder: 1
 ---
 
-# 快速开始 <Badge type="warning" text="WIP" />
+# {{ $frontmatter.title }}
 
-## 简介
+本页只覆盖最短接入路径：安装当前可用包、接入组件样式，并渲染第一个组件。
 
-Nil Design 为提供一站式的开发体验，共实现了六个包，它们的名称及关系依赖如下图所示：
+## 前置条件
 
-```mermaid
-flowchart TD
-  components("@nild/components")
-  hooks("@nild/hooks")
-  i18n("@nild/i18n")
-  icons("@nild/icons")
-  materials("@nild/materials")
-  shared("@nild/shared")
+- React `^18.2.0`。
+- Tailwind CSS `^4.1.7`。
+- 使用 PNPM 时建议开启 `auto-install-peers=true`。
 
-  hooks --> shared
-  i18n --> shared
-  i18n --> hooks
-  icons --> shared
-  components --> hooks
-  components --> shared
-  components --> icons
-  materials --> shared
-  materials --> hooks
-  materials --> components
-  materials --> icons
-```
+## 按场景安装
 
-## 第三方依赖
-
-### Dependencies
-
-| 名称 | 版本 | Used By |
-| - | - | - |
-| [@floating-ui/dom](https://www.npmjs.com/package/@floating-ui/dom/v/1.7.1) | 1.7.1 | @nild/components |
-| [@icon-park/react](https://www.npmjs.com/package/@icon-park/react/v/1.4.2) | 1.4.2 | @nild/icons |
-| [tailwind-merge](https://www.npmjs.com/package/tailwind-merge/v/3.3.0) | 3.3.0 | @nild/shared |
-
-### Peer Dependencies
-
-| 名称 | 版本 | Needed By |
-| - | - | - |
-| [lodash-es](https://www.npmjs.com/package/lodash-es) | ^4.17.21 | @nild/shared |
-| [react](https://www.npmjs.com/package/react) | ^18.2.0 | @nild/shared<br>@nild/i18n<br>@nild/hooks<br>@nild/icons<br>@nild/components<br>@nild/materials |
-| [react-dom](https://www.npmjs.com/package/react-dom) | ^18.2.0 | @nild/components<br>@nild/materials |
-| [tailwindcss](https://www.npmjs.com/package/tailwindcss) | ^4.1.7 | @nild/shared |
-
-## 安装
-
-> [!NOTE]
-> PNPM 安装前建议设置 `auto-install-peers=true`
+组件包把 Hooks、图标与基础工具作为 peer 使用。接入组件时，推荐一起安装：
 
 ::: code-group
 ```sh [NPM]
-npm install @nild/shared
-npm install @nild/hooks
-npm install @nild/i18n
-npm install @nild/icons
-npm install @nild/components
-npm install @nild/materials
+npm install @nild/components @nild/hooks @nild/icons @nild/shared
 ```
+
 ```sh [PNPM]
-pnpm add @nild/shared
-pnpm add @nild/hooks
-pnpm add @nild/i18n
-pnpm add @nild/icons
-pnpm add @nild/components
-pnpm add @nild/materials
+pnpm add @nild/components @nild/hooks @nild/icons @nild/shared
 ```
 :::
+
+只使用某一类能力时，可以选择更小的组合：
+
+::: code-group
+```sh [Hooks]
+pnpm add @nild/hooks @nild/shared
+```
+
+```sh [图标]
+pnpm add @nild/icons @nild/shared
+```
+
+```sh [国际化]
+pnpm add @nild/i18n @nild/shared
+```
+:::
+
+## 接入样式
+
+在应用的全局 CSS 中加入最小样式配置：
+
+```css
+@import 'tailwindcss';
+@import '@nild/components/tailwindcss';
+
+@source '../node_modules/@nild/components/dist';
+```
+
+`@source` 路径按项目实际目录调整即可。更多 Tailwind 扫描、品牌色和明暗模式说明见 [样式与动态主题](./style-and-theme.md)。
+
+## 渲染组件
+
+```tsx
+import { Button } from '@nild/components';
+
+const App = () => {
+  return <Button>开始使用</Button>;
+};
+
+export default App;
+```
+
+如果按钮已经带有品牌色、圆角、阴影和交互状态，说明包安装与样式接入都已生效。
+
+## 下一步
+
+- 想确认每个包的职责、依赖和 peer 范围：阅读 [包与依赖关系](./package-relationships.md)。
+- 想调整品牌色、明暗模式或主题变量：阅读 [样式与动态主题](./style-and-theme.md)。
+- 想查看组件示例：进入 [组件总览](/zh-CN/components/)。
+- 想查找 Hooks 用法：进入 [Hooks](/zh-CN/hooks/)。
