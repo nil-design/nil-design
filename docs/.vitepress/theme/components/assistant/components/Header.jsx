@@ -19,7 +19,7 @@ const Header = ({ onClose, onDragStart }) => {
                 <span
                     className={cnJoin(
                         'h-2 w-2 shrink-0 rounded-full transition-colors',
-                        connected ? 'bg-brand' : 'bg-vp-accent-soft',
+                        connected ? 'bg-brand' : 'bg-brand-soft',
                         generating && 'animate-pulse',
                     )}
                 />

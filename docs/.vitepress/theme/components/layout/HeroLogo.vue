@@ -4,12 +4,9 @@
             class="absolute inset-[8%_4%_10%] rounded-3xl [background:var(--vp-custom-hero-logo-glow)] blur-[28px] opacity-90 dark:opacity-100"
         ></div>
         <div
-            class="absolute inset-0 overflow-hidden rounded-3xl [background:var(--vp-custom-hero-logo-surface)] shadow-(--vp-custom-glass-shadow) [backdrop-filter:var(--vp-custom-glass-backdrop-strong)] [-webkit-backdrop-filter:var(--vp-custom-glass-backdrop-strong)]"
+            class="absolute inset-0 overflow-hidden rounded-3xl border border-subtle bg-surface shadow-xl backdrop-blur-2xl backdrop-saturate-150"
         >
             <div class="pointer-events-none absolute inset-0 [background:var(--vp-custom-hero-logo-overlay)]"></div>
-            <div
-                class="pointer-events-none absolute inset-px rounded-[calc(1.5rem-1px)] [box-shadow:var(--vp-custom-glass-highlight)]"
-            ></div>
             <div
                 class="absolute inset-0 opacity-[0.54] [background-image:var(--vp-custom-page-grid-background)] [background-size:var(--vp-custom-page-grid-size)] [mask:var(--vp-custom-hero-logo-grid-mask)]"
             ></div>
@@ -19,7 +16,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
             >
-                <g class="fill-(--vp-custom-logo-shadow-fill)" transform="translate(14 14)">
+                <g class="fill-brand opacity-25" transform="translate(14 14)">
                     <rect x="34" y="24" width="30" height="176" rx="9" />
                     <rect x="138" y="24" width="30" height="176" rx="9" />
                     <polygon points="64,24 94,24 168,152 168,200 138,200 64,72" />
@@ -27,7 +24,7 @@
                     <rect x="340" y="24" width="30" height="176" rx="9" />
                     <rect x="340" y="170" width="146" height="30" rx="9" />
                 </g>
-                <g class="fill-(--vp-custom-logo-ink)">
+                <g class="fill-(--text-color-main)">
                     <rect x="34" y="24" width="30" height="176" rx="9" />
                     <rect x="138" y="24" width="30" height="176" rx="9" />
                     <polygon points="64,24 94,24 168,152 168,200 138,200 64,72" />
@@ -35,14 +32,12 @@
                     <rect x="340" y="24" width="30" height="176" rx="9" />
                     <rect x="340" y="170" width="146" height="30" rx="9" />
                 </g>
-                <g class="fill-(--vp-custom-logo-accent)">
+                <g class="fill-brand">
                     <polygon points="64,24 94,24 145,112 115,112" />
                     <rect x="236" y="24" width="30" height="46" rx="9" />
                     <rect x="340" y="170" width="92" height="30" rx="9" />
                 </g>
-                <g
-                    class="fill-none stroke-(--vp-custom-logo-line) [stroke-linecap:round] [stroke-linejoin:round] stroke-4 opacity-[0.88]"
-                >
+                <g class="fill-none stroke-brand [stroke-linecap:round] [stroke-linejoin:round] stroke-4 opacity-50">
                     <path d="M10 12H134" />
                     <path d="M438 12H510V84" />
                     <path d="M10 186V212H84" />
@@ -50,7 +45,7 @@
                     <path d="M86 46H156" />
                     <path d="M318 180H464" />
                 </g>
-                <g class="fill-(--vp-custom-logo-dot) opacity-90">
+                <g class="fill-(--background-color-canvas) opacity-90">
                     <circle cx="10" cy="12" r="6" />
                     <circle cx="510" cy="84" r="6" />
                     <circle cx="84" cy="212" r="6" />

@@ -61,7 +61,7 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
             <div className="live-demo flex flex-col rounded-lg bg-transparent border border-muted">
                 {<LivePreview className={cnJoin('live-preview px-6 py-8', hasError && 'hidden')} />}
                 <div
-                    className={cnJoin('live-error rounded-t-lg', hasError ? 'px-6 py-8 bg-vp-danger' : 'hidden')}
+                    className={cnJoin('live-error rounded-t-lg', hasError ? 'px-6 py-8 bg-error-subtle' : 'hidden')}
                     ref={errorRef}
                 >
                     <LiveError className="m-0 whitespace-pre-wrap" />
