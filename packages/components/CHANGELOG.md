@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.49
+
+### Patch Changes
+
+- ba98fa3: style: refine brand palette and theme tokens
+
 ## 0.0.48
 
 ### Patch Changes
