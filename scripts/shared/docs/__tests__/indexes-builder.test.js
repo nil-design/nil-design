@@ -70,4 +70,40 @@ title: Button
             ]),
         );
     });
+
+    it('matches VitePress anchors for dotted component API headings', () => {
+        const chunks = splitPageContent({
+            path: '/zh-CN/components/checkbox/',
+            title: 'Checkbox',
+            content: `# Checkbox
+
+### Checkbox Props
+
+| Property | Description |
+| :-- | :-- |
+| checked | Controls whether the checkbox is selected. |
+
+### Checkbox.Indicator Props
+
+| Property | Description |
+| :-- | :-- |
+| className | Controls the indicator class name. |
+`,
+        });
+
+        expect(chunks).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    heading: 'Checkbox Props',
+                    anchor: 'checkbox-props',
+                    kind: 'api',
+                }),
+                expect.objectContaining({
+                    heading: 'Checkbox.Indicator Props',
+                    anchor: 'checkbox-indicator-props',
+                    kind: 'api',
+                }),
+            ]),
+        );
+    });
 });

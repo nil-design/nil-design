@@ -67,9 +67,9 @@ const createAnchor = value => {
     return cleanInlineText(value)
         .normalize('NFKC')
         .toLowerCase()
-        .replace(/[^\w\u3400-\u9fff\s-]+/gu, '')
-        .trim()
-        .replace(/\s+/gu, '-');
+        .replace(/[^\w\u3400-\u9fff]+/gu, '-')
+        .replace(/^-+|-+$/gu, '')
+        .replace(/-+/gu, '-');
 };
 
 const splitByLength = (text, maxLength) => {
