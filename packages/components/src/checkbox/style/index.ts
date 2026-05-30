@@ -1,9 +1,9 @@
 import { cva } from '@nild/shared';
-import sharedVariants from '../../_shared/style';
+import sharedStyles from '../../_shared/style';
 import { CheckboxProps, GroupProps } from '../interfaces';
 
 const checkbox = cva<Pick<CheckboxProps, 'size' | 'disabled'>>(
-    ['nd-checkbox', 'group', ['flex', 'items-center'], 'cursor-pointer', sharedVariants.disabled()],
+    ['nd-checkbox', 'group', ['flex', 'items-center'], 'cursor-pointer', sharedStyles.disabled],
     {
         variants: {
             size: {
@@ -77,7 +77,7 @@ const label = cva<Pick<CheckboxProps, 'size'>>(['text-sm'], {
 });
 
 const group = cva<Pick<GroupProps, 'direction'>>(
-    ['nd-checkbox-group', ['flex', 'gap-x-4', 'gap-y-2'], sharedVariants.disabled()],
+    ['nd-checkbox-group', ['flex', 'gap-x-4', 'gap-y-2'], sharedStyles.disabled],
     {
         variants: {
             direction: {

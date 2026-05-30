@@ -1,5 +1,5 @@
 import { cva } from '@nild/shared';
-import sharedVariants from '../../_shared/style';
+import sharedStyles from '../../_shared/style';
 import { SwitchProps, TrackProps } from '../interfaces';
 
 const _switch = cva<SwitchProps & { checked: boolean }>(
@@ -9,7 +9,7 @@ const _switch = cva<SwitchProps & { checked: boolean }>(
         'h-[var(--nd-switch-height)]',
         ['relative', 'inline-block', 'font-nd', 'overflow-hidden', 'cursor-pointer'],
         'transition-[outline-color,box-shadow]',
-        sharedVariants.disabled(),
+        sharedStyles.disabled,
     ],
     {
         variants: {

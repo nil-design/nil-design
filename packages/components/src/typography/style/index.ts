@@ -1,5 +1,5 @@
 import { cva } from '@nild/shared';
-import sharedVariants from '../../_shared/style';
+import sharedStyles from '../../_shared/style';
 import { LinkProps, ParagraphProps, TextProps, TextTag, TitleProps, TypographyProps } from '../interfaces';
 
 const link = cva<LinkProps>(
@@ -13,7 +13,7 @@ const link = cva<LinkProps>(
             'enabled:hover:text-brand-hover',
             'enabled:active:text-brand-active',
         ],
-        sharedVariants.disabled(),
+        sharedStyles.disabled,
     ],
     {
         variants: {
@@ -31,7 +31,7 @@ const paragraph = cva<ParagraphProps>([
     ['mt-0', 'mb-[1em]'],
 ]);
 
-const text = cva<TextProps>(['nd-text', ['font-nd', 'text-[length:inherit]'], sharedVariants.disabled()], {
+const text = cva<TextProps>(['nd-text', ['font-nd', 'text-[length:inherit]'], sharedStyles.disabled], {
     variants: {
         secondary: {
             true: 'text-muted',

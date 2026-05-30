@@ -1,9 +1,9 @@
 import { cva } from '@nild/shared';
-import sharedVariants from '../../_shared/style';
+import sharedStyles from '../../_shared/style';
 import type { FieldStatus } from '../interfaces';
 
 const field = cva<{ status?: FieldStatus }>(
-    ['nd-field', 'flex', 'flex-col', 'items-start', 'gap-1.5', 'font-nd', 'text-md', sharedVariants.disabled()],
+    ['nd-field', 'flex', 'flex-col', 'items-start', 'gap-1.5', 'font-nd', 'text-md', sharedStyles.disabled],
     {
         variants: {
             status: {
