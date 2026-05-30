@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useDraggable = ({ position, setPosition, clamp, onClick }) => {
     const [dragging, setDragging] = useState(false);
@@ -79,24 +79,27 @@ export const useDraggable = ({ position, setPosition, clamp, onClick }) => {
         };
     }, [clamp, onClick, setPosition]);
 
-    const onDragStart = event => {
-        if (event.button !== 0) {
-            return;
-        }
+    const onDragStart = useCallback(
+        event => {
+            if (event.button !== 0) {
+                return;
+            }
 
-        event.preventDefault();
-        dragRef.current = {
-            active: true,
-            dragging: false,
-            offsetX: event.clientX - position.x,
-            offsetY: event.clientY - position.y,
-            startX: event.clientX,
-            startY: event.clientY,
-            clickFallback: event.currentTarget?.dataset?.clickFallback !== 'false',
-            nextPosition: null,
-            frameId: 0,
-        };
-    };
+            event.preventDefault();
+            dragRef.current = {
+                active: true,
+                dragging: false,
+                offsetX: event.clientX - position.x,
+                offsetY: event.clientY - position.y,
+                startX: event.clientX,
+                startY: event.clientY,
+                clickFallback: event.currentTarget?.dataset?.clickFallback !== 'false',
+                nextPosition: null,
+                frameId: 0,
+            };
+        },
+        [position.x, position.y],
+    );
 
     return { dragging, onDragStart };
 };

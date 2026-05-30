@@ -1,15 +1,15 @@
 import { Button } from '@nild/components';
 import { DynamicIcon } from '@nild/icons';
 import { cnJoin } from '@nild/shared';
-import React, { useEffect, useRef } from 'react';
-import { useAssistantContext } from '../contexts/AssistantContext';
+import { memo, useEffect, useRef } from 'react';
+import { useEnvContext } from '../contexts/AssistantContext';
 import ModelSelect from './ModelSelect';
 
 const TEXTAREA_MIN_HEIGHT = 44;
 const TEXTAREA_MAX_HEIGHT = 136;
 
 const PromptBox = ({ value, disabled, generating, onChange, onSend }) => {
-    const { i18n, locale } = useAssistantContext();
+    const { i18n, locale } = useEnvContext();
     const textareaRef = useRef(null);
     const sendable = !disabled && !generating && value.trim().length > 0;
 
@@ -78,4 +78,4 @@ const PromptBox = ({ value, disabled, generating, onChange, onSend }) => {
     );
 };
 
-export default PromptBox;
+export default memo(PromptBox);

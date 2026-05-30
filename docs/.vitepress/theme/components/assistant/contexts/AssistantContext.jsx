@@ -1,29 +1,31 @@
-import React, { createContext, useContext, useMemo } from 'react';
-import i18n from '../../../../../../locales/index';
+import React, { createContext, useContext } from 'react';
 
-const AssistantContext = createContext(null);
+const EnvContext = createContext(null);
+const SessionContext = createContext(null);
+const ThreadContext = createContext(null);
 
-export const AssistantProvider = ({ locale, navigate, routePath, runtime, children }) => {
-    const value = useMemo(
-        () => ({
-            ...runtime,
-            i18n,
-            locale,
-            navigate,
-            routePath,
-        }),
-        [locale, navigate, routePath, runtime],
-    );
+const useRequiredContext = (context, name) => {
+    const value = useContext(context);
 
-    return <AssistantContext.Provider value={value}>{children}</AssistantContext.Provider>;
-};
-
-export const useAssistantContext = () => {
-    const context = useContext(AssistantContext);
-
-    if (!context) {
-        throw new Error('useAssistantContext must be used within AssistantProvider.');
+    if (!value) {
+        throw new Error(`${name} must be used within AssistantProvider.`);
     }
 
-    return context;
+    return value;
 };
+
+export const AssistantProvider = ({ env, session, thread, children }) => {
+    return (
+        <EnvContext.Provider value={env}>
+            <SessionContext.Provider value={session}>
+                <ThreadContext.Provider value={thread}>{children}</ThreadContext.Provider>
+            </SessionContext.Provider>
+        </EnvContext.Provider>
+    );
+};
+
+export const useEnvContext = () => useRequiredContext(EnvContext, 'useEnvContext');
+
+export const useSessionContext = () => useRequiredContext(SessionContext, 'useSessionContext');
+
+export const useThreadContext = () => useRequiredContext(ThreadContext, 'useThreadContext');

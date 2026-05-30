@@ -1,11 +1,12 @@
 import { Button, Switch, Typography } from '@nild/components';
 import { DynamicIcon } from '@nild/icons';
-import React from 'react';
-import { useAssistantContext } from '../contexts/AssistantContext';
+import { memo } from 'react';
+import { useEnvContext, useSessionContext } from '../contexts/AssistantContext';
 import ModelPanel from './ModelPanel';
 
 const ConnectPanel = () => {
-    const { connect, connecting, error, i18n, locale, remember, setRemember } = useAssistantContext();
+    const { i18n, locale } = useEnvContext();
+    const { connect, connecting, error, remember, setRemember } = useSessionContext();
 
     return (
         <div className="flex h-full flex-col items-center justify-center gap-4 bg-canvas px-5 text-center">
@@ -37,4 +38,4 @@ const ConnectPanel = () => {
     );
 };
 
-export default ConnectPanel;
+export default memo(ConnectPanel);

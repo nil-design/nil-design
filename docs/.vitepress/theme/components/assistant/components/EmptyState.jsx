@@ -1,113 +1,22 @@
 import { DynamicIcon } from '@nild/icons';
-import React from 'react';
-import { useAssistantContext } from '../contexts/AssistantContext';
-
-const SUGGESTION_KEYS = {
-    COMPONENT: [
-        'assistant.suggestion.component.use',
-        'assistant.suggestion.component.props',
-        'assistant.suggestion.component.example',
-        'assistant.suggestion.component.disabled',
-        'assistant.suggestion.component.composition',
-    ],
-    HOOK: [
-        'assistant.suggestion.hook.use',
-        'assistant.suggestion.hook.params',
-        'assistant.suggestion.hook.example',
-        'assistant.suggestion.hook.returns',
-        'assistant.suggestion.hook.scenarios',
-    ],
-};
-
-const getRouteSegments = routePath =>
-    `${routePath || ''}`
-        .split(/[?#]/u)[0]
-        .replace(/\/index\.html$/u, '/')
-        .replace(/\.html$/u, '')
-        .split('/')
-        .filter(Boolean);
-
-const getSuggestionGroup = routePath => {
-    const segments = getRouteSegments(routePath);
-    const groupIndex = segments.findIndex(segment => segment === 'components' || segment === 'hooks');
-    const subjectSegment = segments[groupIndex + 1];
-
-    if (groupIndex < 0 || !subjectSegment || subjectSegment === 'index') {
-        return null;
-    }
-
-    return segments[groupIndex] === 'components' ? 'COMPONENT' : 'HOOK';
-};
-
-const getPageSubject = () => {
-    if (typeof document === 'undefined') {
-        return '';
-    }
-
-    const $heading = document.querySelector('.vp-doc h1');
-    const $subject = $heading?.cloneNode(true);
-
-    $subject?.querySelectorAll('a').forEach($link => $link.remove());
-
-    const subject = $subject?.textContent?.replace(/\s+/g, ' ').trim();
-
-    if (subject) {
-        return subject;
-    }
-
-    return '';
-};
-
-const shuffle = values => {
-    const nextValues = [...values];
-
-    for (let index = nextValues.length - 1; index > 0; index -= 1) {
-        const swapIndex = Math.floor(Math.random() * (index + 1));
-        const currentValue = nextValues[index];
-
-        nextValues[index] = nextValues[swapIndex];
-        nextValues[swapIndex] = currentValue;
-    }
-
-    return nextValues;
-};
-
-const createSuggestions = (i18n, locale, routePath) => {
-    const group = getSuggestionGroup(routePath);
-
-    if (!group) {
-        return [];
-    }
-
-    const subject = getPageSubject();
-
-    if (!subject) {
-        return [];
-    }
-
-    const suggestions = SUGGESTION_KEYS[group].map(key =>
-        i18n.t(key, {
-            language: locale,
-            parameters: { subject },
-        }),
-    );
-
-    return shuffle(suggestions).slice(0, 3);
-};
+import { memo, useEffect, useState } from 'react';
+import { useEnvContext, useThreadContext } from '../contexts/AssistantContext';
+import { createSuggestions } from '../runtime/suggestions';
 
 const EmptyState = () => {
-    const { i18n, locale, routePath, setPrompt } = useAssistantContext();
-    const [suggestions, setSuggestions] = React.useState([]);
+    const { i18n, locale, routePath } = useEnvContext();
+    const { setPrompt } = useThreadContext();
+    const [suggestions, setSuggestions] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (typeof window === 'undefined') {
-            setSuggestions(createSuggestions(i18n, locale, routePath));
+            setSuggestions(createSuggestions({ i18n, locale, routePath }));
 
             return undefined;
         }
 
         const frameId = window.requestAnimationFrame(() => {
-            setSuggestions(createSuggestions(i18n, locale, routePath));
+            setSuggestions(createSuggestions({ i18n, locale, routePath }));
         });
 
         return () => window.cancelAnimationFrame(frameId);
@@ -137,4 +46,4 @@ const EmptyState = () => {
     );
 };
 
-export default EmptyState;
+export default memo(EmptyState);

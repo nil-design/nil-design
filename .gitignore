@@ -1,6 +1,8 @@
 .cursor/
 .claude/
 .codex/
+.playwright-cli/
+.playwright-mcp/
 .husky/_
 node_modules/
 dist/

@@ -8,6 +8,9 @@ cat: 输入
 用于从一组选项中进行单选或多选。
 
 ## 变体
+
+提供边框、填充和下划线三种视觉风格。
+
 ::: react-live
 ```tsx
 import { Select } from '@nild/components';
@@ -36,6 +39,7 @@ render(<Demo />);
 :::
 
 ## 禁用状态
+
 ::: react-live
 ```tsx
 import { Select } from '@nild/components';
@@ -47,7 +51,7 @@ const Demo = () => {
         <Select.Option value="beijing" label="北京" />
         <Select.Option value="shanghai" label="上海" />
       </Select>
-      <Select className="w-60" disabled variant="filled"  placeholder="Filled disabled">
+      <Select className="w-60" disabled variant="filled" placeholder="Filled disabled">
         <Select.Option value="beijing" label="Beijing" />
         <Select.Option value="shanghai" label="Shanghai" />
       </Select>
@@ -65,6 +69,7 @@ render(<Demo />);
 :::
 
 ## 尺寸
+
 ::: react-live
 ```tsx
 import { Select } from '@nild/components';
@@ -93,6 +98,7 @@ render(<Demo />);
 :::
 
 ## 基础单选
+
 ::: react-live
 ```tsx
 import { Select } from '@nild/components';
@@ -120,6 +126,7 @@ render(<Demo />);
 :::
 
 ## 基础多选
+
 ::: react-live
 ```tsx
 import { Select } from '@nild/components';
