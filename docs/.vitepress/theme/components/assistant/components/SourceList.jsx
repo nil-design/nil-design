@@ -19,7 +19,7 @@ const SourceList = ({ sources }) => {
 
                 return (
                     <button
-                        className="text-left text-sm leading-5 text-muted underline decoration-transparent underline-offset-2 cursor-pointer hover:text-brand-hover hover:decoration-current"
+                        className="text-left text-sm leading-5 text-muted underline decoration-transparent underline-offset-2 cursor-pointer hover:text-brand-hover hover:decoration-current hover:[&_.text-subtle]:text-brand-hover"
                         key={sourcePath}
                         type="button"
                         title={showSection ? `${pageTitle} · ${sectionTitle}` : pageTitle}
