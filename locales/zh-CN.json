@@ -18,7 +18,7 @@
     "assistant.openrouter.remember": "记住授权",
     "assistant.page.subject.fallback": "当前页面",
     "assistant.send": "发送",
-    "assistant.sources.title": "相关文档",
+    "assistant.sources.title": "相关引用",
     "assistant.suggestion.component.composition": "{{ subject }} 有哪些常见组合方式？",
     "assistant.suggestion.component.disabled": "{{ subject }} 如何处理禁用态？",
     "assistant.suggestion.component.example": "给我一个 {{ subject }} 示例",

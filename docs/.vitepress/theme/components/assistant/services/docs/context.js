@@ -1,4 +1,14 @@
+const EXAMPLE_KIND = 'example';
+
 const getSourcePath = source => (source.anchor ? `${source.path}#${source.anchor}` : source.path);
+
+const getDisplaySources = sources => {
+    const pathsWithPreferredSource = new Set(
+        sources.filter(source => source.kind !== EXAMPLE_KIND).map(source => source.path),
+    );
+
+    return sources.filter(source => source.kind !== EXAMPLE_KIND || !pathsWithPreferredSource.has(source.path));
+};
 
 export const formatDocContext = sources => {
     if (!sources.length) {
@@ -26,16 +36,23 @@ export const toSourceLinks = sources => {
     const seen = new Set();
     const links = [];
 
-    for (const source of sources) {
-        if (seen.has(source.path)) {
+    for (const source of getDisplaySources(sources)) {
+        const sectionPath = getSourcePath(source);
+
+        if (seen.has(sectionPath)) {
             continue;
         }
 
-        seen.add(source.path);
+        seen.add(sectionPath);
         links.push({
             title: source.title,
-            path: getSourcePath(source),
+            pageTitle: source.title,
+            pagePath: source.path,
             heading: source.heading,
+            sectionTitle: source.heading,
+            sectionPath,
+            path: sectionPath,
+            kind: source.kind || 'guide',
             score: source.score,
         });
     }

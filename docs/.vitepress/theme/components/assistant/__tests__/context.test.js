@@ -65,6 +65,89 @@ describe('assistant document context', () => {
         ]);
     });
 
+    it('keeps display source links at the section level', () => {
+        const sources = toSourceLinks([
+            {
+                title: 'Input',
+                path: '/components/input/',
+                heading: 'Variants',
+                anchor: 'variants',
+                kind: 'example',
+                score: 12,
+            },
+            {
+                title: 'Input',
+                path: '/components/input/',
+                heading: 'API',
+                anchor: 'api',
+                kind: 'api',
+                score: 10,
+            },
+            {
+                title: 'Input',
+                path: '/components/input/',
+                heading: 'API',
+                anchor: 'api',
+                kind: 'api',
+                score: 8,
+            },
+            {
+                title: 'Select',
+                path: '/components/select/',
+                heading: 'Variants',
+                anchor: 'variants',
+                kind: 'example',
+                score: 6,
+            },
+        ]);
+
+        expect(sources).toEqual([
+            {
+                title: 'Input',
+                pageTitle: 'Input',
+                pagePath: '/components/input/',
+                heading: 'API',
+                sectionTitle: 'API',
+                sectionPath: '/components/input/#api',
+                path: '/components/input/#api',
+                kind: 'api',
+                score: 10,
+            },
+            {
+                title: 'Select',
+                pageTitle: 'Select',
+                pagePath: '/components/select/',
+                heading: 'Variants',
+                sectionTitle: 'Variants',
+                sectionPath: '/components/select/#variants',
+                path: '/components/select/#variants',
+                kind: 'example',
+                score: 6,
+            },
+        ]);
+    });
+
+    it('uses example sections when they are the only display sources', () => {
+        const sources = toSourceLinks([
+            {
+                title: 'Input',
+                path: '/components/input/',
+                heading: 'Variants',
+                anchor: 'variants',
+                kind: 'example',
+                score: 12,
+            },
+        ]);
+
+        expect(sources).toEqual([
+            expect.objectContaining({
+                sectionTitle: 'Variants',
+                sectionPath: '/components/input/#variants',
+                kind: 'example',
+            }),
+        ]);
+    });
+
     it('adds documentation context without inventing it when no sources match', () => {
         const withContext = composeChatRequestMessages({
             history: [],

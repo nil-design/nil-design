@@ -18,7 +18,7 @@
     "assistant.openrouter.remember": "Remember authorization",
     "assistant.page.subject.fallback": "this page",
     "assistant.send": "Send",
-    "assistant.sources.title": "Related documentation",
+    "assistant.sources.title": "References",
     "assistant.suggestion.component.composition": "What are common composition patterns for {{ subject }}?",
     "assistant.suggestion.component.disabled": "How do I handle disabled state in {{ subject }}?",
     "assistant.suggestion.component.example": "Show me a {{ subject }} example",
