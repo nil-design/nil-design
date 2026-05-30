@@ -26,16 +26,7 @@ const cancelFlushFrame = frameId => {
     clearTimeout(frameId);
 };
 
-export const useThread = ({
-    base,
-    clearError,
-    connected,
-    key,
-    locale,
-    model,
-    docs = docService,
-    service = openRouter,
-}) => {
+export const useThread = ({ base, clearError, connected, key, locale, model, routePath }) => {
     const [messages, setMessages] = useState([]);
     const [prompt, setPrompt] = useState('');
     const [generating, setGenerating] = useState(false);
@@ -133,13 +124,13 @@ export const useThread = ({
         abortRef.current = controller;
 
         try {
-            const docResult = await docs.retrieve({ base, locale, query: content });
+            const docResult = await docService.retrieveContext({ base, locale, query: content, routePath });
 
-            if (!docResult.loaded) {
+            if (!docResult.available) {
                 setContextWarning(i18n.t('assistant.context.unavailable', { language: locale }));
             }
 
-            const stream = await service.createChatStream({
+            const stream = await openRouter.createChatStream({
                 key,
                 model: normalizeModelId(model),
                 signal: controller.signal,
@@ -179,7 +170,6 @@ export const useThread = ({
         base,
         clearError,
         connected,
-        docs,
         enqueueDelta,
         flushDeltas,
         generating,
@@ -188,7 +178,7 @@ export const useThread = ({
         messages,
         model,
         prompt,
-        service,
+        routePath,
     ]);
 
     return {

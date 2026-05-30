@@ -1,9 +1,31 @@
 // @vitest-environment jsdom
 
 import { act, renderHook, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useThread } from '../hooks/useThread';
 import { appendDelta, createThreadMessage, patchMessage } from '../runtime/thread';
+
+const mocks = vi.hoisted(() => ({
+    createChatStream: vi.fn(),
+    retrieveContext: vi.fn(),
+}));
+
+vi.mock('../services/docs', () => ({
+    createDocService: () => ({
+        retrieveContext: mocks.retrieveContext,
+    }),
+}));
+
+vi.mock('../services/openrouter', async importOriginal => {
+    const actual = await importOriginal();
+
+    return {
+        ...actual,
+        createOpenRouterService: () => ({
+            createChatStream: mocks.createChatStream,
+        }),
+    };
+});
 
 const createStream = async function* (deltas) {
     for (const delta of deltas) {
@@ -12,6 +34,11 @@ const createStream = async function* (deltas) {
 };
 
 describe('assistant thread runtime', () => {
+    beforeEach(() => {
+        mocks.createChatStream.mockReset();
+        mocks.retrieveContext.mockReset();
+    });
+
     it('patches and appends message content by id', () => {
         const first = createThreadMessage({ role: 'user', content: 'Hello' });
         const second = createThreadMessage({ role: 'assistant', content: '' });
@@ -28,27 +55,23 @@ describe('assistant thread runtime', () => {
     });
 
     it('sends a prompt with docs context and attaches streamed response sources', async () => {
-        const docs = {
-            retrieve: vi.fn().mockResolvedValue({
-                loaded: true,
-                context: 'Button docs',
-                sources: [{ title: 'Button', path: '/components/button/' }],
-            }),
-        };
-        const service = {
-            createChatStream: vi.fn().mockResolvedValue(createStream(['Hello', ' world'])),
-        };
+        mocks.retrieveContext.mockResolvedValue({
+            available: true,
+            context: 'Button docs',
+            sources: [{ title: 'Button', path: '/components/button/' }],
+        });
+        mocks.createChatStream.mockResolvedValue(createStream(['Hello', ' world']));
+
         const clearError = vi.fn();
         const { result } = renderHook(() =>
             useThread({
                 base: '/',
                 clearError,
                 connected: true,
-                docs,
                 key: 'sk-test',
                 locale: 'en-US',
                 model: 'openrouter/free',
-                service,
+                routePath: '/components/button/',
             }),
         );
 
@@ -57,8 +80,13 @@ describe('assistant thread runtime', () => {
 
         await waitFor(() => expect(result.current.generating).toBe(false));
         expect(clearError).toHaveBeenCalledTimes(1);
-        expect(docs.retrieve).toHaveBeenCalledWith({ base: '/', locale: 'en-US', query: 'Button?' });
-        expect(service.createChatStream).toHaveBeenCalledWith(
+        expect(mocks.retrieveContext).toHaveBeenCalledWith({
+            base: '/',
+            locale: 'en-US',
+            query: 'Button?',
+            routePath: '/components/button/',
+        });
+        expect(mocks.createChatStream).toHaveBeenCalledWith(
             expect.objectContaining({
                 key: 'sk-test',
                 model: 'openrouter/free',
@@ -81,28 +109,21 @@ describe('assistant thread runtime', () => {
     });
 
     it('keeps aborts silent and writes ordinary failures to the assistant message', async () => {
-        const docs = {
-            retrieve: vi.fn().mockResolvedValue({
-                loaded: true,
-                context: '',
-                sources: [],
+        mocks.retrieveContext.mockResolvedValue({
+            available: true,
+            context: '',
+            sources: [],
+        });
+        mocks.createChatStream.mockRejectedValueOnce(Object.assign(new Error('aborted'), { name: 'AbortError' }));
+
+        const { result } = renderHook(() =>
+            useThread({
+                base: '/',
+                connected: true,
+                key: 'sk-test',
+                locale: 'en-US',
+                model: 'openrouter/free',
             }),
-        };
-        const service = {
-            createChatStream: vi.fn().mockRejectedValue(Object.assign(new Error('aborted'), { name: 'AbortError' })),
-        };
-        const { result, rerender } = renderHook(
-            ({ streamService }) =>
-                useThread({
-                    base: '/',
-                    connected: true,
-                    docs,
-                    key: 'sk-test',
-                    locale: 'en-US',
-                    model: 'openrouter/free',
-                    service: streamService,
-                }),
-            { initialProps: { streamService: service } },
         );
 
         act(() => result.current.setPrompt('Abort'));
@@ -114,11 +135,7 @@ describe('assistant thread runtime', () => {
             status: 'default',
         });
 
-        rerender({
-            streamService: {
-                createChatStream: vi.fn().mockRejectedValue(new Error('failed')),
-            },
-        });
+        mocks.createChatStream.mockRejectedValueOnce(new Error('failed'));
         act(() => result.current.setPrompt('Fail'));
         await act(async () => result.current.send());
 

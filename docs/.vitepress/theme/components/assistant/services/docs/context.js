@@ -1,3 +1,5 @@
+const getSourcePath = source => (source.anchor ? `${source.path}#${source.anchor}` : source.path);
+
 export const formatDocContext = sources => {
     if (!sources.length) {
         return '';
@@ -8,10 +10,14 @@ export const formatDocContext = sources => {
             return [
                 `Source ${index + 1}`,
                 `Title: ${source.title}`,
-                `Path: ${source.path}`,
+                source.heading && source.heading !== source.title ? `Heading: ${source.heading}` : '',
+                `Path: ${getSourcePath(source)}`,
+                `Kind: ${source.kind || 'guide'}`,
                 'Snippet:',
-                source.chunk,
-            ].join('\n');
+                source.text,
+            ]
+                .filter(Boolean)
+                .join('\n');
         })
         .join('\n\n');
 };
@@ -28,7 +34,8 @@ export const toSourceLinks = sources => {
         seen.add(source.path);
         links.push({
             title: source.title,
-            path: source.path,
+            path: getSourcePath(source),
+            heading: source.heading,
             score: source.score,
         });
     }

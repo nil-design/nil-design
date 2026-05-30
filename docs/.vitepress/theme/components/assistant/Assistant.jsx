@@ -23,6 +23,7 @@ const Assistant = ({ locale = 'zh-CN', base = '/', routePath = '', navigate }) =
         key: session.key,
         locale,
         model: session.model,
+        routePath,
     });
     const { disconnect: disconnectSession } = session;
     const { reset: resetThread } = thread;

@@ -1,15 +1,40 @@
 const CJK_PATTERN = /[\u3400-\u9fff]/u;
-const TERM_SEPARATOR = /[^a-z0-9\u3400-\u9fff]+/u;
 const DEFAULT_RESULT_LIMIT = 4;
 
-const normalizeText = value => {
-    return `${value || ''}`
-        .normalize('NFKC')
-        .toLowerCase()
-        .replace(/[^a-z0-9\u3400-\u9fff]+/gu, '');
+const normalizeRoutePath = value => {
+    const path = `${value || ''}`.split(/[?#]/u)[0];
+
+    if (!path) {
+        return '';
+    }
+
+    return path
+        .replace(/index\.html$/u, '')
+        .replace(/\.html$/u, '/')
+        .replace(/\/+$/u, '/');
 };
 
-const getMinTermLength = term => (CJK_PATTERN.test(term) ? 1 : 2);
+const getRouteGroup = value => {
+    const segments = normalizeRoutePath(value).split('/').filter(Boolean);
+
+    return segments.length >= 2 ? `/${segments[0]}/${segments[1]}/` : '';
+};
+
+const getRouteBoost = ({ path, routePath }) => {
+    const route = normalizeRoutePath(routePath);
+
+    if (!route) {
+        return 0;
+    }
+
+    const target = normalizeRoutePath(path);
+
+    if (target === route) {
+        return 12;
+    }
+
+    return getRouteGroup(target) && getRouteGroup(target) === getRouteGroup(route) ? 3 : 0;
+};
 
 const scoreField = ({ normalizedValue, terms, exactBoost, includesBoost, termBoost }) => {
     if (!normalizedValue) {
@@ -35,72 +60,76 @@ const scoreField = ({ normalizedValue, terms, exactBoost, includesBoost, termBoo
 
 export const tokenizeQuery = value => {
     const seen = new Set();
+    const tokens = [];
+    const normalized = `${value || ''}`.normalize('NFKC').toLowerCase();
+    const parts = normalized.match(/[a-z0-9]+|[\u3400-\u9fff]/gu) || [];
 
-    return `${value || ''}`
-        .normalize('NFKC')
-        .toLowerCase()
-        .split(TERM_SEPARATOR)
-        .filter(term => {
-            if (!term || term.length < getMinTermLength(term) || seen.has(term)) {
-                return false;
-            }
+    for (const part of parts) {
+        if (!part || (!CJK_PATTERN.test(part) && part.length < 2) || seen.has(part)) {
+            continue;
+        }
 
-            seen.add(term);
-
-            return true;
-        });
-};
-
-export const normalizeDocIndex = index => {
-    if (!index?.pages?.length) {
-        return index;
+        seen.add(part);
+        tokens.push(part);
     }
 
-    return {
-        ...index,
-        pages: index.pages.map(page => ({
-            ...page,
-            normalizedPath: normalizeText(page.path),
-            normalizedTitle: normalizeText(page.title),
-            normalizedChunks: (page.chunks || []).map(chunk => normalizeText(chunk)),
-        })),
-    };
+    return tokens;
 };
 
-export const searchDocIndex = (index, query, { limit = DEFAULT_RESULT_LIMIT } = {}) => {
+export const searchDocIndex = (index, query, { limit = DEFAULT_RESULT_LIMIT, routePath = '' } = {}) => {
     const terms = tokenizeQuery(query);
 
-    if (!terms.length || !index?.pages?.length) {
+    if (!terms.length || index?.version !== 2 || !index?.pages?.length) {
         return [];
     }
 
     const results = [];
 
     for (const page of index.pages) {
-        const normalizedTitle = page.normalizedTitle ?? normalizeText(page.title);
-        const normalizedPath = page.normalizedPath ?? normalizeText(page.path);
-        const normalizedChunks = page.normalizedChunks || [];
+        const routeBoost = getRouteBoost({ path: page.path, routePath });
 
         (page.chunks || []).forEach((chunk, chunkIndex) => {
-            const normalizedChunk = normalizedChunks[chunkIndex] ?? normalizeText(chunk);
-            const score =
+            const lexicalScore =
                 scoreField({
-                    normalizedValue: normalizedTitle,
+                    normalizedValue: page.normalizedTitle,
                     terms,
                     exactBoost: 12,
                     includesBoost: 8,
                     termBoost: 4,
                 }) +
-                scoreField({ normalizedValue: normalizedPath, terms, exactBoost: 8, includesBoost: 5, termBoost: 3 }) +
-                scoreField({ normalizedValue: normalizedChunk, terms, exactBoost: 4, includesBoost: 2, termBoost: 1 });
+                scoreField({
+                    normalizedValue: page.normalizedPath,
+                    terms,
+                    exactBoost: 8,
+                    includesBoost: 5,
+                    termBoost: 3,
+                }) +
+                scoreField({
+                    normalizedValue: chunk.normalizedHeading,
+                    terms,
+                    exactBoost: 8,
+                    includesBoost: 5,
+                    termBoost: 3,
+                }) +
+                scoreField({
+                    normalizedValue: chunk.normalizedText,
+                    terms,
+                    exactBoost: 4,
+                    includesBoost: 2,
+                    termBoost: 1,
+                });
 
-            if (score > 0) {
+            if (lexicalScore > 0) {
                 results.push({
+                    id: chunk.id,
                     title: page.title,
                     path: page.path,
-                    chunk,
+                    anchor: chunk.anchor,
+                    heading: chunk.heading,
+                    kind: chunk.kind,
+                    text: chunk.text,
                     chunkIndex,
-                    score,
+                    score: lexicalScore + routeBoost,
                 });
             }
         });

@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { cp } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/postcss';
@@ -6,7 +7,7 @@ import react from '@vitejs/plugin-react';
 import postcssNested from 'postcss-nested';
 import svgLoader from 'vite-svg-loader';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
-import { getIndexesBuilder } from '../../scripts/shared';
+import { createIndexesBuilder } from '../../scripts/shared';
 import getAppearance from './getAppearance.js';
 import getSearch from './getSearch.js';
 import getThemeConfig from './getThemeConfig.js';
@@ -17,7 +18,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const inProd = process.env.NODE_ENV === 'production';
 const base = inProd ? '/nil-design/' : '/';
 const ignoredWarningPatterns = inProd ? [/dynamic import will not move module into another chunk\./] : [];
-const indexesBuilder = getIndexesBuilder();
+const indexesBuilder = createIndexesBuilder();
 
 export default defineConfig({
     base,
@@ -122,8 +123,12 @@ export default defineConfig({
         },
     },
     async buildEnd(siteConfig) {
-        await indexesBuilder.build(resolve(__dirname, '../public'));
-        await indexesBuilder.build(resolve(siteConfig.outDir));
+        const publicDir = resolve(__dirname, '../public');
+        const publicIndexDir = resolve(publicDir, 'indexes');
+        const outputIndexDir = resolve(siteConfig.outDir, 'indexes');
+
+        await indexesBuilder.build(publicDir);
+        await cp(publicIndexDir, outputIndexDir, { recursive: true, force: true });
         console.log('✓ indexes built');
     },
 });
