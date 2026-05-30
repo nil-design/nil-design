@@ -1,6 +1,7 @@
 .cursor/
 .claude/
 .codex/
+.playwright-mcp/
 .husky/_
 node_modules/
 dist/
