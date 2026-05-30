@@ -1,4 +1,4 @@
-const disabled = () => [
+const disabled = [
     'nd-disabled-carrier',
     'disabled:cursor-not-allowed',
     'disabled:select-none',

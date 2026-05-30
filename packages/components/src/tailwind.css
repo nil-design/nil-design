@@ -15,53 +15,53 @@
    * brand color scale
    */
   --nd-color-brand-0: light-dark(
-    oklch(99% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(14% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(99% calc(var(--nd-brand-c) * 0.08) var(--nd-brand-h)),
+    oklch(14% calc(var(--nd-brand-c) * 0.08) var(--nd-brand-h))
   );
   --nd-color-brand-5: light-dark(
-    oklch(97% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(17% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(97% calc(var(--nd-brand-c) * 0.12) var(--nd-brand-h)),
+    oklch(17% calc(var(--nd-brand-c) * 0.12) var(--nd-brand-h))
   );
   --nd-color-brand-10: light-dark(
-    oklch(95% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(20% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(95% calc(var(--nd-brand-c) * 0.18) var(--nd-brand-h)),
+    oklch(20% calc(var(--nd-brand-c) * 0.18) var(--nd-brand-h))
   );
   --nd-color-brand-15: light-dark(
-    oklch(92% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(25% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(92% calc(var(--nd-brand-c) * 0.24) var(--nd-brand-h)),
+    oklch(25% calc(var(--nd-brand-c) * 0.24) var(--nd-brand-h))
   );
   --nd-color-brand-20: light-dark(
-    oklch(88% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(30% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(88% calc(var(--nd-brand-c) * 0.34) var(--nd-brand-h)),
+    oklch(30% calc(var(--nd-brand-c) * 0.34) var(--nd-brand-h))
   );
   --nd-color-brand-30: light-dark(
-    oklch(80% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(38% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(80% calc(var(--nd-brand-c) * 0.5) var(--nd-brand-h)),
+    oklch(38% calc(var(--nd-brand-c) * 0.5) var(--nd-brand-h))
   );
   --nd-color-brand-40: light-dark(
-    oklch(72% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(46% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(72% calc(var(--nd-brand-c) * 0.68) var(--nd-brand-h)),
+    oklch(46% calc(var(--nd-brand-c) * 0.68) var(--nd-brand-h))
   );
   --nd-color-brand-50: light-dark(
-    oklch(64% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(52% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(64% calc(var(--nd-brand-c) * 0.86) var(--nd-brand-h)),
+    oklch(52% calc(var(--nd-brand-c) * 0.86) var(--nd-brand-h))
   );
   --nd-color-brand-60: oklch(58% var(--nd-brand-c) var(--nd-brand-h));
   --nd-color-brand-70: light-dark(
-    oklch(50% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(66% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(50% calc(var(--nd-brand-c) * 0.94) var(--nd-brand-h)),
+    oklch(66% calc(var(--nd-brand-c) * 0.94) var(--nd-brand-h))
   );
   --nd-color-brand-80: light-dark(
-    oklch(40% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(76% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(40% calc(var(--nd-brand-c) * 0.78) var(--nd-brand-h)),
+    oklch(76% calc(var(--nd-brand-c) * 0.78) var(--nd-brand-h))
   );
   --nd-color-brand-90: light-dark(
-    oklch(30% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(88% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(30% calc(var(--nd-brand-c) * 0.55) var(--nd-brand-h)),
+    oklch(88% calc(var(--nd-brand-c) * 0.55) var(--nd-brand-h))
   );
   --nd-color-brand-100: light-dark(
-    oklch(20% var(--nd-brand-c) var(--nd-brand-h)),
-    oklch(96% var(--nd-brand-c) var(--nd-brand-h))
+    oklch(20% calc(var(--nd-brand-c) * 0.36) var(--nd-brand-h)),
+    oklch(96% calc(var(--nd-brand-c) * 0.36) var(--nd-brand-h))
   );
 
   /*
@@ -158,9 +158,9 @@
   /*
    * brand subtle
    */
-  --color-brand-subtle: var(--nd-color-brand-15);
-  --color-brand-subtle-hover: var(--nd-color-brand-20);
-  --color-brand-subtle-active: var(--nd-color-brand-30);
+  --color-brand-subtle: var(--nd-color-brand-10);
+  --color-brand-subtle-hover: var(--nd-color-brand-15);
+  --color-brand-subtle-active: var(--nd-color-brand-20);
 
   /*
    * structural colors

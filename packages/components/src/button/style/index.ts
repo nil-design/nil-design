@@ -1,5 +1,5 @@
 import { cva } from '@nild/shared';
-import sharedVariants from '../../_shared/style';
+import sharedStyles from '../../_shared/style';
 import { ButtonProps, GroupProps } from '../interfaces';
 
 const button = cva<ButtonProps>(
@@ -8,7 +8,7 @@ const button = cva<ButtonProps>(
         ['font-nd', 'cursor-pointer', 'transition-colors'],
         ['whitespace-nowrap', 'truncate'],
         'focus-visible:ring-focused',
-        sharedVariants.disabled(),
+        sharedStyles.disabled,
     ],
     {
         variants: {
@@ -70,7 +70,7 @@ const button = cva<ButtonProps>(
     },
 );
 
-const group = cva<GroupProps>(['nd-button-group', ['flex'], sharedVariants.disabled()], {
+const group = cva<GroupProps>(['nd-button-group', ['flex'], sharedStyles.disabled], {
     variants: {
         direction: {
             horizontal: '',

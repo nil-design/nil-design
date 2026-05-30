@@ -24,7 +24,7 @@ const EmptyState = () => {
 
     return (
         <div className="h-full flex flex-col items-center justify-center gap-3 text-center">
-            <div className="size-10 rounded-xl bg-vp-accent-soft text-brand flex items-center justify-center">
+            <div className="size-10 rounded-xl bg-brand-soft text-brand flex items-center justify-center">
                 <DynamicIcon name="message" variant="filled" className="text-[22px]" />
             </div>
             <p className="m-0 text-md text-subtle">{i18n.t('assistant.empty', { language: locale })}</p>

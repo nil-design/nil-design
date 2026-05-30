@@ -116,7 +116,7 @@ const Assistant = ({ locale = 'zh-CN', base = '/', routePath = '', navigate }) =
                 </div>
                 <button
                     className={cnMerge(
-                        'absolute inset-0 flex items-center justify-center bg-vp-accent-soft text-brand transition-[opacity,transform,background-color] ease-out cursor-pointer select-none hover:text-brand-hover active:text-brand-active',
+                        'absolute inset-0 flex items-center justify-center bg-brand-soft text-brand transition-[opacity,transform,background-color] ease-out cursor-pointer select-none hover:text-brand-hover active:text-brand-active',
                         panel.opened ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100',
                     )}
                     type="button"

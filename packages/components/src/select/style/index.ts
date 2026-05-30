@@ -1,5 +1,5 @@
 import { cva } from '@nild/shared';
-import sharedVariants from '../../_shared/style';
+import sharedStyles from '../../_shared/style';
 import { SelectSize, SelectVariant } from '../interfaces';
 
 const trigger = cva<{
@@ -21,7 +21,7 @@ const trigger = cva<{
         'border',
         'transition-colors',
         'outline-none',
-        sharedVariants.disabled(),
+        sharedStyles.disabled,
     ],
     {
         variants: {
@@ -186,7 +186,7 @@ const option = cva<{
         'text-main',
         'select-none',
         'transition-colors',
-        sharedVariants.disabled(),
+        sharedStyles.disabled,
     ],
     {
         variants: {

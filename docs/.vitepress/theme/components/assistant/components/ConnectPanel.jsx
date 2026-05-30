@@ -10,7 +10,7 @@ const ConnectPanel = () => {
 
     return (
         <div className="flex h-full flex-col items-center justify-center gap-4 bg-canvas px-5 text-center">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-vp-accent-soft text-brand">
+            <div className="flex size-10 items-center justify-center rounded-xl bg-brand-soft text-brand">
                 <DynamicIcon name="lightning" variant="filled" className="text-[22px]" />
             </div>
             <div className="flex flex-col gap-1.5">

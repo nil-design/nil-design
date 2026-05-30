@@ -1,9 +1,9 @@
 import { cva } from '@nild/shared';
-import sharedVariants from '../../_shared/style';
+import sharedStyles from '../../_shared/style';
 import { CompositeProps, InputProps, OTPProps } from '../interfaces';
 
 const composite = cva<Pick<CompositeProps, 'block' | 'disabled'>>(
-    ['nd-input-composite', 'inline-flex', 'items-stretch', sharedVariants.disabled()],
+    ['nd-input-composite', 'inline-flex', 'items-stretch', sharedStyles.disabled],
     {
         variants: {
             block: {
@@ -43,7 +43,7 @@ const inputWrapper = cva<InputProps>(
         'group',
         ['inline-flex', 'items-center', 'box-border', 'font-nd', 'transition-colors', 'overflow-hidden'],
         ['border', 'enabled:focus-within:z-1'],
-        sharedVariants.disabled(),
+        sharedStyles.disabled,
     ],
     {
         variants: {

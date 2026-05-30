@@ -5,10 +5,10 @@
                 <div v-for="feature in features" :key="feature.title" :class="['w-full p-2', itemCls]">
                     <VPLink
                         :class="[
-                            'custom-feature block h-full rounded-xl border border-(--vp-custom-glass-border)',
-                            'bg-(--vp-custom-feature-card-bg) shadow-(--vp-custom-feature-card-shadow)',
+                            'custom-feature block h-full rounded-xl border border-subtle',
+                            'bg-surface shadow-sm',
                             'transition-[background-color,box-shadow,translate]',
-                            'hover:translate-y-[-2px] hover:shadow-(--vp-custom-feature-card-shadow-hover)',
+                            'hover:translate-y-[-2px] hover:shadow-md',
                         ]"
                         :href="feature.link"
                         :rel="feature.rel"
@@ -21,8 +21,8 @@
                                 v-if="feature.iconComponent || feature.inlineIcon"
                                 :class="[
                                     'mb-5 flex size-12 items-center justify-center',
-                                    'rounded-2xl border border-(--vp-custom-glass-border)',
-                                    'bg-(--vp-custom-feature-icon-bg)',
+                                    'rounded-2xl border border-subtle',
+                                    'bg-brand-soft',
                                     '[&_svg]:block [&_svg]:size-7',
                                 ]"
                                 aria-hidden="true"
