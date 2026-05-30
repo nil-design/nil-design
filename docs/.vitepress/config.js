@@ -2,6 +2,7 @@
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/postcss';
+import react from '@vitejs/plugin-react';
 import postcssNested from 'postcss-nested';
 import svgLoader from 'vite-svg-loader';
 import { defineConfig, postcssIsolateStyles } from 'vitepress';
@@ -83,6 +84,7 @@ export default defineConfig({
             strictPort: true,
         },
         plugins: [
+            react(),
             svgLoader({
                 defaultImport: 'component',
             }),

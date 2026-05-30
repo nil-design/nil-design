@@ -1,8 +1,8 @@
-import React from 'react';
-import { useAssistantContext } from '../contexts/AssistantContext';
+import { memo } from 'react';
+import { useEnvContext } from '../contexts/AssistantContext';
 
 const SourceList = ({ sources }) => {
-    const { i18n, locale, navigate } = useAssistantContext();
+    const { i18n, locale, navigate } = useEnvContext();
 
     if (!sources.length) {
         return null;
@@ -26,4 +26,4 @@ const SourceList = ({ sources }) => {
     );
 };
 
-export default SourceList;
+export default memo(SourceList);

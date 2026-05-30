@@ -1,10 +1,13 @@
+import { Button } from '@nild/components';
 import { DynamicIcon } from '@nild/icons';
 import { cnJoin } from '@nild/shared';
-import React from 'react';
-import { useAssistantContext } from '../contexts/AssistantContext';
+import { memo } from 'react';
+import { useEnvContext, useSessionContext, useThreadContext } from '../contexts/AssistantContext';
 
 const Header = ({ onClose, onDragStart }) => {
-    const { connected, generating, i18n, locale } = useAssistantContext();
+    const { i18n, locale } = useEnvContext();
+    const { connected } = useSessionContext();
+    const { generating } = useThreadContext();
 
     return (
         <div
@@ -29,17 +32,19 @@ const Header = ({ onClose, onDragStart }) => {
                     </span>
                 )}
             </div>
-            <button
-                className="flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-md text-main transition-colors hover:bg-muted-hover"
+            <Button
+                equal
+                className="shrink-0"
+                size="small"
+                variant="text"
                 aria-label={i18n.t('assistant.close', { language: locale })}
-                type="button"
                 onMouseDown={event => event.stopPropagation()}
                 onClick={onClose}
             >
                 <DynamicIcon name="close" variant="filled" />
-            </button>
+            </Button>
         </div>
     );
 };
 
-export default Header;
+export default memo(Header);

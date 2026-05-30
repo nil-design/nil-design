@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "createdAt": "2026-05-29T22:14:29.694Z",
+    "createdAt": "2026-05-30T09:29:02.095Z",
     "locales": [
         { "locale": "en-US", "file": "en-US.json", "pageCount": 0, "chunkCount": 0 },
         { "locale": "zh-CN", "file": "zh-CN.json", "pageCount": 52, "chunkCount": 189 }

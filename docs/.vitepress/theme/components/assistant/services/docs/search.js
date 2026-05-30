@@ -51,6 +51,22 @@ export const tokenizeQuery = value => {
         });
 };
 
+export const normalizeDocIndex = index => {
+    if (!index?.pages?.length) {
+        return index;
+    }
+
+    return {
+        ...index,
+        pages: index.pages.map(page => ({
+            ...page,
+            normalizedPath: normalizeText(page.path),
+            normalizedTitle: normalizeText(page.title),
+            normalizedChunks: (page.chunks || []).map(chunk => normalizeText(chunk)),
+        })),
+    };
+};
+
 export const searchDocIndex = (index, query, { limit = DEFAULT_RESULT_LIMIT } = {}) => {
     const terms = tokenizeQuery(query);
 
@@ -61,11 +77,12 @@ export const searchDocIndex = (index, query, { limit = DEFAULT_RESULT_LIMIT } = 
     const results = [];
 
     for (const page of index.pages) {
-        const normalizedTitle = normalizeText(page.title);
-        const normalizedPath = normalizeText(page.path);
+        const normalizedTitle = page.normalizedTitle ?? normalizeText(page.title);
+        const normalizedPath = page.normalizedPath ?? normalizeText(page.path);
+        const normalizedChunks = page.normalizedChunks || [];
 
-        page.chunks.forEach((chunk, chunkIndex) => {
-            const normalizedChunk = normalizeText(chunk);
+        (page.chunks || []).forEach((chunk, chunkIndex) => {
+            const normalizedChunk = normalizedChunks[chunkIndex] ?? normalizeText(chunk);
             const score =
                 scoreField({
                     normalizedValue: normalizedTitle,

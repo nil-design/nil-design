@@ -1,5 +1,5 @@
 import { formatDocContext, toSourceLinks } from './context';
-import { searchDocIndex } from './search';
+import { normalizeDocIndex, searchDocIndex } from './search';
 
 export class DocService {
     indexCache = new Map();
@@ -18,7 +18,7 @@ export class DocService {
                 throw new Error(`Failed to load assistant index for locale "${locale}".`);
             }
 
-            return response.json();
+            return response.json().then(normalizeDocIndex);
         });
 
         this.indexCache.set(cacheKey, promise);
@@ -49,4 +49,4 @@ export class DocService {
 
 export const createDocService = () => new DocService();
 
-export { formatDocContext, searchDocIndex, toSourceLinks };
+export { formatDocContext, normalizeDocIndex, searchDocIndex, toSourceLinks };

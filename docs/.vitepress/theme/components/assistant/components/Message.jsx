@@ -1,5 +1,5 @@
 import { cnJoin } from '@nild/shared';
-import React from 'react';
+import { memo } from 'react';
 import SourceList from './SourceList';
 
 const Message = ({ message, streaming }) => {
@@ -28,4 +28,4 @@ const Message = ({ message, streaming }) => {
     );
 };
 
-export default Message;
+export default memo(Message);
