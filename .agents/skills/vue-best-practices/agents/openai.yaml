@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vue 最佳实践"
+  short_description: "Vue 3、SFC 和组合式 API 实践"
+  default_prompt: "使用 $vue-best-practices 处理这个 Vue 任务，先按 Composition API、SFC、响应式、组件边界和数据流规则核对实现。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "开发组件"
+  short_description: "维护 @nild/components 组件体系"
+  default_prompt: "使用 $components-dev 处理 @nild/components，先核对当前公开入口、相邻组件模式、ND tokens、文档/API 生成和验证范围。"

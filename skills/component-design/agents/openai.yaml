@@ -1,4 +1,0 @@
-interface:
-  display_name: "Nil 组件设计"
-  short_description: "按 nil-design 现状设计或刷新 @nild/components 组件"
-  default_prompt: "使用 $component-design 按照 nil-design 当前规范设计或实现 @nild/components 公开组件或内部基础能力，先核对 packages/components/src/index.ts 的真实公开导出与既有参考模式（button、field/form、input、checkbox/radio、select、popup + wrappers、modal、transition），再完成样式、文档、API 生成与验收。"

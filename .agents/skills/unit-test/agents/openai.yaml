@@ -1,0 +1,4 @@
+interface:
+  display_name: "编写单元测试"
+  short_description: "编写和评审行为导向测试"
+  default_prompt: "使用 $unit-test 为这个改动补充或评审单元测试，先核对项目测试栈和相邻测试，再覆盖公开行为、边界和回归路径。"

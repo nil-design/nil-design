@@ -1,0 +1,4 @@
+interface:
+  display_name: "设计 UI"
+  short_description: "按 Nil 风格设计和评审 UI"
+  default_prompt: "使用 $ui-design 设计或评审这个界面，先明确场景、主层级、状态和验收截图，再按 Nil Design 风格收敛视觉。"
