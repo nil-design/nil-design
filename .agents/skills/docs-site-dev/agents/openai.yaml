@@ -1,0 +1,4 @@
+interface:
+  display_name: "开发文档站"
+  short_description: "维护 nil-design VitePress 文档站"
+  default_prompt: "使用 $docs-site-dev 处理 nil-design 文档站，先核对 VitePress 配置、主题入口、token bridge、导航生成、示例运行和构建副作用。"

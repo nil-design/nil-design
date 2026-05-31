@@ -1,0 +1,4 @@
+interface:
+  display_name: "开发 Hooks"
+  short_description: "维护 @nild/hooks React hooks"
+  default_prompt: "使用 $hooks-dev 处理 @nild/hooks，先核对当前入口、相邻 hook 模式、测试、文档和浏览器/SSR 边界。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "React 最佳实践"
+  short_description: "React 组件、Hooks 和性能实践"
+  default_prompt: "使用 $react-best-practices 处理这个 React 任务，先核对组件边界、数据流、副作用、重渲染、bundle 和验证范围。"

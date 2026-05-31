@@ -1,0 +1,4 @@
+interface:
+  display_name: "开发共享能力"
+  short_description: "维护 @nild/shared 基础能力"
+  default_prompt: "使用 $shared-dev 处理 @nild/shared，先核对公开入口、子包边界、相邻 helper 和调用方，再保持抽象小而稳定。"

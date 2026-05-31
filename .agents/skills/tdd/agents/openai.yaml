@@ -1,0 +1,4 @@
+interface:
+  display_name: "TDD"
+  short_description: "红绿重构式测试驱动开发"
+  default_prompt: "使用 $tdd 以 red-green-refactor 循环实现这个改动，一次写一个行为测试，再写最小实现。"

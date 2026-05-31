@@ -1,0 +1,4 @@
+interface:
+  display_name: "避免乱码"
+  short_description: "安全处理 UTF-8 和中文文本"
+  default_prompt: "使用 $keep-utf8 在 shell 或脚本中安全读取、写入和验证 UTF-8/中文文本，避免把终端乱码当作文件事实。"

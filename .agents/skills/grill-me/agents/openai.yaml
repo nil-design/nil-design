@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grill Me"
+  short_description: "用追问压力测试方案和设计"
+  default_prompt: "使用 $grill-me 追问并压力测试这个方案，一次问一个问题，并给出你的推荐答案。"

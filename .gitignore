@@ -10,6 +10,7 @@ cache/
 coverage/
 docs/.vitepress/.temp/
 docs/.screenshots/
+output/
 
 .pnpm-debug.log
 tsconfig.tsbuildinfo
