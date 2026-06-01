@@ -1,0 +1,17 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 1. 顶部上下文骨架 (居中对称，距顶部 10px) -->
+  <rect x="20" y="10" width="48" height="6" rx="3" fill="var(--nd-color-neutral-15)" />
+
+  <!-- 2. Alert 主体框 (绝对居中，Y轴中心点为 40) -->
+  <rect x="20" y="26" width="80" height="28" rx="6" fill="var(--nd-color-brand-60)" />
+  
+  <!-- Alert 左侧语义图标 -->
+  <circle cx="34" cy="40" r="6" fill="var(--nd-color-neutral-0)" />
+  
+  <!-- Alert 内部双行排版 -->
+  <rect x="46" y="34" width="24" height="4" rx="2" fill="var(--nd-color-neutral-0)" />
+  <rect x="46" y="42" width="40" height="4" rx="2" fill="var(--nd-color-neutral-0)" />
+
+  <!-- 3. 底部上下文骨架 (居中对称，距底部 10px) -->
+  <rect x="20" y="64" width="64" height="6" rx="3" fill="var(--nd-color-neutral-15)" />
+</svg>
