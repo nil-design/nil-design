@@ -1,3 +1,4 @@
+import Alert from './alert';
 import Button from './button';
 import Checkbox from './checkbox';
 import Divider from './divider';
@@ -18,6 +19,7 @@ import Watermark from './watermark';
 import './tailwind.css';
 
 export {
+    Alert,
     Button,
     Checkbox,
     Divider,

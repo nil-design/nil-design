@@ -10,8 +10,7 @@
                     '[grid-template-rows:minmax(0,1fr)_auto] shadow-sm',
                     'transition-[translate,box-shadow] ease-out',
                     'hover:-translate-y-px hover:shadow-sm',
-                    'focus-visible:-translate-y-px focus-visible:outline-none',
-                    'focus-visible:[box-shadow:0_0_0_0.2rem_var(--color-brand-ring),var(--shadow-sm)]',
+                    'focus-visible:-translate-y-px focus-visible:[outline:2px_solid_var(--color-brand-muted)] focus-visible:outline-offset-2',
                     'w-full border-0 p-0 text-left appearance-none',
                     card.href ? 'cursor-pointer' : '',
                     'motion-reduce:transition-none',
@@ -48,6 +47,7 @@
 <script setup>
 import { useData, useRouter } from 'vitepress';
 import { computed, markRaw } from 'vue';
+import AlertIcon from '../../icons/components/alert.svg';
 import ButtonIcon from '../../icons/components/button.svg';
 import CheckboxIcon from '../../icons/components/checkbox.svg';
 import DividerIcon from '../../icons/components/divider.svg';
@@ -78,6 +78,7 @@ const { lang, site } = useData();
 const router = useRouter();
 
 const iconMap = {
+    alert: markRaw(AlertIcon),
     button: markRaw(ButtonIcon),
     icon: markRaw(IconIcon),
     typography: markRaw(TypographyIcon),

@@ -1,0 +1,15 @@
+import type { HTMLAttributes, MouseEvent, ReactNode } from 'react';
+
+export type AlertType = 'info' | 'success' | 'warning' | 'error';
+
+export interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
+    type?: AlertType;
+    title?: ReactNode;
+    icon?: ReactNode | false;
+    closable?: boolean;
+    visible?: boolean;
+    defaultVisible?: boolean;
+    closeAriaLabel?: string;
+    onClose?: (event: MouseEvent<HTMLButtonElement>) => void;
+    children?: ReactNode;
+}
