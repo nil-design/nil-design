@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.50
+
+### Patch Changes
+
+- cceaeb6: style: update default brand hue
+
 ## 0.0.49
 
 ### Patch Changes
