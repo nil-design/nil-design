@@ -49,6 +49,15 @@ const title = cva<Pick<AlertProps, 'type'>>(['nd-alert-title', 'font-medium', 'l
 
 const body = cva<object>(['nd-alert-body', 'text-muted', 'leading-[inherit]']);
 
-const close = cva<object>(['nd-alert-close', '-mt-px', 'ms-1', 'shrink-0', 'text-muted', 'enabled:hover:text-main']);
+const close = cva<object>([
+    'nd-alert-close',
+    '-mt-px',
+    'ms-1',
+    'shrink-0',
+    'text-muted',
+    'enabled:hover:text-brand',
+    'enabled:hover:bg-transparent',
+    'enabled:active:bg-transparent',
+]);
 
 export default { alert, icon, content, title, body, close };

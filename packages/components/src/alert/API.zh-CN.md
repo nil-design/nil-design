@@ -10,11 +10,25 @@ You may edit only the description column; other API columns are refreshed automa
 | 属性名 | 描述 | 类型 | 默认值 |
 | :-- | :-- | :-- | :-- |
 | type | 反馈类型。 | `'info' \| 'success' \| 'warning' \| 'error'` | - |
-| title | 主提示文案。 | `ReactNode` | - |
-| icon | 图标内容，设为 `false` 时隐藏。 | `ReactNode` | - |
 | closable | 显示关闭按钮。 | `boolean` | - |
 | visible | 受控显示状态。 | `boolean` | - |
 | defaultVisible | 默认显示状态。 | `boolean` | - |
 | closeAriaLabel | 关闭按钮可访问名称。 | `string` | - |
 | onClose | 点击关闭按钮时触发。 | `(event: MouseEvent<HTMLButtonElement>) => void` | - |
 | children | 说明内容。 | `ReactNode` | - |
+
+### Alert.Icon Props
+
+> 继承自 `HTMLAttributes<HTMLSpanElement>`
+
+| 属性名 | 描述 | 类型 | 默认值 |
+| :-- | :-- | :-- | :-- |
+| children | 图标内容，留空时隐藏默认图标。 | `ReactNode` | - |
+
+### Alert.Title Props
+
+> 继承自 `HTMLAttributes<HTMLDivElement>`
+
+| 属性名 | 描述 | 类型 | 默认值 |
+| :-- | :-- | :-- | :-- |
+| children | 主提示文案。 | `ReactNode` | - |
