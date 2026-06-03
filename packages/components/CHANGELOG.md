@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.51
+
+### Patch Changes
+
+- cb455fc: feat: add Alert component
+
 ## 0.0.50
 
 ### Patch Changes
