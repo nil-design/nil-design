@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.52
+
+### Patch Changes
+
+- 19290de: feat: refine Alert with compound slots and rest children support
+
 ## 0.0.51
 
 ### Patch Changes
