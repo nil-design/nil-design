@@ -8,6 +8,8 @@ import { Alert as RootAlert } from '../../index';
 describe('Alert', () => {
     it('is exported from the package root and renders an alert by default', () => {
         expect(RootAlert).toBe(Alert);
+        expect(Alert.Icon).toBeDefined();
+        expect(Alert.Title).toBeDefined();
 
         render(<Alert>Service will restart tonight.</Alert>);
 
@@ -33,7 +35,8 @@ describe('Alert', () => {
     it('renders title and body content for each alert type', () => {
         (['info', 'success', 'warning', 'error'] as const).forEach(type => {
             const { unmount } = render(
-                <Alert title={`${type} title`} type={type}>
+                <Alert type={type}>
+                    <Alert.Title>{`${type} title`}</Alert.Title>
                     {`${type} body`}
                 </Alert>,
             );
@@ -47,17 +50,42 @@ describe('Alert', () => {
         });
     });
 
+    it('keeps element body nodes when collecting slots', () => {
+        render(
+            <Alert>
+                {'Alpha'}
+                <strong>Beta</strong>
+                {'Gamma'}
+            </Alert>,
+        );
+
+        expect(screen.getByRole('alert')).toHaveTextContent('AlphaBetaGamma');
+        expect(screen.getByText('Beta')).toBeInTheDocument();
+    });
+
     it('renders default, custom, and hidden icons without exposing default icons to assistive names', () => {
         const { container, rerender } = render(<Alert>Default icon</Alert>);
 
         expect(container.querySelector('[aria-hidden="true"] svg')).toBeInTheDocument();
         expect(screen.queryByRole('img')).not.toBeInTheDocument();
 
-        rerender(<Alert icon={<span data-testid="custom-icon">!</span>}>Custom icon</Alert>);
+        rerender(
+            <Alert>
+                <Alert.Icon>
+                    <span data-testid="custom-icon">!</span>
+                </Alert.Icon>
+                Custom icon
+            </Alert>,
+        );
 
         expect(screen.getByTestId('custom-icon')).toHaveTextContent('!');
 
-        rerender(<Alert icon={false}>No icon</Alert>);
+        rerender(
+            <Alert>
+                <Alert.Icon />
+                No icon
+            </Alert>,
+        );
 
         expect(screen.queryByTestId('custom-icon')).not.toBeInTheDocument();
         expect(container.querySelector('[aria-hidden="true"] svg')).not.toBeInTheDocument();

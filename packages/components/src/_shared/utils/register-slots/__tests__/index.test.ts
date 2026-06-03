@@ -77,6 +77,29 @@ describe('registerSlots', () => {
         expect(result.slots.secondary.seq).toEqual([0, 1]);
     });
 
+    it('collects unmatched children into restChildren in order', () => {
+        const collectSlots = registerSlots({
+            primary: {
+                isMatched: child => child.type === PrimarySlot,
+            },
+        });
+        const result = collectSlots(
+            createElement(
+                Fragment,
+                null,
+                'Alpha',
+                createElement(PrimarySlot, null, 'Primary'),
+                createElement('div', null, 'Rest'),
+                7,
+            ),
+        );
+
+        expect(result.restChildren[0]).toBe('Alpha');
+        expect((result.restChildren[1] as ReactElement).type).toBe('div');
+        expect((result.restChildren[1] as ReactElement).props.children).toBe('Rest');
+        expect(result.restChildren[2]).toBe(7);
+    });
+
     it('collects plain text children and ignores empty values', () => {
         const collectSlots = registerSlots({
             primary: {
@@ -151,5 +174,6 @@ describe('registerSlots', () => {
         expect(result.slots.secondary.el).toEqual([]);
         expect(result.slots.secondary.seq).toEqual([]);
         expect(result.plainChildren).toEqual([]);
+        expect(result.restChildren).toHaveLength(1);
     });
 });

@@ -7,16 +7,18 @@ import InfoIcon from '@nild/icons/Info';
 import SuccessIcon from '@nild/icons/Success';
 import { cnMerge } from '@nild/shared';
 import { MouseEvent, forwardRef } from 'react';
+import { registerSlots } from '../_shared/utils';
 import Button from '../button';
-import { AlertProps, AlertType } from './interfaces';
+import { AlertProvider } from './contexts';
+import AlertIcon, { isIconElement } from './Icon';
+import { AlertProps } from './interfaces';
 import variants from './style';
+import { isTitleElement } from './Title';
 
-const defaultIconMap = {
-    info: InfoIcon,
-    success: SuccessIcon,
-    warning: CautionIcon,
-    error: ErrorIcon,
-} satisfies Record<AlertType, typeof InfoIcon>;
+const collectSlots = registerSlots({
+    icon: { isMatched: isIconElement },
+    title: { isMatched: isTitleElement },
+});
 
 /**
  * @category Components
@@ -26,12 +28,10 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(
         {
             className,
             children,
-            title,
-            icon,
             role = 'alert',
             type = 'info',
             closable = false,
-            visible,
+            visible: externalVisible,
             defaultVisible = true,
             closeAriaLabel = 'Close',
             onClose,
@@ -39,45 +39,57 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(
         },
         ref,
     ) => {
-        const [currentVisible, setCurrentVisible] = useControllableState(visible, defaultVisible);
+        const [visible, setVisible] = useControllableState(externalVisible, defaultVisible);
 
-        if (!currentVisible) {
+        if (!visible) {
             return null;
         }
 
-        const defaultIcon = <Icon component={defaultIconMap[type]} variant="filled" />;
-        const iconNode = icon === undefined ? defaultIcon : icon;
+        const { slots, restChildren } = collectSlots(children);
+        const iconNode = slots.icon.el ?? (
+            <AlertIcon>
+                <Icon
+                    component={
+                        {
+                            info: InfoIcon,
+                            success: SuccessIcon,
+                            warning: CautionIcon,
+                            error: ErrorIcon,
+                        }[type]
+                    }
+                    variant="filled"
+                />
+            </AlertIcon>
+        );
 
         const handleClose = (evt: MouseEvent<HTMLButtonElement>) => {
-            setCurrentVisible(false);
+            setVisible(false);
             onClose?.(evt);
         };
 
         return (
-            <div {...restProps} className={cnMerge(variants.alert({ type }), className)} ref={ref} role={role}>
-                {iconNode !== false && (
-                    <span aria-hidden="true" className={variants.icon({ type })}>
-                        {iconNode}
-                    </span>
-                )}
-                <div className={variants.content()}>
-                    {title && <div className={variants.title({ type })}>{title}</div>}
-                    {children && <div className={variants.body()}>{children}</div>}
+            <AlertProvider value={{ type }}>
+                <div {...restProps} className={cnMerge(variants.alert({ type }), className)} ref={ref} role={role}>
+                    {iconNode}
+                    <div className={variants.content()}>
+                        {slots.title.el}
+                        {restChildren.length > 0 && <div className={variants.body()}>{restChildren}</div>}
+                    </div>
+                    {closable && (
+                        <Button
+                            aria-label={closeAriaLabel}
+                            className={variants.close()}
+                            equal
+                            onClick={handleClose}
+                            shape="square"
+                            size="small"
+                            variant="text"
+                        >
+                            <Icon component={CloseIcon} />
+                        </Button>
+                    )}
                 </div>
-                {closable && (
-                    <Button
-                        aria-label={closeAriaLabel}
-                        className={variants.close()}
-                        equal
-                        onClick={handleClose}
-                        shape="square"
-                        size="small"
-                        variant="text"
-                    >
-                        <Icon component={CloseIcon} />
-                    </Button>
-                )}
-            </div>
+            </AlertProvider>
         );
     },
 );

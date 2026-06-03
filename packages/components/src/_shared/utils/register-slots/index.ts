@@ -30,6 +30,7 @@ interface CollectSlotsResult<Schema extends SlotSchema> {
         [K in keyof Schema]: SlotValue<Schema[K]>;
     };
     plainChildren: PlainChild[];
+    restChildren: ReactNode[];
 }
 
 const registerSlots = <Schema extends SlotSchema>(schema: Schema) => {
@@ -42,6 +43,7 @@ const registerSlots = <Schema extends SlotSchema>(schema: Schema) => {
             return acc;
         }, {});
         const plainChildren: PlainChild[] = [];
+        const restChildren: ReactNode[] = [];
 
         let seq = 0;
 
@@ -60,19 +62,24 @@ const registerSlots = <Schema extends SlotSchema>(schema: Schema) => {
                         content: child,
                         seq,
                     });
+                    restChildren.push(child);
                     seq += 1;
 
                     return;
                 }
                 if (!isValidElement(child)) {
+                    restChildren.push(child);
                     seq += 1;
 
                     return;
                 }
+                let matched = false;
+
                 for (const [slotName, definition] of schemaEntries) {
                     if (!definition.isMatched(child)) {
                         continue;
                     }
+                    matched = true;
                     if (definition.multiple) {
                         (slots[slotName] as MultipleSlot).el.push(child);
                         (slots[slotName] as MultipleSlot).seq.push(seq);
@@ -85,6 +92,7 @@ const registerSlots = <Schema extends SlotSchema>(schema: Schema) => {
                     }
                     break;
                 }
+                !matched && restChildren.push(child);
                 seq += 1;
             });
         };
@@ -94,6 +102,7 @@ const registerSlots = <Schema extends SlotSchema>(schema: Schema) => {
         return {
             slots: slots as CollectSlotsResult<Schema>['slots'],
             plainChildren,
+            restChildren: Children.toArray(restChildren),
         };
     };
 };
