@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
     const peerDeps = getPeerDeps(pkg.name, '@nild/shared', '@nild/hooks', '@nild/icons');
 
     return {
-        plugins: [react(), dts({ tsconfigPath: './tsconfig.json' })],
+        plugins: [react(), dts({ tsconfigPath: './tsconfig.json', copyDtsFiles: true })],
         css: {
             postcss: {
                 plugins: [postcssNested],
