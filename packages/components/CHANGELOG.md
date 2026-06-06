@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.53
+
+### Patch Changes
+
+- e8d6898: fix: include component interface declarations in build output
+
 ## 0.0.52
 
 ### Patch Changes
