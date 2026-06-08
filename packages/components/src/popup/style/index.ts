@@ -3,7 +3,7 @@ import { ArrowOrientation, PopupProps, PortalProps } from '../interfaces';
 
 const trigger = cva(['nd-popup-trigger']);
 
-const portal = cva<PortalProps>(['nd-popup-portal', ['absolute', 'top-0', 'left-0']]);
+const portal = cva<PortalProps>(['nd-popup-portal', ['absolute', 'top-0', 'left-0', 'z-popup']]);
 
 const portalContent = cva<Pick<PopupProps, 'size' | 'inverse'>>(['rounded-md', 'shadow-lg'], {
     variants: {

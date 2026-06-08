@@ -1,7 +1,15 @@
 import { useEffect, useRef, useSyncExternalStore } from 'react';
 import { EMPTY_MODAL_STACK, getModalStackStore } from '../_shared/stack';
 
-const BASE_MODAL_Z_INDEX = 40;
+const BASE_MODAL_Z_INDEX = 'var(--z-index-modal)';
+
+const getModalZIndex = (stackIndex: number) => {
+    if (stackIndex <= 0) {
+        return BASE_MODAL_Z_INDEX;
+    }
+
+    return `calc(${BASE_MODAL_Z_INDEX} + ${stackIndex})`;
+};
 
 export const useModalStack = (ownerDocument: Document | null, present: boolean) => {
     const tokenRef = useRef(Symbol('modal'));
@@ -24,7 +32,7 @@ export const useModalStack = (ownerDocument: Document | null, present: boolean) 
     const topmost = stackSnapshot.at(-1) === tokenRef.current;
 
     return {
-        zIndex: BASE_MODAL_Z_INDEX + (stackIndex === -1 ? 0 : stackIndex),
+        zIndex: getModalZIndex(stackIndex),
         topmost,
     };
 };

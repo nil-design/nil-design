@@ -285,6 +285,13 @@
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
 
+  /*
+   * z-index scale
+   */
+  --z-index-popup: 1000;
+  --z-index-modal: 1300;
+  --z-index-toast: 1500;
+
   --shadow-sm: 0 0 0 0.8px var(--border-color-muted), 0 1px 2px 0 var(--nd-color-shadow-key);
   --shadow-md:
     0 0 0 0.8px var(--border-color-muted), 0 4px 6px -1px var(--nd-color-shadow-key),
