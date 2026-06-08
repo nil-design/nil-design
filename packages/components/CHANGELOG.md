@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.54
+
+### Patch Changes
+
+- b981979: fix: keep popup portals within modal overlay containers
+
 ## 0.0.53
 
 ### Patch Changes
