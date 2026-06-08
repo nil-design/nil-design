@@ -1,7 +1,8 @@
-import { useEffectCallback, useEventListener, useScrollLock } from '@nild/hooks';
+import { useEffectCallback, useEventListener, useRefState, useScrollLock } from '@nild/hooks';
 import { cnMerge, mergeRefs } from '@nild/shared';
-import { ReactElement, forwardRef, isValidElement, useRef } from 'react';
+import { ReactElement, forwardRef, isValidElement, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { PortalContainerProvider } from '../_shared/contexts';
 import { getOwnerDocument, registerSlots } from '../_shared/utils';
 import { isBodyElement } from './Body';
 import Close, { isCloseElement } from './Close';
@@ -53,9 +54,16 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             updateOpen,
         } = useModalContext();
         const surfaceRef = useRef<HTMLDivElement>(null);
+        const [portalContainer, setPortalContainer, portalContainerRef] = useRefState<HTMLDivElement | null>(null);
         const ownerDocument = getOwnerDocument(externalContainer, surfaceRef.current, refs.trigger.current);
         const container = externalContainer ?? ownerDocument?.body ?? null;
         const { zIndex, topmost } = useModalStack(ownerDocument, Boolean(container));
+        const portalContainerContext = useMemo(
+            () => ({
+                container: portalContainer,
+            }),
+            [portalContainer],
+        );
 
         const handleOverlayClick = useEffectCallback(() => {
             if (overlayless || !open || !closeOnOverlayClick || !topmost) {
@@ -84,6 +92,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
             restoreFocus,
             topmost,
             ownerDocument,
+            portalContainerRef,
             surfaceRef,
             triggerRef: refs.trigger,
         });
@@ -96,34 +105,37 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
         const { slots } = collectSlots(children);
 
         return createPortal(
-            <div
-                className={cnMerge(variants.portal({ placement }), className)}
-                style={{
-                    zIndex,
-                    ...style,
-                }}
-                {...restProps}
-            >
-                {!overlayless && (
-                    <div className={cnMerge(variants.overlay(), overlayClassName)} onClick={handleOverlayClick} />
-                )}
+            <PortalContainerProvider value={portalContainerContext}>
                 <div
-                    ref={mergeRefs(surfaceRef, ref)}
-                    className={cnMerge(variants.surface({ variant, placement, size }), surfaceClassName)}
-                    aria-describedby={accessibility['aria-describedby']}
-                    aria-label={accessibility['aria-label']}
-                    aria-labelledby={accessibility['aria-labelledby']}
-                    aria-modal="true"
-                    role="dialog"
-                    tabIndex={-1}
-                    onTransitionEnd={onTransitionEnd}
+                    ref={setPortalContainer}
+                    className={cnMerge(variants.portal({ placement }), className)}
+                    style={{
+                        zIndex,
+                        ...style,
+                    }}
+                    {...restProps}
                 >
-                    {slots.header.el}
-                    {slots.body.el}
-                    {slots.footer.el}
-                    {slots.close.el ?? <Close />}
+                    {!overlayless && (
+                        <div className={cnMerge(variants.overlay(), overlayClassName)} onClick={handleOverlayClick} />
+                    )}
+                    <div
+                        ref={mergeRefs(surfaceRef, ref)}
+                        className={cnMerge(variants.surface({ variant, placement, size }), surfaceClassName)}
+                        aria-describedby={accessibility['aria-describedby']}
+                        aria-label={accessibility['aria-label']}
+                        aria-labelledby={accessibility['aria-labelledby']}
+                        aria-modal="true"
+                        role="dialog"
+                        tabIndex={-1}
+                        onTransitionEnd={onTransitionEnd}
+                    >
+                        {slots.header.el}
+                        {slots.body.el}
+                        {slots.footer.el}
+                        {slots.close.el ?? <Close />}
+                    </div>
                 </div>
-            </div>,
+            </PortalContainerProvider>,
             container,
         );
     },

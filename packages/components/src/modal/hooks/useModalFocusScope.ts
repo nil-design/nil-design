@@ -7,6 +7,7 @@ interface UseModalFocusScopeOptions {
     restoreFocus: boolean;
     topmost: boolean;
     ownerDocument: Document | null;
+    portalContainerRef?: RefObject<HTMLElement>;
     surfaceRef: RefObject<HTMLElement>;
     triggerRef: RefObject<Element>;
 }
@@ -68,6 +69,7 @@ export const useModalFocusScope = ({
     restoreFocus,
     topmost,
     ownerDocument,
+    portalContainerRef,
     surfaceRef,
     triggerRef,
 }: UseModalFocusScopeOptions) => {
@@ -89,8 +91,9 @@ export const useModalFocusScope = ({
 
     const handleKeyDown = useEffectCallback((evt: KeyboardEvent) => {
         const surface = surfaceRef.current;
+        const focusScope = portalContainerRef?.current ?? surface;
 
-        if (!surface || !open || !topmost || evt.key !== 'Tab' || !trapFocus) {
+        if (!surface || !focusScope || !open || !topmost || evt.key !== 'Tab' || !trapFocus) {
             return;
         }
 
@@ -104,7 +107,7 @@ export const useModalFocusScope = ({
             return;
         }
 
-        if (!$activeElement || !surface.contains($activeElement)) {
+        if (!$activeElement || !focusScope.contains($activeElement)) {
             evt.preventDefault();
             focusWithin(surface, evt.shiftKey);
 
@@ -125,9 +128,18 @@ export const useModalFocusScope = ({
 
     const handleFocusIn = useEffectCallback((evt: FocusEvent) => {
         const surface = surfaceRef.current;
+        const focusScope = portalContainerRef?.current ?? surface;
         const nextTarget = evt.target as Node | null;
 
-        if (!surface || !trapFocus || !open || !topmost || !nextTarget || surface.contains(nextTarget)) {
+        if (
+            !surface ||
+            !focusScope ||
+            !trapFocus ||
+            !open ||
+            !topmost ||
+            !nextTarget ||
+            focusScope.contains(nextTarget)
+        ) {
             return;
         }
 

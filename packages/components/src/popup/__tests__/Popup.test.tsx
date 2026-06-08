@@ -100,4 +100,21 @@ describe('Popup', () => {
         expect(screen.getByRole('button', { name: 'Explicit trigger' })).toBeInTheDocument();
         expect(screen.getByText('Priority portal')).toBeInTheDocument();
     });
+
+    it('applies the popup layer class to the portal slot', () => {
+        render(
+            <Popup defaultOpen>
+                <Popup.Trigger>
+                    <button type="button">Layered trigger</button>
+                </Popup.Trigger>
+                <Popup.Portal>
+                    <div>Layered portal</div>
+                </Popup.Portal>
+            </Popup>,
+        );
+
+        const $portal = screen.getByText('Layered portal').closest('.nd-popup-portal');
+
+        expect($portal).toHaveClass('z-popup');
+    });
 });
