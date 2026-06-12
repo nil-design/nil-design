@@ -1,6 +1,7 @@
 import Alert from './alert';
 import Button from './button';
 import Checkbox from './checkbox';
+import ColorPicker from './color-picker';
 import Divider from './divider';
 import Field from './field';
 import Form from './form';
@@ -10,6 +11,7 @@ import Popover from './popover';
 import Radio from './radio';
 import Segment from './segment';
 import Select from './select';
+import Slider from './slider';
 import Switch from './switch';
 import Tabs from './tabs';
 import Tooltip from './tooltip';
@@ -22,6 +24,7 @@ export {
     Alert,
     Button,
     Checkbox,
+    ColorPicker,
     Divider,
     Field,
     Form,
@@ -31,6 +34,7 @@ export {
     Radio,
     Segment,
     Select,
+    Slider,
     Switch,
     Tabs,
     Tooltip,

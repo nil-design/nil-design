@@ -1,0 +1,17 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clipPath id="nd-color-picker-silhouette-area">
+            <rect x="48" y="18" width="46" height="36" rx="6" />
+        </clipPath>
+    </defs>
+    <rect x="18" y="30" width="20" height="20" rx="5" fill="var(--nd-color-neutral-15)" />
+    <rect x="23" y="35" width="10" height="10" rx="3" fill="var(--nd-color-brand-60)" />
+    <rect x="48" y="18" width="54" height="44" rx="6" fill="var(--nd-color-neutral-60)" />
+    <rect x="44" y="14" width="54" height="44" rx="6" fill="var(--nd-color-neutral-0)" />
+    <g clip-path="url(#nd-color-picker-silhouette-area)">
+        <rect x="48" y="18" width="46" height="36" fill="var(--nd-color-brand-20)" />
+        <path d="M48 54L94 18V54H48Z" fill="var(--nd-color-brand-50)" />
+        <path d="M94 18V54H66L94 18Z" fill="var(--nd-color-brand-70)" />
+    </g>
+    <circle cx="60" cy="31" r="4" fill="var(--nd-color-neutral-0)" />
+</svg>

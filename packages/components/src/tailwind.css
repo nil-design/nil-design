@@ -222,6 +222,7 @@
   --border-color-main: var(--nd-color-neutral-20);
   --border-color-muted: var(--nd-color-neutral-15);
   --border-color-subtle: var(--nd-color-neutral-10);
+  --border-color-canvas: var(--nd-color-neutral-0);
 
   --outline-color-main: var(--border-color-main);
   --outline-color-muted: var(--border-color-muted);
@@ -242,10 +243,8 @@
 
   --background-color-surface: light-dark(
     var(--nd-color-neutral-0),
-    var(--nd-color-neutral-10)
+    var(--nd-color-neutral-5)
   ); /* popover, dropdown and modal background */
-  --background-color-surface-subtle: light-dark(var(--nd-color-neutral-5), var(--nd-color-neutral-15));
-  --background-color-surface-muted: light-dark(var(--nd-color-neutral-10), var(--nd-color-neutral-20));
 
   /*
    * text colors  

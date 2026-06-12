@@ -200,7 +200,7 @@ const option = cva<{
                 false: ['cursor-pointer'],
             },
             active: {
-                true: ['bg-surface-muted'],
+                true: ['bg-muted'],
                 false: '',
             },
         },
