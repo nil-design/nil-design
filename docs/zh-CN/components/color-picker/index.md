@@ -74,7 +74,7 @@ const Demo = () => {
     const [format, setFormat] = useState('rgb');
 
     return (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
             <ColorPicker
                 value={value}
                 format={format}

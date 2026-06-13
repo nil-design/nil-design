@@ -16,7 +16,7 @@ import { Slider } from '@nild/components';
 
 const Demo = () => {
     return (
-        <div className="flex w-full max-w-96 flex-col gap-5">
+        <div className="flex w-full max-w-96 flex-col gap-4">
             <div className="flex flex-col gap-2">
                 <span className="text-md">floating:</span>
                 <Slider aria-label="浮动滑块" defaultValue={42} variant="floating" block />
@@ -43,7 +43,7 @@ import { Slider } from '@nild/components';
 
 const Demo = () => {
     return (
-        <div className="flex flex-col items-start gap-5">
+        <div className="flex flex-col items-start gap-4">
             <Slider aria-label="禁用滑块" defaultValue={45} disabled />
             <Slider aria-label="禁用垂直滑块" orientation="vertical" defaultValue={45} disabled />
         </div>
@@ -64,7 +64,7 @@ import { Slider } from '@nild/components';
 
 const Demo = () => {
     return (
-        <div className="flex flex-col items-start gap-5">
+        <div className="flex flex-col items-start gap-4">
             <Slider aria-label="音量" defaultValue={30} min={0} max={100} />
             <Slider aria-label="字号" defaultValue={16} min={12} max={32} step={2} />
             <Slider aria-label="透明度" defaultValue={0.6} min={0} max={1} step={0.1} />
@@ -86,7 +86,7 @@ import { Slider } from '@nild/components';
 
 const Demo = () => {
     return (
-        <div className="flex w-full flex-col gap-5">
+        <div className="flex w-full flex-col gap-4">
             <Slider aria-label="小尺寸" size="small" defaultValue={24} block />
             <Slider aria-label="中尺寸" size="medium" defaultValue={48} block />
             <Slider aria-label="大尺寸" size="large" defaultValue={72} block />
@@ -108,7 +108,7 @@ import { Slider } from '@nild/components';
 
 const Demo = () => {
     return (
-        <div className="flex h-48 items-end gap-6">
+        <div className="flex h-48 items-end gap-4">
             <Slider aria-label="一月" orientation="vertical" defaultValue={30} />
             <Slider aria-label="二月" orientation="vertical" defaultValue={55} />
             <Slider aria-label="三月" orientation="vertical" defaultValue={75} />
