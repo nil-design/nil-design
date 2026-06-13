@@ -34,7 +34,7 @@ const Demo = () => {
   const [uncontrolled, setUncontrolled] = useControllableState(undefined, false);
 
   return (
-    <div className="flex w-full max-w-xl flex-col items-start gap-6">
+    <div className="flex w-full max-w-xl flex-col items-start gap-4">
       <div className="flex w-full flex-col items-start gap-3">
         <Text>受控：点开关不会自己切换</Text>
         <div className="flex items-center gap-3">

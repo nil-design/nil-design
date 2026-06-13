@@ -17,7 +17,7 @@ import { Alert } from '@nild/components';
 
 const Demo = () => {
     return (
-        <div className="grid max-w-xl gap-3">
+        <div className="grid max-w-xl gap-4">
             <Alert>
                 <Alert.Title>提示信息</Alert.Title>
                 当前配置会在保存后立即生效。
@@ -52,7 +52,7 @@ import { Alert } from '@nild/components';
 
 const Demo = () => {
     return (
-        <div className="grid max-w-xl gap-3">
+        <div className="grid max-w-xl gap-4">
             <Alert>只有说明内容时，Alert 会保持紧凑的信息条样式。</Alert>
             <Alert>
                 <Alert.Title>存在未提交改动</Alert.Title>
@@ -79,7 +79,7 @@ const Demo = () => {
     const [visible, setVisible] = useState(true);
 
     return (
-        <div className="grid max-w-xl gap-3">
+        <div className="grid max-w-xl gap-4">
             {visible ? (
                 <Alert closable closeAriaLabel="关闭提示" onClose={() => setVisible(false)}>
                     <Alert.Title>已保存为草稿</Alert.Title>
@@ -109,7 +109,7 @@ import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
     return (
-        <div className="grid max-w-xl gap-3">
+        <div className="grid max-w-xl gap-4">
             <Alert>
                 <Alert.Icon>
                     <DynamicIcon name="announcement" variant="filled" />

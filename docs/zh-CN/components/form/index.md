@@ -22,7 +22,7 @@ const Demo = () => {
     },
   });
 
-  return <div className="grid max-w-3xl gap-5 md:grid-cols-2">
+  return <div className="grid max-w-3xl gap-4 md:grid-cols-2">
     <Form defaultValue={formValue} onChange={setFormValue}>
       <Field name="profile.name">
         <Field.Label>项目名称</Field.Label>

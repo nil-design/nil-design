@@ -50,6 +50,7 @@ import { computed, markRaw } from 'vue';
 import AlertIcon from '../../icons/components/alert.svg';
 import ButtonIcon from '../../icons/components/button.svg';
 import CheckboxIcon from '../../icons/components/checkbox.svg';
+import ColorPickerIcon from '../../icons/components/color-picker.svg';
 import DividerIcon from '../../icons/components/divider.svg';
 import FieldIcon from '../../icons/components/field.svg';
 import FormIcon from '../../icons/components/form.svg';
@@ -60,6 +61,7 @@ import PopoverIcon from '../../icons/components/popover.svg';
 import RadioIcon from '../../icons/components/radio.svg';
 import SegmentIcon from '../../icons/components/segment.svg';
 import SelectIcon from '../../icons/components/select.svg';
+import SliderIcon from '../../icons/components/slider.svg';
 import SwitchIcon from '../../icons/components/switch.svg';
 import TabsIcon from '../../icons/components/tabs.svg';
 import TooltipIcon from '../../icons/components/tooltip.svg';
@@ -88,9 +90,11 @@ const iconMap = {
     field: markRaw(FieldIcon),
     form: markRaw(FormIcon),
     input: markRaw(InputIcon),
+    'color-picker': markRaw(ColorPickerIcon),
     radio: markRaw(RadioIcon),
     segment: markRaw(SegmentIcon),
     select: markRaw(SelectIcon),
+    slider: markRaw(SliderIcon),
     switch: markRaw(SwitchIcon),
     modal: markRaw(ModalIcon),
     popover: markRaw(PopoverIcon),

@@ -15,7 +15,7 @@ catOrder: 3
 import { Tabs } from '@nild/components';
 
 const Demo = () => {
-  return <div className="flex flex-col gap-6">
+  return <div className="flex flex-col gap-4">
     <Tabs defaultValue="overview">
       <Tabs.List>
         <Tabs.Tab value="overview">概览</Tabs.Tab>
@@ -51,7 +51,7 @@ render(<Demo />);
 import { Tabs } from '@nild/components';
 
 const Demo = () => {
-  return <div className="flex flex-col gap-6">
+  return <div className="flex flex-col gap-4">
     <Tabs defaultValue="overview">
       <Tabs.List>
         <Tabs.Tab value="overview">概览</Tabs.Tab>
@@ -87,7 +87,7 @@ render(<Demo />);
 import { Tabs } from '@nild/components';
 
 const Demo = () => {
-  return <div className="flex flex-col gap-6">
+  return <div className="flex flex-col gap-4">
     {['small', 'medium', 'large'].map(size => (
       <Tabs key={size} defaultValue="first" size={size}>
         <Tabs.List>

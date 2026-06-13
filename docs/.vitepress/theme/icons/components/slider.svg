@@ -1,0 +1,6 @@
+<svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="36" width="80" height="8" rx="4" fill="var(--nd-color-neutral-15)" />
+    <rect x="20" y="36" width="48" height="8" rx="4" fill="var(--nd-color-brand-60)" />
+    <circle cx="68" cy="40" r="10" fill="var(--nd-color-neutral-0)" />
+    <circle cx="68" cy="40" r="8.5" stroke="var(--nd-color-brand-60)" stroke-width="3" />
+</svg>

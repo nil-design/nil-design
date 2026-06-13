@@ -114,7 +114,7 @@ render(<Demo />);
 import { Checkbox, Field, Input, Switch } from '@nild/components';
 
 const Demo = () => {
-  return <div className="flex w-80 flex-col gap-5">
+  return <div className="flex w-80 flex-col gap-4">
     <Field>
       <Field.Label>团队名称</Field.Label>
       <Input block placeholder="Design Platform" />

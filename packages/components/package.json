@@ -33,7 +33,8 @@
         "test:coverage": "vitest run --environment jsdom --globals --coverage"
     },
     "dependencies": {
-        "@floating-ui/dom": "1.7.1"
+        "@floating-ui/dom": "1.7.1",
+        "culori": "^4.0.2"
     },
     "peerDependencies": {
         "@nild/shared": "workspace:^",
