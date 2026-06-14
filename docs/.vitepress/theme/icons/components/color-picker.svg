@@ -9,9 +9,9 @@
     <rect x="48" y="18" width="54" height="44" rx="6" fill="var(--nd-color-neutral-60)" />
     <rect x="44" y="14" width="54" height="44" rx="6" fill="var(--nd-color-neutral-0)" />
     <g clip-path="url(#nd-color-picker-silhouette-area)">
-        <rect x="48" y="18" width="46" height="36" fill="var(--nd-color-brand-20)" />
-        <path d="M48 54L94 18V54H48Z" fill="var(--nd-color-brand-50)" />
-        <path d="M94 18V54H66L94 18Z" fill="var(--nd-color-brand-70)" />
+        <rect x="48" y="18" width="46" height="36" fill="var(--nd-color-brand-10)" />
+        <path d="M48 54L94 18V54H48Z" fill="var(--nd-color-brand-30)" />
+        <path d="M94 18V54H66L94 18Z" fill="var(--nd-color-brand-60)" />
     </g>
     <circle cx="60" cy="31" r="4" fill="var(--nd-color-neutral-0)" />
 </svg>
