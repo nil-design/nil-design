@@ -1,9 +1,6 @@
-import type { CSSProperties } from 'react';
+import type { CSSPropertiesWithVars } from '@nild/shared';
 
-export type CheckerboardStyle = CSSProperties & {
-    '--nd-color-picker-checker-base'?: string;
-    '--nd-color-picker-checker-color'?: string;
-};
+export type CheckerboardStyle = CSSPropertiesWithVars;
 
 const checkerboardImage =
     'conic-gradient(var(--nd-color-picker-checker-color) 25%,transparent 0 50%,var(--nd-color-picker-checker-color) 0 75%,transparent 0)';

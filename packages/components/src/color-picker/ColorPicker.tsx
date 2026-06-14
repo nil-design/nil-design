@@ -43,14 +43,17 @@ const ColorPicker = forwardRef<HTMLButtonElement, ColorPickerProps>((props, ref)
     const {
         color,
         commitColor,
+        css,
         draftValue,
         format,
         formattedValue,
         hex,
+        hue,
         inputInvalid,
-        meta,
+        opaqueCss,
         completeInput,
         updateFormat,
+        updateHue,
         updateInput,
     } = useColorPickerState({
         defaultFormat,
@@ -62,6 +65,7 @@ const ColorPicker = forwardRef<HTMLButtonElement, ColorPickerProps>((props, ref)
     });
     const area = useColorArea({
         color,
+        colorCss: css,
         disabled,
         onCommitColor: commitColor,
     });
@@ -125,7 +129,7 @@ const ColorPicker = forwardRef<HTMLButtonElement, ColorPickerProps>((props, ref)
                 <DefaultTrigger
                     {...restProps}
                     className={className}
-                    colorCss={meta.css}
+                    colorCss={css}
                     customTrigger={slots.trigger.el as ReactElement<{ children?: ReactElement }> | null}
                     disabled={disabled}
                     open={visibleOpen}
@@ -139,16 +143,19 @@ const ColorPicker = forwardRef<HTMLButtonElement, ColorPickerProps>((props, ref)
                 <Panel
                     area={area}
                     color={color}
+                    colorCss={css}
                     disabled={disabled}
                     draftValue={draftValue}
                     format={format}
                     formattedValue={formattedValue}
+                    hue={hue}
                     inputInvalid={inputInvalid}
-                    meta={meta}
+                    opaqueColorCss={opaqueCss}
                     presets={presets}
                     selectedHex={hex}
                     onCommitColor={commitColor}
                     onFormatChange={updateFormat}
+                    onHueChange={updateHue}
                     onInputBlur={completeInput}
                     onInputChange={updateInput}
                     onKeyDown={handlePanelKeyDown}

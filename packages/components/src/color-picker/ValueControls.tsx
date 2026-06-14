@@ -34,6 +34,7 @@ const ValueControls = ({
         >
             <Segment.Item value="hex">HEX</Segment.Item>
             <Segment.Item value="rgb">RGB</Segment.Item>
+            <Segment.Item value="hsv">HSV</Segment.Item>
             <Segment.Item value="hsl">HSL</Segment.Item>
         </Segment>
         <Input

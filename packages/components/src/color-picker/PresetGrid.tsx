@@ -30,7 +30,7 @@ const PresetGrid = ({ disabled = false, onCommitColor, presets, selectedHex }: P
                 return {
                     checkColor: getReadableTextColor(color),
                     color,
-                    css: optionState.meta.css,
+                    css: optionState.css,
                     hex: optionState.hex.toLowerCase(),
                     label: typeof preset === 'string' ? preset : (preset.label ?? value),
                     value,

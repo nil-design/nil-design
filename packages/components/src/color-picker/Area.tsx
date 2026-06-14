@@ -8,12 +8,12 @@ interface AreaProps {
 }
 
 const Area = ({ controller, disabled = false, formattedValue }: AreaProps) => {
-    const { areaLightnessStyle, areaRef, areaSaturationStyle, areaStyle, areaThumbStyle, onKeyDown, onPointerDown } =
+    const { areaRef, areaSaturationStyle, areaStyle, areaThumbStyle, areaValueStyle, onKeyDown, onPointerDown } =
         controller;
 
     return (
         <div
-            aria-label="Saturation and lightness"
+            aria-label="Saturation and value"
             aria-valuetext={formattedValue}
             className={variants.area({ disabled })}
             data-disabled={disabled || undefined}
@@ -25,7 +25,7 @@ const Area = ({ controller, disabled = false, formattedValue }: AreaProps) => {
             tabIndex={disabled ? -1 : 0}
         >
             <span className={variants.areaLayer()} style={areaSaturationStyle} />
-            <span className={variants.areaLayer()} style={areaLightnessStyle} />
+            <span className={variants.areaLayer()} style={areaValueStyle} />
             <span className={variants.areaThumb()} style={areaThumbStyle} />
         </div>
     );

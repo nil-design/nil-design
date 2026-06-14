@@ -7,6 +7,7 @@ import Field from '../../field';
 import Form from '../../form';
 import { ColorPicker as RootColorPicker } from '../../index';
 import { BLACK_COLOR, getReadableTextColor, parseColorValue, WHITE_COLOR } from '../_shared/color';
+import type { ColorFormat } from '../interfaces';
 
 vi.mock('@floating-ui/dom', () => ({
     autoUpdate: vi.fn(() => vi.fn()),
@@ -37,10 +38,39 @@ const BLACK = '#000000';
 const RED = '#ff0000';
 const RED_ALPHA = '#ff000080';
 const RED_ALPHA_RGB = 'rgba(255, 0, 0, 0.5)';
+const RED_ALPHA_HSV = 'hsva(0, 100%, 100%, 0.5)';
 const RED_ALPHA_HSL = 'hsla(0, 100%, 50%, 0.5)';
 const RED_TRANSPARENT = '#ff000000';
 const SHORT_HEX = '#123';
 const SHORT_HEX_FORMATTED = '#112233';
+const BLUE_HSV = 'hsv(210, 100%, 100%)';
+
+const mockAreaRect = (area: HTMLElement) => {
+    vi.spyOn(area, 'getBoundingClientRect').mockReturnValue({
+        bottom: 100,
+        height: 100,
+        left: 0,
+        right: 100,
+        toJSON: () => undefined,
+        top: 0,
+        width: 100,
+        x: 0,
+        y: 0,
+    } as DOMRect);
+};
+
+const pointerDownArea = (area: HTMLElement, clientX: number, clientY: number) => {
+    const event = new Event('pointerdown', { bubbles: true, cancelable: true });
+
+    Object.defineProperties(event, {
+        button: { value: 0 },
+        clientX: { value: clientX },
+        clientY: { value: clientY },
+        pointerId: { value: 1 },
+    });
+
+    fireEvent(area, event);
+};
 
 describe('ColorPicker', () => {
     beforeEach(() => {
@@ -111,7 +141,7 @@ describe('ColorPicker', () => {
 
         const Demo = () => {
             const [value, setValue] = useState(RED_ALPHA);
-            const [format, setFormat] = useState<'hex' | 'rgb' | 'hsl'>('hex');
+            const [format, setFormat] = useState<ColorFormat>('hex');
 
             return (
                 <ColorPicker
@@ -148,6 +178,22 @@ describe('ColorPicker', () => {
         expect(onChange.mock.lastCall?.[1]).not.toHaveProperty('hex');
         expect(screen.getByRole('textbox', { name: 'Color value' })).toHaveValue(RED_ALPHA_RGB);
 
+        fireEvent.click(screen.getByRole('radio', { name: 'HSV' }));
+
+        expect(onFormatChange).toHaveBeenCalledWith('hsv');
+        expect(onChange).toHaveBeenLastCalledWith(
+            RED_ALPHA_HSV,
+            expect.objectContaining({
+                alpha: 0.5,
+                format: 'hsv',
+                h: 0,
+                s: 100,
+                v: 100,
+            }),
+        );
+        expect(onChange.mock.lastCall?.[1]).not.toHaveProperty('l');
+        expect(screen.getByRole('textbox', { name: 'Color value' })).toHaveValue(RED_ALPHA_HSV);
+
         fireEvent.click(screen.getByRole('radio', { name: 'HSL' }));
 
         expect(onFormatChange).toHaveBeenCalledWith('hsl');
@@ -164,6 +210,72 @@ describe('ColorPicker', () => {
         expect(onChange.mock.lastCall?.[1]).not.toHaveProperty('rgb');
         expect(screen.getByRole('textbox', { name: 'Color value' })).toHaveValue(RED_ALPHA_HSL);
     });
+
+    it('accepts hsv input when hsv is the active format', async () => {
+        const onChange = vi.fn();
+
+        render(<ColorPicker defaultFormat="hsv" defaultValue={BLACK} onChange={onChange} />);
+        await openPicker();
+
+        const input = screen.getByRole('textbox', { name: 'Color value' });
+
+        fireEvent.change(input, { target: { value: 'hsv(210, 80%, 50%)' } });
+
+        expect(input).toHaveValue('hsv(210, 80%, 50%)');
+        expect(input).not.toHaveAttribute('aria-invalid');
+        expect(onChange).toHaveBeenLastCalledWith(
+            'hsv(210, 80%, 50%)',
+            expect.objectContaining({
+                format: 'hsv',
+                h: 210,
+                s: 80,
+                v: 50,
+            }),
+        );
+    });
+
+    it('uses saturation and value axes for the color area', async () => {
+        const onChange = vi.fn();
+
+        render(<ColorPicker defaultFormat="hsv" defaultValue={RED} onChange={onChange} />);
+        await openPicker();
+
+        fireEvent.keyDown(screen.getByRole('application', { name: 'Saturation and value' }), { key: 'ArrowDown' });
+
+        expect(screen.getByRole('textbox', { name: 'Color value' })).toHaveValue('hsv(0, 100%, 99%)');
+        expect(onChange).toHaveBeenLastCalledWith(
+            'hsv(0, 100%, 99%)',
+            expect.objectContaining({
+                format: 'hsv',
+                h: 0,
+                s: 100,
+                v: 99,
+            }),
+        );
+    });
+
+    it.each([
+        { clientX: 0, clientY: 0, name: 'top-left', value: '#ffffff' },
+        { clientX: 0, clientY: 100, name: 'bottom-left', value: '#000000' },
+        { clientX: 100, clientY: 100, name: 'bottom-right', value: '#000000' },
+    ])(
+        'preserves the hue slider when the area thumb moves to the $name corner',
+        async ({ clientX, clientY, value }) => {
+            render(<ColorPicker defaultValue={BLUE_HSV} />);
+            await openPicker();
+
+            const area = screen.getByRole('application', { name: 'Saturation and value' });
+            const hueSlider = screen.getByRole('slider', { name: 'Hue' });
+
+            mockAreaRect(area);
+            expect(hueSlider).toHaveAttribute('aria-valuenow', '210');
+
+            pointerDownArea(area, clientX, clientY);
+
+            await waitFor(() => expect(screen.getByRole('textbox', { name: 'Color value' })).toHaveValue(value));
+            expect(hueSlider).toHaveAttribute('aria-valuenow', '210');
+        },
+    );
 
     it('preserves valid input text while editing and formats it on blur', async () => {
         const onChange = vi.fn();

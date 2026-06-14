@@ -8,28 +8,29 @@ import {
     useRef,
     useState,
 } from 'react';
-import { BLACK_COLOR, HslaColor, WHITE_COLOR, getColorCss, getHueCss, normalizeColor } from '../_shared/color';
+import { BLACK_COLOR, HsvaColor, WHITE_COLOR, getHueCss, normalizeColor } from '../_shared/color';
 import type { CommitColor } from './useColorPickerState';
 
 type AreaPointerEvent = PointerEvent | ReactPointerEvent<HTMLDivElement>;
 
 interface UseColorAreaOptions {
-    color: HslaColor;
+    color: HsvaColor;
+    colorCss: string;
     disabled?: boolean;
     onCommitColor: CommitColor;
 }
 
 export interface ColorAreaController {
-    areaLightnessStyle: CSSProperties;
     areaRef: RefObject<HTMLDivElement>;
     areaSaturationStyle: CSSProperties;
     areaStyle: CSSProperties;
     areaThumbStyle: CSSProperties;
+    areaValueStyle: CSSProperties;
     onKeyDown: (evt: KeyboardEvent<HTMLDivElement>) => void;
     onPointerDown: (evt: ReactPointerEvent<HTMLDivElement>) => void;
 }
 
-const getPointerColor = (evt: AreaPointerEvent, $area: HTMLDivElement, color: HslaColor) => {
+const getPointerColor = (evt: AreaPointerEvent, $area: HTMLDivElement, color: HsvaColor) => {
     const rect = $area.getBoundingClientRect();
     const x = rect.width <= 0 ? 0 : (evt.clientX - rect.left) / rect.width;
     const y = rect.height <= 0 ? 0 : (evt.clientY - rect.top) / rect.height;
@@ -37,19 +38,24 @@ const getPointerColor = (evt: AreaPointerEvent, $area: HTMLDivElement, color: Hs
     return normalizeColor({
         ...color,
         s: x,
-        l: 1 - y,
+        v: 1 - y,
     });
 };
 
-const AREA_LIGHTNESS_STYLE: CSSProperties = {
-    backgroundImage: `linear-gradient(to bottom, ${WHITE_COLOR}, transparent 50%, ${BLACK_COLOR})`,
+const AREA_VALUE_STYLE: CSSProperties = {
+    backgroundImage: `linear-gradient(to top, ${BLACK_COLOR}, transparent)`,
 };
 
 const AREA_SATURATION_STYLE: CSSProperties = {
     backgroundImage: `linear-gradient(to right, ${WHITE_COLOR}, transparent)`,
 };
 
-const useColorArea = ({ color, disabled = false, onCommitColor }: UseColorAreaOptions): ColorAreaController => {
+const useColorArea = ({
+    color,
+    colorCss,
+    disabled = false,
+    onCommitColor,
+}: UseColorAreaOptions): ColorAreaController => {
     const areaRef = useRef<HTMLDivElement | null>(null);
     const [draggingArea, setDraggingArea] = useState(false);
 
@@ -104,7 +110,7 @@ const useColorArea = ({ color, disabled = false, onCommitColor }: UseColorAreaOp
         }
 
         const movement = evt.shiftKey ? 0.1 : 0.01;
-        let nextColor: HslaColor | undefined;
+        let nextColor: HsvaColor | undefined;
 
         switch (evt.key) {
             case 'ArrowRight':
@@ -114,10 +120,10 @@ const useColorArea = ({ color, disabled = false, onCommitColor }: UseColorAreaOp
                 nextColor = { ...color, s: color.s - movement };
                 break;
             case 'ArrowUp':
-                nextColor = { ...color, l: color.l + movement };
+                nextColor = { ...color, v: color.v + movement };
                 break;
             case 'ArrowDown':
-                nextColor = { ...color, l: color.l - movement };
+                nextColor = { ...color, v: color.v - movement };
                 break;
             case 'Home':
                 nextColor = { ...color, s: 0 };
@@ -145,11 +151,11 @@ const useColorArea = ({ color, disabled = false, onCommitColor }: UseColorAreaOp
     );
     const areaThumbStyle = useMemo<CSSProperties>(
         () => ({
-            backgroundColor: getColorCss(color),
+            backgroundColor: colorCss,
             left: `${color.s * 100}%`,
-            top: `${(1 - color.l) * 100}%`,
+            top: `${(1 - color.v) * 100}%`,
         }),
-        [color],
+        [color.s, color.v, colorCss],
     );
 
     const ownerWindow = areaRef.current?.ownerDocument.defaultView ?? null;
@@ -160,11 +166,11 @@ const useColorArea = ({ color, disabled = false, onCommitColor }: UseColorAreaOp
     useEventListener(areaListenerTarget, 'pointercancel', handleAreaPointerUp);
 
     return {
-        areaLightnessStyle: AREA_LIGHTNESS_STYLE,
         areaRef,
         areaSaturationStyle: AREA_SATURATION_STYLE,
         areaStyle,
         areaThumbStyle,
+        areaValueStyle: AREA_VALUE_STYLE,
         onKeyDown: handleAreaKeyDown,
         onPointerDown: handleAreaPointerDown,
     };

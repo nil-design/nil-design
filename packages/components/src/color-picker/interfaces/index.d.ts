@@ -1,7 +1,7 @@
 import type { OffsetOptions, Placement } from '@floating-ui/dom';
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactElement, ReactNode } from 'react';
 
-export type ColorFormat = 'hex' | 'rgb' | 'hsl';
+export type ColorFormat = 'hex' | 'rgb' | 'hsv' | 'hsl';
 export type ColorPickerSize = 'small' | 'medium' | 'large';
 
 export type ColorPickerMeta<T extends ColorFormat = ColorFormat> = T extends ColorFormat
@@ -14,7 +14,9 @@ export type ColorPickerMeta<T extends ColorFormat = ColorFormat> = T extends Col
           ? { hex: string }
           : T extends 'rgb'
             ? { r: number; g: number; b: number }
-            : { h: number; s: number; l: number })
+            : T extends 'hsv'
+              ? { h: number; s: number; v: number }
+              : { h: number; s: number; l: number })
     : never;
 
 export type ColorPickerPreset = string | { label?: string; value: string };

@@ -1,10 +1,10 @@
 import { useControllableState, useEffectCallback, useIsomorphicLayoutEffect } from '@nild/hooks';
 import { useMemo, useRef, useState } from 'react';
-import { DEFAULT_COLOR, getColorState, parseColorValue } from '../_shared/color';
-import type { ColorState, HslaColor } from '../_shared/color';
-import type { ColorFormat, ColorPickerMeta, ColorPickerProps } from '../interfaces';
+import { DEFAULT_COLOR, getColorState, normalizeColor, normalizeHue, parseColorValue } from '../_shared/color';
+import type { ColorState, HsvaColor } from '../_shared/color';
+import type { ColorFormat, ColorPickerProps } from '../interfaces';
 
-export type CommitColor = (nextColor: HslaColor, nextFormat?: ColorFormat) => ColorState;
+export type CommitColor = (nextColor: HsvaColor, nextFormat?: ColorFormat) => ColorState;
 
 interface UseColorPickerStateOptions {
     value?: string;
@@ -15,17 +15,20 @@ interface UseColorPickerStateOptions {
     onFormatChange?: ColorPickerProps['onFormatChange'];
 }
 
-export interface ColorPickerStateController {
-    color: HslaColor;
+interface ColorPickerStateController {
+    color: HsvaColor;
     commitColor: CommitColor;
+    css: string;
     draftValue: string;
     format: ColorFormat;
     formattedValue: string;
     hex: string;
+    hue: number;
     inputInvalid: boolean;
-    meta: ColorPickerMeta;
+    opaqueCss: string;
     completeInput: () => void;
     updateFormat: (format: ColorFormat) => void;
+    updateHue: (hue: number) => void;
     updateInput: (value: string | number) => void;
 }
 
@@ -43,18 +46,30 @@ const useColorPickerState = ({
 }: UseColorPickerStateOptions): ColorPickerStateController => {
     const [format, setFormat] = useControllableState<ColorFormat>(externalFormat, defaultFormat);
     const [value, setValue] = useControllableState<string | undefined>(externalValue, defaultValue);
-    const color = useMemo(() => getValidColor(value), [value]);
-    const { formattedValue, hex, meta } = useMemo(() => getColorState(color, format), [color, format]);
+    const valueControlled = externalValue !== undefined;
+    const [color, setColor] = useState(() => getValidColor(value));
+    const { css, formattedValue, hex, opaqueCss } = useMemo(() => getColorState(color, format), [color, format]);
+    const [hue, setHue] = useState(color.h);
     const [draftValue, setDraftValue] = useState(formattedValue);
     const [inputInvalid, setInputInvalid] = useState(false);
     const inputFormattedValueRef = useRef<string | null>(null);
+    const pendingColorRef = useRef<[string, HsvaColor] | null>(null);
 
-    const commitColor = useEffectCallback((nextColor: HslaColor, nextFormat: ColorFormat = format) => {
-        const nextState = getColorState(nextColor, nextFormat);
+    const commitColor = useEffectCallback((nextColor: HsvaColor, nextFormat: ColorFormat = format) => {
+        const normalizedColor = normalizeColor(nextColor);
+        const nextState = getColorState(normalizedColor, nextFormat);
+        const valueChanged = !Object.is(value, nextState.formattedValue);
 
-        if (!Object.is(value, nextState.formattedValue)) {
+        if (!valueControlled || !valueChanged) {
+            setColor(normalizedColor);
+        }
+
+        if (valueChanged) {
+            pendingColorRef.current = [nextState.formattedValue, normalizedColor];
             setValue(nextState.formattedValue);
             onChange?.(nextState.formattedValue, nextState.meta);
+        } else {
+            pendingColorRef.current = null;
         }
 
         return nextState;
@@ -69,6 +84,11 @@ const useColorPickerState = ({
         onFormatChange?.(nextFormat);
         inputFormattedValueRef.current = null;
         commitColor(color, nextFormat);
+    });
+
+    const updateHue = useEffectCallback((nextHue: number) => {
+        setHue(nextHue);
+        commitColor({ ...color, h: nextHue });
     });
 
     const updateInput = useEffectCallback((nextValue: string | number) => {
@@ -106,6 +126,20 @@ const useColorPickerState = ({
     });
 
     useIsomorphicLayoutEffect(() => {
+        const pendingColor = pendingColorRef.current;
+
+        pendingColorRef.current = null;
+
+        setColor(pendingColor && Object.is(value, pendingColor[0]) ? pendingColor[1] : getValidColor(value));
+    }, [value]);
+
+    useIsomorphicLayoutEffect(() => {
+        if (normalizeHue(hue) !== normalizeHue(color.h)) {
+            setHue(color.h);
+        }
+    }, [color.h, hue]);
+
+    useIsomorphicLayoutEffect(() => {
         if (inputFormattedValueRef.current === formattedValue) {
             inputFormattedValueRef.current = null;
 
@@ -119,14 +153,17 @@ const useColorPickerState = ({
     return {
         color,
         commitColor,
+        css,
         draftValue,
         format,
         formattedValue,
         hex,
+        hue,
         inputInvalid,
-        meta,
+        opaqueCss,
         completeInput,
         updateFormat,
+        updateHue,
         updateInput,
     };
 };
