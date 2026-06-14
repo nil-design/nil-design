@@ -1,11 +1,16 @@
 ---
 name: hooks-dev
-description: "用于 nil-design 仓库中设计、开发、重构、测试、文档化或维护 @nild/hooks React hooks，包括公开导出、DOM target 解析、订阅/observer/timer 清理、SSR/浏览器边界、hooks 文档和行为回归测试。"
+description: '处理 nil-design 仓库中 @nild/hooks React hooks 的设计、开发、重构、测试、文档化或维护，包括公开导出、DOM target 解析、订阅/observer/timer 清理、SSR/浏览器边界、hooks 文档和行为回归测试。'
 ---
 
 # 开发 Hooks
 
-用于 `@nild/hooks` 工作。先以当前源码确定导出和实现边界，再按以下设计偏好实现、测试和文档化。
+处理 `@nild/hooks` 时，按下面的职责边界、核对清单、实现偏好和验证要求推进。
+
+## 职责边界
+
+- 优先负责 `packages/hooks/src/**`、hook 测试、hook 文档页和 hook 包构建形状。
+- 只有已经稳定为跨调用点 hook 语义的能力才进入 `@nild/hooks`；组件私有状态机先留在组件内。
 
 ## 第一轮核对
 
@@ -29,5 +34,6 @@ description: "用于 nil-design 仓库中设计、开发、重构、测试、文
 
 - 公开 hook 需要文档时，示例必须能通过 docs 的 ReactLive 运行，并从当前 import scope 核对可用包。
 - DOM hook 测试使用 jsdom；按需 stub observer、timer、layout、storage 或事件 API。
-- 优先运行聚焦 hook 测试；公开类型或构建形状变化运行 `pnpm hooks:build`。
+- 测试断言公开返回值、副作用结果和 cleanup，不断言内部 ref 字段、binding 结构或私有缓存。
+- 优先运行聚焦 hook 测试；公开类型、入口或构建形状变化运行 `pnpm hooks:build`。
 - 共享行为或多包影响时再扩大到根级 `pnpm test` 或 `pnpm test:coverage`。

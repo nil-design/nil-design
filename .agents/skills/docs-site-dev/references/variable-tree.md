@@ -4,7 +4,7 @@
 
 ## 使用方式
 
-这份文件是 VitePress 默认主题变量的版本化事实表。第一次选择覆盖层级时先读 `theme-overrides.md` 的变量层级；需要精确判断某个 `--vp-*` 变量的上游、下游、默认值、多父节点关系或未声明扩展钩子时，再查本文件。升级 VitePress 或发现当前行为与表中链路不一致时，以当前安装的默认主题源码为准，并考虑重新扫描。
+把本表作为 VitePress 默认主题变量的版本化事实源。第一次选择覆盖层级时先读 `theme-overrides.md` 的变量层级；需要精确判断某个 `--vp-*` 变量的上游、下游、默认值、多父节点关系或未声明扩展钩子时，再查本表。升级 VitePress 或发现当前行为与表中链路不一致时，以当前安装的默认主题源码为准，并考虑重新扫描。
 
 ## 统计摘要
 
@@ -20,8 +20,8 @@
 
 - 关系方向统一记为 **父 -> 子**：若 `--b: var(--a)`，则图上显示为 `--a --> --b`。
 - 主表第一列只列出“最小覆盖根变量”，也就是**不依赖任何其他 `--vp-*` 变量**的变量。
-- 如果一个变量在不同作用域下拥有不同父节点，则在图中允许它同时出现在多棵根树里；当前实际出现多父节点的变量为：--vp-c-neutral <- --vp-c-black, --vp-c-white； --vp-c-neutral-inverse <- --vp-c-black, --vp-c-white； --vp-local-search-result-bg <- --vp-c-bg, --vp-local-search-result-selected-bg。
-- `icons.css` 里的 `--vp-icon-copy` / `--vp-icon-copied` 已纳入统计，因为它们同样属于默认主题内部的 `--vp-*` 变量。
+- 如果一个变量在不同作用域下拥有不同父节点，则在图中允许同一变量同时出现在多棵根树里；当前实际出现多父节点的变量为：--vp-c-neutral <- --vp-c-black, --vp-c-white； --vp-c-neutral-inverse <- --vp-c-black, --vp-c-white； --vp-local-search-result-bg <- --vp-c-bg, --vp-local-search-result-selected-bg。
+- `icons.css` 里的 `--vp-icon-copy` / `--vp-icon-copied` 已纳入统计，因为这两个变量同样是默认主题内部的 `--vp-*` 变量。
 - 主表只统计“默认主题自身有声明”的变量；未声明扩展钩子单独列在后文，不并入主表。
 
 ## 最小覆盖根变量总表
@@ -612,7 +612,7 @@
 
 ## 未声明扩展钩子
 
-这些变量在默认主题源码中被 `var(--vp-*)` 使用，但没有在默认主题内部声明。它们更像“扩展钩子”或“兼容位”，因此不纳入上面的根变量主表。
+默认主题源码使用以下 `var(--vp-*)` 变量，但默认主题内部没有声明。这些变量更像“扩展钩子”或“兼容位”，因此不纳入上面的根变量主表。
 
 - `--vp-c-shadow-3`：使用位置为 `node_modules/vitepress/dist/client/theme-default/components/VPSidebar.vue`；默认主题内部仍有兼容式引用，建议自定义阴影体系时显式映射到 `--vp-shadow-3`。
 - `--vp-doc-top-height`：使用位置为 `node_modules/vitepress/dist/client/theme-default/components/VPDoc.vue`；文档正文顶部额外偏移钩子，常用于在导航之外再叠加额外吸顶区域。
@@ -620,10 +620,9 @@
 - `--vp-offset`：使用位置为 `node_modules/vitepress/dist/client/theme-default/components/VPHomeContent.vue`；首页内容偏移钩子，用于局部布局细调。
 - `--vp-vh`：使用位置为 `node_modules/vitepress/dist/client/theme-default/components/VPLocalNavOutlineDropdown.vue`；可视区高度钩子，适合在移动端修正视口高度差异。
 
-## 如何使用这份表
+## 使用方式
 
 - 在想找“最值得先改”的变量时，先看左侧的根变量列，再结合 `theme-overrides.md` 的变量层级做第一轮筛选。
 - 在想判断某个组件颜色会被哪些上游变量牵动时，直接看 `引用关系` 列里的树状链路。
-- 在想知道某个值更适合通过变量覆盖、选择器覆盖还是组件替换解决时，先确认它是不是默认主题已经声明的 `--vp-*` 变量。
-- 在升级 VitePress 后，如果主题行为变了，优先重新核对这份表依赖的版本口径，而不是假设旧链路一定不变。
-
+- 在想知道某个值更适合通过变量覆盖、选择器覆盖还是组件替换解决时，先确认目标值是否对应默认主题已经声明的 `--vp-*` 变量。
+- 在升级 VitePress 后，如果主题行为变了，优先重新核对当前版本口径，而不是假设旧链路一定不变。

@@ -1,10 +1,10 @@
 # VitePress 主题覆盖
 
-用于覆盖 nil-design 文档站的 VitePress 默认主题、主题变量、全局 CSS 和滚动条。
+覆盖 nil-design 文档站的 VitePress 默认主题、主题变量、全局 CSS 和滚动条时，按以下规则执行。
 
 ## 覆盖顺序
 
-除非需求明确更激进，否则按这个顺序升级：
+除非需求明确更激进，否则按以下顺序升级：
 
 1. 覆盖 `--vp-*` CSS 变量。
 2. 补稳定的定向 CSS selector。
@@ -51,8 +51,8 @@
 
 从 `variable-tree.md` 带回以下判断：
 
-- `--vp-c-neutral` 和 `--vp-c-neutral-inverse` 不是单父节点变量，它们和 `--vp-c-black` / `--vp-c-white` 的翻转关系有关。
-- `--vp-local-search-result-bg` 也不是简单单父节点变量，它和默认值、选中态重映射都有关系。
+- `--vp-c-neutral` 和 `--vp-c-neutral-inverse` 不是单父节点变量，二者和 `--vp-c-black` / `--vp-c-white` 的翻转关系有关。
+- `--vp-local-search-result-bg` 也不是简单单父节点变量，该变量和默认值、选中态重映射都有关系。
 - `--vp-code-copy-copied-text-content` 是文案 / 本地化变量，不是主题换色变量。
 - `--vp-c-shadow-3`、`--vp-doc-top-height`、`--vp-layout-top-height`、`--vp-offset`、`--vp-vh` 是未声明扩展钩子，适合单独判断，不要和主表里的根变量混为一谈。
 

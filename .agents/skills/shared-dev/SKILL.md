@@ -1,11 +1,16 @@
 ---
 name: shared-dev
-description: "用于 nil-design 仓库中设计、开发、重构、测试、维护或导出 @nild/shared 类型、React helpers、class utilities、runtime utilities、通用工具方法和 shared 包公开接口。"
+description: '处理 nil-design 仓库中 @nild/shared 类型、React helpers、class utilities、runtime utilities、通用工具方法和 shared 包公开接口的设计、开发、重构、测试、维护或导出。'
 ---
 
 # 开发共享能力
 
-用于 `@nild/shared` 工作。shared 是跨包基础层；只有抽象稳定且至少有真实复用价值时才放入这里。
+处理 `@nild/shared` 时，按下面的职责边界、核对清单、包边界、实现偏好和验证要求推进。shared 是跨包基础层；只有抽象稳定且至少有真实复用价值时才放入 shared。
+
+## 职责边界
+
+- 优先负责 `packages/shared/src/**`、shared 测试、shared 构建形状和下游导入方式。
+- shared 只承载跨包基础能力，不提前吸收尚未稳定的组件私有行为。
 
 ## 第一轮核对
 
@@ -35,3 +40,4 @@ description: "用于 nil-design 仓库中设计、开发、重构、测试、维
 - runtime helper 跑聚焦测试或 `pnpm shared:test`。
 - 类型形状变化运行 `pnpm shared:build` 或包级 typecheck。
 - shared 变化影响 components/hooks 时，同时运行对应包的聚焦测试或构建。
+- 公开入口或 package export 形状变化时，检查 `packages/shared/package.json` 的 `exports` 与生成的 `dist` 结构一致。
