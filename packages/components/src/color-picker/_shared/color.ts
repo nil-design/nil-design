@@ -1,26 +1,30 @@
-import { converter, formatHex, formatHex8, modeHsl, modeRgb, useMode as registerColorMode } from 'culori/fn';
+import { converter, formatHex, formatHex8, modeHsl, modeHsv, modeRgb, useMode as registerColorMode } from 'culori/fn';
 import type { ColorFormat, ColorPickerMeta } from '../interfaces';
-import type { Hsl, Rgb } from 'culori/fn';
+import type { Hsl, Hsv, Rgb } from 'culori/fn';
 
-export interface HslaColor {
+export interface HsvaColor {
     h: number;
     s: number;
-    l: number;
+    v: number;
     alpha: number;
 }
 
 export interface ColorState {
+    css: string;
     formattedValue: string;
     hex: string;
     meta: ColorPickerMeta;
+    opaqueCss: string;
 }
 
 const HEX_PREFIX = '#';
 
 registerColorMode(modeRgb);
 registerColorMode(modeHsl);
+registerColorMode(modeHsv);
 
 const toRgb = converter('rgb');
+const toHsv = converter('hsv');
 const toHsl = converter('hsl');
 const DARK_TEXT_YIQ_THRESHOLD = 160;
 
@@ -42,11 +46,79 @@ const round = (value: number, precision = 2) => Number(value.toFixed(precision))
 
 const formatNumber = (value: number, precision = 2) => `${round(value, precision)}`;
 
-const getRgbChannels = (rgb: Rgb) => ({
+interface RgbChannels {
+    b: number;
+    g: number;
+    r: number;
+}
+
+const getRgbChannels = (rgb: Rgb): RgbChannels => ({
     r: clamp(Math.round(rgb.r * 255), 0, 255),
     g: clamp(Math.round(rgb.g * 255), 0, 255),
     b: clamp(Math.round(rgb.b * 255), 0, 255),
 });
+
+const parseUnitChannel = (value: string | undefined) => {
+    const trimmedValue = value?.trim();
+
+    if (!trimmedValue) {
+        return undefined;
+    }
+
+    const percent = trimmedValue.endsWith('%');
+    const numericValue = Number(percent ? trimmedValue.slice(0, -1) : trimmedValue);
+
+    if (Number.isNaN(numericValue)) {
+        return undefined;
+    }
+
+    return percent || Math.abs(numericValue) > 1 ? numericValue / 100 : numericValue;
+};
+
+const parseAlpha = (value: string | undefined) => parseUnitChannel(value) ?? 1;
+
+const getChannelTokens = (value: string) => {
+    if (value.includes(',')) {
+        return value.split(',').map(token => token.trim());
+    }
+
+    return value.split(/\s+/u).filter(Boolean);
+};
+
+const parseHsvValue = (value: string): HsvaColor | undefined => {
+    const match = /^hsva?\((.*)\)$/iu.exec(value);
+
+    if (!match) {
+        return undefined;
+    }
+
+    const [channelValue, slashAlphaValue] = match[1].split('/').map(part => part.trim());
+    const [hueValue, saturationValue, valueValue, commaAlphaValue] = getChannelTokens(channelValue);
+    const hue = Number(hueValue?.replace(/deg$/iu, ''));
+    const saturation = parseUnitChannel(saturationValue);
+    const hsvValue = parseUnitChannel(valueValue);
+    const alpha = parseAlpha(slashAlphaValue ?? commaAlphaValue);
+
+    if (Number.isNaN(hue) || saturation === undefined || hsvValue === undefined) {
+        return undefined;
+    }
+
+    return normalizeColor({
+        alpha,
+        h: hue,
+        s: saturation,
+        v: hsvValue,
+    });
+};
+
+const getRgbColor = (color: HsvaColor) =>
+    toRgb({
+        mode: 'hsv',
+        h: color.h,
+        s: color.s,
+        v: color.v,
+        alpha: color.alpha,
+    } as Hsv) as Rgb;
 
 export const createHexColor = (r: number, g: number, b: number, alpha = 1) => {
     const hex = `${HEX_PREFIX}${channelToHex(r)}${channelToHex(g)}${channelToHex(b)}`;
@@ -70,126 +142,156 @@ export const DEFAULT_PRESET_COLORS = [
 export const BLACK_COLOR = createHexColor(0, 0, 0);
 export const WHITE_COLOR = createHexColor(255, 255, 255);
 
-export const parseColorValue = (value: string | undefined): HslaColor | undefined => {
+export const parseColorValue = (value: string | undefined): HsvaColor | undefined => {
     const trimmedValue = value?.trim();
 
     if (!trimmedValue) {
         return undefined;
     }
 
-    const rgb = toRgb(trimmedValue);
-    const hsl = toHsl(trimmedValue);
+    const customHsv = parseHsvValue(trimmedValue);
 
-    if (!rgb || !hsl) {
+    if (customHsv) {
+        return customHsv;
+    }
+
+    const rgb = toRgb(trimmedValue);
+    const hsv = toHsv(trimmedValue);
+
+    if (!rgb || !hsv) {
         return undefined;
     }
 
     return {
-        h: normalizeHue((hsl as Hsl).h),
-        s: clampUnit((hsl as Hsl).s),
-        l: clampUnit((hsl as Hsl).l),
-        alpha: clampUnit((hsl as Hsl).alpha ?? (rgb as Rgb).alpha, 1),
+        h: normalizeHue((hsv as Hsv).h),
+        s: clampUnit((hsv as Hsv).s),
+        v: clampUnit((hsv as Hsv).v),
+        alpha: clampUnit((hsv as Hsv).alpha ?? (rgb as Rgb).alpha, 1),
     };
 };
 
-export const normalizeColor = (color: HslaColor): HslaColor => ({
+export const normalizeColor = (color: HsvaColor): HsvaColor => ({
     h: normalizeHue(color.h),
     s: clampUnit(color.s),
-    l: clampUnit(color.l),
+    v: clampUnit(color.v),
     alpha: clampUnit(color.alpha, 1),
 });
 
-export const getHueCss = (hue: number) => `hsl(${formatNumber(normalizeHue(hue))} 100% 50%)`;
-
-export const getColorCss = (color: HslaColor) => {
+const getRgbChannelsFromColor = (color: HsvaColor) => {
     const normalizedColor = normalizeColor(color);
-    const h = formatNumber(normalizedColor.h);
-    const s = formatNumber(normalizedColor.s * 100);
-    const l = formatNumber(normalizedColor.l * 100);
 
-    return `hsl(${h} ${s}% ${l}% / ${formatNumber(normalizedColor.alpha)})`;
-};
-
-export const getReadableTextColor = (color: HslaColor) => {
-    const normalizedColor = normalizeColor(color);
-    const rgb = toRgb({
-        mode: 'hsl',
-        h: normalizedColor.h,
-        s: normalizedColor.s,
-        l: normalizedColor.l,
-        alpha: 1,
-    }) as Rgb | undefined;
-
-    if (!rgb) {
-        return BLACK_COLOR;
-    }
-
-    const { r, g, b } = getRgbChannels(rgb);
-    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-
-    return yiq >= DARK_TEXT_YIQ_THRESHOLD ? BLACK_COLOR : WHITE_COLOR;
-};
-
-export const getColorState = (color: HslaColor, format: ColorFormat): ColorState => {
-    const normalizedColor = normalizeColor(color);
-    const hslColor: Hsl = {
-        mode: 'hsl',
-        h: normalizedColor.h,
-        s: normalizedColor.s,
-        l: normalizedColor.l,
-        alpha: normalizedColor.alpha,
+    return {
+        ...getRgbChannels(getRgbColor(normalizedColor)),
+        normalizedColor,
     };
-    const rgb = toRgb(hslColor) as Rgb;
-    const { r, g, b } = getRgbChannels(rgb);
+};
+
+const formatRgbCss = ({ r, g, b }: RgbChannels, alpha = 1) =>
+    alpha < 1 ? `rgba(${r}, ${g}, ${b}, ${formatNumber(alpha)})` : `rgb(${r}, ${g}, ${b})`;
+
+const formatHexColor = ({ r, g, b }: RgbChannels, alpha: number) => {
     const rgbColor: Rgb = {
         mode: 'rgb',
         r: r / 255,
         g: g / 255,
         b: b / 255,
-        alpha: normalizedColor.alpha,
+        alpha,
     };
+
+    return alpha < 1 ? formatHex8(rgbColor) : formatHex(rgbColor);
+};
+
+export const getHueCss = (hue: number) => `hsl(${formatNumber(normalizeHue(hue))} 100% 50%)`;
+
+export const getReadableTextColor = (color: HsvaColor) => {
+    const { r, g, b } = getRgbChannelsFromColor({ ...color, alpha: 1 });
+    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+
+    return yiq >= DARK_TEXT_YIQ_THRESHOLD ? BLACK_COLOR : WHITE_COLOR;
+};
+
+export const getColorState = (color: HsvaColor, format: ColorFormat): ColorState => {
+    const { normalizedColor, ...channels } = getRgbChannelsFromColor(color);
+    const { r, g, b } = channels;
     const alphaIncluded = normalizedColor.alpha < 1;
     const alpha = formatNumber(normalizedColor.alpha);
-    const hex = alphaIncluded ? formatHex8(rgbColor) : formatHex(rgbColor);
-    const h = formatNumber(normalizedColor.h);
-    const s = formatNumber(normalizedColor.s * 100);
-    const l = formatNumber(normalizedColor.l * 100);
-    const formattedValue = {
+    const css = formatRgbCss(channels, normalizedColor.alpha);
+    const hex = formatHexColor(channels, normalizedColor.alpha);
+    const baseState = {
+        css,
         hex,
-        rgb: alphaIncluded ? `rgba(${r}, ${g}, ${b}, ${alpha})` : `rgb(${r}, ${g}, ${b})`,
-        hsl: alphaIncluded ? `hsla(${h}, ${s}%, ${l}%, ${alpha})` : `hsl(${h}, ${s}%, ${l}%)`,
+        opaqueCss: formatRgbCss(channels),
     };
     const baseMeta = {
         alpha: round(normalizedColor.alpha),
-        css: formattedValue.rgb,
+        css,
         valid: true,
     };
-    const meta: ColorPickerMeta =
-        format === 'rgb'
-            ? {
-                  ...baseMeta,
-                  b,
-                  format,
-                  g,
-                  r,
-              }
-            : format === 'hsl'
-              ? {
-                    ...baseMeta,
-                    format,
-                    h: round(normalizedColor.h),
-                    l: round(normalizedColor.l * 100),
-                    s: round(normalizedColor.s * 100),
-                }
-              : {
-                    ...baseMeta,
-                    format,
-                    hex,
-                };
+
+    if (format === 'rgb') {
+        return {
+            ...baseState,
+            formattedValue: css,
+            meta: {
+                ...baseMeta,
+                b,
+                format,
+                g,
+                r,
+            },
+        };
+    }
+
+    if (format === 'hsv') {
+        const h = formatNumber(normalizedColor.h);
+        const s = formatNumber(normalizedColor.s * 100);
+        const v = formatNumber(normalizedColor.v * 100);
+
+        return {
+            ...baseState,
+            formattedValue: alphaIncluded ? `hsva(${h}, ${s}%, ${v}%, ${alpha})` : `hsv(${h}, ${s}%, ${v}%)`,
+            meta: {
+                ...baseMeta,
+                format,
+                h: round(normalizedColor.h),
+                s: round(normalizedColor.s * 100),
+                v: round(normalizedColor.v * 100),
+            },
+        };
+    }
+
+    if (format === 'hsl') {
+        const hslColor = toHsl({
+            mode: 'hsv',
+            h: normalizedColor.h,
+            s: normalizedColor.s,
+            v: normalizedColor.v,
+            alpha: normalizedColor.alpha,
+        } as Hsv) as Hsl;
+        const h = formatNumber(normalizeHue(hslColor.h ?? normalizedColor.h));
+        const s = formatNumber(clampUnit(hslColor.s) * 100);
+        const l = formatNumber(clampUnit(hslColor.l) * 100);
+
+        return {
+            ...baseState,
+            formattedValue: alphaIncluded ? `hsla(${h}, ${s}%, ${l}%, ${alpha})` : `hsl(${h}, ${s}%, ${l}%)`,
+            meta: {
+                ...baseMeta,
+                format,
+                h: round(normalizedColor.h),
+                l: round(clampUnit(hslColor.l) * 100),
+                s: round(clampUnit(hslColor.s) * 100),
+            },
+        };
+    }
 
     return {
-        formattedValue: formattedValue[format],
-        hex,
-        meta,
+        ...baseState,
+        formattedValue: hex,
+        meta: {
+            ...baseMeta,
+            format,
+            hex,
+        },
     };
 };

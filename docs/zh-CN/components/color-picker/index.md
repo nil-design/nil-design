@@ -5,7 +5,7 @@ cat: 输入
 
 # {{ $frontmatter.title }}
 
-用于选择颜色并输出 HEX、RGB 或 HSL 字符串。
+用于选择颜色并输出 HEX、RGB、HSV 或 HSL 字符串。
 
 ## 基础用法
 

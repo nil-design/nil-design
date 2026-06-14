@@ -5,7 +5,6 @@
 ### Patch Changes
 
 - d817eab: feat: add Slider and ColorPicker components
-- d817eab: style: refine Slider and ColorPicker visuals
 
 ## 0.0.54
 

@@ -1,21 +1,18 @@
-import { useIsomorphicLayoutEffect } from '@nild/hooks';
 import { cnMerge } from '@nild/shared';
-import { CSSProperties, KeyboardEventHandler, useMemo, useState } from 'react';
+import { KeyboardEventHandler, useMemo } from 'react';
 import { getCheckerboardStyle } from './_shared/checkerboard';
-import { HslaColor, getColorCss, getHueCss, normalizeHue } from './_shared/color';
+import { getHueCss } from './_shared/color';
 import Area from './Area';
-import { ColorFormat, ColorPickerMeta, ColorPickerPreset } from './interfaces';
+import { ColorFormat, ColorPickerPreset } from './interfaces';
 import PresetGrid from './PresetGrid';
 import SliderControl from './SliderControl';
 import variants from './style';
 import Swatch from './Swatch';
 import ValueControls from './ValueControls';
+import type { HsvaColor } from './_shared/color';
 import type { ColorAreaController } from './hooks/useColorArea';
 import type { CommitColor } from './hooks/useColorPickerState';
-
-type ColorPickerStyle = CSSProperties & {
-    '--nd-color-picker-alpha-color'?: string;
-};
+import type { CSSPropertiesWithVars } from '@nild/shared';
 
 const ALPHA_TRACK_STYLE = getCheckerboardStyle(
     'linear-gradient(to right, transparent, var(--nd-color-picker-alpha-color))',
@@ -23,11 +20,13 @@ const ALPHA_TRACK_STYLE = getCheckerboardStyle(
 
 interface PanelProps {
     area: ColorAreaController;
-    color: HslaColor;
+    color: HsvaColor;
+    colorCss: string;
     draftValue: string;
     format: ColorFormat;
     formattedValue: string;
-    meta: ColorPickerMeta;
+    hue: number;
+    opaqueColorCss: string;
     presets: ColorPickerPreset[];
     selectedHex: string;
     className?: string;
@@ -35,6 +34,7 @@ interface PanelProps {
     inputInvalid?: boolean;
     onCommitColor: CommitColor;
     onFormatChange: (format: ColorFormat) => void;
+    onHueChange: (hue: number) => void;
     onInputBlur: () => void;
     onInputChange: (value: string | number) => void;
     onKeyDown: KeyboardEventHandler<HTMLDivElement>;
@@ -44,38 +44,29 @@ const Panel = ({
     area,
     className,
     color,
+    colorCss,
     disabled = false,
     draftValue,
     format,
     formattedValue,
+    hue,
     inputInvalid = false,
-    meta,
     onCommitColor,
     onFormatChange,
+    onHueChange,
     onInputBlur,
     onInputChange,
     onKeyDown,
+    opaqueColorCss,
     presets,
     selectedHex,
 }: PanelProps) => {
-    const [hue, setHue] = useState(color.h);
-    const alphaStyle = useMemo<ColorPickerStyle>(
+    const alphaStyle = useMemo<CSSPropertiesWithVars>(
         () => ({
-            '--nd-color-picker-alpha-color': getColorCss({ h: color.h, s: color.s, l: color.l, alpha: 1 }),
+            '--nd-color-picker-alpha-color': opaqueColorCss,
         }),
-        [color.h, color.l, color.s],
+        [opaqueColorCss],
     );
-
-    useIsomorphicLayoutEffect(() => {
-        if (normalizeHue(hue) !== normalizeHue(color.h)) {
-            setHue(color.h);
-        }
-    }, [color.h, hue]);
-
-    const commitHue = (h: number) => {
-        setHue(h);
-        onCommitColor({ ...color, h });
-    };
 
     return (
         <div
@@ -98,7 +89,7 @@ const Panel = ({
                             trackClassName={variants.hueTrack()}
                             thumbStyle={{ backgroundColor: getHueCss(hue) }}
                             value={hue}
-                            onChange={commitHue}
+                            onChange={onHueChange}
                         />
                         <SliderControl
                             disabled={disabled}
@@ -109,13 +100,13 @@ const Panel = ({
                             style={alphaStyle}
                             trackClassName={variants.alphaTrack()}
                             trackStyle={ALPHA_TRACK_STYLE}
-                            thumbStyle={{ backgroundColor: getColorCss(color) }}
+                            thumbStyle={{ backgroundColor: colorCss }}
                             value={color.alpha}
                             onChange={alpha => onCommitColor({ ...color, alpha })}
                         />
                     </div>
                     <span className={variants.previewSwatch()}>
-                        <Swatch css={meta.css} />
+                        <Swatch css={colorCss} />
                     </span>
                 </div>
                 <ValueControls
