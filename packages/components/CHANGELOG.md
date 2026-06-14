@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.56
+
+### Patch Changes
+
+- f8984f2: feat: support hsv format in ColorPicker
+
 ## 0.0.55
 
 ### Patch Changes
