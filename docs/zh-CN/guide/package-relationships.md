@@ -54,6 +54,7 @@ flowchart TD
 | - | - | - |
 | [`@floating-ui/dom`](https://www.npmjs.com/package/@floating-ui/dom/v/1.7.1) | `1.7.1` | `@nild/components` |
 | [`@icon-park/react`](https://www.npmjs.com/package/@icon-park/react/v/1.4.2) | `1.4.2` | `@nild/icons` |
+| [`culori`](https://www.npmjs.com/package/culori/v/4.0.2) | `^4.0.2` | `@nild/components` |
 | [`tailwind-merge`](https://www.npmjs.com/package/tailwind-merge/v/3.3.0) | `3.3.0` | `@nild/shared` |
 
 ## Peer Dependencies
