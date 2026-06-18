@@ -9,6 +9,7 @@ const componentCards = [
     { slug: 'icon', title: 'Icon 图标' },
     { slug: 'typography', title: 'Typography 排版' },
     { slug: 'divider', title: 'Divider 分割线' },
+    { slug: 'splitter', title: 'Splitter 分割面板' },
     { slug: 'tabs', title: 'Tabs 标签页' },
     { slug: 'checkbox', title: 'Checkbox 复选框' },
     { slug: 'color-picker', title: 'ColorPicker 颜色选择器' },

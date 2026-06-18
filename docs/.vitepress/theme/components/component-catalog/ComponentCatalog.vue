@@ -62,6 +62,7 @@ import RadioIcon from '../../icons/components/radio.svg';
 import SegmentIcon from '../../icons/components/segment.svg';
 import SelectIcon from '../../icons/components/select.svg';
 import SliderIcon from '../../icons/components/slider.svg';
+import SplitterIcon from '../../icons/components/splitter.svg';
 import SwitchIcon from '../../icons/components/switch.svg';
 import TabsIcon from '../../icons/components/tabs.svg';
 import TooltipIcon from '../../icons/components/tooltip.svg';
@@ -95,6 +96,7 @@ const iconMap = {
     segment: markRaw(SegmentIcon),
     select: markRaw(SelectIcon),
     slider: markRaw(SliderIcon),
+    splitter: markRaw(SplitterIcon),
     switch: markRaw(SwitchIcon),
     modal: markRaw(ModalIcon),
     popover: markRaw(PopoverIcon),

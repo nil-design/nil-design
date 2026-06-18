@@ -12,6 +12,7 @@ import Radio from './radio';
 import Segment from './segment';
 import Select from './select';
 import Slider from './slider';
+import Splitter from './splitter';
 import Switch from './switch';
 import Tabs from './tabs';
 import Tooltip from './tooltip';
@@ -35,6 +36,7 @@ export {
     Segment,
     Select,
     Slider,
+    Splitter,
     Switch,
     Tabs,
     Tooltip,
