@@ -48,6 +48,21 @@ describe('Splitter', () => {
         expect(screen.getByRole('separator')).toHaveStyle({ left: '50%' });
     });
 
+    it('positions multiple resizers from accumulated panel sizes', () => {
+        render(
+            <Splitter aria-label="layout" defaultSize={[20, 30, 50]}>
+                <Splitter.Panel>Left</Splitter.Panel>
+                <Splitter.Panel>Middle</Splitter.Panel>
+                <Splitter.Panel>Right</Splitter.Panel>
+            </Splitter>,
+        );
+
+        const separators = screen.getAllByRole('separator');
+
+        expect(separators[0]).toHaveStyle({ left: '20%' });
+        expect(separators[1]).toHaveStyle({ left: '50%' });
+    });
+
     it('supports uncontrolled pointer resizing and resize callbacks', () => {
         const onResize = vi.fn();
         const onResizeStart = vi.fn();
@@ -169,21 +184,21 @@ describe('Splitter', () => {
         expect(onResizeEnd).toHaveBeenLastCalledWith([0, 100], 0);
     });
 
-    it('collapses and restores collapsible panels', () => {
+    it('resizes a focused separator by keyboard without resize callbacks', () => {
         render(
-            <Splitter aria-label="layout" defaultSize={[35, 65]}>
-                <Splitter.Panel collapsible>Left</Splitter.Panel>
+            <Splitter aria-label="layout" defaultSize={[50, 50]}>
+                <Splitter.Panel>Left</Splitter.Panel>
                 <Splitter.Panel>Right</Splitter.Panel>
             </Splitter>,
         );
 
-        const collapseButton = screen.getByRole('button', { name: '折叠面板' });
+        const separator = screen.getByRole('separator');
 
-        fireEvent.click(collapseButton);
-        expect(screen.getByText('Left')).toHaveStyle({ flexBasis: '0%' });
+        separator.focus();
+        fireEvent.keyDown(separator, { key: 'ArrowRight' });
 
-        fireEvent.click(screen.getByRole('button', { name: '展开面板' }));
-        expect(screen.getByText('Left')).toHaveStyle({ flexBasis: '35%' });
+        expect(separator).toHaveFocus();
+        expect(screen.getByText('Left')).toHaveStyle({ flexBasis: '55%' });
     });
 
     it('supports custom and self-closing grip slots', () => {
@@ -252,6 +267,7 @@ describe('Splitter', () => {
         fireEvent.keyDown(separator, { key: 'ArrowRight' });
 
         expect(separator).toHaveAttribute('aria-disabled', 'true');
+        expect(separator.querySelector('.nd-splitter-grip')).not.toBeInTheDocument();
         expect(screen.getByText('Left')).toHaveStyle({ flexBasis: '30%' });
         expect(onResize).not.toHaveBeenCalled();
     });

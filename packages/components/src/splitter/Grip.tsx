@@ -4,12 +4,10 @@ import { useSplitterGripContext } from './contexts';
 import { GripProps } from './interfaces';
 import variants from './style';
 
-const hasContent = (children: ReactNode) => Children.toArray(children).length > 0;
-
 const Grip = forwardRef<HTMLSpanElement, GripProps>(
     ({ className, children, 'aria-hidden': ariaHidden = true, ...restProps }, ref) => {
         const { active, orientation } = useSplitterGripContext();
-        const custom = hasContent(children);
+        const custom = Children.toArray(children).length > 0;
 
         return (
             <span
@@ -18,7 +16,7 @@ const Grip = forwardRef<HTMLSpanElement, GripProps>(
                 className={cnMerge(variants.grip({ orientation, active, custom }), className)}
                 ref={ref}
             >
-                {custom ? children : null}
+                {children}
             </span>
         );
     },

@@ -1,10 +1,8 @@
 import { cva } from '@nild/shared';
-import sharedStyles from '../../_shared/style';
 import { SplitterOrientation } from '../interfaces';
 
 const splitter = cva<{
     orientation?: SplitterOrientation;
-    disabled?: boolean;
 }>(
     [
         'nd-splitter',
@@ -20,7 +18,6 @@ const splitter = cva<{
         'bg-canvas',
         'font-nd',
         'text-main',
-        sharedStyles.disabled,
     ],
     {
         variants: {
@@ -39,7 +36,6 @@ const panel = cva<object>(['nd-splitter-panel', 'relative', 'min-w-0', 'min-h-0'
 
 const resizer = cva<{
     orientation?: SplitterOrientation;
-    disabled?: boolean;
     active?: boolean;
 }>(
     [
@@ -56,12 +52,11 @@ const resizer = cva<{
         'before:absolute',
         'before:pointer-events-none',
         'before:content-[""]',
-        'before:bg-[var(--border-color-muted)]',
+        'before:bg-[var(--border-color-main)]',
         'before:transition-colors',
         'enabled:hover:before:bg-brand',
-        'enabled:focus-visible:before:bg-brand',
+        'enabled:focus:before:bg-brand',
         'motion-reduce:before:transition-none',
-        sharedStyles.disabled,
     ],
     {
         variants: {
@@ -71,7 +66,7 @@ const resizer = cva<{
                     'bottom-0',
                     'w-3',
                     '-translate-x-1/2',
-                    'cursor-col-resize',
+                    'enabled:cursor-col-resize',
                     'before:top-0',
                     'before:bottom-0',
                     'before:left-1/2',
@@ -83,17 +78,13 @@ const resizer = cva<{
                     'right-0',
                     'h-3',
                     '-translate-y-1/2',
-                    'cursor-row-resize',
+                    'enabled:cursor-row-resize',
                     'before:top-1/2',
                     'before:left-0',
                     'before:right-0',
                     'before:h-px',
                     'before:-translate-y-1/2',
                 ],
-            },
-            disabled: {
-                true: '',
-                false: '',
             },
             active: {
                 true: 'before:bg-brand',
@@ -119,7 +110,7 @@ const grip = cva<{
         'items-center',
         'justify-center',
         'transition-colors',
-        'group-focus-visible:ring-focused',
+        'group-focus:ring-focused',
         'motion-reduce:transition-none',
     ],
     {
@@ -136,9 +127,13 @@ const grip = cva<{
                 true: ['rounded-sm', 'text-subtle'],
                 false: [
                     'rounded-full',
-                    'bg-muted',
-                    'group-enabled:group-hover:bg-brand',
-                    'group-focus-visible:bg-brand',
+                    'bg-subtle',
+                    'border',
+                    'border-main',
+                    'group-enabled:group-hover:bg-brand-subtle',
+                    'group-enabled:group-hover:border-brand',
+                    'group-focus:bg-brand-subtle',
+                    'group-focus:border-brand',
                 ],
             },
         },
@@ -147,71 +142,16 @@ const grip = cva<{
             custom: false,
         },
         compoundVariants: [
-            { orientation: 'horizontal', custom: false, className: ['h-8', 'w-1'] },
-            { orientation: 'vertical', custom: false, className: ['h-1', 'w-8'] },
+            { orientation: 'horizontal', custom: false, className: ['h-8', 'w-1.5'] },
+            { orientation: 'vertical', custom: false, className: ['h-1.5', 'w-8'] },
             { active: true, custom: false, className: 'bg-brand' },
         ],
     },
 );
-
-const actions = cva<{
-    orientation?: SplitterOrientation;
-}>(
-    [
-        'nd-splitter-actions',
-        'absolute',
-        'z-2',
-        'flex',
-        'items-center',
-        'justify-center',
-        'gap-0.5',
-        'opacity-0',
-        'transition-opacity',
-        'group-hover:opacity-100',
-        'group-focus-within:opacity-100',
-        'motion-reduce:transition-none',
-    ],
-    {
-        variants: {
-            orientation: {
-                horizontal: ['left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2', 'flex-col'],
-                vertical: ['left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2', 'flex-row'],
-            },
-        },
-        defaultVariants: {
-            orientation: 'horizontal',
-        },
-    },
-);
-
-const collapseButton = cva<object>([
-    'nd-splitter-collapse',
-    'inline-flex',
-    'size-4',
-    'items-center',
-    'justify-center',
-    'rounded-sm',
-    'border',
-    'border-muted',
-    'bg-canvas',
-    'p-0',
-    'text-sm',
-    'text-subtle',
-    'shadow-sm',
-    'outline-none',
-    'transition-colors',
-    'enabled:cursor-pointer',
-    'enabled:hover:border-brand-muted',
-    'enabled:hover:text-brand',
-    'enabled:focus-visible:ring-focused',
-    sharedStyles.disabled,
-]);
 
 export default {
     splitter,
     panel,
     resizer,
     grip,
-    actions,
-    collapseButton,
 };

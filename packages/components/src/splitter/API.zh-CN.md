@@ -13,12 +13,12 @@ You may edit only the description column; other API columns are refreshed automa
 | size | 受控尺寸数组，按百分比分配。 | `number[]` | - |
 | defaultSize | 默认尺寸数组，按百分比分配。 | `number[]` | - |
 | orientation | 分割方向。 | `'horizontal' \| 'vertical'` | - |
-| disabled | 禁用拖拽和折叠。 | `boolean` | - |
+| disabled | 禁用拖拽。 | `boolean` | - |
 | keyboardResizeStep | 键盘每次调整的百分比。 | `number` | - |
 | resetOnDoubleClick | 双击拖拽条恢复默认尺寸。 | `boolean` | - |
 | onResize | 尺寸变化时触发。 | `(size: number[]) => void` | - |
 | onResizeStart | 开始拖拽时触发。 | `(size: number[], index: number) => void` | - |
-| onResizeEnd | 结束拖拽、键盘调整、折叠或重置后触发。 | `(size: number[], index: number) => void` | - |
+| onResizeEnd | 结束拖拽、键盘调整或重置后触发。 | `(size: number[], index: number) => void` | - |
 | onDoubleClick | 双击拖拽条时触发。 | `(size: number[], index: number, evt: MouseEvent<HTMLDivElement>) => void` | - |
 
 ### Splitter.Grip Props
@@ -36,4 +36,3 @@ You may edit only the description column; other API columns are refreshed automa
 | min | 最小尺寸百分比。 | `number` | - |
 | max | 最大尺寸百分比。 | `number` | - |
 | resizable | 是否允许相邻拖拽条调整该面板。 | `boolean` | - |
-| collapsible | 是否允许折叠到 0。 | `boolean` | - |

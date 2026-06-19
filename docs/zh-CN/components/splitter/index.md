@@ -7,27 +7,6 @@ cat: 布局
 
 用于把一个区域拆分为可调整尺寸的多个面板。
 
-## 基础
-
-::: react-live
-
-```tsx
-import { Splitter } from '@nild/components';
-
-const Demo = () => {
-    return (
-        <Splitter className="h-52">
-            <Splitter.Panel className="flex items-center justify-center bg-subtle">左侧面板</Splitter.Panel>
-            <Splitter.Panel className="flex items-center justify-center">右侧面板</Splitter.Panel>
-        </Splitter>
-    );
-};
-
-render(<Demo />);
-```
-
-:::
-
 ## 方向
 
 ::: react-live
@@ -37,9 +16,36 @@ import { Splitter } from '@nild/components';
 
 const Demo = () => {
     return (
-        <Splitter className="h-64" orientation="vertical" defaultSize={[35, 65]}>
-            <Splitter.Panel className="flex items-center justify-center bg-subtle">预览</Splitter.Panel>
-            <Splitter.Panel className="flex items-center justify-center">日志</Splitter.Panel>
+        <div className="grid gap-4 lg:grid-cols-2">
+            <Splitter className="h-52">
+                <Splitter.Panel className="flex items-center justify-center bg-subtle">左侧面板</Splitter.Panel>
+                <Splitter.Panel className="flex items-center justify-center">右侧面板</Splitter.Panel>
+            </Splitter>
+            <Splitter className="h-52" orientation="vertical" defaultSize={[35, 65]}>
+                <Splitter.Panel className="flex items-center justify-center bg-subtle">预览</Splitter.Panel>
+                <Splitter.Panel className="flex items-center justify-center">日志</Splitter.Panel>
+            </Splitter>
+        </div>
+    );
+};
+
+render(<Demo />);
+```
+
+:::
+
+## 禁用状态
+
+::: react-live
+
+```tsx
+import { Splitter } from '@nild/components';
+
+const Demo = () => {
+    return (
+        <Splitter disabled className="h-52" defaultSize={[40, 60]}>
+            <Splitter.Panel className="flex items-center justify-center bg-subtle">导航面板</Splitter.Panel>
+            <Splitter.Panel className="flex items-center justify-center">内容面板</Splitter.Panel>
         </Splitter>
     );
 };
@@ -99,57 +105,7 @@ render(<Demo />);
 
 :::
 
-## 折叠
-
-::: react-live
-
-```tsx
-import { Splitter } from '@nild/components';
-
-const Demo = () => {
-    return (
-        <Splitter className="h-52" defaultSize={[32, 68]}>
-            <Splitter.Panel collapsible className="flex items-center justify-center bg-subtle">
-                可折叠面板
-            </Splitter.Panel>
-            <Splitter.Panel className="flex items-center justify-center">内容面板</Splitter.Panel>
-        </Splitter>
-    );
-};
-
-render(<Demo />);
-```
-
-:::
-
-## 受控
-
-::: react-live
-
-```tsx
-import { useState } from 'react';
-import { Splitter } from '@nild/components';
-
-const Demo = () => {
-    const [size, setSize] = useState([36, 64]);
-
-    return (
-        <div className="flex flex-col gap-3">
-            <Splitter className="h-52" size={size} onResize={setSize}>
-                <Splitter.Panel className="flex items-center justify-center bg-subtle">列表</Splitter.Panel>
-                <Splitter.Panel className="flex items-center justify-center">工作区</Splitter.Panel>
-            </Splitter>
-            <span className="text-md">当前尺寸：{size.map(item => `${Math.round(item)}%`).join(' / ')}</span>
-        </div>
-    );
-};
-
-render(<Demo />);
-```
-
-:::
-
-## 自定义
+## 自定义内容
 
 ::: react-live
 
@@ -159,34 +115,17 @@ import { Splitter } from '@nild/components';
 const Demo = () => {
     return (
         <Splitter className="h-52" defaultSize={[36, 64]}>
-            <Splitter.Panel className="flex items-center justify-center bg-subtle">目录</Splitter.Panel>
+            <Splitter.Panel className="flex items-center justify-center bg-subtle">左侧面板</Splitter.Panel>
             <Splitter.Grip>
-                <span className="flex h-8 w-3 items-center justify-center rounded-sm bg-muted text-subtle">⋮</span>
+                <span className="flex h-9 w-2.5 items-center justify-center rounded-full border border-main bg-subtle text-subtle transition-colors group-hover:border-brand group-hover:bg-brand-subtle group-hover:text-brand group-focus:border-brand group-focus:bg-brand-subtle group-focus:text-brand motion-reduce:transition-none">
+                    <span className="flex flex-col gap-0.5">
+                        <span className="size-1 rounded-full bg-current" />
+                        <span className="size-1 rounded-full bg-current" />
+                        <span className="size-1 rounded-full bg-current" />
+                    </span>
+                </span>
             </Splitter.Grip>
-            <Splitter.Panel className="flex items-center justify-center">正文</Splitter.Panel>
-        </Splitter>
-    );
-};
-
-render(<Demo />);
-```
-
-:::
-
-## 禁用
-
-::: react-live
-
-```tsx
-import { Splitter } from '@nild/components';
-
-const Demo = () => {
-    return (
-        <Splitter className="h-52" defaultSize={[40, 60]}>
-            <Splitter.Panel className="flex items-center justify-center bg-subtle" resizable={false}>
-                固定面板
-            </Splitter.Panel>
-            <Splitter.Panel className="flex items-center justify-center">内容面板</Splitter.Panel>
+            <Splitter.Panel className="flex items-center justify-center">右侧面板</Splitter.Panel>
         </Splitter>
     );
 };

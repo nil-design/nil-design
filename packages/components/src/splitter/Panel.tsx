@@ -5,16 +5,7 @@ import variants from './style';
 
 const Panel = forwardRef<HTMLDivElement, PanelProps>(
     (
-        {
-            className,
-            children,
-            defaultSize: _defaultSize,
-            min: _min,
-            max: _max,
-            resizable: _resizable,
-            collapsible: _collapsible,
-            ...restProps
-        },
+        { className, children, defaultSize: _defaultSize, min: _min, max: _max, resizable: _resizable, ...restProps },
         ref,
     ) => {
         return (

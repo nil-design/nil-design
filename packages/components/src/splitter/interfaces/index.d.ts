@@ -23,7 +23,6 @@ export interface PanelProps extends Omit<HTMLAttributes<HTMLDivElement>, 'defaul
     min?: number;
     max?: number;
     resizable?: boolean;
-    collapsible?: boolean;
 }
 
 export type GripProps = HTMLAttributes<HTMLSpanElement>;
