@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.57
+
+### Patch Changes
+
+- d067195: feat: add Splitter component
+
 ## 0.0.56
 
 ### Patch Changes
