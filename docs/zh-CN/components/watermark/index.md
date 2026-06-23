@@ -34,40 +34,13 @@ render(<Demo />);
 
 ::: react-live
 ```tsx
-import { useEffect, useState } from 'react';
 import { Watermark, Typography } from '@nild/components';
+import { useBrandColor } from '~internals';
 
 const { Paragraph } = Typography;
 
-const resolveBrandColor = () => {
-  const $probe = document.createElement('span');
-
-  $probe.style.color = 'var(--nd-color-brand-60)';
-  document.body.appendChild($probe);
-  const color = getComputedStyle($probe).color;
-  $probe.remove();
-
-  return color;
-};
-
 const Demo = () => {
-  const [brandColor, setBrandColor] = useState(resolveBrandColor);
-
-  useEffect(() => {
-    const updateColor = () => setBrandColor(resolveBrandColor());
-
-    updateColor();
-
-    if (typeof MutationObserver === 'undefined') {
-      return;
-    }
-
-    const observer = new MutationObserver(updateColor);
-
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style'] });
-
-    return () => observer.disconnect();
-  }, []);
+  const brandColor = useBrandColor();
 
   return <Watermark
     className="overflow-hidden rounded-lg border border-muted p-6 text-md"

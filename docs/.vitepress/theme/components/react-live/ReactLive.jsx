@@ -7,6 +7,7 @@ import * as __Shared__ from '@nild/shared';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import replaceImports from './replaceImports';
+import useBrandColor from './useBrandColor';
 import useTheme from './useTheme';
 
 const ReactLive = ({ dark = false, code: encodedCode }) => {
@@ -24,6 +25,7 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
             __Hooks__,
             __Icons__: { DynamicIcon, Icon },
             __Icon_Layers__: Layers,
+            __Internals__: { useBrandColor },
         }),
         [],
     );
@@ -36,6 +38,7 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
                 '@nild/hooks': '__Hooks__',
                 '@nild/icons': '__Icons__',
                 '@nild/icons/Layers': '__Icon_Layers__',
+                '~internals': '__Internals__',
             }),
         [rawCode],
     );
