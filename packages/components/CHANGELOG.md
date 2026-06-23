@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.59
+
+### Patch Changes
+
+- c9ba78e: style: refine Splitter resizer focus feedback and grip sizing
+
 ## 0.0.58
 
 ### Patch Changes
