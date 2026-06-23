@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.58
+
+### Patch Changes
+
+- 59946b8: style: refine Splitter resizer and grip visuals
+
 ## 0.0.57
 
 ### Patch Changes
