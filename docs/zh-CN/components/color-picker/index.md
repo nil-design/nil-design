@@ -13,9 +13,12 @@ cat: 输入
 
 ```tsx
 import { ColorPicker } from '@nild/components';
+import { useBrandColor } from '~internals';
 
 const Demo = () => {
-    return <ColorPicker defaultValue="#1677ff" portalClassName="vp-raw" />;
+    const brandColor = useBrandColor();
+
+    return <ColorPicker key={brandColor} defaultValue={brandColor} portalClassName="vp-raw" />;
 };
 
 render(<Demo />);
@@ -29,9 +32,12 @@ render(<Demo />);
 
 ```tsx
 import { ColorPicker } from '@nild/components';
+import { useBrandColor } from '~internals';
 
 const Demo = () => {
-    return <ColorPicker defaultValue="#1677ff" disabled portalClassName="vp-raw" />;
+    const brandColor = useBrandColor();
+
+    return <ColorPicker key={brandColor} defaultValue={brandColor} disabled portalClassName="vp-raw" />;
 };
 
 render(<Demo />);
@@ -45,13 +51,21 @@ render(<Demo />);
 
 ```tsx
 import { ColorPicker } from '@nild/components';
+import { useBrandColor } from '~internals';
 
 const Demo = () => {
+    const brandColor = useBrandColor();
+
     return (
         <div className="flex items-center gap-4">
-            <ColorPicker size="small" defaultValue="#1677ff" portalClassName="vp-raw" />
-            <ColorPicker size="medium" defaultValue="#13c2c2" portalClassName="vp-raw" />
-            <ColorPicker size="large" defaultValue="#722ed1" portalClassName="vp-raw" />
+            <ColorPicker key={`small-${brandColor}`} size="small" defaultValue={brandColor} portalClassName="vp-raw" />
+            <ColorPicker
+                key={`medium-${brandColor}`}
+                size="medium"
+                defaultValue={brandColor}
+                portalClassName="vp-raw"
+            />
+            <ColorPicker key={`large-${brandColor}`} size="large" defaultValue={brandColor} portalClassName="vp-raw" />
         </div>
     );
 };
@@ -66,12 +80,18 @@ render(<Demo />);
 ::: react-live
 
 ```tsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ColorPicker } from '@nild/components';
+import { useBrandColor } from '~internals';
 
 const Demo = () => {
-    const [value, setValue] = useState('rgba(22, 119, 255, 0.72)');
+    const brandColor = useBrandColor(60, 0.72);
+    const [value, setValue] = useState(brandColor);
     const [format, setFormat] = useState('rgb');
+
+    useEffect(() => {
+        setValue(brandColor);
+    }, [brandColor]);
 
     return (
         <div className="flex items-center gap-4">
@@ -98,19 +118,24 @@ render(<Demo />);
 
 ```tsx
 import { ColorPicker } from '@nild/components';
+import { useBrandColor } from '~internals';
 
 const Demo = () => {
+    const brandColor = useBrandColor();
+    const brandHoverColor = useBrandColor(50);
+    const brandDeepColor = useBrandColor(70);
+    const brandMutedColor = useBrandColor(30);
+
     return (
         <ColorPicker
-            defaultValue="#52c41a"
+            key={brandColor}
+            defaultValue={brandColor}
             portalClassName="vp-raw"
             presets={[
-                { label: 'Brand', value: '#1677ff' },
-                { label: 'Success', value: '#52c41a' },
-                { label: 'Warning', value: '#faad14' },
-                { label: 'Danger', value: '#f5222d' },
-                '#000000',
-                '#ffffff',
+                { label: 'Brand 60', value: brandColor },
+                { label: 'Brand 50', value: brandHoverColor },
+                { label: 'Brand 70', value: brandDeepColor },
+                { label: 'Brand 30', value: brandMutedColor },
             ]}
         />
     );
@@ -127,10 +152,13 @@ render(<Demo />);
 
 ```tsx
 import { Button, ColorPicker } from '@nild/components';
+import { useBrandColor } from '~internals';
 
 const Demo = () => {
+    const brandColor = useBrandColor();
+
     return (
-        <ColorPicker defaultValue="#13c2c2" portalClassName="vp-raw">
+        <ColorPicker key={brandColor} defaultValue={brandColor} portalClassName="vp-raw">
             <ColorPicker.Trigger>
                 <Button variant="outlined">选择颜色</Button>
             </ColorPicker.Trigger>
