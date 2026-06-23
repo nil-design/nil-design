@@ -116,13 +116,11 @@ const Demo = () => {
     return (
         <Splitter className="h-52" defaultSize={[36, 64]}>
             <Splitter.Panel className="flex items-center justify-center bg-subtle">左侧面板</Splitter.Panel>
-            <Splitter.Grip>
-                <span className="flex h-9 w-2.5 items-center justify-center rounded-full border border-main bg-subtle text-subtle transition-colors group-hover:border-brand group-hover:bg-brand-subtle group-hover:text-brand group-focus:border-brand group-focus:bg-brand-subtle group-focus:text-brand motion-reduce:transition-none">
-                    <span className="flex flex-col gap-0.5">
-                        <span className="size-1 rounded-full bg-current" />
-                        <span className="size-1 rounded-full bg-current" />
-                        <span className="size-1 rounded-full bg-current" />
-                    </span>
+            <Splitter.Grip className="flex h-7 w-2 items-center justify-center">
+                <span className="flex flex-col gap-1">
+                    <span className="size-1 rounded-full bg-emphasized transition-colors group-enabled:group-hover:bg-brand group-focus-visible:bg-brand motion-reduce:transition-none" />
+                    <span className="size-1 rounded-full bg-emphasized transition-colors group-enabled:group-hover:bg-brand group-focus-visible:bg-brand motion-reduce:transition-none" />
+                    <span className="size-1 rounded-full bg-emphasized transition-colors group-enabled:group-hover:bg-brand group-focus-visible:bg-brand motion-reduce:transition-none" />
                 </span>
             </Splitter.Grip>
             <Splitter.Panel className="flex items-center justify-center">右侧面板</Splitter.Panel>
