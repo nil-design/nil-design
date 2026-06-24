@@ -1,14 +1,15 @@
 <template>
     <div class="theme-picker flex items-center">
         <button
-            class="flex items-center justify-center size-9 rounded-lg border-0 bg-transparent cursor-pointer"
+            class="flex items-center justify-center size-9 rounded-lg border-0 bg-transparent cursor-pointer outline-none transition-[box-shadow] ease-in-out focus-visible:ring-focused motion-reduce:transition-none"
+            :style="{ color: `var(--nd-color-brand-60)` }"
             title="Switch theme color"
             @click="randomize"
         >
             <PaletteIcon
-                class="transition-[color,rotate] ease-in-out"
-                :class="{ 'rotate-180': spinning }"
-                :style="{ color: `var(--nd-color-brand-60)` }"
+                :key="shakeKey"
+                class="motion-reduce:animate-none"
+                :class="{ 'animate-shake': shakeKey > 0 }"
                 width="20"
                 height="20"
                 aria-hidden="true"
@@ -34,7 +35,7 @@ const HUES = [
 ];
 
 const currentHue = ref(255);
-const spinning = ref(false);
+const shakeKey = ref(0);
 let hueQueue = [];
 
 const shuffleHueQueue = () => {
@@ -65,15 +66,10 @@ const applyHue = h => {
 };
 
 const randomize = () => {
-    if (spinning.value) return;
-
     const next = pickNextHue();
 
-    spinning.value = true;
+    shakeKey.value += 1;
     applyHue(next.h);
-    setTimeout(() => {
-        spinning.value = false;
-    }, 200);
 };
 
 onMounted(() => {

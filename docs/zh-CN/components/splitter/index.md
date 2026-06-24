@@ -111,17 +111,18 @@ render(<Demo />);
 
 ```tsx
 import { Splitter } from '@nild/components';
+import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
     return (
         <Splitter className="h-52" defaultSize={[36, 64]}>
             <Splitter.Panel className="flex items-center justify-center bg-subtle">左侧面板</Splitter.Panel>
-            <Splitter.Grip className="flex h-7 w-2 items-center justify-center">
-                <span className="flex flex-col gap-1">
-                    <span className="size-1 rounded-full bg-emphasized transition-colors group-enabled:group-hover:bg-brand group-focus-visible:bg-brand motion-reduce:transition-none" />
-                    <span className="size-1 rounded-full bg-emphasized transition-colors group-enabled:group-hover:bg-brand group-focus-visible:bg-brand motion-reduce:transition-none" />
-                    <span className="size-1 rounded-full bg-emphasized transition-colors group-enabled:group-hover:bg-brand group-focus-visible:bg-brand motion-reduce:transition-none" />
-                </span>
+            <Splitter.Grip className="flex h-7 w-4 items-center justify-center text-[var(--background-color-emphasized)] group-enabled:group-hover:text-brand group-focus:text-brand">
+                <DynamicIcon
+                    name="diamond-one"
+                    variant="filled"
+                    className="text-xl"
+                />
             </Splitter.Grip>
             <Splitter.Panel className="flex items-center justify-center">右侧面板</Splitter.Panel>
         </Splitter>
