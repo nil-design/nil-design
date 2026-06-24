@@ -42,6 +42,10 @@
     "outline.label": "On this page",
     "prev.page": "Previous Page",
     "property.name": "Property Name",
+    "react.live.code.hide": "Hide code",
+    "react.live.code.show": "Show code",
+    "react.live.copied": "Copied",
+    "react.live.copy": "Copy code",
     "search": "Search",
     "type": "Type"
 }
