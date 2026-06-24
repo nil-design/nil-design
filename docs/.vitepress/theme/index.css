@@ -48,9 +48,32 @@
   }
 }
 
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-1px);
+  }
+
+  50% {
+    transform: translateX(1px);
+  }
+
+  75% {
+    transform: translateX(-1px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
 @theme {
   --animate-sparkle: sparkle 2s ease-in-out infinite;
   --animate-blink: blink 0.9s ease-in-out infinite;
+  --animate-shake: shake 220ms steps(1, end);
 
   --background-color-brand-soft: var(--nd-color-brand-10);
 }
