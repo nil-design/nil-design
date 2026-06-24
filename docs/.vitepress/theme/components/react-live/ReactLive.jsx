@@ -6,14 +6,16 @@ import { cnJoin } from '@nild/shared';
 import * as __Shared__ from '@nild/shared';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
+import i18n from '../../../../../locales/index';
+import CodeToggleButton from './CodeToggleButton';
+import CopyButton from './CopyButton';
 import replaceImports from './replaceImports';
 import useBrandColor from './useBrandColor';
 import useTheme from './useTheme';
 
-const ReactLive = ({ dark = false, code: encodedCode }) => {
+const ReactLive = ({ dark = false, code: encodedCode, locale = 'zh-CN' }) => {
     const [editorVisible, setEditorVisible] = useState(false);
     const [rawCode, setRawCode] = useState(decodeURIComponent(encodedCode));
-    const [copyActive, setCopyActive] = useState(false);
     const [hasError, setHasError] = useState(false);
     const errorRef = useRef(null);
     const theme = useTheme(dark);
@@ -75,20 +77,21 @@ const ReactLive = ({ dark = false, code: encodedCode }) => {
                         !editorVisible && 'rounded-b-lg',
                     )}
                 >
-                    <button className="px-1 cursor-pointer" onClick={() => setEditorVisible(v => !v)}>
-                        {editorVisible ? <DynamicIcon name="collapse-text-input" /> : <DynamicIcon name="code" />}{' '}
-                    </button>
-                    <button
-                        className="px-1 cursor-pointer"
-                        onClick={() => {
-                            navigator.clipboard.writeText(rawCode);
+                    <CodeToggleButton
+                        editorVisible={editorVisible}
+                        labels={{
+                            hidden: i18n.t('react.live.code.show', { language: locale }),
+                            visible: i18n.t('react.live.code.hide', { language: locale }),
                         }}
-                        onMouseDown={() => setCopyActive(true)}
-                        onMouseUp={() => setCopyActive(false)}
-                        onMouseLeave={() => setCopyActive(false)}
-                    >
-                        <DynamicIcon name="copy" variant={copyActive ? 'filled' : 'outline'} />
-                    </button>
+                        onClick={() => setEditorVisible(v => !v)}
+                    />
+                    <CopyButton
+                        code={rawCode}
+                        labels={{
+                            copied: i18n.t('react.live.copied', { language: locale }),
+                            idle: i18n.t('react.live.copy', { language: locale }),
+                        }}
+                    />
                 </div>
                 {
                     <LiveEditor
