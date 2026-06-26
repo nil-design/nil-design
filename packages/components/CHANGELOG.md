@@ -1,5 +1,15 @@
 # @nild/components
 
+## 0.0.60
+
+### Patch Changes
+
+- 0e4b095: add package license metadata and bundled dependency notices
+- Updated dependencies [0e4b095]
+  - @nild/hooks@0.0.22
+  - @nild/icons@0.0.22
+  - @nild/shared@0.0.19
+
 ## 0.0.59
 
 ### Patch Changes

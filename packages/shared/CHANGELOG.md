@@ -1,5 +1,11 @@
 # @nild/shared
 
+## 0.0.19
+
+### Patch Changes
+
+- 0e4b095: add package license metadata and bundled dependency notices
+
 ## 0.0.18
 
 ### Patch Changes

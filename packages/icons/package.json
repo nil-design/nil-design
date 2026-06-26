@@ -2,7 +2,7 @@
     "name": "@nild/icons",
     "private": false,
     "license": "Apache-2.0",
-    "version": "0.0.21",
+    "version": "0.0.22",
     "type": "module",
     "module": "./dist/index.js",
     "exports": {
