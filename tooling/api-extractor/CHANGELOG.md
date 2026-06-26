@@ -1,5 +1,11 @@
 # @nild/api-extractor
 
+## 0.0.4
+
+### Patch Changes
+
+- 0e4b095: add package license metadata and bundled dependency notices
+
 ## 0.0.3
 
 ### Patch Changes

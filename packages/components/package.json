@@ -2,7 +2,7 @@
     "name": "@nild/components",
     "private": false,
     "license": "Apache-2.0",
-    "version": "0.0.59",
+    "version": "0.0.60",
     "type": "module",
     "module": "./dist/index.js",
     "exports": {
