@@ -26,7 +26,7 @@ Nil Design is a diversified React development library for product interfaces: UI
 
 - More than UI primitives: components live beside hooks, icons, i18n, shared utilities, and project tooling.
 - Composable by default: tokens, state semantics, slots, and Tailwind CSS entrypoints keep product UI predictable.
-- Adopt only what you need: each package is published independently and shares a small set of peer foundations.
+- Adopt only what you need: available packages are published independently and share a small set of peer foundations.
 - Close to the code: API tables, examples, and tooling are maintained from the same workspace.
 
 ## Packages
@@ -84,11 +84,17 @@ pnpm test
 
 ## Documentation
 
-- Docs: https://nil-design.github.io/nil-design/
-- Quick Start: https://nil-design.github.io/nil-design/zh-CN/guide/quick-start.html
-- Components: https://nil-design.github.io/nil-design/zh-CN/components/
-- Hooks: https://nil-design.github.io/nil-design/zh-CN/hooks/
-- Package Relationships: https://nil-design.github.io/nil-design/zh-CN/guide/package-relationships.html
+- Home: https://nil-design.github.io/nil-design/en-US/
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=nil-design%2Fnil-design&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=nil-design/nil-design&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=nil-design/nil-design&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=nil-design/nil-design&type=date&legend=top-left" />
+ </picture>
+</a>
 
 ## License
 
