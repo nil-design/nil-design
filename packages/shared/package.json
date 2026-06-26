@@ -1,6 +1,7 @@
 {
     "name": "@nild/shared",
     "private": false,
+    "license": "Apache-2.0",
     "version": "0.0.18",
     "type": "module",
     "module": "./dist/index.js",

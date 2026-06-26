@@ -1,6 +1,7 @@
 {
     "name": "@nild/hooks",
     "private": false,
+    "license": "Apache-2.0",
     "version": "0.0.21",
     "type": "module",
     "module": "./dist/index.js",
