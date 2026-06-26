@@ -26,7 +26,7 @@ Nil Design 面向产品界面建设，提供基础 UI 原语、Hooks、图标、
 
 - 不止组件：组件之外，同步提供 Hooks、图标、国际化、共享工具和项目工具链。
 - 组合优先：tokens、状态语义、slots 和 Tailwind CSS 入口让产品 UI 更稳定。
-- 按需接入：各包独立发布，围绕少量共享基础协作。
+- 按需接入：可用包独立发布，围绕少量共享基础协作。
 - 贴近源码：API 表、示例和工具链来自同一个工作区。
 
 ## 包
@@ -84,11 +84,21 @@ pnpm test
 
 ## 文档
 
-- 文档首页：https://nil-design.github.io/nil-design/
+- 首页：https://nil-design.github.io/nil-design/zh-CN/
 - 快速开始：https://nil-design.github.io/nil-design/zh-CN/guide/quick-start.html
 - 组件总览：https://nil-design.github.io/nil-design/zh-CN/components/
 - Hooks：https://nil-design.github.io/nil-design/zh-CN/hooks/
 - 包与依赖关系：https://nil-design.github.io/nil-design/zh-CN/guide/package-relationships.html
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=nil-design%2Fnil-design&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=nil-design/nil-design&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=nil-design/nil-design&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=nil-design/nil-design&type=date&legend=top-left" />
+ </picture>
+</a>
 
 ## 许可证
 
