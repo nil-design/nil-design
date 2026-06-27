@@ -1,5 +1,11 @@
 # @nild/components
 
+## 0.0.61
+
+### Patch Changes
+
+- aab52f3: refactor: stabilize popup trigger and focus interactions
+
 ## 0.0.60
 
 ### Patch Changes
