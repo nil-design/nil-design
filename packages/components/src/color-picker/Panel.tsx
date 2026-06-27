@@ -1,5 +1,5 @@
 import { cnMerge } from '@nild/shared';
-import { KeyboardEventHandler, useMemo } from 'react';
+import { KeyboardEventHandler, forwardRef, useMemo } from 'react';
 import { getCheckerboardStyle } from './_shared/checkerboard';
 import { getHueCss } from './_shared/color';
 import Area from './Area';
@@ -40,94 +40,100 @@ interface PanelProps {
     onKeyDown: KeyboardEventHandler<HTMLDivElement>;
 }
 
-const Panel = ({
-    area,
-    className,
-    color,
-    colorCss,
-    disabled = false,
-    draftValue,
-    format,
-    formattedValue,
-    hue,
-    inputInvalid = false,
-    onCommitColor,
-    onFormatChange,
-    onHueChange,
-    onInputBlur,
-    onInputChange,
-    onKeyDown,
-    opaqueColorCss,
-    presets,
-    selectedHex,
-}: PanelProps) => {
-    const alphaStyle = useMemo<CSSPropertiesWithVars>(
-        () => ({
-            '--nd-color-picker-alpha-color': opaqueColorCss,
-        }),
-        [opaqueColorCss],
-    );
+const Panel = forwardRef<HTMLDivElement, PanelProps>(
+    (
+        {
+            area,
+            className,
+            color,
+            colorCss,
+            disabled = false,
+            draftValue,
+            format,
+            formattedValue,
+            hue,
+            inputInvalid = false,
+            onCommitColor,
+            onFormatChange,
+            onHueChange,
+            onInputBlur,
+            onInputChange,
+            onKeyDown,
+            opaqueColorCss,
+            presets,
+            selectedHex,
+        },
+        ref,
+    ) => {
+        const alphaStyle = useMemo<CSSPropertiesWithVars>(
+            () => ({
+                '--nd-color-picker-alpha-color': opaqueColorCss,
+            }),
+            [opaqueColorCss],
+        );
 
-    return (
-        <div
-            aria-label="Color picker"
-            className={cnMerge(className, variants.panel())}
-            onKeyDown={onKeyDown}
-            role="dialog"
-            tabIndex={-1}
-        >
-            <div className={variants.stack()}>
-                <Area controller={area} disabled={disabled} formattedValue={formattedValue} />
-                <div className={variants.sliderPreviewRow()}>
-                    <div className={variants.sliderStack()}>
-                        <SliderControl
-                            disabled={disabled}
-                            label="Hue"
-                            max={360}
-                            min={0}
-                            step={1}
-                            trackClassName={variants.hueTrack()}
-                            thumbStyle={{ backgroundColor: getHueCss(hue) }}
-                            value={hue}
-                            onChange={onHueChange}
-                        />
-                        <SliderControl
-                            disabled={disabled}
-                            label="Alpha"
-                            max={1}
-                            min={0}
-                            step={0.01}
-                            style={alphaStyle}
-                            trackClassName={variants.alphaTrack()}
-                            trackStyle={ALPHA_TRACK_STYLE}
-                            thumbStyle={{ backgroundColor: colorCss }}
-                            value={color.alpha}
-                            onChange={alpha => onCommitColor({ ...color, alpha })}
-                        />
+        return (
+            <div
+                aria-label="Color picker"
+                className={cnMerge(className, variants.panel())}
+                onKeyDown={onKeyDown}
+                ref={ref}
+                role="dialog"
+                tabIndex={-1}
+            >
+                <div className={variants.stack()}>
+                    <Area controller={area} disabled={disabled} formattedValue={formattedValue} />
+                    <div className={variants.sliderPreviewRow()}>
+                        <div className={variants.sliderStack()}>
+                            <SliderControl
+                                disabled={disabled}
+                                label="Hue"
+                                max={360}
+                                min={0}
+                                step={1}
+                                trackClassName={variants.hueTrack()}
+                                thumbStyle={{ backgroundColor: getHueCss(hue) }}
+                                value={hue}
+                                onChange={onHueChange}
+                            />
+                            <SliderControl
+                                disabled={disabled}
+                                label="Alpha"
+                                max={1}
+                                min={0}
+                                step={0.01}
+                                style={alphaStyle}
+                                trackClassName={variants.alphaTrack()}
+                                trackStyle={ALPHA_TRACK_STYLE}
+                                thumbStyle={{ backgroundColor: colorCss }}
+                                value={color.alpha}
+                                onChange={alpha => onCommitColor({ ...color, alpha })}
+                            />
+                        </div>
+                        <span className={variants.previewSwatch()}>
+                            <Swatch css={colorCss} />
+                        </span>
                     </div>
-                    <span className={variants.previewSwatch()}>
-                        <Swatch css={colorCss} />
-                    </span>
+                    <ValueControls
+                        disabled={disabled}
+                        draftValue={draftValue}
+                        format={format}
+                        inputInvalid={inputInvalid}
+                        onFormatChange={onFormatChange}
+                        onInputBlur={onInputBlur}
+                        onInputChange={onInputChange}
+                    />
+                    <PresetGrid
+                        disabled={disabled}
+                        presets={presets}
+                        selectedHex={selectedHex}
+                        onCommitColor={onCommitColor}
+                    />
                 </div>
-                <ValueControls
-                    disabled={disabled}
-                    draftValue={draftValue}
-                    format={format}
-                    inputInvalid={inputInvalid}
-                    onFormatChange={onFormatChange}
-                    onInputBlur={onInputBlur}
-                    onInputChange={onInputChange}
-                />
-                <PresetGrid
-                    disabled={disabled}
-                    presets={presets}
-                    selectedHex={selectedHex}
-                    onCommitColor={onCommitColor}
-                />
             </div>
-        </div>
-    );
-};
+        );
+    },
+);
 
 Panel.displayName = 'ColorPicker.Panel';
 

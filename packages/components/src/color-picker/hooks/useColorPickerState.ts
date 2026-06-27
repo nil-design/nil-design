@@ -87,6 +87,10 @@ const useColorPickerState = ({
     });
 
     const updateHue = useEffectCallback((nextHue: number) => {
+        if (Object.is(hue, nextHue)) {
+            return;
+        }
+
         setHue(nextHue);
         commitColor({ ...color, h: nextHue });
     });

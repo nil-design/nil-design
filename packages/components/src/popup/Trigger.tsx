@@ -6,9 +6,9 @@ import { TriggerProps } from './interfaces';
 import variants from './style';
 
 const Trigger: FC<TriggerProps> = ({ children }) => {
-    const { actions, refs, setOpen, enter, leave } = usePopupContext();
+    const { actions, refs, setOpen, enter, leave, focus: focusOpen, blur: blurOpen } = usePopupContext();
     const child = Children.toArray(children).find(child => isValidElement(child));
-    const global = actions.has('click') || actions.has('contextMenu') ? window : null;
+    const global = actions.has('click') || actions.has('contextMenu') ? (globalThis.window ?? null) : null;
 
     const handleMouseEnter = useEffectCallback((evt: MouseEvent) => {
         child?.props?.onMouseEnter?.(evt);
@@ -23,14 +23,14 @@ const Trigger: FC<TriggerProps> = ({ children }) => {
     const handleFocus = useEffectCallback((evt: FocusEvent) => {
         child?.props?.onFocus?.(evt);
         if (actions.has('focus')) {
-            setOpen(true);
+            focusOpen();
         }
     });
 
     const handleBlur = useEffectCallback((evt: FocusEvent) => {
         child?.props?.onBlur?.(evt);
         if (actions.has('focus')) {
-            setOpen(false);
+            blurOpen();
         }
     });
 

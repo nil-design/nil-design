@@ -11,7 +11,7 @@ import variants from './style';
 
 const Portal = forwardRef<HTMLDivElement, PortalProps>(
     ({ className, style, children, container: externalContainer, ...restProps }, ref) => {
-        const { size, inverse, refs, enter, leave } = usePopupContext();
+        const { size, arrowed, inverse, refs, enter, leave } = usePopupContext();
         const { coords } = usePortalContext();
         const portalContainerContext = usePortalContainerContext();
         const child = Children.toArray(children).find(child => isValidElement(child));
@@ -47,7 +47,7 @@ const Portal = forwardRef<HTMLDivElement, PortalProps>(
                     ...child.props,
                     className: cnMerge(variants.portalContent({ size, inverse }), child?.props?.className),
                 })}
-                <Arrow />
+                {arrowed && <Arrow />}
             </div>,
             container,
         );

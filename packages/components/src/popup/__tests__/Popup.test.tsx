@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { renderToString } from 'react-dom/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import Popup from '..';
 
@@ -116,5 +117,85 @@ describe('Popup', () => {
         const $portal = screen.getByText('Layered portal').closest('.nd-popup-portal');
 
         expect($portal).toHaveClass('z-popup');
+    });
+
+    it('does not call close callbacks for no-op closes', () => {
+        const onClose = vi.fn();
+
+        render(
+            <Popup onClose={onClose}>
+                <Popup.Trigger>
+                    <button type="button">Closed trigger</button>
+                </Popup.Trigger>
+                <Popup.Portal>
+                    <div>Closed portal</div>
+                </Popup.Portal>
+            </Popup>,
+        );
+
+        fireEvent.click(document.body);
+
+        expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('calls close once when an open trigger closes', () => {
+        const onClose = vi.fn();
+
+        render(
+            <Popup defaultOpen onClose={onClose}>
+                <Popup.Trigger>
+                    <button type="button">Open trigger</button>
+                </Popup.Trigger>
+                <Popup.Portal>
+                    <div>Open portal</div>
+                </Popup.Portal>
+            </Popup>,
+        );
+
+        fireEvent.click(screen.getByRole('button', { name: 'Open trigger' }));
+
+        expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not call close for controlled closed popups', () => {
+        const onClose = vi.fn();
+
+        render(
+            <Popup open={false} onClose={onClose}>
+                <Popup.Trigger>
+                    <button type="button">Controlled trigger</button>
+                </Popup.Trigger>
+                <Popup.Portal>
+                    <div>Controlled portal</div>
+                </Popup.Portal>
+            </Popup>,
+        );
+
+        fireEvent.click(document.body);
+
+        expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('renders the trigger without window during server rendering', () => {
+        const originalWindow = globalThis.window;
+
+        vi.stubGlobal('window', undefined);
+
+        try {
+            expect(() =>
+                renderToString(
+                    <Popup>
+                        <Popup.Trigger>
+                            <button type="button">Server trigger</button>
+                        </Popup.Trigger>
+                        <Popup.Portal>
+                            <div>Server portal</div>
+                        </Popup.Portal>
+                    </Popup>,
+                ),
+            ).not.toThrow();
+        } finally {
+            vi.stubGlobal('window', originalWindow);
+        }
     });
 });

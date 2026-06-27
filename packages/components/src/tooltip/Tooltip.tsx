@@ -2,8 +2,8 @@ import { FC } from 'react';
 import Popup from '../popup';
 import { TooltipProps } from './interfaces';
 
-const Tooltip: FC<TooltipProps> = props => {
-    return <Popup size="small" placement="top" {...props} inverse action="hover" />;
+const Tooltip: FC<TooltipProps> = ({ placement = 'top', size = 'small', ...props }) => {
+    return <Popup {...props} placement={placement} size={size} inverse action={['hover', 'focus']} />;
 };
 
 Tooltip.displayName = 'Tooltip';

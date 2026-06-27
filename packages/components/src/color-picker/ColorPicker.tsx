@@ -1,8 +1,9 @@
-import { useEffectCallback } from '@nild/hooks';
-import { KeyboardEvent, ReactElement, forwardRef, useMemo, useRef, useState } from 'react';
-import { registerSlots } from '../_shared/utils';
+import { useEffectCallback, useIsomorphicLayoutEffect } from '@nild/hooks';
+import { KeyboardEvent, ReactElement, Ref, cloneElement, forwardRef, useMemo, useRef, useState } from 'react';
+import { mergeProps, registerSlots } from '../_shared/utils';
 import Popup from '../popup';
 import { DEFAULT_PRESET_COLORS } from './_shared/color';
+import { ColorPickerTriggerProvider } from './contexts';
 import DefaultTrigger from './DefaultTrigger';
 import useColorArea from './hooks/useColorArea';
 import useColorPickerState from './hooks/useColorPickerState';
@@ -34,10 +35,19 @@ const ColorPicker = forwardRef<HTMLButtonElement, ColorPickerProps>((props, ref)
         offset = 8,
         portalClassName,
         onKeyDown,
+        'aria-label': ariaLabel,
         ...restProps
     } = props;
     const { slots } = useMemo(() => collectSlots(children), [children]);
+    const customTriggerEl = slots.trigger.el as ReactElement<Record<string, unknown>> | null;
+    const triggerProps = {
+        ...restProps,
+        'aria-label': ariaLabel,
+        className,
+        onKeyDown,
+    };
     const triggerRef = useRef<HTMLElement | null>(null);
+    const panelRef = useRef<HTMLDivElement | null>(null);
     const [opened, setOpened] = useState(false);
     const visibleOpen = opened && !disabled;
     const {
@@ -91,8 +101,6 @@ const ColorPicker = forwardRef<HTMLButtonElement, ColorPickerProps>((props, ref)
     });
 
     const handleTriggerKeyDown = useEffectCallback((evt: KeyboardEvent<HTMLElement>) => {
-        onKeyDown?.(evt as KeyboardEvent<HTMLButtonElement>);
-
         if (evt.defaultPrevented || disabled) {
             return;
         }
@@ -114,54 +122,67 @@ const ColorPicker = forwardRef<HTMLButtonElement, ColorPickerProps>((props, ref)
         }
     });
 
+    useIsomorphicLayoutEffect(() => {
+        if (visibleOpen) {
+            panelRef.current?.focus();
+        }
+    }, [visibleOpen]);
+
     return (
-        <Popup
-            action="click"
-            arrowed={false}
-            disabled={disabled}
-            offset={offset}
-            open={visibleOpen}
-            placement={placement}
-            onClose={() => closePanel()}
-            onOpen={openPanel}
+        <ColorPickerTriggerProvider
+            value={{
+                disabled,
+                onKeyDown: handleTriggerKeyDown,
+                open: visibleOpen,
+                rootRef: ref as Ref<HTMLElement>,
+                triggerRef,
+            }}
         >
-            <Popup.Trigger>
-                <DefaultTrigger
-                    {...restProps}
-                    className={className}
-                    colorCss={css}
-                    customTrigger={slots.trigger.el as ReactElement<{ children?: ReactElement }> | null}
-                    disabled={disabled}
-                    open={visibleOpen}
-                    ref={ref}
-                    size={size}
-                    triggerRef={triggerRef}
-                    onKeyDown={handleTriggerKeyDown}
-                />
-            </Popup.Trigger>
-            <Popup.Portal className={portalClassName}>
-                <Panel
-                    area={area}
-                    color={color}
-                    colorCss={css}
-                    disabled={disabled}
-                    draftValue={draftValue}
-                    format={format}
-                    formattedValue={formattedValue}
-                    hue={hue}
-                    inputInvalid={inputInvalid}
-                    opaqueColorCss={opaqueCss}
-                    presets={presets}
-                    selectedHex={hex}
-                    onCommitColor={commitColor}
-                    onFormatChange={updateFormat}
-                    onHueChange={updateHue}
-                    onInputBlur={completeInput}
-                    onInputChange={updateInput}
-                    onKeyDown={handlePanelKeyDown}
-                />
-            </Popup.Portal>
-        </Popup>
+            <Popup
+                action="click"
+                arrowed={false}
+                disabled={disabled}
+                offset={offset}
+                open={visibleOpen}
+                placement={placement}
+                onClose={closePanel}
+                onOpen={openPanel}
+            >
+                <Popup.Trigger>
+                    {customTriggerEl ? (
+                        cloneElement(
+                            customTriggerEl,
+                            mergeProps(triggerProps as Record<string, unknown>, customTriggerEl.props),
+                        )
+                    ) : (
+                        <DefaultTrigger {...triggerProps} colorCss={css} size={size} />
+                    )}
+                </Popup.Trigger>
+                <Popup.Portal className={portalClassName}>
+                    <Panel
+                        area={area}
+                        color={color}
+                        colorCss={css}
+                        disabled={disabled}
+                        draftValue={draftValue}
+                        format={format}
+                        formattedValue={formattedValue}
+                        hue={hue}
+                        inputInvalid={inputInvalid}
+                        opaqueColorCss={opaqueCss}
+                        presets={presets}
+                        selectedHex={hex}
+                        onCommitColor={commitColor}
+                        onFormatChange={updateFormat}
+                        onHueChange={updateHue}
+                        onInputBlur={completeInput}
+                        onInputChange={updateInput}
+                        onKeyDown={handlePanelKeyDown}
+                        ref={panelRef}
+                    />
+                </Popup.Portal>
+            </Popup>
+        </ColorPickerTriggerProvider>
     );
 });
 

@@ -106,6 +106,64 @@ describe('ColorPicker', () => {
         expect(screen.getByRole('dialog', { name: 'Color picker' })).toBeInTheDocument();
     });
 
+    it('merges custom trigger props into the actual trigger', async () => {
+        const childKeyDown = vi.fn();
+        const wrapperKeyDown = vi.fn();
+
+        render(
+            <ColorPicker defaultValue={DEFAULT_COLOR}>
+                <ColorPicker.Trigger className="wrapper-trigger" onKeyDown={wrapperKeyDown}>
+                    <button className="child-trigger" type="button" onKeyDown={childKeyDown}>
+                        Brand color
+                    </button>
+                </ColorPicker.Trigger>
+            </ColorPicker>,
+        );
+
+        const trigger = screen.getByRole('button', { name: 'Brand color' });
+
+        expect(trigger).toHaveClass('wrapper-trigger', 'child-trigger');
+
+        fireEvent.keyDown(trigger, { key: 'Enter' });
+
+        expect(wrapperKeyDown).toHaveBeenCalled();
+        expect(childKeyDown).toHaveBeenCalled();
+        await waitFor(() => expect(screen.getByRole('dialog', { name: 'Color picker' })).toBeInTheDocument());
+    });
+
+    it('lets custom trigger key handlers prevent internal keyboard opening', () => {
+        const wrapperKeyDown = vi.fn(evt => evt.preventDefault());
+
+        render(
+            <ColorPicker defaultValue={DEFAULT_COLOR}>
+                <ColorPicker.Trigger onKeyDown={wrapperKeyDown}>
+                    <button type="button">Brand color</button>
+                </ColorPicker.Trigger>
+            </ColorPicker>,
+        );
+
+        fireEvent.keyDown(screen.getByRole('button', { name: 'Brand color' }), { key: 'Enter' });
+
+        expect(wrapperKeyDown).toHaveBeenCalled();
+        expect(screen.queryByRole('dialog', { name: 'Color picker' })).not.toBeInTheDocument();
+    });
+
+    it('routes disabled state to custom non-native triggers', () => {
+        render(
+            <ColorPicker disabled>
+                <ColorPicker.Trigger>
+                    <span>Brand color</span>
+                </ColorPicker.Trigger>
+            </ColorPicker>,
+        );
+
+        const trigger = screen.getByRole('button', { name: 'Brand color' });
+
+        expect(trigger).toHaveAttribute('aria-disabled', 'true');
+        expect(trigger).toHaveAttribute('data-disabled', 'true');
+        expect(trigger).toHaveAttribute('tabindex', '-1');
+    });
+
     it('routes portal class name to the popup portal layer', async () => {
         render(<ColorPicker defaultValue={DEFAULT_COLOR} portalClassName="portal-marker" />);
 
@@ -299,6 +357,17 @@ describe('ColorPicker', () => {
         expect(input).toHaveValue(SHORT_HEX_FORMATTED);
     });
 
+    it('does not report changes for the same color value', async () => {
+        const onChange = vi.fn();
+
+        render(<ColorPicker defaultValue={RED} onChange={onChange} />);
+        await openPicker();
+
+        fireEvent.change(screen.getByRole('textbox', { name: 'Color value' }), { target: { value: RED } });
+
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('does not commit invalid input and restores the last formatted value on blur', async () => {
         const onChange = vi.fn();
 
@@ -355,6 +424,8 @@ describe('ColorPicker', () => {
 
         const trigger = screen.getByRole('button', { name: 'Select color' });
         const dialog = await openPicker();
+
+        expect(dialog).toHaveFocus();
 
         fireEvent.keyDown(dialog, { key: 'Escape' });
 
