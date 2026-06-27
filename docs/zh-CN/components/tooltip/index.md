@@ -16,7 +16,7 @@ import { DynamicIcon } from '@nild/icons';
 
 const Demo = () => {
   return <div className="flex flex-wrap gap-4">
-    <Tooltip action="hover" placement="right">
+    <Tooltip placement="right">
       <span>
         Hover me
       </span>

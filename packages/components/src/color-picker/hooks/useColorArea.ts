@@ -63,14 +63,12 @@ const useColorArea = ({
         const $area = areaRef.current;
 
         if (!$area || disabled) {
-            return color;
+            return;
         }
 
         const nextColor = getPointerColor(evt, $area, color);
 
         onCommitColor(nextColor);
-
-        return nextColor;
     });
 
     const handleAreaPointerDown = useEffectCallback((evt: ReactPointerEvent<HTMLDivElement>) => {

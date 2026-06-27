@@ -76,6 +76,60 @@ describe('Tooltip', () => {
         await waitFor(() => expect(screen.getByText('Hover tooltip')).toBeInTheDocument());
     });
 
+    it('opens on focus and closes on blur', async () => {
+        const onClose = vi.fn();
+        const onOpen = vi.fn();
+
+        render(
+            <Tooltip delay={0} onClose={onClose} onOpen={onOpen}>
+                <Tooltip.Trigger>
+                    <button type="button">Focus target</button>
+                </Tooltip.Trigger>
+                <Tooltip.Portal>
+                    <div>Focus tooltip</div>
+                </Tooltip.Portal>
+            </Tooltip>,
+        );
+
+        fireEvent.focus(screen.getByRole('button', { name: 'Focus target' }));
+
+        await waitFor(() => expect(screen.getByText('Focus tooltip')).toBeInTheDocument());
+        expect(onOpen).toHaveBeenCalledTimes(1);
+
+        fireEvent.blur(screen.getByRole('button', { name: 'Focus target' }));
+
+        await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
+    });
+
+    it('stays open while either focus or hover is active', async () => {
+        const onClose = vi.fn();
+
+        render(
+            <Tooltip delay={0} onClose={onClose}>
+                <Tooltip.Trigger>
+                    <button type="button">Mixed target</button>
+                </Tooltip.Trigger>
+                <Tooltip.Portal>
+                    <div>Mixed tooltip</div>
+                </Tooltip.Portal>
+            </Tooltip>,
+        );
+
+        const target = screen.getByRole('button', { name: 'Mixed target' });
+
+        fireEvent.focus(target);
+        await waitFor(() => expect(screen.getByText('Mixed tooltip')).toBeInTheDocument());
+
+        fireEvent.mouseEnter(target);
+        fireEvent.blur(target);
+
+        expect(onClose).not.toHaveBeenCalled();
+
+        fireEvent.mouseLeave(target);
+
+        await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
+    });
+
     it('does not open when disabled', async () => {
         render(
             <Tooltip delay={0} disabled>

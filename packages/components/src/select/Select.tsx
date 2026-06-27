@@ -53,8 +53,21 @@ const hasSameSelection = <T,>(multiple: boolean, current: Selection<T>, next: Se
     );
 };
 
-const toggleSelectionValue = <T,>(values: T[], value: T) =>
-    values.some(item => Object.is(item, value)) ? values.filter(item => !Object.is(item, value)) : values.concat(value);
+const toggleSelectionValue = <T,>(values: T[], value: T) => {
+    const nextValues: T[] = [];
+    let removed = false;
+
+    for (const item of values) {
+        if (Object.is(item, value)) {
+            removed = true;
+            continue;
+        }
+
+        nextValues.push(item);
+    }
+
+    return removed ? nextValues : values.concat(value);
+};
 
 const parseOptions = <T,>(children: ReactNode, multiple: boolean, selection: Selection<T>) => {
     const { slots } = collectSlots(children);
@@ -138,6 +151,7 @@ const Select = forwardRefWithGenerics(<T,>(props: SelectProps<T>, ref: Forwarded
     const listboxRef = useRef<HTMLDivElement | null>(null);
     const optionRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [opened, setOpened] = useState(false);
+    const [listboxMinWidth, setListboxMinWidth] = useState<number>();
     const [selection, setSelection] = useControllableState<Selection<T>>(
         externalValue,
         multiple ? normalizeSelection(defaultValue) : defaultValue,
@@ -158,13 +172,13 @@ const Select = forwardRefWithGenerics(<T,>(props: SelectProps<T>, ref: Forwarded
             return;
         }
 
+        setSelection(nextSelection);
+
         if (multiple) {
             (onChange as MultipleSelectProps<T>['onChange'] | undefined)?.(normalizeSelection(nextSelection));
         } else {
             (onChange as SingleSelectProps<T>['onChange'] | undefined)?.(nextSelection as T | undefined);
         }
-
-        setSelection(() => nextSelection);
     };
 
     const selectAt = (index: number) => {
@@ -175,39 +189,43 @@ const Select = forwardRefWithGenerics(<T,>(props: SelectProps<T>, ref: Forwarded
         }
 
         if (multiple) {
-            return updateSelection(toggleSelectionValue(selectionValues, option.props.value));
+            updateSelection(toggleSelectionValue(selectionValues, option.props.value));
+        } else {
+            updateSelection(option.props.value);
+            closeListbox();
+            focusTrigger();
         }
-
-        updateSelection(option.props.value);
-        closeListbox();
-        focusTrigger();
     };
 
-    const {
-        activeIndex,
-        setActiveIndex,
-        focusListbox,
-        handleTriggerKeyDown,
-        handleListboxKeyDown,
-        handleListboxBlur,
-        focusTrigger,
-    } = useSelectNavigation({
-        open: visibleOpen,
-        selectedIndex,
-        enabledIndices,
-        triggerRef,
-        listboxRef,
-        optionRefs,
-        onOpen: openListbox,
-        onClose: closeListbox,
-        onSelect: selectAt,
-    });
+    const { activeIndex, setActiveIndex, handleTriggerKeyDown, handleListboxKeyDown, handleListboxBlur, focusTrigger } =
+        useSelectNavigation({
+            open: visibleOpen,
+            selectedIndex,
+            enabledIndices,
+            triggerRef,
+            listboxRef,
+            optionRefs,
+            onOpen: openListbox,
+            onClose: closeListbox,
+            onSelect: selectAt,
+        });
 
     useIsomorphicLayoutEffect(() => {
         if (!interactive && opened) {
             setOpened(false);
         }
     }, [interactive, opened]);
+
+    useIsomorphicLayoutEffect(() => {
+        /** drop stale option refs when dynamic options shrink. */
+        optionRefs.current.length = options.length;
+    }, [options.length]);
+
+    useIsomorphicLayoutEffect(() => {
+        if (visibleOpen) {
+            setListboxMinWidth(triggerRef.current?.offsetWidth);
+        }
+    }, [visibleOpen]);
 
     const getOptionId = (option: ParsedOption<T>, index: number) => option.props.id ?? `${selectId}-option-${index}`;
 
@@ -300,12 +318,9 @@ const Select = forwardRefWithGenerics(<T,>(props: SelectProps<T>, ref: Forwarded
                     className={variants.listbox()}
                     onBlur={handleListboxBlur}
                     onKeyDown={handleListboxKeyDown}
-                    ref={node => {
-                        listboxRef.current = node;
-                        node && visibleOpen && focusListbox();
-                    }}
+                    ref={listboxRef}
                     role="listbox"
-                    style={{ minWidth: triggerRef.current?.offsetWidth }}
+                    style={{ minWidth: listboxMinWidth }}
                     tabIndex={-1}
                 >
                     {options.map(renderOption)}

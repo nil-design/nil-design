@@ -17,7 +17,7 @@ interface PresetGridProps {
 const PresetGrid = ({ disabled = false, onCommitColor, presets, selectedHex }: PresetGridProps) => {
     const presetOptions = useMemo(
         () =>
-            presets.flatMap(preset => {
+            presets.flatMap((preset, index) => {
                 const value = typeof preset === 'string' ? preset : preset.value;
                 const color = parseColorValue(value);
 
@@ -32,6 +32,7 @@ const PresetGrid = ({ disabled = false, onCommitColor, presets, selectedHex }: P
                     color,
                     css: optionState.css,
                     hex: optionState.hex.toLowerCase(),
+                    key: `${value}-${index}`,
                     label: typeof preset === 'string' ? preset : (preset.label ?? value),
                     value,
                 };
@@ -51,7 +52,7 @@ const PresetGrid = ({ disabled = false, onCommitColor, presets, selectedHex }: P
                         aria-pressed={selected}
                         className={variants.preset()}
                         disabled={disabled}
-                        key={preset.value}
+                        key={preset.key}
                         onClick={() => onCommitColor(preset.color)}
                         type="button"
                     >

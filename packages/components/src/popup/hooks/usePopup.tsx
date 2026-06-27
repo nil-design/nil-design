@@ -8,11 +8,12 @@ import {
 } from '@floating-ui/dom';
 import { useEffectCallback } from '@nild/hooks';
 import { roundByDPR } from '@nild/shared/utils';
-import { useState, CSSProperties, useRef, RefObject } from 'react';
+import { CSSProperties, RefObject, useRef, useState } from 'react';
 import { ArrowOrientation } from '../interfaces';
 import type { Placement, Strategy, OffsetOptions, Coords, Side } from '@floating-ui/dom';
 
 interface UsePopupOptions {
+    arrowed?: boolean;
     placement?: Placement;
     strategy?: Strategy;
     offset?: OffsetOptions;
@@ -38,6 +39,7 @@ type UsePopupReturn = [
 ];
 
 const usePopup = ({
+    arrowed = true,
     placement = 'bottom',
     strategy = 'absolute',
     offset = 12,
@@ -77,7 +79,7 @@ const usePopup = ({
                 offsetMiddleware(offset),
                 shiftMiddleware(),
                 flipMiddleware(),
-                arrowRef.current && arrowMiddleware({ element: arrowRef.current }),
+                ...(arrowed && arrowRef.current ? [arrowMiddleware({ element: arrowRef.current })] : []),
             ],
         }).then(({ x, y, placement, middlewareData: { arrow } }) => {
             setPortalCoords({ x: roundByDPR(x), y: roundByDPR(y) });

@@ -1,6 +1,6 @@
 import { useControllableState, useEffectCallback, useIsomorphicLayoutEffect, useTimeout } from '@nild/hooks';
 import { isArray, isFunction, makeArray } from '@nild/shared';
-import { FC, SetStateAction, useMemo, useState } from 'react';
+import { FC, SetStateAction, useMemo, useRef, useState } from 'react';
 import { registerSlots } from '../_shared/utils';
 import Transition from '../transition';
 import { ArrowProvider, PopupProvider, PortalProvider } from './contexts';
@@ -36,32 +36,59 @@ const Popup: FC<PopupProps> = ({
     const { slots } = collectSlots(children);
     const [mounted, setMounted] = useState(defaultOpen);
     const [open, setOpen] = useControllableState(externalOpen, defaultOpen);
+    /** keep hover and focus from closing each other. */
+    const openSourcesRef = useRef({ focus: false, hover: false });
     const [enterDelay, leaveDelay = 100] = isArray(delay) ? delay : [delay, delay];
     const actions = useMemo(() => new Set(makeArray(action)), [action]);
     const [{ triggerRef, portalRef, portalContext, arrowRef, arrowContext }, { update, autoUpdate }] = usePopup({
+        arrowed,
         placement,
         offset,
     });
 
+    const portalMounted = mounted || open;
+
     const updateOpen = useEffectCallback((action: SetStateAction<boolean>) => {
         if (disabled) return;
-        setOpen(prevOpen => {
-            const nextOpen = isFunction(action) ? action(prevOpen) : action;
 
-            if (nextOpen) {
-                onOpen?.();
-            } else {
-                onClose?.();
-            }
+        const nextOpen = isFunction(action) ? action(open) : action;
 
-            return nextOpen;
-        });
+        if (Object.is(open, nextOpen)) return;
+
+        if (!nextOpen) {
+            openSourcesRef.current.focus = false;
+            openSourcesRef.current.hover = false;
+        }
+
+        setOpen(nextOpen);
+        (nextOpen ? onOpen : onClose)?.();
     });
-    const enterTimeout = useTimeout(() => updateOpen(true), enterDelay);
-    const leaveTimeout = useTimeout(() => updateOpen(false), leaveDelay);
+
+    const closeOpenSource = useEffectCallback((source: 'focus' | 'hover') => {
+        openSourcesRef.current[source] = false;
+
+        if (!openSourcesRef.current.focus && !openSourcesRef.current.hover) {
+            updateOpen(false);
+        }
+    });
+
+    const handleFocus = useEffectCallback(() => {
+        openSourcesRef.current.focus = true;
+        updateOpen(true);
+    });
+
+    const handleBlur = useEffectCallback(() => {
+        closeOpenSource('focus');
+    });
+
+    const enterTimeout = useTimeout(() => {
+        openSourcesRef.current.hover && updateOpen(true);
+    }, enterDelay);
+    const leaveTimeout = useTimeout(() => closeOpenSource('hover'), leaveDelay);
 
     const handleMouseEnter = useEffectCallback(() => {
         if (actions.has('hover')) {
+            openSourcesRef.current.hover = true;
             leaveTimeout.cancel();
             enterTimeout.run();
         }
@@ -69,10 +96,20 @@ const Popup: FC<PopupProps> = ({
 
     const handleMouseLeave = useEffectCallback(() => {
         if (actions.has('hover')) {
+            openSourcesRef.current.hover = false;
             enterTimeout.cancel();
             leaveTimeout.run();
         }
     });
+
+    const refs = useMemo(
+        () => ({
+            trigger: triggerRef,
+            portal: portalRef,
+            arrow: arrowRef,
+        }),
+        [arrowRef, portalRef, triggerRef],
+    );
 
     const context = useMemo(
         () => ({
@@ -80,35 +117,43 @@ const Popup: FC<PopupProps> = ({
             size,
             arrowed,
             inverse,
-            refs: {
-                trigger: triggerRef,
-                portal: portalRef,
-                arrow: arrowRef,
-            },
+            refs,
             setOpen: updateOpen,
             enter: handleMouseEnter,
             leave: handleMouseLeave,
+            focus: handleFocus,
+            blur: handleBlur,
         }),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [actions, size, arrowed, inverse],
+        [
+            actions,
+            size,
+            arrowed,
+            inverse,
+            refs,
+            updateOpen,
+            handleMouseEnter,
+            handleMouseLeave,
+            handleFocus,
+            handleBlur,
+        ],
     );
 
     useIsomorphicLayoutEffect(() => {
         if (open && !mounted) {
             setMounted(true);
-        } else if (open && mounted) {
-            if (triggerRef.current && portalRef.current) {
-                return autoUpdate(triggerRef.current, portalRef.current, update);
-            }
         }
-    }, [open, mounted]);
+
+        if (open && triggerRef.current && portalRef.current) {
+            return autoUpdate(triggerRef.current, portalRef.current, update);
+        }
+    }, [autoUpdate, mounted, open, portalRef, triggerRef, update]);
 
     return (
         <PopupProvider value={context}>
             {slots.trigger.el ?? (slots.firstBare.el && <Trigger>{slots.firstBare.el}</Trigger>)}
             <PortalProvider value={portalContext}>
                 <ArrowProvider value={arrowContext}>
-                    {slots.portal.el && <Transition visible={open}>{mounted && slots.portal.el}</Transition>}
+                    {slots.portal.el && <Transition visible={open}>{portalMounted && slots.portal.el}</Transition>}
                 </ArrowProvider>
             </PortalProvider>
         </PopupProvider>

@@ -156,7 +156,7 @@ export const parseColorValue = (value: string | undefined): HsvaColor | undefine
     }
 
     const rgb = toRgb(trimmedValue);
-    const hsv = toHsv(trimmedValue);
+    const hsv = rgb ? toHsv(rgb) : undefined;
 
     if (!rgb || !hsv) {
         return undefined;

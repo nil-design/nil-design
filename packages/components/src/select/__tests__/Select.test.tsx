@@ -244,6 +244,31 @@ describe('Select', () => {
         expect(trigger).toHaveAttribute('aria-expanded', 'false');
     });
 
+    it('keeps keyboard navigation within current options after options shrink', () => {
+        const { rerender } = render(
+            <Select aria-label="city" placeholder="Select a city">
+                {renderOptions()}
+            </Select>,
+        );
+
+        fireEvent.click(screen.getByRole('button', { name: 'city' }));
+
+        rerender(
+            <Select aria-label="city" placeholder="Select a city">
+                <Select.Option value="beijing" label="Beijing" />
+                <Select.Option value="shanghai" label="Shanghai" />
+            </Select>,
+        );
+
+        const listbox = screen.getByRole('listbox');
+        const options = screen.getAllByRole('option');
+
+        fireEvent.keyDown(listbox, { key: 'End' });
+
+        expect(screen.queryByRole('option', { name: 'Shenzhen' })).not.toBeInTheDocument();
+        expect(listbox).toHaveAttribute('aria-activedescendant', options[1].id);
+    });
+
     it('supports controlled multi selection and keeps the listbox open after selecting', () => {
         const Demo = () => {
             const [value, setValue] = useState(['beijing']);

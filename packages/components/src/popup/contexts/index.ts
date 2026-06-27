@@ -13,6 +13,8 @@ export interface PopupContextValue extends Pick<PopupProps, 'size' | 'arrowed' |
     setOpen: Dispatch<SetStateAction<boolean>>;
     enter: () => void;
     leave: () => void;
+    focus: () => void;
+    blur: () => void;
 }
 
 const [PopupProvider, usePopupContext] = createContextSuite<PopupContextValue>({
@@ -26,6 +28,8 @@ const [PopupProvider, usePopupContext] = createContextSuite<PopupContextValue>({
         setOpen: () => {},
         enter: () => {},
         leave: () => {},
+        focus: () => {},
+        blur: () => {},
     },
 });
 
