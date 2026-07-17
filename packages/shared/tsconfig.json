@@ -6,6 +6,5 @@
         "skipLibCheck": true,
         "types": ["vitest/globals"]
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx"],
-    "exclude": ["dist", "node_modules"]
+    "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

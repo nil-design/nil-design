@@ -61,6 +61,7 @@ flowchart TD
 | 名称 | 版本 | Needed By |
 | - | - | - |
 | [`culori`](https://www.npmjs.com/package/culori) | `^4.0.2` | `@nild/components` |
+| [`date-fns`](https://www.npmjs.com/package/date-fns) | `^4.4.0` | `@nild/components` |
 | [`lodash-es`](https://www.npmjs.com/package/lodash-es) | `^4.17.21` | `@nild/shared` |
 | [`react`](https://www.npmjs.com/package/react) | `^18.2.0` | `@nild/shared`、`@nild/hooks`、`@nild/icons`、`@nild/components` |
 | [`react-dom`](https://www.npmjs.com/package/react-dom) | `^18.2.0` | `@nild/components` |

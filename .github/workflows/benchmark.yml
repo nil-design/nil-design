@@ -1,0 +1,153 @@
+name: Benchmark
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  decide:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+      reason: ${{ steps.decide.outputs.reason }}
+      components: ${{ steps.decide.outputs.components }}
+      hooks: ${{ steps.decide.outputs.hooks }}
+      shared: ${{ steps.decide.outputs.shared }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Decide benchmark scope
+        id: decide
+        run: node scripts/decide-benchmark.js
+
+  benchmark:
+    needs: decide
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip benchmarks
+        if: ${{ needs.decide.outputs.run == 'false' }}
+        run: echo "${{ needs.decide.outputs.reason }}"
+      - name: Checkout base
+        if: ${{ needs.decide.outputs.run == 'true' && github.event_name == 'pull_request' }}
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+      - name: Checkout current
+        if: ${{ needs.decide.outputs.run == 'true' }}
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          path: current
+      - uses: pnpm/action-setup@v6
+        if: ${{ needs.decide.outputs.run == 'true' }}
+        with:
+          version: 10.10.0
+      - uses: actions/setup-node@v6
+        if: ${{ needs.decide.outputs.run == 'true' }}
+        with:
+          node-version: 22.14.0
+          cache: 'pnpm'
+          cache-dependency-path: current/pnpm-lock.yaml
+      - name: Check base benchmark support
+        id: base
+        if: ${{ needs.decide.outputs.run == 'true' && github.event_name == 'pull_request' }}
+        working-directory: base
+        run: |
+          if node -e "const scripts = require('./package.json').scripts; process.exit(['components:bench', 'hooks:bench', 'shared:bench'].every(name => scripts[name]) ? 0 : 1)"; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install base dependencies
+        if: ${{ steps.base.outputs.available == 'true' }}
+        working-directory: base
+        run: pnpm install --frozen-lockfile
+      - name: Build base packages
+        if: ${{ steps.base.outputs.available == 'true' }}
+        working-directory: base
+        run: pnpm packages:build
+      - name: Collect base benchmarks
+        if: ${{ steps.base.outputs.available == 'true' }}
+        working-directory: base
+        env:
+          RUN_COMPONENTS: ${{ needs.decide.outputs.components }}
+          RUN_HOOKS: ${{ needs.decide.outputs.hooks }}
+          RUN_SHARED: ${{ needs.decide.outputs.shared }}
+        run: |
+          if [ "$RUN_COMPONENTS" = "true" ]; then
+            pnpm components:bench --outputJson "$RUNNER_TEMP/benchmarks/base/components.json"
+          fi
+          if [ "$RUN_HOOKS" = "true" ]; then
+            pnpm hooks:bench --outputJson "$RUNNER_TEMP/benchmarks/base/hooks.json"
+          fi
+          if [ "$RUN_SHARED" = "true" ]; then
+            pnpm shared:bench --outputJson "$RUNNER_TEMP/benchmarks/base/shared.json"
+          fi
+      - name: Install current dependencies
+        if: ${{ needs.decide.outputs.run == 'true' }}
+        working-directory: current
+        run: pnpm install --frozen-lockfile
+      - name: Build current packages
+        if: ${{ needs.decide.outputs.run == 'true' }}
+        working-directory: current
+        run: pnpm packages:build
+      - name: Collect and compare current benchmarks
+        if: ${{ needs.decide.outputs.run == 'true' }}
+        working-directory: current
+        env:
+          BASE_AVAILABLE: ${{ steps.base.outputs.available || 'false' }}
+          RUN_COMPONENTS: ${{ needs.decide.outputs.components }}
+          RUN_HOOKS: ${{ needs.decide.outputs.hooks }}
+          RUN_SHARED: ${{ needs.decide.outputs.shared }}
+        run: |
+          run_benchmark() {
+            local script="$1"
+            local name="$2"
+            local arguments=(--outputJson "$RUNNER_TEMP/benchmarks/current/$name.json")
+
+            if [ "$BASE_AVAILABLE" = "true" ]; then
+              arguments=(--compare "$RUNNER_TEMP/benchmarks/base/$name.json" "${arguments[@]}")
+            fi
+
+            pnpm "$script" "${arguments[@]}"
+          }
+
+          if [ "$RUN_COMPONENTS" = "true" ]; then
+            run_benchmark components:bench components
+          fi
+          if [ "$RUN_HOOKS" = "true" ]; then
+            run_benchmark hooks:bench hooks
+          fi
+          if [ "$RUN_SHARED" = "true" ]; then
+            run_benchmark shared:bench shared
+          fi
+      - name: Upload benchmark reports
+        id: upload
+        if: ${{ always() && needs.decide.outputs.run == 'true' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: benchmark-${{ github.event.pull_request.number || github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/benchmarks
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Write summary
+        if: ${{ always() && steps.upload.outcome == 'success' }}
+        run: |
+          echo "## Benchmark" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Reason: ${{ needs.decide.outputs.reason }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Components: ${{ needs.decide.outputs.components }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Hooks: ${{ needs.decide.outputs.hooks }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Shared: ${{ needs.decide.outputs.shared }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Baseline available: ${{ steps.base.outputs.available || 'false' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Artifact: ${{ steps.upload.outputs.artifact-url }}" >> "$GITHUB_STEP_SUMMARY"

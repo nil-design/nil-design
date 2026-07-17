@@ -14,7 +14,10 @@ const eventName = process.env.GITHUB_EVENT_NAME ?? '';
 const event = readEvent();
 const pr = event.pull_request;
 
-const hasWorkspaceChange = files => files.some(file => /^(packages|tooling)\//.test(file));
+const isBenchmarkFile = file => file.includes('/__benchmarks__/') || /\.(?:bench|benchmark)\.[cm]?[jt]sx?$/.test(file);
+
+const hasWorkspaceTestChange = files =>
+    files.some(file => /^(packages|tooling)\//.test(file) && !isBenchmarkFile(file));
 
 const hasGlobalTestChange = files =>
     files.some(file =>
@@ -68,7 +71,7 @@ if (eventName === 'workflow_dispatch') {
             reason: 'global CI or tooling input changed',
             filter: '',
         });
-    } else if (hasWorkspaceChange(files)) {
+    } else if (hasWorkspaceTestChange(files)) {
         setOutputs({
             mode: 'affected',
             reason: 'workspace package changed',

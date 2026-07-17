@@ -1,6 +1,6 @@
 ---
 name: shared-dev
-description: '处理 nil-design 仓库中 @nild/shared 类型、React helpers、class utilities、runtime utilities、通用工具方法和 shared 包公开接口的设计、开发、重构、测试、维护或导出。'
+description: '处理 nil-design 仓库中 @nild/shared 类型、React helpers、class utilities、runtime utilities、通用工具方法、性能基准和 shared 包公开接口的设计、开发、重构、测试、维护或导出。'
 ---
 
 # 开发共享能力
@@ -41,3 +41,9 @@ description: '处理 nil-design 仓库中 @nild/shared 类型、React helpers、
 - 类型形状变化运行 `pnpm shared:build` 或包级 typecheck。
 - shared 变化影响 components/hooks 时，同时运行对应包的聚焦测试或构建。
 - 公开入口或 package export 形状变化时，检查 `packages/shared/package.json` 的 `exports` 与生成的 `dist` 结构一致。
+
+## Benchmark
+
+- 以 `packages/shared/src/react/index.ts` 和 `packages/shared/src/utils/index.ts` 的自有运行时导出为覆盖清单；每个方法在相邻 `__benchmarks__/` 放一份 `<method-name>.bench.ts(x)`，不覆盖 type-only 接口或第三方直接 re-export。
+- 使用代表性公开输入测量真实调用路径；有缓存的 helper 避免始终命中同一输入，只有浏览器相关 helper 使用 `// @vitest-environment jsdom`。
+- 新增或修改用例后运行 `pnpm shared:bench`。

@@ -27,6 +27,7 @@
         "NOTICE"
     ],
     "scripts": {
+        "bench": "vitest bench --run",
         "build": "vite build --mode PROD",
         "dev": "vite build --mode DEV --watch",
         "api": "node scripts/generate-api.js",

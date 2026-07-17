@@ -1,6 +1,6 @@
 ---
 name: components-dev
-description: '处理 nil-design 仓库中 @nild/components 公开组件、内部组件能力、样式变体、复合组件 API、组件文档、API 生成产物和组件总览资源的设计、开发、重构、测试、文档化或维护。修改公开面、样式协议、交互行为或文档前，先从当前源码核对事实。'
+description: '处理 nil-design 仓库中 @nild/components 公开组件、内部组件能力、样式变体、复合组件 API、组件文档、性能基准、API 生成产物和组件总览资源的设计、开发、重构、测试、文档化或维护。修改公开面、样式协议、交互行为或文档前，先从当前源码核对事实。'
 ---
 
 # 开发组件
@@ -54,3 +54,10 @@ description: '处理 nil-design 仓库中 @nild/components 公开组件、内部
 - 文档或组件总览变化按影响运行 `pnpm docs:build`；生成索引副作用按 `docs-site-dev` 处理。
 - 视觉或交互层面改动要做 Playwright/browser 前后截图验收，并覆盖关键 viewport 与 light/dark。浮层验收看 `visible`、`hidden`、focus 和可交互状态，不只看 DOM 是否消失。
 - 跨包或共享行为变化再扩大到 `pnpm lint`、`pnpm typecheck`、`pnpm build` 或 `pnpm test:coverage`。
+
+## Benchmark
+
+- 以 `packages/components/src/index.ts` 的公开组件族为覆盖清单；每个组件族在相邻 `__benchmarks__/` 放一份 `<Component>.bench.tsx`，新增或移除公开组件时同步维护。
+- 测量代表性公开组合的真实挂载与卸载，并覆盖主要 props、slots 或复合子组件；不要为纯结构 slot 拆分没有独立优化价值的微基准。
+- DOM benchmark 使用 `// @vitest-environment jsdom`，每次采样后清理 root、容器和 portal 等副作用；重复的挂载逻辑复用 `__benchmarks__` 下的 helper。
+- 新增或修改用例后运行 `pnpm components:bench`。

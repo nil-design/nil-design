@@ -5,6 +5,5 @@
         "rootDir": "./src",
         "types": ["react", "react-dom", "vite/client", "vitest/globals", "@testing-library/jest-dom"]
     },
-    "include": ["src"],
-    "exclude": ["dist", "node_modules"]
+    "include": ["src"]
 }
